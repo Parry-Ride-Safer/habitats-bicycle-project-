@@ -87,7 +87,6 @@ const REACT_APP_KEY = "AIzaSyAjeJSOBXdG5G0-mjEGVnXytW0uaoQB_Wo";
   }, []);
 
   
-
   if (loadError) return "Error loading Maps"
   if (!isLoaded) return "Loading Maps";
   return (
@@ -179,7 +178,7 @@ function Search () {
           const{lat, lng} = await getLatLng(results[0])
           panTo({lat, lng})
         } catch (error) {
-          console.log("error");
+          console.log("error",error);
         }
       }}
     >
