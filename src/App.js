@@ -20,7 +20,7 @@ const center = {
 
 const options = {
   styles: mapStyles,
-  disableDefautUI:true,
+  disableDefaultUI:true,
   zoomControl:true
 }
 /*
@@ -31,11 +31,11 @@ const onUnmount = heatmapLayer => {
   console.log('HeatmapLayer onUnmount heatmapLayer: ', heatmapLayer)
 }
 */
-const REACT_APP_KEY = "AIzaSyAjeJSOBXdG5G0-mjEGVnXytW0uaoQB_Wo";
-
 
  function App() {
   
+  const REACT_APP_KEY = "AIzaSyCcNxVpQ1CLmEktTzWA961Fh7z0QBRJhQ8";
+
   const {isLoaded, loadError} = useLoadScript({
     googleMapsApiKey: REACT_APP_KEY,
     libraries,
@@ -149,23 +149,13 @@ function Locate({panTo}) {
 }
 
 
-function Search () {
+function Search ({panTo}) {
   const {ready, value, suggestions: {status, data}, setValue, clearSuggestions} = usePlacesAutocomplete({
     requestOptions: {
       location: {lat: () => 43.656484, lng: () => -79.383186},
       radius: 200 * 1000,
     },
   });
-
-  const mapRef = useRef();
-  const onMapLoad = useCallback ((map)=> {
-    mapRef.current = map;
-  }, []);
-
-  const panTo = useCallback(({lat, lng}) => {
-    mapRef.current.panTo({ lat, lng});
-    mapRef.current.setZoom(14);
-  }, []);
 
   return (
     <Combobox 
