@@ -1,14 +1,24 @@
-import React, {createContext} from 'react';
+import React, {createContext, useCallback, useRef} from 'react';
 
-mapContext = createContext();
+const MapContext = createContext();
 
-const mapProvider = ({children}) => {
+const MapProvider = ({children}) => {
+
+    const mapRef = useRef();
+    const onMapLoad = useCallback ((map)=> {
+        mapRef.current = map;
+    }, []);
+
+    const panTo = useCallback(({lat, lng}) => {
+    mapRef.current.panTo({ lat, lng});
+    mapRef.current.setZoom(14);
+    }, []); 
 
     return(
-        <ItemContext.Provider>
-        
-        </ItemContext.Provider>
+        <MapContext.Provider value={{panTo:panTo}}>
+            {children}
+        </MapContext.Provider>
     )
 }
 
-export {mapContext, mapProvider};
+export {MapContext, MapProvider};
