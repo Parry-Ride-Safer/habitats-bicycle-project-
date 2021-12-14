@@ -34,10 +34,8 @@ const onUnmount = heatmapLayer => {
 
  function App() {
   
-  const REACT_APP_KEY = "AIzaSyCcNxVpQ1CLmEktTzWA961Fh7z0QBRJhQ8";
-
   const {isLoaded, loadError} = useLoadScript({
-    googleMapsApiKey: REACT_APP_KEY,
+    googleMapsApiKey: process.env.REACT_APP_KEY,
     libraries,
   })
   /*
