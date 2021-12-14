@@ -34,7 +34,6 @@ const onUnmount = heatmapLayer => {
 const REACT_APP_KEY = "AIzaSyAjeJSOBXdG5G0-mjEGVnXytW0uaoQB_Wo";
 
 
-
  function App() {
   
   const {isLoaded, loadError} = useLoadScript({
