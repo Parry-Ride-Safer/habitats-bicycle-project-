@@ -5,7 +5,7 @@ import { MapContext } from '../../Context/MapContext';
 
 export default function SearchBox () {
 
-  const {panTo} = useContext(MapContext);
+  const panTo = useContext(MapContext);
  
   const {ready, value, suggestions: {status, data}, setValue, clearSuggestions} = usePlacesAutocomplete({
     requestOptions: {
@@ -29,12 +29,12 @@ export default function SearchBox () {
       }}
     >
       <ComboboxInput
-      value={value}
-      onChange={(e)=>{
-        setValue(e.target.value);
-      }}
-      disabled={!ready}
-      placeholder="Enter an adress"
+        value={value}
+        onChange={(e)=>{
+          setValue(e.target.value);
+        }}
+        disabled={!ready}
+        placeholder="Enter an adress"
       />
       <ComboboxPopover>
         <ComboboxList>

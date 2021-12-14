@@ -3,7 +3,7 @@ import { MapContext } from "../../Context/MapContext";
 
 export default function GpsLocation() {
 
-  const {panTo} = useContext(MapContext)
+  const panTo = useContext(MapContext);
 
    return <button onClick={() => {
     navigator.geolocation.getCurrentPosition(
