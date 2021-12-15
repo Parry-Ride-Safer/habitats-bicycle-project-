@@ -1,7 +1,5 @@
 import React from 'react';
-import Map from "./Components/Map/Map"
-import SearchBox from './Components/SearchBox/SearchBox';
-import GpsLocation from './Components/GpsLocation/GpsLocation';
+import {GpsLocation, Map, SearchBox} from './Components';
 import { useGlobalMapContext } from './Context/MapContext';
 import {useLoadScript } from '@react-google-maps/api';
 

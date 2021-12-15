@@ -1,56 +1,57 @@
 import React, {createContext, useCallback, useContext, useRef, useState} from 'react';
 
-
 const MapContext = createContext();
 
 const MapProvider = ({children}) => {
 
-    const [markers, setMarkers] = useState([]);
-    const [selected, setSelected] = useState(null);
-          
-    const mapRef = useRef();
-    const onMapLoad = useCallback ((map)=> {
-        mapRef.current = map;
-    }, []);
+  const [markers, setMarkers] = useState([]);
+  const [selected, setSelected] = useState(null);
+  const [isBoxSelectDangerOpen, setIsBoxSelectDangerOpen] = useState(false)
+        
+  const mapRef = useRef();
+  const onMapLoad = useCallback ((map)=> {
+      mapRef.current = map;
+  }, []);
 
-    const onMapClick = useCallback((event) => {
-        /*open Accident Type*/
-        setMarkers((current) => [
-          ...current, 
-          {
-            lat: event.latLng.lat(),
-            lng: event.latLng.lng(),
-            time: new Date(),
-          },
-        ]);
-       }, [])  
+  const onMapClick = useCallback((event) => {
+    setIsBoxSelectDangerOpen(true)
+     
+    setMarkers((current) => [
+      ...current, 
+      {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+        time: new Date(),
+      },
+    ]);
+  }, [])
 
-       const options = {
-        styles: [
+  const options = {
+    styles: [
+      {
+        featureType: "poi",
+        elementType: "all",
+        stylers: [
           {
-            featureType: "poi",
-            elementType: "all",
-            stylers: [
-              {
-                visibility: "off",
-              },
-            ],
+            visibility: "off",
           },
         ],
-        disableDefaultUI:true,
-        zoomControl:true
-      }
+      },
+    ],
+    disableDefaultUI:true,
+    zoomControl:true
+  }
 
-    const panTo = useCallback(({lat, lng}) => {
-      mapRef.current.panTo({ lat, lng});
-      mapRef.current.setZoom(14);
-    }, []);
+  const panTo = useCallback(({lat, lng}) => {
+    mapRef.current.panTo({ lat, lng});
+    mapRef.current.setZoom(14);
+  }, []);
 
-    return(
-        <MapContext.Provider value={{markers, selected, setSelected, panTo, onMapClick, onMapLoad, options}}>
-            {children}
-        </MapContext.Provider>
-    )
+return(
+  <MapContext.Provider value={{markers, selected, isBoxSelectDangerOpen, setSelected, panTo, onMapClick, onMapLoad, options}}>
+      {children}
+  </MapContext.Provider>
+  )
 }
 
 export const useGlobalMapContext = () => {

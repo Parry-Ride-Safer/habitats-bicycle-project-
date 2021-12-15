@@ -1,6 +1,7 @@
 import React from 'react';
 import {GoogleMap, InfoWindow, Marker } from '@react-google-maps/api';
 import { formatRelative } from 'date-fns';
+import {BoxSelectDanger} from "../";
 import { useGlobalMapContext } from '../../Context/MapContext';
 
 const mapContainerStyle = {
@@ -53,8 +54,7 @@ export default function Map () {
           */
         onClick={()=>{setSelected(marker)}}
         />
- 
-        ))}
+     ))}
         {selected  ? (<InfoWindow position = {{lat: selected.lat, lng: selected.lng}}
          onCloseClick={() => 
           {setSelected(null)}}>
@@ -68,6 +68,7 @@ export default function Map () {
             <p>{formatRelative(selected.time, new Date())}</p>
           </div>
         </InfoWindow>) : null}
+        <BoxSelectDanger />
       </GoogleMap>  
     )
 }
