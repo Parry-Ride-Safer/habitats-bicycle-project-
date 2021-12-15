@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import usePlacesAutocomplete, {getGeocode, getLatLng} from 'use-places-autocomplete';
 import {Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
-import { MapContext } from '../../Context/MapContext';
+import { useGlobalMapContext } from '../../Context/MapContext';
 
 export default function SearchBox () {
 
-  const panTo = useContext(MapContext);
+  const {panTo} = useGlobalMapContext();
  
   const {ready, value, suggestions: {status, data}, setValue, clearSuggestions} = usePlacesAutocomplete({
     requestOptions: {

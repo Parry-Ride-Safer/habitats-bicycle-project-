@@ -1,8 +1,7 @@
-import React, {useCallback, useRef, useState} from 'react';
-import {GoogleMap, InfoWindow, Marker, useLoadScript } from '@react-google-maps/api';
+import React from 'react';
+import {GoogleMap, InfoWindow, Marker } from '@react-google-maps/api';
 import { formatRelative } from 'date-fns';
-
-const libraries = ['places', 'visualization', 'drawing', 'geometry']
+import { useGlobalMapContext } from '../../Context/MapContext';
 
 const mapContainerStyle = {
   width: "100vw",
@@ -31,35 +30,8 @@ const options = {
 }
 
 export default function Map () {
-    const {isLoaded, loadError} = useLoadScript({
-        googleMapsApiKey: process.env.REACT_APP_KEY,
-        libraries,
-      })
-      
-      const [markers, setMarkers] = useState([]);
-      const [selected, setSelected] = useState(null);
-    
-      const onMapClick = useCallback((event) => { 
-        setMarkers((current) => [
-          ...current, 
-          {
-            lat: event.latLng.lat(),
-            lng: event.latLng.lng(),
-            time: new Date(),
-          },
-        ]);
-       }, [])
-    
-      const mapRef = useRef();
-      const onMapLoad = useCallback ((map)=> {
-        mapRef.current = map;
-      }, []);
-    
-    
-      
-      if (loadError) return "Error loading Maps"
-      if (!isLoaded) return "Loading Maps";
-
+    const {markers, onMapClick, onMapLoad, selected, setSelected} = useGlobalMapContext();
+  
     return(
       <GoogleMap 
         mapContainerStyle={mapContainerStyle}

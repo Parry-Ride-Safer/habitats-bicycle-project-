@@ -1,9 +1,9 @@
-import React, { useContext, useRef, useCallback } from "react";
-import { MapContext } from "../../Context/MapContext";
+import React from "react";
+import {useGlobalMapContext } from "../../Context/MapContext";
 
 export default function GpsLocation() {
 
-  const panTo = useContext(MapContext);
+  const {panTo} = useGlobalMapContext();
 
    return <button onClick={() => {
     navigator.geolocation.getCurrentPosition(
@@ -17,6 +17,6 @@ export default function GpsLocation() {
     );
   }}
 >
-    <h1>BUTTON</h1>
+    <h1>GPS Icon</h1>
   </button>
 }
