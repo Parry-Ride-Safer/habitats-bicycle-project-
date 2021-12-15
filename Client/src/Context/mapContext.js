@@ -4,27 +4,35 @@ const MapContext = createContext();
 
 const MapProvider = ({children}) => {
 
+  const [dangerType, setDangerType] = useState();
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [isDangerDescriptionOpen, setIsDangerDescriptionOpen] = useState(false)
   const [isBoxSelectDangerOpen, setIsBoxSelectDangerOpen] = useState(false)
-        
+
+  const handleDangerSubmit = (event) => {
+    event.preventDefault();
+    setIsBoxSelectDangerOpen(false)
+    setIsDangerDescriptionOpen(true)
+  }
+
+
+
+  const handleCloseModal = () => {
+    setIsBoxSelectDangerOpen(false)
+  }
+ 
   const mapRef = useRef();
   const onMapLoad = useCallback ((map)=> {
       mapRef.current = map;
   }, []);
 
   const onMapClick = useCallback((event) => {
-    setIsBoxSelectDangerOpen(true)
-     
-    setMarkers((current) => [
-      ...current, 
-      {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
-        time: new Date(),
-      },
-    ]);
-  }, [])
+    setIsBoxSelectDangerOpen(prevState => !prevState)
+    if (setIsBoxSelectDangerOpen){
+      setMarkers([{ lat: event.latLng.lat(), lng: event.latLng.lng() }])
+    }
+  }, []);
 
   const options = {
     styles: [
@@ -47,8 +55,22 @@ const MapProvider = ({children}) => {
     mapRef.current.setZoom(14);
   }, []);
 
+
 return(
-  <MapContext.Provider value={{markers, selected, isBoxSelectDangerOpen, setSelected, panTo, onMapClick, onMapLoad, options}}>
+  <MapContext.Provider value={{
+    setDangerType,
+    markers, 
+    selected, 
+    setSelected, 
+    panTo, 
+    onMapClick, 
+    onMapLoad,
+    isDangerDescriptionOpen,
+    isBoxSelectDangerOpen,
+
+    handleDangerSubmit,
+    handleCloseModal,
+    options}}>
       {children}
   </MapContext.Provider>
   )

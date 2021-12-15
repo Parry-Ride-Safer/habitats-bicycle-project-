@@ -1,21 +1,22 @@
-.show-box {
+.show-danger-box {
     visibility: visible;
     z-index: 10;
   }
-  .box-container {
+  .danger-box-container {
     display: block;
-    background: var(--clr-white);
+    background: lightgrey;
     border-radius: var(--radius);
-    width: 30vw;
-    height: 30vh;
+    width: 100vw;
+    height:65vh;
     max-width: var(--fixed-width);
     text-align: center;
     place-items: center;
-    position: relative;
+    position: absolute;
+    bottom:0;
     border: 1px solid black;
   }
 
-  .box-overlay {
+  .danger-box-overlay {
     position: fixed;
     top: 0;
     left: 0;

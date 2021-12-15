@@ -1,12 +1,13 @@
 import React from 'react';
 import {GoogleMap, InfoWindow, Marker } from '@react-google-maps/api';
 import { formatRelative } from 'date-fns';
-import {BoxSelectDanger} from "../";
+import {BoxSelectDanger, BoxDangerDescription} from "../";
 import { useGlobalMapContext } from '../../Context/MapContext';
+import "./map.css";
 
 const mapContainerStyle = {
   width: "100vw",
-  height: "100vh",
+  height: "80vh",
 }
 
 const center = {
@@ -31,7 +32,7 @@ const options = {
 }
 
 export default function Map () {
-    const {markers, onMapClick, onMapLoad, selected, setSelected} = useGlobalMapContext();
+    const {temporaryMarker, markers, onMapClick, onMapLoad, selected, setSelected} = useGlobalMapContext();
   
     return(
       <GoogleMap 
@@ -55,6 +56,8 @@ export default function Map () {
         onClick={()=>{setSelected(marker)}}
         />
      ))}
+      <div className="icone">{temporaryMarker}</div>
+        
         {selected  ? (<InfoWindow position = {{lat: selected.lat, lng: selected.lng}}
          onCloseClick={() => 
           {setSelected(null)}}>
@@ -69,6 +72,7 @@ export default function Map () {
           </div>
         </InfoWindow>) : null}
         <BoxSelectDanger />
+        <BoxDangerDescription />
       </GoogleMap>  
     )
 }

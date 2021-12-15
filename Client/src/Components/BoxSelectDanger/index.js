@@ -4,16 +4,21 @@ import "./boxSelectDanger.css";
 
 export default function BoxSelectDanger () {
 
-    const {isBoxSelectDangerOpen} = useGlobalMapContext();
+    const {dangerType, setDangerType, isBoxSelectDangerOpen, handleDangerChoice, handleDangerSubmit, handleCloseModal} = useGlobalMapContext();
+    
+   
 
     return (
         <div className={`${isBoxSelectDangerOpen ? 'show-box' : 'box-overlay'}`}>
-            <form className="box-container" onSubmit={handleDangerSubmit}>
-                <button type="submit" onClick={()=>}>Construction</button>
-                <button type="submit">Intersection</button>
-                <button type="submit">Bikeline</button>
-                <button type="submit">Other</button>             
+            <div className="box-container">
+            <form  onSubmit={handleDangerSubmit}>
+                <button type="submit" value="Construction" onClick={handleDangerChoice}>Construction</button>
+                <button type="submit" value="Intersection" onClick={handleDangerChoice}>Intersection</button>
+                <button type="submit" value="Bikeline" onClick={handleDangerChoice}>Bikeline</button>
+                <button type="submit" value="Other" onClick={handleDangerChoice}>Other</button>       
             </form>
+            <button type="button" onClick={handleCloseModal}> Close window </button>    
+            </div>
         </div>
     )
 }
