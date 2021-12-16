@@ -28,8 +28,6 @@ const MapProvider = ({ children }) => {
       ...finalMarkers,
       markers
     ])
-    
-    console.log(finalMarkers)
   }
 
   const handleCloseModal = () => {

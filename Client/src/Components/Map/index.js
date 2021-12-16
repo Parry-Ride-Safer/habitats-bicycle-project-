@@ -33,6 +33,8 @@ const options = {
   zoomControl:true
 }
 
+
+
 export default function Map () {
     const {markers, finalMarkers, onMapClick, onMapLoad, selected, setSelected} = useGlobalMapContext();
     return(
@@ -44,24 +46,17 @@ export default function Map () {
         onClick = {onMapClick}
         onLoad={onMapLoad}
         > 
+ 
 
   {finalMarkers.map((fMarker) => (
     <Marker 
       key={fMarker.index}
       position={{lat: fMarker.lat, lng: fMarker.lng}}
-     
+      onClick={()=>{setSelected(fMarker)}}
     />
   ))}
   
-  {/*{markers.map((marker) => (
-        <Marker 
-          key={marker.time} 
-          position={{lat: marker.lat, lng: marker.lng}}
-          onClick={()=>{setSelected(marker)}}
-         
-        />
-     ))}
-        {selected  ? (<InfoWindow 
+  {selected  ? (<InfoWindow 
         position = {{lat: selected.lat, lng: selected.lng}}
          onCloseClick={() => 
           {setSelected(null)}}>
@@ -75,7 +70,16 @@ export default function Map () {
             <p>{formatRelative(selected.time, new Date())}</p>
           </div>
         </InfoWindow>) : null}
-  */}
+{/*
+  {markers.map((marker) => (
+        <Marker 
+          key={marker.time} 
+          position={{lat: marker.lat, lng: marker.lng}}
+          onClick={()=>{setSelected(marker)}}
+         
+        />
+     ))}
+  */}  
      
         <BoxSelectDanger />
         <BoxDangerDescription />
