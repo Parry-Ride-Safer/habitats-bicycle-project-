@@ -41,3 +41,6 @@ constraint fk_category_reports
     REFERENCES category(id),
 primary key (id)
 );
+
+INSERT INTO category (name) VALUES('contruction'),('intersection'),('bikelane'),('road');
+INSERT INTO users VALUES (1,'paulo', 'Costa', 'paulo@gmail.com', 'asdasdasd' ,'aushduhasud');
