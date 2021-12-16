@@ -5,6 +5,7 @@ const MapContext = createContext();
 const MapProvider = ({ children }) => {
 
   const [dangerType, setDangerType] = useState();
+  const [instantMarket, setInstantMarker] = useState ([]);
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
   const [isDangerDescriptionOpen, setIsDangerDescriptionOpen] = useState(false)
@@ -27,8 +28,14 @@ const MapProvider = ({ children }) => {
 
   const onMapClick = useCallback((event) => {
     setIsBoxSelectDangerOpen(prevState => !prevState)
-    setMarkers([{ lat: event.latLng.lat(), lng: event.latLng.lng() }])
-    console.log(markers)
+    setMarkers((current) => [
+      ...current,
+      {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+        time: new Date(),
+      },
+    ])
   }, []);
 
   const options = {
@@ -56,6 +63,8 @@ const MapProvider = ({ children }) => {
   return (
     <MapContext.Provider value={{
       setDangerType,
+      instantMarket,
+      setInstantMarker,
       markers,
       selected,
       setSelected,

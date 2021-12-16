@@ -32,7 +32,7 @@ const options = {
 }
 
 export default function Map () {
-    const {instataneousMarker, markers, onMapClick, onMapLoad, selected, setSelected} = useGlobalMapContext();
+    const {instantMarker, setInstantMarker, markers, onMapClick, onMapLoad, selected, setSelected} = useGlobalMapContext();
   
     return(
       <GoogleMap 
@@ -43,25 +43,16 @@ export default function Map () {
         onClick = {onMapClick}
         onLoad={onMapLoad}
         > 
-
-
-      {/*   
-      {markers.map((marker) => (
+  
+  {markers.map((marker) => (
         <Marker 
           key={marker.time} 
           position={{lat: marker.lat, lng: marker.lng}}
-          we can use the prop "icon" to change the icon according to our event.
-          usar o seguinte código para o icon aparecer no sítio certo:
-          scaledSize: new window.google.maps.Size(30, 30),
-          origin: new window.google.maps.Point(0,0);
-          anchor: new window.google.maps.Point(15, 15)
-         
-        onClick={()=>{setSelected(marker)}}
+          onClick={()=>{setSelected(marker)}}
         />
      ))}
-      <div className="icone">{temporaryMarker}</div>
-        
-        {selected  ? (<InfoWindow position = {{lat: selected.lat, lng: selected.lng}}
+        {selected  ? (<InfoWindow 
+        position = {{lat: selected.lat, lng: selected.lng}}
          onCloseClick={() => 
           {setSelected(null)}}>
           <div>
@@ -74,7 +65,8 @@ export default function Map () {
             <p>{formatRelative(selected.time, new Date())}</p>
           </div>
         </InfoWindow>) : null}
-        */}
+
+     
         <BoxSelectDanger />
         <BoxDangerDescription />
       </GoogleMap>  
