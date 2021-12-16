@@ -5,8 +5,8 @@ const MapContext = createContext();
 const MapProvider = ({ children }) => {
 
   const [dangerType, setDangerType] = useState();
-  const [instantMarket, setInstantMarker] = useState ([]);
-  const [markers, setMarkers] = useState([]);
+  const [markers, setMarkers] = useState();
+  const [finalMarkers, setFinalMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
   const [isDangerDescriptionOpen, setIsDangerDescriptionOpen] = useState(false)
   const [isBoxSelectDangerOpen, setIsBoxSelectDangerOpen] = useState(false)
@@ -15,6 +15,21 @@ const MapProvider = ({ children }) => {
     event.preventDefault();
     setIsBoxSelectDangerOpen(false)
     setIsDangerDescriptionOpen(true)
+  }
+
+  const handleDangerChoice = (event) => {
+    setDangerType(event.target.value)
+  }
+
+  const dangerFormSubmit = (event) => {
+    event.preventDefault();
+    setIsDangerDescriptionOpen(false)
+    setFinalMarkers((finalMarkers) => [
+      ...finalMarkers,
+      markers
+    ])
+    
+    console.log(finalMarkers)
   }
 
   const handleCloseModal = () => {
@@ -28,14 +43,13 @@ const MapProvider = ({ children }) => {
 
   const onMapClick = useCallback((event) => {
     setIsBoxSelectDangerOpen(prevState => !prevState)
-    setMarkers((current) => [
-      ...current,
+    setMarkers(
       {
         lat: event.latLng.lat(),
         lng: event.latLng.lng(),
         time: new Date(),
       },
-    ])
+    )
   }, []);
 
   const options = {
@@ -62,15 +76,17 @@ const MapProvider = ({ children }) => {
 
   return (
     <MapContext.Provider value={{
+      dangerType,
       setDangerType,
-      instantMarket,
-      setInstantMarker,
       markers,
+      finalMarkers,
       selected,
       setSelected,
+      handleDangerChoice,
       panTo,
       onMapClick,
       onMapLoad,
+      dangerFormSubmit,
       isDangerDescriptionOpen,
       isBoxSelectDangerOpen,
       handleDangerSubmit,

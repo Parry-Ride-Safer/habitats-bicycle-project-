@@ -4,6 +4,8 @@ import { formatRelative } from 'date-fns';
 import {BoxSelectDanger, BoxDangerDescription} from "../";
 import { useGlobalMapContext } from '../../Context/MapContext';
 import "./map.css";
+import "../BoxSelectDanger/boxSelectDanger.css";
+import star from "../../starblack.png";
 
 const mapContainerStyle = {
   width: "100vw",
@@ -32,8 +34,7 @@ const options = {
 }
 
 export default function Map () {
-    const {instantMarker, setInstantMarker, markers, onMapClick, onMapLoad, selected, setSelected} = useGlobalMapContext();
-  
+    const {markers, finalMarkers, onMapClick, onMapLoad, selected, setSelected} = useGlobalMapContext();
     return(
       <GoogleMap 
         mapContainerStyle={mapContainerStyle}
@@ -43,12 +44,21 @@ export default function Map () {
         onClick = {onMapClick}
         onLoad={onMapLoad}
         > 
+
+  {finalMarkers.map((fMarker) => (
+    <Marker 
+      key={fMarker.index}
+      position={{lat: fMarker.lat, lng: fMarker.lng}}
+     
+    />
+  ))}
   
-  {markers.map((marker) => (
+  {/*{markers.map((marker) => (
         <Marker 
           key={marker.time} 
           position={{lat: marker.lat, lng: marker.lng}}
           onClick={()=>{setSelected(marker)}}
+         
         />
      ))}
         {selected  ? (<InfoWindow 
@@ -65,7 +75,7 @@ export default function Map () {
             <p>{formatRelative(selected.time, new Date())}</p>
           </div>
         </InfoWindow>) : null}
-
+  */}
      
         <BoxSelectDanger />
         <BoxDangerDescription />
