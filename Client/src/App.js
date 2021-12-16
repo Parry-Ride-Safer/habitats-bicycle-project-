@@ -10,7 +10,7 @@ function App() {
   const {panTo, onMapLoad, onMapClick, options} = useGlobalMapContext();
   
   const {isLoaded, loadError} = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP,
+    googleMapsApiKey: process.env.REACT_APP_KEY,
     libraries
   })
 

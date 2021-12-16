@@ -1,8 +1,8 @@
-import React, {createContext, useCallback, useContext, useRef, useState} from 'react';
+import React, { createContext, useCallback, useContext, useRef, useState } from 'react';
 
 const MapContext = createContext();
 
-const MapProvider = ({children}) => {
+const MapProvider = ({ children }) => {
 
   const [dangerType, setDangerType] = useState();
   const [markers, setMarkers] = useState([]);
@@ -16,22 +16,19 @@ const MapProvider = ({children}) => {
     setIsDangerDescriptionOpen(true)
   }
 
-
-
   const handleCloseModal = () => {
     setIsBoxSelectDangerOpen(false)
   }
- 
+
   const mapRef = useRef();
-  const onMapLoad = useCallback ((map)=> {
-      mapRef.current = map;
+  const onMapLoad = useCallback((map) => {
+    mapRef.current = map;
   }, []);
 
   const onMapClick = useCallback((event) => {
     setIsBoxSelectDangerOpen(prevState => !prevState)
-    if (setIsBoxSelectDangerOpen){
-      setMarkers([{ lat: event.latLng.lat(), lng: event.latLng.lng() }])
-    }
+    setMarkers([{ lat: event.latLng.lat(), lng: event.latLng.lng() }])
+    console.log(markers)
   }, []);
 
   const options = {
@@ -46,38 +43,38 @@ const MapProvider = ({children}) => {
         ],
       },
     ],
-    disableDefaultUI:true,
-    zoomControl:true
+    disableDefaultUI: true,
+    zoomControl: true
   }
 
-  const panTo = useCallback(({lat, lng}) => {
-    mapRef.current.panTo({ lat, lng});
+  const panTo = useCallback(({ lat, lng }) => {
+    mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(14);
   }, []);
 
 
-return(
-  <MapContext.Provider value={{
-    setDangerType,
-    markers, 
-    selected, 
-    setSelected, 
-    panTo, 
-    onMapClick, 
-    onMapLoad,
-    isDangerDescriptionOpen,
-    isBoxSelectDangerOpen,
-
-    handleDangerSubmit,
-    handleCloseModal,
-    options}}>
+  return (
+    <MapContext.Provider value={{
+      setDangerType,
+      markers,
+      selected,
+      setSelected,
+      panTo,
+      onMapClick,
+      onMapLoad,
+      isDangerDescriptionOpen,
+      isBoxSelectDangerOpen,
+      handleDangerSubmit,
+      handleCloseModal,
+      options
+    }}>
       {children}
-  </MapContext.Provider>
+    </MapContext.Provider>
   )
 }
 
 export const useGlobalMapContext = () => {
-    return useContext(MapContext)
+  return useContext(MapContext)
 }
 
-export {MapProvider};
+export { MapProvider };
