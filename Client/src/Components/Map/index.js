@@ -6,11 +6,6 @@ import { useGlobalMapContext } from '../../Context/MapContext';
 import "./map.css";
 import "../BoxSelectDanger/boxSelectDanger.css";
 
-const divStyle = {
-  background: `white`,
-  border: `1px solid #ccc`,
-  padding: 15
-}
 const mapContainerStyle = {
   width: "100vw",
   height: "80vh",
@@ -37,9 +32,8 @@ const options = {
   zoomControl:true
 }
 
-
 export default function Map () {
-    const {markers, isBoxSelectDanger, finalMarkers, onMapClick, onMapLoad, selected, setSelected} = useGlobalMapContext()    
+    const {markers, isBoxSelectDangerOpen, finalMarkers, onMapClick, onMapLoad, selected, setSelected} = useGlobalMapContext()    
     return(
       <GoogleMap 
         mapContainerStyle={mapContainerStyle}
@@ -49,9 +43,6 @@ export default function Map () {
         onClick = {onMapClick}
         onLoad={onMapLoad}
         > 
- 
-    
- 
 
   {finalMarkers.map((fMarker) => (
     <Marker 
@@ -76,27 +67,9 @@ export default function Map () {
           </div>
         </InfoWindow>) : null}
   
-      <Marker
-        position={markers}
-      />
-      
-      <BoxSelectDanger
-        position = {markers}
-        color="blue"
-    />
-{/*
-  {markers.map((marker) => (
-        <Marker 
-          key={marker.time} 
-          position={{lat: marker.lat, lng: marker.lng}}
-          onClick={()=>{setSelected(marker)}}
-         
-        />
-     ))}
-  */}  
-  
-        <BoxDangerDescription />
+  {isBoxSelectDangerOpen ? <Marker position={markers}/> : 'box-overlay'}  
+  {isBoxSelectDangerOpen ? <BoxSelectDanger/> : 'box-overlay'} 
+  <BoxDangerDescription />
       </GoogleMap>  
     )
 }
-
