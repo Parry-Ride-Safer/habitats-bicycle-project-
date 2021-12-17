@@ -37,10 +37,8 @@ const options = {
   zoomControl:true
 }
 
-const infoBoxOptions = { closeBoxURL: '', enableEventPropagation: true };
-
 export default function Map () {
-    const {markers, isBoxSelectDanger, finalMarkers, onMapClick, onMapLoad, selected, setSelected} = useGlobalMapContext()    
+    const {markers, isBoxSelectDangerOpen, finalMarkers, onMapClick, onMapLoad, selected, setSelected} = useGlobalMapContext()    
     return(
       <GoogleMap 
         mapContainerStyle={mapContainerStyle}
@@ -50,9 +48,6 @@ export default function Map () {
         onClick = {onMapClick}
         onLoad={onMapLoad}
         > 
- 
-    
- 
 
   {finalMarkers.map((fMarker) => (
     <Marker 
@@ -77,26 +72,9 @@ export default function Map () {
           </div>
         </InfoWindow>) : null}
   
-      <InfoBox
-        options={infoBoxOptions}
-        position={markers}>
-          <div style={{ backgroundColor: 'yellow', opacity: 0.75, padding: 12 }}>
-        <div style={{ fontSize: 16, fontColor: `#08233B` }}>
-          Hello, World!
-        </div>
-      </div>
-      
-      </InfoBox>
-      
-
-      
-      
-      <BoxSelectDanger
-        position = {markers}
-        color="blue"
-    />
-        <BoxDangerDescription />
+  {isBoxSelectDangerOpen ? <Marker position={markers}/> : 'box-overlay'}  
+  {isBoxSelectDangerOpen ? <BoxSelectDanger/> : 'box-overlay'} 
+  <BoxDangerDescription />
       </GoogleMap>  
     )
 }
-
