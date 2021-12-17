@@ -80,9 +80,11 @@ export default function Map () {
       <InfoBox
         options={infoBoxOptions}
         position={markers}>
-          <div>
-            <p>klbphpçbo</p>
-          </div>
+          <div style={{ backgroundColor: 'yellow', opacity: 0.75, padding: 12 }}>
+        <div style={{ fontSize: 16, fontColor: `#08233B` }}>
+          Hello, World!
+        </div>
+      </div>
       
       </InfoBox>
       
