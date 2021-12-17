@@ -1,5 +1,5 @@
 import React from 'react';
-import {GoogleMap, InfoWindow, Marker } from '@react-google-maps/api';
+import {GoogleMap, InfoBox, InfoWindow, Marker } from '@react-google-maps/api';
 import { formatRelative } from 'date-fns';
 import {BoxSelectDanger, BoxDangerDescription} from "../";
 import { useGlobalMapContext } from '../../Context/MapContext';
@@ -37,6 +37,7 @@ const options = {
   zoomControl:true
 }
 
+const infoBoxOptions = { closeBoxURL: '', enableEventPropagation: true };
 
 export default function Map () {
     const {markers, isBoxSelectDanger, finalMarkers, onMapClick, onMapLoad, selected, setSelected} = useGlobalMapContext()    
@@ -76,25 +77,22 @@ export default function Map () {
           </div>
         </InfoWindow>) : null}
   
-      <Marker
-        position={markers}
-      />
+      <InfoBox
+        options={infoBoxOptions}
+        position={markers}>
+          <div>
+            <p>klbphpçbo</p>
+          </div>
+      
+      </InfoBox>
+      
+
+      
       
       <BoxSelectDanger
         position = {markers}
         color="blue"
     />
-{/*
-  {markers.map((marker) => (
-        <Marker 
-          key={marker.time} 
-          position={{lat: marker.lat, lng: marker.lng}}
-          onClick={()=>{setSelected(marker)}}
-         
-        />
-     ))}
-  */}  
-  
         <BoxDangerDescription />
       </GoogleMap>  
     )
