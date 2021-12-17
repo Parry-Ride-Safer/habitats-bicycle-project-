@@ -1,13 +1,14 @@
 body {
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-    height: 100vh;
-    margin:0;
-    background-color: lightgrey;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  background-color: lightgrey;
 }
 
-.search-map-location{
-    display: flex;
-    flex-direction: row;
+.search-map-location {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
