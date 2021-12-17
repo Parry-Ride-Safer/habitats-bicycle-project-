@@ -1,25 +1,25 @@
-import React from 'react';
-import {GoogleMap, InfoWindow, Marker } from '@react-google-maps/api';
-import { formatRelative } from 'date-fns';
-import {BoxSelectDanger, BoxDangerDescription} from "../";
-import { useGlobalMapContext } from '../../Context/MapContext';
+import React from "react";
+import { GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
+import { formatRelative } from "date-fns";
+import { BoxSelectDanger, BoxDangerDescription } from "../";
+import { useGlobalMapContext } from "../../Context/MapContext";
 import "./map.css";
 import "../BoxSelectDanger/boxSelectDanger.css";
 
 const divStyle = {
   background: `white`,
   border: `1px solid #ccc`,
-  padding: 15
-}
+  padding: 15,
+};
 const mapContainerStyle = {
   width: "100vw",
   height: "80vh",
-}
+};
 
 const center = {
-  lat: 52.5200,
-  lng: 13.4050,
-}
+  lat: 52.52,
+  lng: 13.405,
+};
 
 const options = {
   styles: [
@@ -33,38 +33,46 @@ const options = {
       ],
     },
   ],
-  disableDefaultUI:true,
-  zoomControl:true
-}
+  disableDefaultUI: true,
+  zoomControl: true,
+};
 
+export default function Map() {
+  const {
+    markers,
+    isBoxSelectDanger,
+    finalMarkers,
+    onMapClick,
+    onMapLoad,
+    selected,
+    setSelected,
+  } = useGlobalMapContext();
+  return (
+    <GoogleMap
+      mapContainerStyle={mapContainerStyle}
+      zoom={8}
+      center={center}
+      options={options}
+      onClick={onMapClick}
+      onLoad={onMapLoad}
+    >
+      {finalMarkers.map((fMarker) => (
+        <Marker
+          key={fMarker.index}
+          position={{ lat: fMarker.lat, lng: fMarker.lng }}
+          onClick={() => {
+            setSelected(fMarker);
+          }}
+        />
+      ))}
 
-export default function Map () {
-    const {markers, isBoxSelectDanger, finalMarkers, onMapClick, onMapLoad, selected, setSelected} = useGlobalMapContext()    
-    return(
-      <GoogleMap 
-        mapContainerStyle={mapContainerStyle}
-        zoom = {8}
-        center = {center}
-        options = {options}
-        onClick = {onMapClick}
-        onLoad={onMapLoad}
-        > 
- 
-    
- 
-
-  {finalMarkers.map((fMarker) => (
-    <Marker 
-      key={fMarker.index}
-      position={{lat: fMarker.lat, lng: fMarker.lng}}
-      onClick={()=>{setSelected(fMarker)}}
-    />
-  ))}
-  
-  {selected  ? (<InfoWindow 
-        position = {{lat: selected.lat, lng: selected.lng}}
-         onCloseClick={() => 
-          {setSelected(null)}}>
+      {selected ? (
+        <InfoWindow
+          position={{ lat: selected.lat, lng: selected.lng }}
+          onCloseClick={() => {
+            setSelected(null);
+          }}
+        >
           <div>
             <p>Categorias</p>
             <ul>
@@ -74,17 +82,13 @@ export default function Map () {
             </ul>
             <p>{formatRelative(selected.time, new Date())}</p>
           </div>
-        </InfoWindow>) : null}
-  
-      <Marker
-        position={markers}
-      />
-      
-      <BoxSelectDanger
-        position = {markers}
-        color="blue"
-    />
-{/*
+        </InfoWindow>
+      ) : null}
+
+      <Marker position={markers} />
+
+      <BoxSelectDanger position={markers} color='blue' />
+      {/*
   {markers.map((marker) => (
         <Marker 
           key={marker.time} 
@@ -93,10 +97,9 @@ export default function Map () {
          
         />
      ))}
-  */}  
-  
-        <BoxDangerDescription />
-      </GoogleMap>  
-    )
-}
+  */}
 
+      <BoxDangerDescription />
+    </GoogleMap>
+  );
+}
