@@ -5,8 +5,12 @@ import {BoxSelectDanger, BoxDangerDescription} from "../";
 import { useGlobalMapContext } from '../../Context/MapContext';
 import "./map.css";
 import "../BoxSelectDanger/boxSelectDanger.css";
-import star from "../../starblack.png";
 
+const divStyle = {
+  background: `white`,
+  border: `1px solid #ccc`,
+  padding: 15
+}
 const mapContainerStyle = {
   width: "100vw",
   height: "80vh",
@@ -34,9 +38,8 @@ const options = {
 }
 
 
-
 export default function Map () {
-    const {markers, finalMarkers, onMapClick, onMapLoad, selected, setSelected} = useGlobalMapContext();
+    const {markers, isBoxSelectDanger, finalMarkers, onMapClick, onMapLoad, selected, setSelected} = useGlobalMapContext()    
     return(
       <GoogleMap 
         mapContainerStyle={mapContainerStyle}
@@ -46,6 +49,8 @@ export default function Map () {
         onClick = {onMapClick}
         onLoad={onMapLoad}
         > 
+ 
+    
  
 
   {finalMarkers.map((fMarker) => (
@@ -70,6 +75,15 @@ export default function Map () {
             <p>{formatRelative(selected.time, new Date())}</p>
           </div>
         </InfoWindow>) : null}
+  
+      <Marker
+        position={markers}
+      />
+      
+      <BoxSelectDanger
+        position = {markers}
+        color="blue"
+    />
 {/*
   {markers.map((marker) => (
         <Marker 
@@ -80,8 +94,7 @@ export default function Map () {
         />
      ))}
   */}  
-     
-        <BoxSelectDanger />
+  
         <BoxDangerDescription />
       </GoogleMap>  
     )
