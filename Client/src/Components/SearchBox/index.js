@@ -1,6 +1,7 @@
 import React from 'react';
 import usePlacesAutocomplete, {getGeocode, getLatLng} from 'use-places-autocomplete';
 import {Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
+import "./searchBox.css";
 import { useGlobalMapContext } from '../../Context/MapContext';
 
 export default function SearchBox () {
@@ -28,7 +29,7 @@ export default function SearchBox () {
         }
       }}
     >
-      <ComboboxInput
+      <ComboboxInput className='search-box-input'
         value={value}
         onChange={(e)=>{
           setValue(e.target.value);
