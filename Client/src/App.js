@@ -22,7 +22,7 @@ function App() {
     <>
       <Navbar />
       <FormComponent />
-      <div className='search-map-location'>
+      <div className="search-map-location">
         <SearchBox panTo={panTo} />
         <GpsLocation panTo={panTo} />
       </div>
