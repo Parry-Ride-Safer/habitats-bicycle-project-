@@ -1,16 +1,11 @@
 import React from 'react';
-import {GoogleMap, InfoBox, InfoWindow, Marker } from '@react-google-maps/api';
+import {GoogleMap, InfoWindow, Marker } from '@react-google-maps/api';
 import { formatRelative } from 'date-fns';
 import {BoxSelectDanger, BoxDangerDescription} from "../";
 import { useGlobalMapContext } from '../../Context/MapContext';
 import "./map.css";
 import "../BoxSelectDanger/boxSelectDanger.css";
 
-const divStyle = {
-  background: `white`,
-  border: `1px solid #ccc`,
-  padding: 15
-}
 const mapContainerStyle = {
   width: "100vw",
   height: "80vh",

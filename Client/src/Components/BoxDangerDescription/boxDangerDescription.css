@@ -1,8 +1,6 @@
 .show-danger-box {
     visibility: visible;
     z-index: 10;
-  }
-  .danger-box-container {
     display: block;
     background: lightgrey;
     border-radius: var(--radius);
@@ -15,6 +13,7 @@
     bottom:0;
     border: 1px solid black;
   }
+ 
 
   .danger-box-overlay {
     position: fixed;

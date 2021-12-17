@@ -5,21 +5,17 @@ import "./boxSelectDanger.css";
 
 export default function BoxSelectDanger () {
 
-    const {markers, setDangerType, handleDangerSubmit, handleCloseModal} = useGlobalMapContext();
+    const {markers, setDangerType, handleDangerSubmit} = useGlobalMapContext();
     const boxOptions = { closeBoxURL: '', enableEventPropagation: false };
    
     return (
       <InfoBox position={markers} options={boxOptions}>
-         <div className="infoBox">
-          <div style={{ fontSize: 16, fontColor: `#08233B` }}></div>
-              <form onSubmit={handleDangerSubmit}>
-                  <button type="submit" name="dangerType" value="Construction" onClick={(event)=>setDangerType(event.target.value)}>Construction</button>
-                  <button type="submit" name="dangerType" value="Intersection" onClick={(event)=>setDangerType(event.target.value)}>Intersection</button>
-                  <button type="submit" name="dangerType" value="Bikeline" onClick={(event)=>setDangerType(event.target.value)}>Bikeline</button>
-                  <button type="submit" name="dangerType" value="Other" onClick={(event)=>setDangerType(event.target.value)}>Other</button>       
-              </form>
-              <button type="button" onClick={handleCloseModal}> Close window </button>
-            </div>   
+        <form className="info-box-display" onSubmit={handleDangerSubmit}>
+            <button className="select-danger-buttons" type="submit" name="dangerType" value="Construction" onClick={(event)=>setDangerType(event.target.value)}>Construction</button>
+            <button className="select-danger-buttons" type="submit" name="dangerType" value="Intersection" onClick={(event)=>setDangerType(event.target.value)}>Intersection</button>
+            <button className="select-danger-buttons" type="submit" name="dangerType" value="Bikeline" onClick={(event)=>setDangerType(event.target.value)}>Bikeline</button>
+            <button className="select-danger-buttons" type="submit" name="dangerType" value="Other" onClick={(event)=>setDangerType(event.target.value)}>Other</button>       
+        </form>
       </InfoBox>
     )
 }
