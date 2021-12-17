@@ -1,11 +1,19 @@
 import React from 'react';
 import {GoogleMap, InfoWindow, Marker } from '@react-google-maps/api';
 import { formatRelative } from 'date-fns';
+import {BoxSelectDanger, BoxDangerDescription} from "../";
 import { useGlobalMapContext } from '../../Context/MapContext';
+import "./map.css";
+import "../BoxSelectDanger/boxSelectDanger.css";
 
+const divStyle = {
+  background: `white`,
+  border: `1px solid #ccc`,
+  padding: 15
+}
 const mapContainerStyle = {
   width: "100vw",
-  height: "100vh",
+  height: "80vh",
 }
 
 const center = {
@@ -29,9 +37,9 @@ const options = {
   zoomControl:true
 }
 
+
 export default function Map () {
-    const {markers, onMapClick, onMapLoad, selected, setSelected} = useGlobalMapContext();
-  
+    const {markers, isBoxSelectDanger, finalMarkers, onMapClick, onMapLoad, selected, setSelected} = useGlobalMapContext()    
     return(
       <GoogleMap 
         mapContainerStyle={mapContainerStyle}
@@ -40,22 +48,21 @@ export default function Map () {
         options = {options}
         onClick = {onMapClick}
         onLoad={onMapLoad}
-        >    
-      {markers.map((marker) => (
-        <Marker 
-          key={marker.time} 
-          position={{lat: marker.lat, lng: marker.lng}}
-          /*we can use the prop "icon" to change the icon according to our event.
-          usar o seguinte código para o icon aparecer no sítio certo:
-          scaledSize: new window.google.maps.Size(30, 30),
-          origin: new window.google.maps.Point(0,0);
-          anchor: new window.google.maps.Point(15, 15)
-          */
-        onClick={()=>{setSelected(marker)}}
-        />
+        > 
  
-        ))}
-        {selected  ? (<InfoWindow position = {{lat: selected.lat, lng: selected.lng}}
+    
+ 
+
+  {finalMarkers.map((fMarker) => (
+    <Marker 
+      key={fMarker.index}
+      position={{lat: fMarker.lat, lng: fMarker.lng}}
+      onClick={()=>{setSelected(fMarker)}}
+    />
+  ))}
+  
+  {selected  ? (<InfoWindow 
+        position = {{lat: selected.lat, lng: selected.lng}}
          onCloseClick={() => 
           {setSelected(null)}}>
           <div>
@@ -68,6 +75,27 @@ export default function Map () {
             <p>{formatRelative(selected.time, new Date())}</p>
           </div>
         </InfoWindow>) : null}
+  
+      <Marker
+        position={markers}
+      />
+      
+      <BoxSelectDanger
+        position = {markers}
+        color="blue"
+    />
+{/*
+  {markers.map((marker) => (
+        <Marker 
+          key={marker.time} 
+          position={{lat: marker.lat, lng: marker.lng}}
+          onClick={()=>{setSelected(marker)}}
+         
+        />
+     ))}
+  */}  
+  
+        <BoxDangerDescription />
       </GoogleMap>  
     )
 }

@@ -1,9 +1,8 @@
 import React from 'react';
-import Map from "./Components/Map/Map"
-import SearchBox from './Components/SearchBox/SearchBox';
-import GpsLocation from './Components/GpsLocation/GpsLocation';
-import { useGlobalMapContext } from './Context/MapContext';
-import {useLoadScript } from '@react-google-maps/api';
+import {GpsLocation, Map, Navbar, SearchBox} from './Components';
+import {useGlobalMapContext} from './Context/MapContext';
+import {useLoadScript} from '@react-google-maps/api';
+import "./app.css"
 
 const libraries = ['places']
 
@@ -20,9 +19,11 @@ function App() {
     
   return (
     <div>
-      <h1>Feature NavBar</h1>
-      <SearchBox panTo={panTo}/>
-      <GpsLocation panTo={panTo}/>
+      <Navbar />
+      <div className="search-map-location">
+        <SearchBox panTo={panTo}/>
+        <GpsLocation panTo={panTo}/>
+      </div>
       <Map options={options} onMapLoad={onMapLoad} onMapClick={onMapClick}/>
     </div>
   );
