@@ -1,10 +1,11 @@
 import React from 'react';
 import {GoogleMap, InfoWindow, Marker } from '@react-google-maps/api';
 import { formatRelative } from 'date-fns';
-import {BoxSelectDanger, BoxDangerDescription} from "../";
+import {BoxSelectDanger, BoxDangerDescription, BoxDangerDetails} from "../";
 import { useGlobalMapContext } from '../../Context/MapContext';
 import "./map.css";
 import "../BoxSelectDanger/boxSelectDanger.css";
+import { useGlobalDangerContext } from '../../Context/DangerFormContext';
 
 const mapContainerStyle = {
   width: "100vw",
@@ -34,6 +35,7 @@ const options = {
 
 export default function Map () {
     const {markers, isBoxSelectDangerOpen, finalMarkers, onMapClick, onMapLoad, selected, setSelected} = useGlobalMapContext()    
+    const {handleBoxDangerDetails} = useGlobalDangerContext()
     return(
       <GoogleMap 
         mapContainerStyle={mapContainerStyle}
@@ -58,11 +60,7 @@ export default function Map () {
           {setSelected(null)}}>
           <div>
             <p>Categorias</p>
-            <ul>
-              <li>Problem 1</li>
-              <li>Problem 2</li>
-              <li>Problem 3</li>
-            </ul>
+          <button type="button" onClick={handleBoxDangerDetails}>More details</button>
             <p>{formatRelative(selected.time, new Date())}</p>
           </div>
         </InfoWindow>) : null}
@@ -70,6 +68,7 @@ export default function Map () {
   {isBoxSelectDangerOpen ? <Marker position={markers}/> : 'box-overlay'}  
   {isBoxSelectDangerOpen ? <BoxSelectDanger/> : 'box-overlay'} 
   <BoxDangerDescription />
+  <BoxDangerDetails />
       </GoogleMap>  
     )
 }
