@@ -24,9 +24,11 @@ function App() {
       <FormComponent />
       <div className="search-map-location">
         <SearchBox panTo={panTo} />
-        <GpsLocation panTo={panTo} />
       </div>
       <Map options={options} onMapLoad={onMapLoad} onMapClick={onMapClick} />
+      <div>
+        <GpsLocation panTo={panTo} />
+      </div>
     </>
   );
 }
