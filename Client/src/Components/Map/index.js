@@ -7,15 +7,20 @@ import "./map.css";
 import "../BoxSelectDanger/boxSelectDanger.css";
 import { useGlobalDangerContext } from '../../Context/DangerFormContext';
 
+const divStyle = {
+  background: `white`,
+  border: `1px solid #ccc`,
+  padding: 15,
+};
 const mapContainerStyle = {
   width: "100vw",
   height: "80vh",
-}
+};
 
 const center = {
-  lat: 52.5200,
-  lng: 13.4050,
-}
+  lat: 52.52,
+  lng: 13.405,
+};
 
 const options = {
   styles: [
@@ -29,9 +34,9 @@ const options = {
       ],
     },
   ],
-  disableDefaultUI:true,
-  zoomControl:true
-}
+  disableDefaultUI: true,
+  zoomControl: true,
+};
 
 export default function Map () {
     const {markers, isBoxSelectDangerOpen, finalMarkers, onMapClick, onMapLoad, selected, setSelected} = useGlobalMapContext()    

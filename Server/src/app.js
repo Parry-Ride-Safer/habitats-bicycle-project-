@@ -1,10 +1,8 @@
-const express = require("express");
-const { userRoutes } = require("./routes");
+const { userRoutes, authRoutes } = require("./routes");
 
-const app = express();
+const setupRoutes = (app) => {
+  app.use("/", userRoutes);
+  app.use("/auth", authRoutes);
+};
 
-app.use(express.json());
-
-app.use("/", userRoutes);
-
-module.exports = app;
+module.exports = { setupRoutes };
