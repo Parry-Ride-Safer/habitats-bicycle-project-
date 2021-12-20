@@ -1,22 +1,29 @@
 import React from "react";
-import {useGlobalMapContext } from "../../Context/MapContext";
+import { useGlobalMapContext } from "../../Context/MapContext";
+import "./style.css";
+import gpsIcon from "../../resources/gps-icon.png";
 
 export default function GpsLocation() {
+  const { panTo } = useGlobalMapContext();
 
-  const {panTo} = useGlobalMapContext();
-
-   return <button onClick={() => {
-    navigator.geolocation.getCurrentPosition(
-      (position)=>{
-        panTo({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
-      },
-      () => null
-    );
-  }}
->
-    <h1>GPS Icon</h1>
-  </button>
+  return (
+    <>
+      <button
+        className="gps-icon"
+        onClick={() => {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              panTo({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              });
+            },
+            () => null
+          );
+        }}
+      >
+        <img src={gpsIcon} alt="gps icon" />
+      </button>
+    </>
+  );
 }

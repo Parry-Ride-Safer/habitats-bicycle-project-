@@ -32,10 +32,6 @@ const MapProvider = ({ children }) => {
     setFinalMarkers((finalMarkers) => [...finalMarkers, markers]);
   };
 
-  const handleCloseModal = () => {
-    setIsBoxSelectDangerOpen(false);
-  };
-
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
@@ -88,7 +84,6 @@ const MapProvider = ({ children }) => {
         isDangerDescriptionOpen,
         isBoxSelectDangerOpen,
         handleDangerSubmit,
-        handleCloseModal,
         options,
       }}
     >

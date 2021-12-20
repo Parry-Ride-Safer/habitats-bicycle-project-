@@ -11,7 +11,7 @@ function App() {
   const { panTo, onMapLoad, onMapClick, options } = useGlobalMapContext();
 
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_KEY,
+    googleMapsApiKey: process.env.REA_APP_KEY,
     libraries,
   });
 
@@ -22,11 +22,13 @@ function App() {
     <>
       <Navbar />
       <FormComponent />
-      <div className='search-map-location'>
+      <div className="search-map-location">
         <SearchBox panTo={panTo} />
-        <GpsLocation panTo={panTo} />
       </div>
       <Map options={options} onMapLoad={onMapLoad} onMapClick={onMapClick} />
+      <div>
+        <GpsLocation panTo={panTo} />
+      </div>
     </>
   );
 }
