@@ -1,7 +1,7 @@
 import React from 'react';
 import {GoogleMap, InfoWindow, Marker } from '@react-google-maps/api';
 import { formatRelative } from 'date-fns';
-import {BoxSelectDanger, BoxDangerDescription, BoxDangerDetails} from "../";
+import {BoxSelectDanger, BoxDangerDescription, BoxDangerList} from "../";
 import { useGlobalMapContext } from '../../Context/MapContext';
 import "./map.css";
 import "../BoxSelectDanger/boxSelectDanger.css";
@@ -68,7 +68,7 @@ export default function Map () {
   {isBoxSelectDangerOpen ? <Marker position={markers}/> : 'box-overlay'}  
   {isBoxSelectDangerOpen ? <BoxSelectDanger/> : 'box-overlay'} 
   <BoxDangerDescription />
-  <BoxDangerDetails />
+  <BoxDangerList />
       </GoogleMap>  
     )
 }

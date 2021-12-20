@@ -1,5 +1,6 @@
 import { useGlobalDangerContext } from "../../Context/DangerFormContext"
-import "./boxDangerDetails.css";
+import { useGlobalMapContext } from "../../Context/MapContext";
+import "./boxDangerList.css";
 
 export default function BoxDangerDetails () {
 
@@ -7,6 +8,8 @@ export default function BoxDangerDetails () {
 
     return(
         <div className={`${isBoxDangerDetailsOpen ? 'show-danger-details' : 'danger-box-overlay'}`}>
+         
+
         </div>
     )
 }

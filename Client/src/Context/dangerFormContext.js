@@ -6,8 +6,10 @@ import React, {createContext, useContext, useState} from "react";
     
     const [dangerDescriptionInputs, setDangerDescriptionInputs] = useState([])
     const [isBoxDangerDetailsOpen, setIsBoxDangerDetailsOpen] = useState(false)
-
+ 
     
+    
+
     const handleBoxDangerDetails = () => {
       setIsBoxDangerDetailsOpen(true)
     }
@@ -17,7 +19,7 @@ import React, {createContext, useContext, useState} from "react";
         const value = event.target.value;
         setDangerDescriptionInputs(values=>({...values, [name]:value}))
     }
-    
+
     return (
       <DangerFormContext.Provider
         value={{
