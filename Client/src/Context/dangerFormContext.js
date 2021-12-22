@@ -1,41 +1,37 @@
-import React, {createContext, useContext, useState} from "react";
-  
-  const DangerFormContext = createContext();
-  
-  const DangerFormProvider = ({ children }) => {
-    
-    const [dangerDescriptionInputs, setDangerDescriptionInputs] = useState([])
-    const [isBoxDangerDetailsOpen, setIsBoxDangerDetailsOpen] = useState(false)
- 
-    
-    
+import React, { createContext, useContext, useState } from "react";
 
-    const handleBoxDangerDetails = () => {
-      setIsBoxDangerDetailsOpen(true)
-    }
+const DangerFormContext = createContext();
 
-    const handleDangerDescriptionInputs = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setDangerDescriptionInputs(values=>({...values, [name]:value}))
-    }
+const DangerFormProvider = ({ children }) => {
+  const [dangerDescriptionInputs, setDangerDescriptionInputs] = useState([]);
+  const [isBoxDangerDetailsOpen, setIsBoxDangerDetailsOpen] = useState(false);
 
-    return (
-      <DangerFormContext.Provider
-        value={{
-            isBoxDangerDetailsOpen,
-            dangerDescriptionInputs,
-            handleDangerDescriptionInputs,
-            handleBoxDangerDetails
-        }}
-      >
-        {children}
-      </DangerFormContext.Provider>
-    );
+  const handleBoxDangerDetails = () => {
+    setIsBoxDangerDetailsOpen(true);
   };
-  
-  export const useGlobalDangerContext = () => {
-    return useContext(DangerFormContext);
+
+  const handleDangerDescriptionInputs = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setDangerDescriptionInputs((values) => ({ ...values, [name]: value }));
   };
-  
-  export { DangerFormProvider };
+
+  return (
+    <DangerFormContext.Provider
+      value={{
+        isBoxDangerDetailsOpen,
+        dangerDescriptionInputs,
+        handleDangerDescriptionInputs,
+        handleBoxDangerDetails,
+      }}
+    >
+      {children}
+    </DangerFormContext.Provider>
+  );
+};
+
+export const useGlobalDangerContext = () => {
+  return useContext(DangerFormContext);
+};
+
+export { DangerFormProvider };
