@@ -1,16 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import Fullform from './Components/Login/fullform';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { DangerFormProvider } from "./Context/DangerFormContext";
+import { MapProvider } from "./Context/MapContext";
+import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Fullform />
-    <App />
+    <MapProvider>
+      <DangerFormProvider>
+        <App />
+      </DangerFormProvider>
+    </MapProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 reportWebVitals();

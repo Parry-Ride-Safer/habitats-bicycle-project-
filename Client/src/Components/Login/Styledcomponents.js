@@ -1,9 +1,6 @@
-import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
-import style from "./style.css";
-import { device } from "./xxx_mediaQueriesjs";
 
-const move = keyframes`
+export const move = keyframes`
 0%{
     opacity:0;
 }
@@ -11,8 +8,7 @@ const move = keyframes`
     opacity:1;
 }
 `;
-const BackgroundBox = styled.div`
-
+export const BackgroundBox = styled.div`
   .text1 {
     z-index: ${(props) => (props.clicked ? "-700" : "700")};
     transform: ${(props) =>
@@ -45,7 +41,7 @@ const BackgroundBox = styled.div`
   }
 `;
 
-const Box1 = styled.div`
+export const Box1 = styled.div`
   background-color: #ffffff;
   width: 50%;
   height: 100%;
@@ -76,12 +72,9 @@ const Box1 = styled.div`
     border-right: 4px solid #000000;
     border-left: 4px solid #000000;
   }
-  @media ${device.mobile} {
-  display: none;
-  }
 `;
 
-const Box2 = styled.div`
+export const Box2 = styled.div`
   background-color: #000000;
   width: 45%;
   height: 100%;
@@ -94,10 +87,9 @@ const Box2 = styled.div`
   transition: transform 1s;
   border-radius: ${(props) =>
     props.clicked ? "23px 0 0 23px" : "0 23px 23px 0"};
-
 `;
 
-const Form = styled.form`
+export const Form = styled.form`
   color: #1b1b1b;
   display: flex;
   flex-direction: column;
@@ -108,7 +100,7 @@ const Form = styled.form`
   /* z-index: 100; */
 `;
 
-const Input = styled.input`
+export const Input = styled.input`
   background-color: #fff;
   border: none;
   border-bottom: 2px solid #053271;
@@ -122,7 +114,7 @@ const Input = styled.input`
   }
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
   border-radius: 3px;
   padding: 1rem 3.5rem;
   margin-top: 1rem;
@@ -146,19 +138,19 @@ const Button = styled.button`
   }
 `;
 
-const Title = styled.h1`
+export const Title = styled.h1`
   font-size: 3.5rem;
   margin-bottom: 2rem;
 `;
 
-const Link = styled.a`
+export const Link = styled.a`
   text-decoration: none;
   color: #333;
   font-size: 1.4rem;
   margin: 1rem 0;
 `;
 
-const ButtonAnimate = styled.button`
+export const ButtonAnimate = styled.button`
   position: absolute;
   z-index: 1000;
   height: 5rem;
@@ -179,7 +171,7 @@ const ButtonAnimate = styled.button`
   }
 `;
 
-const Text = styled.div`
+export const Text = styled.div`
   position: absolute;
   z-index: 1000;
   font-size: 1.5rem;
@@ -198,89 +190,4 @@ const Text = styled.div`
     top: 100%;
     font-size: 7rem;
   }
-
-  @media ${device.mobile} {
-  display: none;}
 `;
-import {
-  BackgroundBox,
-  Box1,
-  Box2,
-  ButtonAnimate,
-  Form,
-  Input,
-  Button,
-  Title,
-  Link,
-  Text,
-} from "./Styledcomponents";
-import "./style.css";
-
-function FormComponent() {
-  const [click, setClick] = useState(false);
-  const handleClick = () => setClick(!click);
-  return (
-    <>
-      {" "}
-      <BackgroundBox className='background-box' clicked={click}>
-        <ButtonAnimate clicked={click} onClick={handleClick}></ButtonAnimate>
-
-        <Form className='signin'>
-          <Title>Log In</Title>
-          <Input type='email' name='email' id='emailId' placeholder='Email' />
-          <Input
-            type='password'
-            name='password'
-            id='passwordId'
-            placeholder='Password'
-          />
-          <Link href='#'>Forgot Your Password?</Link>
-          <Button>Log In</Button>
-        </Form>
-
-        <Form className='signup'>
-          <Title>Sign Up</Title>
-          <Input
-            type='text'
-            name='username'
-            id='usernameId'
-            placeholder='Username'
-          />
-
-          <Input type='email' name='email' id='emailId' placeholder='Email' />
-          <Input
-            type='password'
-            name='password'
-            id='passwordId'
-            placeholder='Password'
-          />
-          <Link href='#' onClick={handleClick}>
-            Already have an Account?
-          </Link>
-          <Button>Sign Up</Button>
-        </Form>
-
-        <Text className='text1' clicked={click}>
-          <h1>Welcome!</h1>
-          Don't have an account?
-          <br />
-          <span className='attention'>Click my Bike</span>
-          <span className='attention-icon'>⤶</span>
-        </Text>
-
-        <Text className='text2' clicked={click}>
-          <h1>Hi There!</h1>
-          Already have an account?
-          <br />
-          <span className='attention'>Click my Bike</span>
-          <span className='attention-icon'>⤷</span>
-        </Text>
-
-        <Box1 clicked={click} />
-        <Box2 clicked={click} />
-      </BackgroundBox>
-    </>
-  );
-}
-
-export default FormComponent;
