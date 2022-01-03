@@ -8,8 +8,6 @@ import React, {createContext, useContext, useState} from "react";
     const [isBoxDangerDetailsOpen, setIsBoxDangerDetailsOpen] = useState(false)
  
     
-    
-
     const handleBoxDangerDetails = () => {
       setIsBoxDangerDetailsOpen(true)
     }
