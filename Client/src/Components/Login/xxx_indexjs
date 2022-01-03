@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import style from "./style.css";
+import { device } from "./xxx_mediaQueriesjs";
 
 const move = keyframes`
 0%{
@@ -75,6 +76,9 @@ const Box1 = styled.div`
     border-right: 4px solid #000000;
     border-left: 4px solid #000000;
   }
+  @media ${device.mobile} {
+  display: none;
+  }
 `;
 
 const Box2 = styled.div`
@@ -90,6 +94,7 @@ const Box2 = styled.div`
   transition: transform 1s;
   border-radius: ${(props) =>
     props.clicked ? "23px 0 0 23px" : "0 23px 23px 0"};
+
 `;
 
 const Form = styled.form`
@@ -193,6 +198,9 @@ const Text = styled.div`
     top: 100%;
     font-size: 7rem;
   }
+
+  @media ${device.mobile} {
+  display: none;}
 `;
 
 function FormComponent() {

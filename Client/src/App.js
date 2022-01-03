@@ -6,6 +6,7 @@ import './styles/App.css';
 import mapStyles from "./styles/mapStyles.css";
 import { formatRelative } from 'date-fns';
 
+
 const libraries = ['places', 'visualization', 'drawing', 'geometry']
 
 const mapContainerStyle = {
@@ -156,6 +157,8 @@ function Search ({panTo}) {
   });
 
   return (
+    <div>
+    
     <Combobox 
       onSelect = {async (address) => {
         setValue(address, false);
@@ -186,6 +189,7 @@ function Search ({panTo}) {
         </ComboboxList>
       </ComboboxPopover>
     </Combobox>
+    </div>
   )
 };
 
