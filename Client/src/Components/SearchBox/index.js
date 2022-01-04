@@ -50,7 +50,7 @@ export default function SearchBox() {
           setValue(e.target.value);
         }}
         disabled={!ready}
-        placeholder="Enter an adress"
+        placeholder="Enter an address"
       />
       <ComboboxPopover>
         <ComboboxList>
