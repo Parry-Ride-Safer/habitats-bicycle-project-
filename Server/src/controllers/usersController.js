@@ -1,7 +1,7 @@
 const { usersModels } = require("../models");
 
-const getUsersController = (req, res) => {
-  const users = usersModels.getUsers();
+const getUsersController = async (req, res) => {
+  const users = await usersModels.getUsers();
 
   res.status(200).json(users);
 };

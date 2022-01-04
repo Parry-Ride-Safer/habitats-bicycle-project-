@@ -1,4 +1,6 @@
 const bcrypt = require("bcrypt");
+const connection = require("../../db-config");
+const db = connection.promise();
 
 const hashPassword = async (password, saltRounds) => {
   try {
@@ -10,16 +12,10 @@ const hashPassword = async (password, saltRounds) => {
   }
 };
 
-const verifyPassword = async (email, password) => {
+const verifyPassword = async (password, hash) => {
   let match;
   try {
-    const [results] = await db.query(
-      "SELECT id, hashedPassword FROM users WHERE email=?",
-      [email]
-    );
-    if (!results[0]) throw new Error("INVALID_EMAIL");
-    const { hashPassword } = results[0];
-    match = await bcrypt.compare(password, hashPassword);
+    match = await bcrypt.compare(password, hash);
     console.log(match);
     if (!match) return false;
     return match;

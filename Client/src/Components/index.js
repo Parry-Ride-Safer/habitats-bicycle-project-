@@ -1,5 +1,6 @@
 export {default as BoxSelectDanger} from './BoxSelectDanger';
 export {default as BoxDangerDescription} from './BoxDangerDescription';
+export {default as BoxDangerList} from './BoxDangerList';
 export {default as GpsLocation} from './GpsLocation';
 export {default as Map} from './Map';
 export {default as Navbar} from './Navbar';

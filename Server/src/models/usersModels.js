@@ -25,10 +25,10 @@ connection.connect((error) => {
 });
 
 const getUsers = async () => {
-  const users = await db.query(
-    "SELECT firstname, lastname, username, email from users"
-  );
   try {
+    const users = await db.query(
+      "SELECT firstname, lastname, username, email from users"
+    );
     return users[0];
   } catch (error) {
     console.log(error);

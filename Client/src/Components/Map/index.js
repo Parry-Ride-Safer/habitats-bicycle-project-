@@ -6,11 +6,18 @@ import {
   BoxDangerDescription,
   GpsLocation,
   SearchBox,
+  BoxDangerList,
 } from "../";
 import { useGlobalMapContext } from "../../Context/MapContext";
 import "./map.css";
 import "../BoxSelectDanger/boxSelectDanger.css";
+import { useGlobalDangerContext } from "../../Context/DangerFormContext";
 
+const divStyle = {
+  background: `white`,
+  border: `1px solid #ccc`,
+  padding: 15,
+};
 const mapContainerStyle = {
   width: "100vw",
   height: "80vh",
@@ -48,6 +55,7 @@ export default function Map() {
     setSelected,
     panTo,
   } = useGlobalMapContext();
+  const { handleBoxDangerDetails } = useGlobalDangerContext();
   return (
     <GoogleMap
       mapContainerStyle={mapContainerStyle}
@@ -81,11 +89,9 @@ export default function Map() {
         >
           <div>
             <p>Categorias</p>
-            <ul>
-              <li>Problem 1</li>
-              <li>Problem 2</li>
-              <li>Problem 3</li>
-            </ul>
+            <button type="button" onClick={handleBoxDangerDetails}>
+              More details
+            </button>
             <p>{formatRelative(selected.time, new Date())}</p>
           </div>
         </InfoWindow>
@@ -94,6 +100,7 @@ export default function Map() {
       {isBoxSelectDangerOpen ? <Marker position={markers} /> : "box-overlay"}
       {isBoxSelectDangerOpen ? <BoxSelectDanger /> : "box-overlay"}
       <BoxDangerDescription />
+      <BoxDangerList />
     </GoogleMap>
   );
 }
