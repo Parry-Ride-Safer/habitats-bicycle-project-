@@ -11,7 +11,6 @@ import {
 import { useGlobalMapContext } from "../../Context/MapContext";
 import "./map.css";
 import "../BoxSelectDanger/boxSelectDanger.css";
-import { useGlobalDangerContext } from "../../Context/DangerFormContext";
 
 const divStyle = {
   background: `white`,
@@ -55,8 +54,9 @@ export default function Map() {
     selected,
     setSelected,
     panTo,
+    handleBoxDangerDetails
   } = useGlobalMapContext();
-  const { handleBoxDangerDetails } = useGlobalDangerContext();
+ 
   return (
     <GoogleMap
       mapContainerStyle={mapContainerStyle}

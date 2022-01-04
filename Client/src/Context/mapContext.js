@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import Axios from 'axios';
 
 const MapContext = createContext();
 
@@ -15,11 +16,23 @@ const MapProvider = ({ children }) => {
   const [selected, setSelected] = useState(null);
   const [isDangerDescriptionOpen, setIsDangerDescriptionOpen] = useState(false);
   const [isBoxSelectDangerOpen, setIsBoxSelectDangerOpen] = useState(false);
+  const [dangerDescriptionInputs, setDangerDescriptionInputs] = useState([])
+  const [isBoxDangerDetailsOpen, setIsBoxDangerDetailsOpen] = useState(false)
 
   const handleDangerSubmit = (event) => {
     event.preventDefault();
     setIsBoxSelectDangerOpen(false);
     setIsDangerDescriptionOpen(true);
+  };
+
+  const handleBoxDangerDetails = () => {
+    setIsBoxDangerDetailsOpen(true)
+  }
+
+  const handleDangerDescriptionInputs = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setDangerDescriptionInputs((values) => ({ ...values, [name]: value }));
   };
 
   const handleDangerChoice = (event) => {
@@ -30,7 +43,15 @@ const MapProvider = ({ children }) => {
     event.preventDefault();
     setIsDangerDescriptionOpen(false);
     setFinalMarkers((finalMarkers) => [...finalMarkers, markers]);
-  };
+    Axios.post("http://localhost:4000/routes/", {
+        lat: finalMarkers.lat,
+        lng: finalMarkers.lng,
+        category: dangerType,
+        information: dangerDescriptionInputs 
+        }).then((response) => {
+          console.log(response)
+        }).catch(err => console.log(err))
+    };
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -44,6 +65,7 @@ const MapProvider = ({ children }) => {
       lng: event.latLng.lng(),
       time: new Date(),
     });
+    console.log(markers)
   }, []);
 
   const options = {
@@ -85,6 +107,10 @@ const MapProvider = ({ children }) => {
         isBoxSelectDangerOpen,
         handleDangerSubmit,
         options,
+        isBoxDangerDetailsOpen,
+        dangerDescriptionInputs,
+        handleDangerDescriptionInputs,
+        handleBoxDangerDetails,
       }}
     >
       {children}

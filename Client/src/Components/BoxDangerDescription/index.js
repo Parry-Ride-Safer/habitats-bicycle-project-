@@ -1,12 +1,10 @@
 import React from "react";
-import { useGlobalDangerContext } from "../../Context/DangerFormContext";
 import { useGlobalMapContext } from "../../Context/MapContext";
 import "./boxDangerDescription.css";
 
 export default function BoxDangerDescription () {
 
-    const {dangerType, isDangerDescriptionOpen, dangerFormSubmit} = useGlobalMapContext();
-    const {dangerDescriptionInputs, handleDangerDescriptionInputs} = useGlobalDangerContext();
+    const {dangerType, isDangerDescriptionOpen, dangerFormSubmit, dangerDescriptionInputs, handleDangerDescriptionInputs} = useGlobalMapContext();
 
     return (
         <div className={`${isDangerDescriptionOpen ? 'show-danger-box' : 'danger-box-overlay'}`}>
@@ -23,7 +21,7 @@ export default function BoxDangerDescription () {
                 <p>Submit your picture</p>
                 <p className="danger-input-labels"> Danger Description </p>
                 <input className="danger-input-fields" id="danger-description-input-field" 
-                    type="text" 
+                    type="text"
                     name="description" 
                     value={dangerDescriptionInputs.description} 
                     onChange={handleDangerDescriptionInputs}/><br/>
