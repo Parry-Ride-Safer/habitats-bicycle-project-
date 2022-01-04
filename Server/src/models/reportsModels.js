@@ -14,7 +14,7 @@ const getAllReports = async () => {
 const getReportsInOneLocation = async (locationId) => {
   try {
     const reports = await db.query(
-      "SELECT information,  voting, category_id  FROM reports WHERE address_id = ?",
+      "SELECT information, voting, category_id  FROM reports WHERE address_id = ?",
       [locationId]
     );
     const results = reports;

@@ -43,15 +43,21 @@ const MapProvider = ({ children }) => {
     event.preventDefault();
     setIsDangerDescriptionOpen(false);
     setFinalMarkers((finalMarkers) => [...finalMarkers, markers]);
+    console.log(finalMarkers)
+    
     Axios.post("http://localhost:4000/routes/", {
-        lat: finalMarkers.lat,
-        lng: finalMarkers.lng,
-        category: dangerType,
-        information: dangerDescriptionInputs 
-        }).then((response) => {
-          console.log(response)
-        }).catch(err => console.log(err))
-    };
+        voting: 1,
+        lat: markers.lat,
+        lon: markers.lng,
+        information: "string",
+        users_id: 1,
+        category_id: 1
+        })
+      .then((response) => {
+        console.log(response)
+      })
+      .catch(err => console.log(err))
+  };
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -65,7 +71,6 @@ const MapProvider = ({ children }) => {
       lng: event.latLng.lng(),
       time: new Date(),
     });
-    console.log(markers)
   }, []);
 
   const options = {
