@@ -1,8 +1,9 @@
-const { userRoutes, authRoutes } = require("./routes");
+const { userRoutes, authRoutes, reportsRoutes } = require("./routes");
 
 const setupRoutes = (app) => {
-  app.use("/", userRoutes);
+  app.use("/users", userRoutes);
   app.use("/auth", authRoutes);
+  app.use("/routes", reportsRoutes);
 };
 
 module.exports = { setupRoutes };

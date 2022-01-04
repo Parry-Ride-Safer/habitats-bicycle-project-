@@ -13,8 +13,8 @@ primary key (id)
 
 create table address(
 id int not null auto_increment,
-lat decimal not null,
-lon decimal not null,
+lat decimal(8,6) not null,
+lon decimal (9,6)not null,
 primary key (id)
 );
 

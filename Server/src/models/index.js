@@ -1,7 +1,3 @@
-const usersModels = require("./usersModels");
-const authModels = require("./authModels");
-
-module.exports = {
-  usersModels,
-  authModels,
-};
+exports.usersModels = require("./usersModels");
+exports.authModels = require("./authModels");
+exports.reportsModels = require("./reportsModels");
