@@ -30,6 +30,7 @@ const MapProvider = ({ children }) => {
     event.preventDefault();
     setIsDangerDescriptionOpen(false);
     setFinalMarkers((finalMarkers) => [...finalMarkers, markers]);
+    console.log({ lat: markers.lat, lng: markers.lng });
   };
 
   const mapRef = useRef();
@@ -64,7 +65,7 @@ const MapProvider = ({ children }) => {
 
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(14);
+    mapRef.current.setZoom(15);
   }, []);
 
   return (
