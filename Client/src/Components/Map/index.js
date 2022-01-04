@@ -12,6 +12,7 @@ const divStyle = {
   border: `1px solid #ccc`,
   padding: 15,
 };
+
 const mapContainerStyle = {
   width: "100vw",
   height: "80vh",
