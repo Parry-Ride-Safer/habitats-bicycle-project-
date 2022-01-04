@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import Axios from "axios";
 
 const MapContext = createContext();
 
@@ -15,11 +16,23 @@ const MapProvider = ({ children }) => {
   const [selected, setSelected] = useState(null);
   const [isDangerDescriptionOpen, setIsDangerDescriptionOpen] = useState(false);
   const [isBoxSelectDangerOpen, setIsBoxSelectDangerOpen] = useState(false);
+  const [dangerDescriptionInputs, setDangerDescriptionInputs] = useState([]);
+  const [isBoxDangerDetailsOpen, setIsBoxDangerDetailsOpen] = useState(false);
 
   const handleDangerSubmit = (event) => {
     event.preventDefault();
     setIsBoxSelectDangerOpen(false);
     setIsDangerDescriptionOpen(true);
+  };
+
+  const handleBoxDangerDetails = () => {
+    setIsBoxDangerDetailsOpen(true);
+  };
+
+  const handleDangerDescriptionInputs = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setDangerDescriptionInputs((values) => ({ ...values, [name]: value }));
   };
 
   const handleDangerChoice = (event) => {
@@ -31,6 +44,19 @@ const MapProvider = ({ children }) => {
     setIsDangerDescriptionOpen(false);
     setFinalMarkers((finalMarkers) => [...finalMarkers, markers]);
     console.log({ lat: markers.lat, lng: markers.lng });
+
+    Axios.post("http://localhost:4000/routes/", {
+      voting: 1,
+      lat: markers.lat,
+      lon: markers.lng,
+      information: "string",
+      users_id: 1,
+      category_id: 1,
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
   };
 
   const mapRef = useRef();
@@ -86,6 +112,10 @@ const MapProvider = ({ children }) => {
         isBoxSelectDangerOpen,
         handleDangerSubmit,
         options,
+        isBoxDangerDetailsOpen,
+        dangerDescriptionInputs,
+        handleDangerDescriptionInputs,
+        handleBoxDangerDetails,
       }}
     >
       {children}
