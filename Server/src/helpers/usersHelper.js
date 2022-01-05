@@ -1,6 +1,4 @@
 const bcrypt = require("bcrypt");
-const connection = require("../../db-config");
-const db = connection.promise();
 
 const hashPassword = async (password, saltRounds) => {
   try {
@@ -26,4 +24,8 @@ const verifyPassword = async (password, hash) => {
   }
 };
 
-module.exports = { hashPassword, verifyPassword };
+const isAdm = ({ role }) => role === "adm";
+
+const isCurrentUser = ({ id }, userId) => id === userId;
+
+module.exports = { hashPassword, verifyPassword, isAdm, isCurrentUser };

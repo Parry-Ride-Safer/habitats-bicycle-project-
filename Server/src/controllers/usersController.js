@@ -1,4 +1,5 @@
 const { usersModels } = require("../models");
+const { userValidator } = require("../validators");
 
 const getUsersController = async (req, res) => {
   const users = await usersModels.getUsers();
@@ -13,7 +14,7 @@ const insertNewUserController = async (req, res) => {
     const existingUserWithEmail = await usersModels.findByEmail(email);
 
     if (existingUserWithEmail) throw new Error("DUPLICATE_EMAIL");
-    validationErrors = usersModels.validate(req.body);
+    validationErrors = userValidator.validate(req.body);
     if (validationErrors) throw new Error("INVALID_DATA");
     const createdUser = await usersModels.createUser(req.body);
     res.status(201).json(createdUser);
@@ -52,7 +53,7 @@ const updateUserController = async (req, res) => {
     if (!existingUser) throw new Error("RECORD_NOT_FOUND");
     if (existingUserWithEmail && existingUserWithEmail.id !== parseInt(userId))
       throw new Error("DUPLICATE_EMAIL");
-    validationErrors = usersModels.validate(req.body, false);
+    validationErrors = userValidator.validate(req.body, false);
     if (validationErrors) throw new Error("INVALID_DATA");
     user = await usersModels.updateUser(req.body, userId);
     delete req.body.password;

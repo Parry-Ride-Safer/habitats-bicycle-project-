@@ -1,18 +1,8 @@
 const connection = require("../../db-config");
-const Joi = require("joi");
-const { hashPassword } = require("../helpers/users");
+const { hashPassword } = require("../helpers/usersHelper");
 const saltedRounds = parseInt(process.env.SALT_ROUNDS);
 
 const db = connection.promise();
-
-const validate = (data, forCreation = true) => {
-  const presence = forCreation ? "required" : "optional";
-  return Joi.object({
-    email: Joi.string().email().max(255).presence(presence),
-    password: Joi.string().alphanum().min(8).max(50).presence(presence),
-    role: Joi.string().max(3),
-  }).validate(data, { abortEarly: false }).error;
-};
 
 connection.connect((error) => {
   if (error) {
@@ -34,10 +24,10 @@ const getUsers = async () => {
 const createUser = async ({ password, ...body }) => {
   try {
     const hashedPassword = await hashPassword(password, saltedRounds);
-    const rawResults = await db.query("INSERT INTO users SET ?", {
-      hashedPassword,
-      ...body,
-    });
+    const [rawResults] = await db.query(
+      "INSERT INTO users (email, hashedPassword)  VALUES (?, ?)",
+      [body.email, hashedPassword]
+    );
     const id = rawResults.insertId;
     return { id, ...body };
   } catch (error) {
@@ -82,6 +72,18 @@ const findByEmail = async (email) => {
     return error;
   }
 };
+const getUserByEmail = async (email) => {
+  try {
+    let [results] = await db.query(
+      "SELECT id, hashedPassword, role FROM users WHERE email= ?;",
+      [email]
+    );
+    return results;
+  } catch (error) {
+    console.log(err);
+    return err;
+  }
+};
 
 const updateUser = async ({ password, ...data }, id) => {
   let results;
@@ -120,8 +122,8 @@ module.exports = {
   createUser,
   validateEmail,
   findByEmail,
-  validate,
   updateUser,
   deleteUser,
   findUserbyId,
+  getUserByEmail,
 };
