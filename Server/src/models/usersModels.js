@@ -8,11 +8,9 @@ const db = connection.promise();
 const validate = (data, forCreation = true) => {
   const presence = forCreation ? "required" : "optional";
   return Joi.object({
-    firstname: Joi.string().max(255).presence(presence),
-    lastname: Joi.string().max(255).presence(presence),
     email: Joi.string().email().max(255).presence(presence),
     password: Joi.string().alphanum().min(8).max(50).presence(presence),
-    username: Joi.string().max(255).presence(presence),
+    role: Joi.string().max(3),
   }).validate(data, { abortEarly: false }).error;
 };
 
@@ -26,9 +24,7 @@ connection.connect((error) => {
 
 const getUsers = async () => {
   try {
-    const users = await db.query(
-      "SELECT firstname, lastname, username, email from users"
-    );
+    const users = await db.query("SELECT email from users");
     return users[0];
   } catch (error) {
     console.log(error);
@@ -64,10 +60,9 @@ const validateEmail = async (email) => {
 
 const findUserbyId = async (userId) => {
   try {
-    const rawResults = await db.query(
-      "SELECT firstname, lastname, email, username FROM users WHERE id = ?",
-      [userId]
-    );
+    const rawResults = await db.query("SELECT  email FROM users WHERE id = ?", [
+      userId,
+    ]);
     const [results] = rawResults;
     return results[0];
   } catch (error) {
