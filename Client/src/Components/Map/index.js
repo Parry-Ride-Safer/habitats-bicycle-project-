@@ -20,7 +20,7 @@ const divStyle = {
 
 const mapContainerStyle = {
   width: "100vw",
-  height: "80vh",
+  height: "100vh",
 };
 
 const center = {
@@ -54,9 +54,9 @@ export default function Map() {
     selected,
     setSelected,
     panTo,
-    handleBoxDangerDetails
+    handleBoxDangerDetails,
   } = useGlobalMapContext();
- 
+
   return (
     <GoogleMap
       mapContainerStyle={mapContainerStyle}
