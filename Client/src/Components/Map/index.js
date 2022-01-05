@@ -1,5 +1,5 @@
 import React from "react";
-import { GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
+import { GoogleMap, InfoWindow, Marker, MarkerClusterer } from "@react-google-maps/api";
 import { formatRelative } from "date-fns";
 import {
   BoxSelectDanger,
@@ -71,15 +71,19 @@ export default function Map() {
       </div>
       <GpsLocation panTo={panTo} />
 
-      {finalMarkers.map((fMarker) => (
-        <Marker
-          key={fMarker.index}
-          position={{ lat: fMarker.lat, lng: fMarker.lng }}
-          onClick={() => {
-            setSelected(fMarker);
-          }}
-        />
-      ))}
+      <MarkerClusterer >
+          {(clusterer) =>
+            finalMarkers.map((fMarker) => (
+              <Marker key={fMarker.index}
+              position={{ lat: fMarker.lat, lng: fMarker.lng }}
+              clusterer={clusterer}
+              onClick={() => {
+                setSelected(fMarker);
+              }} 
+              />
+            ))
+          }
+        </MarkerClusterer>
 
       {selected ? (
         <InfoWindow

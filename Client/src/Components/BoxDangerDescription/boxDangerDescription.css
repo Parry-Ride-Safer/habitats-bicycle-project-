@@ -4,7 +4,7 @@
   background: rgb(240, 236, 236);
   border-radius: var(--radius);
   width: 100vw;
-  height: 65vh;
+  height: 100vh;
   max-width: var(--fixed-width);
   text-align: center;
   place-items: center;
