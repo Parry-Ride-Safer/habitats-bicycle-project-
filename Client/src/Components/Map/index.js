@@ -65,6 +65,7 @@ export default function Map() {
       options={options}
       onClick={onMapClick}
       onLoad={onMapLoad}
+      yesIWantToUseGoogleMapApiInternals
     >
       <div className="search-map-location">
         <SearchBox panTo={panTo} />
