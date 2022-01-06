@@ -1,16 +1,16 @@
 .show-box {
-    visibility: visible;
-    z-index: 10;
-  }
+  visibility: visible;
+  z-index: 10;
+}
 
-.info-box-display{
+.info-box-display {
   display: flex;
   flex-direction: column;
   border: 0px solid black;
   border-radius: 15px;
 }
 
-.select-danger-buttons{
+.select-danger-buttons {
   padding: 5px;
   padding-right: 10px;
   padding-left: 10px;
@@ -30,4 +30,3 @@
   visibility: hidden;
   z-index: -1;
 }
-

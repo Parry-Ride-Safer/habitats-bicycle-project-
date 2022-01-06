@@ -10,7 +10,7 @@
   place-items: center;
   position: absolute;
   bottom: 0;
-  border: 1px solid black;
+  border: 1px solid rgb(231, 36, 36);
 }
 
 .danger-box-overlay {

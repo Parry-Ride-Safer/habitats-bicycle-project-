@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import Axios from 'axios';
+import Axios from "axios";
 
 const MapContext = createContext();
 
@@ -16,8 +16,8 @@ const MapProvider = ({ children }) => {
   const [selected, setSelected] = useState(null);
   const [isDangerDescriptionOpen, setIsDangerDescriptionOpen] = useState(false);
   const [isBoxSelectDangerOpen, setIsBoxSelectDangerOpen] = useState(false);
-  const [dangerDescriptionInputs, setDangerDescriptionInputs] = useState([])
-  const [isBoxDangerDetailsOpen, setIsBoxDangerDetailsOpen] = useState(false)
+  const [dangerDescriptionInputs, setDangerDescriptionInputs] = useState([]);
+  const [isBoxDangerDetailsOpen, setIsBoxDangerDetailsOpen] = useState(false);
 
   const handleDangerSubmit = (event) => {
     event.preventDefault();
@@ -26,8 +26,8 @@ const MapProvider = ({ children }) => {
   };
 
   const handleBoxDangerDetails = () => {
-    setIsBoxDangerDetailsOpen(true)
-  }
+    setIsBoxDangerDetailsOpen(true);
+  };
 
   const handleDangerDescriptionInputs = (event) => {
     const name = event.target.name;
@@ -43,8 +43,8 @@ const MapProvider = ({ children }) => {
     event.preventDefault();
     setIsDangerDescriptionOpen(false);
     setFinalMarkers((finalMarkers) => [...finalMarkers, markers]);
-    console.log(finalMarkers)
-    
+    console.log({ lat: markers.lat, lng: markers.lng });
+
     Axios.post("http://localhost:4000/routes/", {
         voting: 1,
         lat: markers.lat,
@@ -55,9 +55,9 @@ const MapProvider = ({ children }) => {
         category_id: 1
         })
       .then((response) => {
-        console.log(response)
+        console.log(response);
       })
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err));
   };
 
   const mapRef = useRef();
@@ -92,7 +92,7 @@ const MapProvider = ({ children }) => {
 
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(14);
+    mapRef.current.setZoom(15);
   }, []);
 
   return (

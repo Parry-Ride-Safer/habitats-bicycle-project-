@@ -84,4 +84,20 @@ div.aberto {
   background: rgb(99, 99, 99);
   width: 500px;
   height: 500px;
+  overflow: scroll;
+}
+.active-tabs {
+  background-color: red;
+}
+
+.img-div {
+  background-color: white;
+
+  width: 50px;
+  height: 50px;
+  display: block;
+}
+
+ul {
+  list-style: none;
 }
