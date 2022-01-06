@@ -27,6 +27,7 @@ const getReportsInOneLocation = async (locationId) => {
 
 const createReport = async ({
   information,
+  title,
   voting,
   address_id,
   users_id,
@@ -34,22 +35,30 @@ const createReport = async ({
 }) => {
   try {
     const rawresults = await db.query(
-      "INSERT INTO reports (information, voting, address_id, users_id, category_id) VALUES (?, ?, ?, ?, ?)",
-      [information, voting, address_id, users_id, category_id]
+      "INSERT INTO reports (information, title, voting, address_id, users_id, category_id) VALUES (?, ?, ?, ?, ?, ?)",
+      [information, title, voting, address_id, users_id, category_id]
     );
     const id = rawresults.insertId;
 
-    return { id, information, voting, address_id, users_id, category_id };
+    return {
+      id,
+      information,
+      title,
+      voting,
+      address_id,
+      users_id,
+      category_id,
+    };
   } catch (error) {
     console.log(error);
   }
 };
 
-const findLocation = async (lat, lon) => {
+const findLocation = async (lat, lng) => {
   try {
     const [location] = await db.query(
-      "SELECT id FROM address WHERE lat = ? AND lon = ? ",
-      [lat, lon]
+      "SELECT id FROM address WHERE lat = ? AND lng = ? ",
+      [lat, lng]
     );
     return location[0];
   } catch (error) {
@@ -57,14 +66,14 @@ const findLocation = async (lat, lon) => {
   }
 };
 
-const createLocation = async (lat, lon) => {
+const createLocation = async (lat, lng) => {
   try {
     const [location] = await db.query(
-      "INSERT INTO address (lat, lon) VALUES ( ?, ?)",
-      [lat, lon]
+      "INSERT INTO address (lat, lng) VALUES ( ?, ?)",
+      [lat, lng]
     );
     const id = location.insertId;
-    return { id, lat, lon };
+    return { id, lat, lng };
   } catch (error) {
     console.log(error);
   }

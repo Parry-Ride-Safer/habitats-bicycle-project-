@@ -1,20 +1,8 @@
 const connection = require("../../db-config");
-const Joi = require("joi");
-const { hashPassword } = require("../helpers/users");
+const { hashPassword } = require("../helpers/usersHelper");
 const saltedRounds = parseInt(process.env.SALT_ROUNDS);
 
 const db = connection.promise();
-
-const validate = (data, forCreation = true) => {
-  const presence = forCreation ? "required" : "optional";
-  return Joi.object({
-    firstname: Joi.string().max(255).presence(presence),
-    lastname: Joi.string().max(255).presence(presence),
-    email: Joi.string().email().max(255).presence(presence),
-    password: Joi.string().alphanum().min(8).max(50).presence(presence),
-    username: Joi.string().max(255).presence(presence),
-  }).validate(data, { abortEarly: false }).error;
-};
 
 connection.connect((error) => {
   if (error) {
@@ -26,9 +14,7 @@ connection.connect((error) => {
 
 const getUsers = async () => {
   try {
-    const users = await db.query(
-      "SELECT firstname, lastname, username, email from users"
-    );
+    const users = await db.query("SELECT email from users");
     return users[0];
   } catch (error) {
     console.log(error);
@@ -38,10 +24,10 @@ const getUsers = async () => {
 const createUser = async ({ password, ...body }) => {
   try {
     const hashedPassword = await hashPassword(password, saltedRounds);
-    const rawResults = await db.query("INSERT INTO users SET ?", {
-      hashedPassword,
-      ...body,
-    });
+    const [rawResults] = await db.query(
+      "INSERT INTO users (email, hashedPassword)  VALUES (?, ?)",
+      [body.email, hashedPassword]
+    );
     const id = rawResults.insertId;
     return { id, ...body };
   } catch (error) {
@@ -64,10 +50,9 @@ const validateEmail = async (email) => {
 
 const findUserbyId = async (userId) => {
   try {
-    const rawResults = await db.query(
-      "SELECT firstname, lastname, email, username FROM users WHERE id = ?",
-      [userId]
-    );
+    const rawResults = await db.query("SELECT  email FROM users WHERE id = ?", [
+      userId,
+    ]);
     const [results] = rawResults;
     return results[0];
   } catch (error) {
@@ -85,6 +70,18 @@ const findByEmail = async (email) => {
   } catch (error) {
     console.log(error);
     return error;
+  }
+};
+const getUserByEmail = async (email) => {
+  try {
+    let [results] = await db.query(
+      "SELECT id, hashedPassword, role FROM users WHERE email= ?;",
+      [email]
+    );
+    return results;
+  } catch (error) {
+    console.log(err);
+    return err;
   }
 };
 
@@ -125,8 +122,8 @@ module.exports = {
   createUser,
   validateEmail,
   findByEmail,
-  validate,
   updateUser,
   deleteUser,
   findUserbyId,
+  getUserByEmail,
 };
