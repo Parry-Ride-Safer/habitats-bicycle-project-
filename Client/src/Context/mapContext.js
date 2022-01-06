@@ -45,7 +45,7 @@ const MapProvider = ({ children }) => {
     setFinalMarkers((finalMarkers) => [...finalMarkers, markers]);
     console.log({ lat: markers.lat, lng: markers.lng });
 
-    Axios.post("http://localhost:4000/routes/", {
+    Axios.post("http://localhost:4000/reports/", {
         voting: 1,
         lat: markers.lat,
         lng: markers.lng,
