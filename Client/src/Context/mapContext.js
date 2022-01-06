@@ -48,7 +48,8 @@ const MapProvider = ({ children }) => {
     Axios.post("http://localhost:4000/routes/", {
         voting: 1,
         lat: markers.lat,
-        lon: markers.lng,
+        lng: markers.lng,
+        title: "string",
         information: "string",
         users_id: 1,
         category_id: 1

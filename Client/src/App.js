@@ -5,7 +5,7 @@ import { useLoadScript } from "@react-google-maps/api";
 import FormComponent from "./Components/Login";
 import "./app.css";
 
-const libraries = ["places"];
+const libraries = ['places'];
 
 function App() {
   const { onMapLoad, onMapClick, options } = useGlobalMapContext();

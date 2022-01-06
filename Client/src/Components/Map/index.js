@@ -1,5 +1,5 @@
 import React from "react";
-import { GoogleMap, InfoWindow, Marker, MarkerClusterer } from "@react-google-maps/api";
+import { GoogleMap, HeatmapLayer, InfoWindow, Marker, MarkerClusterer } from "@react-google-maps/api";
 import { formatRelative } from "date-fns";
 import {
   BoxSelectDanger,
@@ -11,12 +11,6 @@ import {
 import { useGlobalMapContext } from "../../Context/MapContext";
 import "./map.css";
 import "../BoxSelectDanger/boxSelectDanger.css";
-
-const divStyle = {
-  background: `white`,
-  border: `1px solid #ccc`,
-  padding: 15,
-};
 
 const mapContainerStyle = {
   width: "100vw",
@@ -44,6 +38,23 @@ const options = {
   zoomControl: true,
 };
 
+/*const clusterStyles = [{
+    width: 35,
+    height: 35,
+    textColor: '#ff00ff',
+    textSize: 20
+  }, {
+    width: 45,
+    height: 45,
+    textColor: '#ff0000',
+    textSize: 25
+  }, {
+    width: 55,
+    height: 55,
+    textColor: '#ffffff',
+    textSize: 30
+  }]*/
+
 export default function Map() {
   const {
     markers,
@@ -57,6 +68,7 @@ export default function Map() {
     handleBoxDangerDetails
   } = useGlobalMapContext();
  
+
   return (
     <GoogleMap
       mapContainerStyle={mapContainerStyle}
@@ -72,14 +84,17 @@ export default function Map() {
       </div>
       <GpsLocation panTo={panTo} />
 
-      <MarkerClusterer >
+      <MarkerClusterer
+        /*styles={clusterStyles}*/
+        gridSize = {60}
+      >
           {(clusterer) =>
             finalMarkers.map((fMarker) => (
               <Marker key={fMarker.index}
-              position={{ lat: fMarker.lat, lng: fMarker.lng }}
-              clusterer={clusterer}
-              onClick={() => {
-                setSelected(fMarker);
+                position={{ lat: fMarker.lat, lng: fMarker.lng }}
+                clusterer={clusterer}
+                onClick={() => {
+                  setSelected(fMarker);
               }} 
               />
             ))
