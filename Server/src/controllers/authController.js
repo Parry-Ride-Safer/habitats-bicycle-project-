@@ -1,27 +1,31 @@
-const { authModels } = require("../models");
-const { userHelper } = require("../helpers");
+const { authService } = require("../services/index.js");
 
-const userAuthenticationController = async (req, res) => {
-  const { email, password } = req.body;
+const cookiesOptions = { httpOnly: true };
 
-  if (email && password) {
-    try {
-      const users = await authModels.getUserByEmail(email);
-      if (!users) throw new Error("NO_MATCH");
-      const passwordIsCorrect = await userHelper.verifyPassword(
-        password,
-        users[0].hashedPassword
-      );
-      if (!passwordIsCorrect) throw new Error("NO_MATCH");
-      res.send("Logged in");
-    } catch (error) {
-      console.log(error);
-      if ("NO_MATCH") res.status(401).send("Invalid credentials!");
-      else res.status(500).send("Server issues");
-    }
-  } else {
-    res.status(401).send("Invalid credentials!");
+const register = async (req, res) => {
+  try {
+    const { token, ...user } = await authService.register(req.body);
+    res.cookie("login", token, cookiesOptions).json(user);
+  } catch (error) {
+    console.log(error);
   }
 };
 
-module.exports = { userAuthenticationController };
+const login = async (req, res) => {
+  const { token, ...user } = await authService.login(req.body);
+  try {
+    res.cookie("login", token, cookiesOptions).json(user);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const logout = async (_req, res) => {
+  try {
+    res.clearCookie("login").json({ message: "logout" });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = { register, login, logout };

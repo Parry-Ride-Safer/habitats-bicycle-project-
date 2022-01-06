@@ -42,4 +42,4 @@ primary key (id)
 );
 
 INSERT INTO category (name) VALUES('contruction'),('intersection'),('bikelane'),('road');
-INSERT INTO users VALUES ('paulo@gmail.com', 'aushduhasud');
+INSERT INTO users (email, hashedpassword)  VALUES ('paulo@gmail.com', 'aushduhasud');

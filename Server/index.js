@@ -1,15 +1,20 @@
 const { setupRoutes } = require("./src/app");
 const express = require("express");
-var cors = require('cors')
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 const corsOptions = {
-    origin: 'http://localhost:3000',
-    credentials: true, //access-control-allow-credentials:true
-    optionSuccessStatus: 200
- }
+  origin: "http://localhost:3000",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
 
 const app = express();
+
 const port = process.env.PORT || 4000;
+
+app.use(cookieParser());
+
 app.use(express.json());
 app.use(cors(corsOptions));
 setupRoutes(app);
