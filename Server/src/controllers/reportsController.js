@@ -24,13 +24,13 @@ const getReportsInOneLocationController = async (req, res) => {
 };
 
 const insertNewReportController = async (req, res) => {
-  const { lat, lon } = req.body;
+  const { lat, lng } = req.body;
   let address_id = req.body.address_id;
 
   try {
     if (!address_id) {
-      let location = await reportsModels.findLocation(lat, lon);
-      if (!location) location = await reportsModels.createLocation(lat, lon);
+      let location = await reportsModels.findLocation(lat, lng);
+      if (!location) location = await reportsModels.createLocation(lat, lng);
       address_id = location.id;
     }
     const createdReport = await reportsModels.createReport({

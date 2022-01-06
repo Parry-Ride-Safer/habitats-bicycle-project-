@@ -42,4 +42,4 @@ primary key (id)
 );
 
 INSERT INTO category (name) VALUES('contruction'),('intersection'),('bikelane'),('road');
-INSERT INTO users VALUES (1, 'paulo@gmail.com', 'aushduhasud');
+INSERT INTO users VALUES ('paulo@gmail.com', 'aushduhasud');

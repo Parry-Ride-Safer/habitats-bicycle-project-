@@ -48,7 +48,7 @@ const createReport = async ({
 const findLocation = async (lat, lon) => {
   try {
     const [location] = await db.query(
-      "SELECT id FROM address WHERE lat = ? AND lon = ? ",
+      "SELECT id FROM address WHERE lat = ? AND lng = ? ",
       [lat, lon]
     );
     return location[0];
@@ -60,7 +60,7 @@ const findLocation = async (lat, lon) => {
 const createLocation = async (lat, lon) => {
   try {
     const [location] = await db.query(
-      "INSERT INTO address (lat, lon) VALUES ( ?, ?)",
+      "INSERT INTO address (lat, lng) VALUES ( ?, ?)",
       [lat, lon]
     );
     const id = location.insertId;

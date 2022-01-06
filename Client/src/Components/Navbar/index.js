@@ -8,6 +8,8 @@ const Navbar = () => {
   const [toggleState, setToggleState] = useState(1);
 
   const [info, setinfo] = useState([]);
+  const [user, setUser] = useState([]);
+
   const getInfo = () => {
     Axios.get("http://localhost:4000/routes/").then((response) => {
       console.log(response.data);
@@ -15,11 +17,12 @@ const Navbar = () => {
     });
   };
 
-  /* const getUser = () => {
-    Axios.get("http://localhost:4000/routes/").then((response) => {
+  const getUser = () => {
+    Axios.get("http://localhost:4000/users/").then((response) => {
       console.log(response.data);
+      setUser(response.data[0].email);
     });
-  }; */
+  };
 
   const toggleTab = (index) => {
     setToggleState(index);
@@ -50,7 +53,7 @@ const Navbar = () => {
             <div className="bloc-tabs">
               <button
                 className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
-                onClick={() => toggleTab(1)}
+                onClick={() => toggleTab(1) + getUser()}
               >
                 Info
               </button>
@@ -77,7 +80,7 @@ const Navbar = () => {
                 <h2>your Profile</h2>
                 <hr />
                 <h3>user information:</h3>
-                <p> login email </p>
+                <p> {user} </p>
               </div>
 
               <div
@@ -90,18 +93,18 @@ const Navbar = () => {
 
                 <div>
                   {info.map((contact) => (
-                    <ul key={contact.id}>
-                      <li> information :{contact.information}</li>
-                      <li> voting : {contact.voting}</li>
-                      <li> category : {contact.category_id}</li>
-                    </ul>
+                    <div className="your-spots-container">
+                      <ul key={contact.id}>
+                        <li>
+                          <span className="img-div">img </span>
+                        </li>
+                        <li> information :{contact.information}</li>
+                        <li> voting : {contact.voting}</li>
+                        <li> category : {contact.category_id}</li>
+                      </ul>
+                    </div>
                   ))}
                 </div>
-
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Sapiente voluptatum qui adipisci.
-                </p>
               </div>
 
               <div
