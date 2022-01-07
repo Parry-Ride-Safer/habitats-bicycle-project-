@@ -1,5 +1,5 @@
 import React from "react";
-import { GoogleMap, HeatmapLayer, InfoWindow, Marker, MarkerClusterer } from "@react-google-maps/api";
+import { GoogleMap, InfoWindow, Marker, MarkerClusterer } from "@react-google-maps/api";
 import { formatRelative } from "date-fns";
 import {
   BoxSelectDanger,

@@ -60,9 +60,18 @@ const MapProvider = ({ children }) => {
       .catch((err) => console.log(err));
   };
 
+  
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
+
+    /*Axios.get("http://localhost:4000/location/", {
+  })
+    .then((response) => {
+      setFinalMarkers(response.data)
+      console.log(response.data)
+    })
+    .catch((err) => console.log(err));*/
   }, []);
 
   const onMapClick = useCallback((event) => {
@@ -128,4 +137,4 @@ export const useGlobalMapContext = () => {
   return useContext(MapContext);
 };
 
-export { MapProvider };
+export { MapProvider }
