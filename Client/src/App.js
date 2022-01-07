@@ -2,7 +2,8 @@ import React from "react";
 import { Map, Navbar } from "./Components";
 import { useGlobalMapContext } from "./Context/MapContext";
 import { useLoadScript } from "@react-google-maps/api";
-import FormComponent from "./Components/Login";
+// import FormComponent from "./Components/Login";
+import LoginTest from "./Components/loginTest";
 import "./app.css";
 
 const libraries = ['places'];
@@ -20,8 +21,10 @@ function App() {
 
   return (
     <>
+      <LoginTest />
       <Navbar />
-      <FormComponent />
+
+      {/* <FormComponent /> */}
       <Map options={options} onMapLoad={onMapLoad} onMapClick={onMapClick} />
     </>
   );
