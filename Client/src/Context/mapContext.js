@@ -45,13 +45,13 @@ const MapProvider = ({ children }) => {
     setFinalMarkers((finalMarkers) => [...finalMarkers, markers]);
     console.log({ lat: markers.lat, lng: markers.lng });
 
-    Axios.post("http://localhost:4000/routes/", {
+    Axios.post("http://localhost:4000/reports/", {
       voting: 1,
       lat: markers.lat,
       lng: markers.lng,
-      information: "string",
+      information: "rua string ",
       title: "teste tittle",
-      users_id: 1,
+      users_id: 4,
       category_id: 1,
     })
       .then((response) => {

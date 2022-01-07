@@ -9,9 +9,9 @@ const Navbar = () => {
 
   const [info, setinfo] = useState([]);
   const [user, setUser] = useState([]);
-
+  const [log2, setLog2] = useState("");
   const getInfo = () => {
-    Axios.get("http://localhost:4000/routes/").then((response) => {
+    Axios.get(`http://localhost:4000/reports/${log2}`).then((response) => {
       console.log(response.data);
       setinfo(response.data);
     });
