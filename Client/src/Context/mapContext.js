@@ -46,23 +46,32 @@ const MapProvider = ({ children }) => {
     console.log({ lat: markers.lat, lng: markers.lng });
 
     Axios.post("http://localhost:4000/reports/", {
-      voting: 1,
-      lat: markers.lat,
-      lng: markers.lng,
-      information: "rua string ",
-      title: "teste tittle",
-      users_id: 4,
-      category_id: 1,
-    })
+        voting: 1,
+        lat: markers.lat,
+        lng: markers.lng,
+        title: "string",
+        information: "string",
+        users_id: 1,
+        category_id: 1
+        })
       .then((response) => {
         console.log(response);
       })
       .catch((err) => console.log(err));
   };
 
+  
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
+
+    /*Axios.get("http://localhost:4000/location/", {
+  })
+    .then((response) => {
+      setFinalMarkers(response.data)
+      console.log(response.data)
+    })
+    .catch((err) => console.log(err));*/
   }, []);
 
   const onMapClick = useCallback((event) => {
@@ -128,4 +137,4 @@ export const useGlobalMapContext = () => {
   return useContext(MapContext);
 };
 
-export { MapProvider };
+export { MapProvider }
