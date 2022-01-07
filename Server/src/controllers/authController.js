@@ -5,6 +5,7 @@ const cookiesOptions = { httpOnly: true };
 const register = async (req, res) => {
   try {
     const { token, ...user } = await authService.register(req.body);
+
     res.cookie("login", token, cookiesOptions).json(user);
   } catch (error) {
     console.log(error);
@@ -12,8 +13,8 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { token, ...user } = await authService.login(req.body);
   try {
+    const { token, ...user } = await authService.login(req.body);
     res.cookie("login", token, cookiesOptions).json(user);
   } catch (error) {
     console.log(error);

@@ -75,7 +75,7 @@ const findByEmail = async (email) => {
 const getUserByEmail = async (email) => {
   try {
     let [results] = await db.query(
-      "SELECT id, hashedPassword, role FROM users WHERE email= ?;",
+      "SELECT id, email, hashedPassword, role FROM users WHERE email= ?;",
       [email]
     );
     return results;
