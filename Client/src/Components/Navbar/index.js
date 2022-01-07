@@ -1,10 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./navbar.css";
+import Axios from "axios";
 
 const Navbar = () => {
   const [btnState, setState] = useState(false);
-  const [btnLink, setBtnLink] = useState(false);
+
   const [toggleState, setToggleState] = useState(1);
+
+  const [info, setinfo] = useState([]);
+  const [user, setUser] = useState([]);
+
+  const getInfo = () => {
+    Axios.get("http://localhost:4000/routes/").then((response) => {
+      console.log(response.data);
+      setinfo(response.data);
+    });
+  };
+
+  const getUser = () => {
+    Axios.get("http://localhost:4000/users/").then((response) => {
+      console.log(response.data);
+      setUser(response.data[0].email);
+    });
+  };
 
   const toggleTab = (index) => {
     setToggleState(index);
@@ -14,9 +32,9 @@ const Navbar = () => {
     setState(!btnState);
   };
 
-  const handleClick2 = () => {
-    setBtnLink(!btnLink);
-  };
+  /*  useEffect(() => {
+    getInfo();
+  }, []); */
 
   return (
     <>
@@ -35,13 +53,13 @@ const Navbar = () => {
             <div className="bloc-tabs">
               <button
                 className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
-                onClick={() => toggleTab(1)}
+                onClick={() => toggleTab(1) + getUser()}
               >
                 Info
               </button>
               <button
                 className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
-                onClick={() => toggleTab(2)}
+                onClick={() => toggleTab(2) + getInfo()}
               >
                 Your spots
               </button>
@@ -61,11 +79,8 @@ const Navbar = () => {
               >
                 <h2>your Profile</h2>
                 <hr />
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Obcaecati praesentium incidunt quia aspernatur quasi quidem
-                  facilis quo nihil vel voluptatum?
-                </p>
+                <h3>user information:</h3>
+                <p> {user} </p>
               </div>
 
               <div
@@ -75,10 +90,21 @@ const Navbar = () => {
               >
                 <h2>your spots</h2>
                 <hr />
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Sapiente voluptatum qui adipisci.
-                </p>
+
+                <div>
+                  {info.map((contact) => (
+                    <div className="your-spots-container">
+                      <ul key={contact.id}>
+                        <li>
+                          <span className="img-div">img </span>
+                        </li>
+                        <li> information :{contact.information}</li>
+                        <li> voting : {contact.voting}</li>
+                        <li> category : {contact.category_id}</li>
+                      </ul>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               <div
@@ -101,35 +127,6 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-
-        {/* <div className={btnState ? "tab-wrapper" : "fechado"}>
-          <div class="tab">
-            <button class="tablinks" onClick={handleClick2}>
-              London
-            </button>
-            <button class="tablinks" onClick={handleClick2}>
-              Paris
-            </button>
-            <button class="tablinks" onClick={handleClick2}>
-              Tokyo
-            </button>
-          </div>
-
-          <div id="London" class={btnLink ? "tabcontent" : "fechado"}>
-            <h3>London</h3>
-            <p>London is the capital city of England.</p>
-          </div>
-
-          <div id="Paris" class={btnLink ? "tabcontent" : "fechado"}>
-            <h3>Paris</h3>
-            <p>Paris is the capital of France.</p>
-          </div>
-
-          <div id="Tokyo" class={btnLink ? "tabcontent" : "fechado"}>
-            <h3>Tokyo</h3>
-            <p>Tokyo is the capital of Japan.</p>
-          </div>
-        </div> */}
       </div>
     </>
   );
