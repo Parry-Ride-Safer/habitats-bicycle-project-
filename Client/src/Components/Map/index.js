@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
 import useSwr from "swr";
 import useSuperCluster from "use-supercluster"
-import { formatRelative } from "date-fns";
+import { formatRelative, parse } from "date-fns";
 import Axios from "axios";
 import {
   BoxSelectDanger,
@@ -17,8 +17,6 @@ import "../BoxSelectDanger/boxSelectDanger.css";
 import useSWR from "swr";
 
 
-
-
 const mapContainerStyle = {
   width: "100vw",
   height: "100vh",
@@ -29,7 +27,7 @@ const center = {
   lng: 13.405,
 };
 
-const options = {
+const mapOptions = {
   styles: [
     {
       featureType: "poi",
@@ -81,13 +79,30 @@ const options = {
   const [zoom, setZoom] = useState(10);
   const [bounds, setBounds] = useState(null);
 
-
   const url = "http://localhost:4000/location/"
-  const {data, error} = useSWR(url, fetcher);
+  const {data, error} = useSwr(url, {fetcher});
   const getFinalMarkers = data && !error ? data.slice(0,200) : [];
-  console.log(data)
+  
+  const points = getFinalMarkers.map(gMarker => ({
+    type:"Feature",
+    properties: {
+      cluster: false,
+      markerId: gMarker.id, 
+    },
+    geometry: { type: "Point",
+    coordinates: [
+      parseFloat(gMarker.lng),
+      parseFloat(gMarker.lat)
+    ]}
+  }));
 
-
+  const { clusters, supercluster } = useSuperCluster({
+    points,
+    bounds,
+    zoom,
+    options: {radius: 75, maxZoom:75}
+  })
+  const mapRef = useRef();
   return (
     <div>
 
@@ -95,8 +110,17 @@ const options = {
       mapContainerStyle={mapContainerStyle}
       zoom={8}
       center={center}
-      options={options}
+      options={mapOptions}
       onClick={onMapClick}
+      onChange={({ zoom, bounds }) => {
+        setZoom(zoom);
+        setBounds([
+          bounds.nw.lng,
+          bounds.se.lat,
+          bounds.se.lng,
+          bounds.nw.lat
+        ]);
+      }}
       onLoad={onMapLoad}
       yesIWantToUseGoogleMapApiInternals
     >
@@ -105,6 +129,42 @@ const options = {
       </div>
       <GpsLocation panTo={panTo} />
       
+      {clusters.map(cluster => {
+          const [longitude, latitude] = cluster.geometry.coordinates;
+          const {
+            cluster: isCluster,
+            point_count: pointCount
+          } = cluster.properties;
+
+          if (isCluster) {
+            return (
+              <Marker
+                key={`cluster-${cluster.id}`}
+                lat={latitude}
+                lng={longitude}
+              >
+                <div
+                  className="cluster-marker"
+                  style={{
+                    width: `${10 + (pointCount / points.length) * 20}px`,
+                    height: `${10 + (pointCount / points.length) * 20}px`
+                  }}
+                  onClick={() => {
+                    const expansionZoom = Math.min(
+                      supercluster.getClusterExpansionZoom(cluster.id),
+                      20
+                    );
+                    mapRef.current.setZoom(expansionZoom);
+                    mapRef.current.panTo({ lat: latitude, lng: longitude });
+                  }}
+                >
+                  {pointCount}
+                </div>
+              </Marker>
+            );
+          }
+        })}
+
 
     {getFinalMarkers.map((getMarker) => (
       <Marker 
@@ -119,7 +179,7 @@ const options = {
       >
       </Marker>
     ))}
-
+{/*}
       {finalMarkers.map((fMarker) => (
         <Marker key={fMarker.id}
           position={{ lat: fMarker.lat, lng: fMarker.lng }}
@@ -135,7 +195,7 @@ const options = {
         />
       ))
     }
-  
+  */}
       {selected ? (
         <InfoWindow
           position={{ lat: selected.lat, lng: selected.lng }}
