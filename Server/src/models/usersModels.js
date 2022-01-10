@@ -80,6 +80,17 @@ const deleteUser = async (id) => {
   return results;
 };
 
+const reportsFromUserId = async (id) => {
+  try {
+    let [results] = await db.query("SELECT * from reports WHERE users_id = ?", [
+      id,
+    ]);
+    return results;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   getUsers,
   createUser,
@@ -89,4 +100,5 @@ module.exports = {
   deleteUser,
   findUserbyId,
   getUserByEmail,
+  reportsFromUserId,
 };

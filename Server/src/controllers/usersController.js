@@ -83,6 +83,18 @@ const deleteUserController = async (req, res) => {
     else res.status(500).send("Error deleting an user");
   }
 };
+const reportsFromUserIdController = async (req, res) => {
+  const targetID = req.params.id;
+  try {
+    const reports = await usersModels.reportsFromUserId(targetID);
+    if (reports.length < 1) throw new Error("RECORD_NOT_FOUND");
+    res.status(200).send(reports);
+  } catch (error) {
+    console.log(error);
+    if ("RECORD_NOT_FOUND") res.status(404).send("reports not found.");
+    else res.status(500).send("Error error finding reports");
+  }
+};
 
 module.exports = {
   getUsersController,
@@ -90,4 +102,5 @@ module.exports = {
   findUserbyIdController,
   updateUserController,
   deleteUserController,
+  reportsFromUserIdController,
 };

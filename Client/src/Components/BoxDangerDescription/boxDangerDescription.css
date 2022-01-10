@@ -3,7 +3,7 @@
   z-index: 10;
   background: rgb(240, 236, 236);
   border-radius: var(--radius);
-  width: 80vw;
+  width: 100vw;
   height: 100vh;
   max-width: var(--fixed-width);
   text-align: center;

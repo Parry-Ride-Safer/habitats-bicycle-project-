@@ -1,4 +1,4 @@
-import { useGlobalMapContext } from "../../Context/MapContext";
+import { useGlobalMapContext } from "../../Context/mapContext";
 import "./boxDangerList.css";
 
 export default function BoxDangerDetails () {
