@@ -1,4 +1,5 @@
 const { reportsModels } = require("../models");
+const { createReport } = require("../models/reportsModels");
 
 const getAllReportsController = async (req, res) => {
   try {
@@ -37,10 +38,12 @@ const insertNewReportController = async (req, res) => {
       ...req.body,
       address_id,
     });
+    if (!createdReport) throw new Error("INVALID_DATA");
     res.status(201).json(createdReport);
   } catch (error) {
     console.log(error);
-    res.status(500).send("Error saving Location");
+    if ("INVALID_DATA") res.status(400).send("Missing data");
+    else res.status(500).send("Error saving Location");
   }
 };
 

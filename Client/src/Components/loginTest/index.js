@@ -9,7 +9,7 @@ const LoginTest = () => {
   const [log, setLog] = useState("");
   const [infoTest, setinfoTest] = useState([]);
 
-  const handleClickUser = (e) => {
+  const handleClickInfo = (e) => {
     e.preventDefault();
 
     getUserTest();
@@ -94,7 +94,11 @@ const LoginTest = () => {
     }
 
     // if (localStorage.getItem("id"))
-  }, []);
+  }, [user]);
+
+  /*  useEffect(() => {
+    handleClickUser;
+  }, [user]); */
 
   return (
     <div>
@@ -130,7 +134,7 @@ const LoginTest = () => {
         ) : null}
         <div>
           {localStorage.getItem("user-info") ? (
-            <button onClick={handleClickUser}>get info</button>
+            <button onClick={handleClickInfo}>get info</button>
           ) : null}
           <p> user do login vem daqui : {userTest} </p>
         </div>

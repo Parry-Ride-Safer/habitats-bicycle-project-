@@ -16,7 +16,6 @@ const register = async (user) => {
   const userCreated = await usersModels.createUser({ ...user, role: "user" });
 
   const token = authHelper.generateToken(userCreated);
-
   return { ...userCreated, action: "registered", token };
 };
 

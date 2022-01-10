@@ -24,7 +24,6 @@ primary key (id));
 create table `reports`(
 `id` int not null auto_increment,
 `information` varchar(300),
-`title` varchar(100),
 `voting` int,
 `users_id` int not null,
 `address_id` int not null,
