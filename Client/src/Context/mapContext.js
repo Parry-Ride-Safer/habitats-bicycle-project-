@@ -18,6 +18,7 @@ const MapProvider = ({ children }) => {
   const [isBoxSelectDangerOpen, setIsBoxSelectDangerOpen] = useState(false);
   const [dangerDescriptionInputs, setDangerDescriptionInputs] = useState([]);
   const [isBoxDangerDetailsOpen, setIsBoxDangerDetailsOpen] = useState(false);
+  const [dangerTypeConvert, setdangerTypeConvert] = useState(null);
 
   const handleDangerSubmit = (event) => {
     event.preventDefault();
@@ -28,6 +29,7 @@ const MapProvider = ({ children }) => {
   const handleBoxDangerDetails = () => {
     setIsBoxDangerDetailsOpen(true);
   };
+  let user = JSON.parse(localStorage.getItem("user-info"));
 
   const handleDangerDescriptionInputs = (event) => {
     const name = event.target.name;
@@ -36,7 +38,8 @@ const MapProvider = ({ children }) => {
   };
 
   const handleDangerChoice = (event) => {
-    setDangerType(event.target.value);
+    console.log("this shit aint working chief");
+    return setDangerType(event.target.value);
   };
 
   const dangerFormSubmit = (event) => {
@@ -46,21 +49,21 @@ const MapProvider = ({ children }) => {
     console.log({ lat: markers.lat, lng: markers.lng });
 
     Axios.post("http://localhost:4000/reports/", {
-        voting: 1,
-        lat: markers.lat,
-        lng: markers.lng,
-        title: "string",
-        information: "string",
-        users_id: 1,
-        category_id: 1
-        })
+      voting: 1,
+      lat: markers.lat,
+      lng: markers.lng,
+      title: dangerDescriptionInputs.title,
+      information: dangerDescriptionInputs.description,
+      users_id: user.id,
+      category_id: dangerTypeConvert,
+    })
       .then((response) => {
+        console.log(dangerType);
         console.log(response);
       })
       .catch((err) => console.log(err));
   };
 
-  
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
@@ -126,6 +129,8 @@ const MapProvider = ({ children }) => {
         dangerDescriptionInputs,
         handleDangerDescriptionInputs,
         handleBoxDangerDetails,
+        dangerTypeConvert,
+        setdangerTypeConvert,
       }}
     >
       {children}
@@ -137,4 +142,4 @@ export const useGlobalMapContext = () => {
   return useContext(MapContext);
 };
 
-export { MapProvider }
+export { MapProvider };
