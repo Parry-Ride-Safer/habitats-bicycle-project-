@@ -1,6 +1,6 @@
 import React from "react";
 import { Map, Navbar } from "./Components";
-import { useGlobalMapContext } from "./Context/MapContext";
+import { useGlobalMapContext } from "./Context/mapContext";
 import { useLoadScript } from "@react-google-maps/api";
 // import FormComponent from "./Components/Login";
 import LoginTest from "./Components/loginTest";

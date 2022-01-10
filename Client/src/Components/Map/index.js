@@ -11,7 +11,7 @@ import {
   SearchBox,
   BoxDangerList,
 } from "../";
-import { useGlobalMapContext } from "../../Context/MapContext";
+import { useGlobalMapContext } from "../../Context/mapContext";
 import "./map.css";
 import "../BoxSelectDanger/boxSelectDanger.css";
 import useSWR from "swr";
