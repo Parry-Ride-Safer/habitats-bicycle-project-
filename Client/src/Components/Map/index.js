@@ -11,11 +11,12 @@ import {
   SearchBox,
   BoxDangerList,
 } from "../";
-import { useGlobalMapContext } from "../../Context/MapContext";
+import { useGlobalMapContext } from "../../Context/mapContext";
 import "./map.css";
 import "../BoxSelectDanger/boxSelectDanger.css";
 import logo from "./Polygon38.png";
 import useSWR from "swr";
+import logoBlue from "./PolygonBlue.png";
 
 const mapContainerStyle = {
   width: "100vw",
@@ -121,6 +122,7 @@ export default function Map() {
             key={fMarker.id}
             position={{ lat: fMarker.lat, lng: fMarker.lng }}
             icon={{
+              url: logo,
               scaledSize: new window.google.maps.Size(50, 50),
               origin: new window.google.maps.Point(0, 0),
               anchor: new window.google.maps.Point(25, 25),
@@ -152,7 +154,7 @@ export default function Map() {
           <Marker
             position={markers}
             icon={{
-              url: logo,
+              url: logoBlue,
               scaledSize: new window.google.maps.Size(50, 50),
               origin: new window.google.maps.Point(0, 0),
               anchor: new window.google.maps.Point(25, 25),
