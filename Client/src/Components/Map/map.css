@@ -5,3 +5,8 @@
   background-color: whitesmoke;
   z-index: 50;
 }
+
+.location-marker{
+  background: none;
+  border:none;
+}

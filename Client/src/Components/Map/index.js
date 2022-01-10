@@ -1,6 +1,9 @@
-import React from "react";
-import { GoogleMap, InfoWindow, Marker, MarkerClusterer } from "@react-google-maps/api";
+import React, { useState } from "react";
+import { GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
+import useSwr from "swr";
+import useSuperCluster from "use-supercluster"
 import { formatRelative } from "date-fns";
+import Axios from "axios";
 import {
   BoxSelectDanger,
   BoxDangerDescription,
@@ -11,6 +14,10 @@ import {
 import { useGlobalMapContext } from "../../Context/MapContext";
 import "./map.css";
 import "../BoxSelectDanger/boxSelectDanger.css";
+import useSWR from "swr";
+
+
+
 
 const mapContainerStyle = {
   width: "100vw",
@@ -55,9 +62,12 @@ const options = {
     textSize: 30
   }]*/
 
-export default function Map() {
+  const fetcher = (...args) => fetch(...args).then(response => response.json());
+  
+  export default function Map() {
   const {
     markers,
+    setFinalMarkers,
     isBoxSelectDangerOpen,
     finalMarkers,
     onMapClick,
@@ -68,8 +78,19 @@ export default function Map() {
     handleBoxDangerDetails,
   } = useGlobalMapContext();
  
+  const [zoom, setZoom] = useState(10);
+  const [bounds, setBounds] = useState(null);
+
+
+  const url = "http://localhost:4000/location/"
+  const {data, error} = useSWR(url, fetcher);
+  const getFinalMarkers = data && !error ? data.slice(0,200) : [];
+  console.log(data)
+
 
   return (
+    <div>
+
     <GoogleMap
       mapContainerStyle={mapContainerStyle}
       zoom={8}
@@ -83,24 +104,38 @@ export default function Map() {
         <SearchBox panTo={panTo} />
       </div>
       <GpsLocation panTo={panTo} />
+      
 
-      <MarkerClusterer
-        /*styles={clusterStyles}*/
-        gridSize = {60}
+    {getFinalMarkers.map((getMarker) => (
+      <Marker 
+        key={getMarker.id}
+        position = {{lat: Number(getMarker.lat), lng:Number(getMarker.lng)}}
+        icon={{
+          
+          scaledSize: new window.google.maps.Size(50, 50),
+          origin: new window.google.maps.Point(0, 0),
+          anchor: new window.google.maps.Point(25, 25),
+        }}
       >
-          {(clusterer) =>
-            finalMarkers.map((fMarker) => (
-              <Marker key={fMarker.index}
-                position={{ lat: fMarker.lat, lng: fMarker.lng }}
-                clusterer={clusterer}
-                onClick={() => {
-                  setSelected(fMarker);
-              }} 
-              />
-            ))
-          }
-        </MarkerClusterer>
+      </Marker>
+    ))}
 
+      {finalMarkers.map((fMarker) => (
+        <Marker key={fMarker.id}
+          position={{ lat: fMarker.lat, lng: fMarker.lng }}
+          icon={{
+           
+            scaledSize: new window.google.maps.Size(50, 50),
+            origin: new window.google.maps.Point(0, 0),
+            anchor: new window.google.maps.Point(25, 25),
+          }}
+          onClick={() => {
+            setSelected(fMarker);
+        }} 
+        />
+      ))
+    }
+  
       {selected ? (
         <InfoWindow
           position={{ lat: selected.lat, lng: selected.lng }}
@@ -123,5 +158,6 @@ export default function Map() {
       <BoxDangerDescription />
       <BoxDangerList />
     </GoogleMap>
+    </div>
   );
 }
