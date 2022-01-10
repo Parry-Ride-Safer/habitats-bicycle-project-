@@ -1,5 +1,5 @@
 import React from "react";
-import { useGlobalMapContext } from "../../Context/MapContext";
+import { useGlobalMapContext } from "../../Context/mapContext";
 import "./style.css";
 import gpsIcon from "../../resources/gps-icon.png";
 
