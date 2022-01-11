@@ -12,7 +12,6 @@ import { useGlobalMapContext } from "../../Context/mapContext";
 import "./map.css";
 import "../BoxSelectDanger/boxSelectDanger.css";
 import logo from "./Polygon38.png";
-
 import logoBlue from "./PolygonBlue.png";
 
 
@@ -91,44 +90,8 @@ export default function Map() {
         <SearchBox panTo={panTo} />
       </div>
         <GpsLocation panTo={panTo} />
-       {/*
-      {clusters.map(cluster => {
-          const [longitude, latitude] = cluster.geometry.coordinates;
-          const {
-            cluster: isCluster,
-            point_count: pointCount
-          } = cluster.properties;
 
-         
-            return (
-              
-              <Marker
-                key={`cluster-${cluster.id}`}
-                lat={latitude}
-                lng={longitude}
-              >
-                <div
-                  className="cluster-marker"
-                  style={{
-                    width: `${10 + (pointCount / points.length) * 20}px`,
-                    height: `${10 + (pointCount / points.length) * 20}px`
-                  }}
-                  onClick={() => {
-                    const expansionZoom = Math.min(
-                      supercluster.getClusterExpansionZoom(cluster.id),
-                      20
-                    );
-                    mapRef.current.setZoom(expansionZoom);
-                    mapRef.current.panTo({ lat: latitude, lng: longitude });
-                  }}
-                >
-                  {pointCount}
-                </div>
-              </Marker>
-            );
-          }
-        })}
-      */}
+   
   <MarkerClusterer
         /*styles={clusterStyles}*/
         gridSize = {60}
@@ -167,7 +130,8 @@ export default function Map() {
         </InfoBox>
       ) : null}
 
-      {isBoxSelectDangerOpen ? <Marker position={markers} icons={{
+      {isBoxSelectDangerOpen ? <Marker position={markers} 
+      icon={{
         url: logoBlue,
         scaledSize: new window.google.maps.Size(50, 50),
         origin: new window.google.maps.Point(0, 0),

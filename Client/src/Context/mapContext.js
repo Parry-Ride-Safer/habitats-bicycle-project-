@@ -11,14 +11,17 @@ import Axios from "axios";
 const MapContext = createContext();
 
 const MapProvider = ({ children }) => {
+  
    
+  const base_URL = process.env.REACT_APP_API_ROUTE_URL
+
   const [dangerType, setDangerType] = useState();
   const [markers, setMarkers] = useState();
   const [finalMarkers, setFinalMarkers] = useState([]);
     useEffect(() => {
       const fetchMarkers = async () => {
         const result = await Axios(
-          'http://localhost:4000/location/',
+          process.env.REACT_APP_API_ROUTE_URL
         );
         setFinalMarkers(result.data);
       };
