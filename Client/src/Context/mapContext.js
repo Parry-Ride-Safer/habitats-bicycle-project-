@@ -2,6 +2,7 @@ import React, {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useRef,
   useState,
 } from "react";
@@ -10,17 +11,28 @@ import Axios from "axios";
 const MapContext = createContext();
 
 const MapProvider = ({ children }) => {
+   
   const [dangerType, setDangerType] = useState();
   const [markers, setMarkers] = useState();
   const [finalMarkers, setFinalMarkers] = useState([]);
+    useEffect(() => {
+      const fetchMarkers = async () => {
+        const result = await Axios(
+          'http://localhost:4000/location/',
+        );
+        setFinalMarkers(result.data);
+      };
+      fetchMarkers();
+    }, []);
+ 
   const [selected, setSelected] = useState(null);
   const [isDangerDescriptionOpen, setIsDangerDescriptionOpen] = useState(false);
   const [isBoxSelectDangerOpen, setIsBoxSelectDangerOpen] = useState(false);
   const [dangerDescriptionInputs, setDangerDescriptionInputs] = useState([]);
   const [isBoxDangerDetailsOpen, setIsBoxDangerDetailsOpen] = useState(false);
   const [dangerTypeConvert, setdangerTypeConvert] = useState(null);
-
-  const handleDangerSubmit = (event) => {
+  
+   const handleDangerSubmit = (event) => {
     event.preventDefault();
     setIsBoxSelectDangerOpen(false);
     setIsDangerDescriptionOpen(true);
@@ -67,7 +79,6 @@ const MapProvider = ({ children }) => {
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
-  
   }, []);
 
   const onMapClick = useCallback((event) => {

@@ -1,7 +1,5 @@
-import React, { useState, useRef } from "react";
-import { GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
-import useSwr from "swr";
-import useSuperCluster from "use-supercluster"
+import React from "react";
+import { GoogleMap, InfoWindow, Marker, MarkerClusterer } from "@react-google-maps/api";
 import { formatRelative, parse } from "date-fns";
 import Axios from "axios";
 import {
@@ -62,12 +60,11 @@ const mapOptions = {
     textSize: 30
   }]*/
 
-const fetcher = (...args) => fetch(...args).then((response) => response.json());
+
 
 export default function Map() {
   const {
     markers,
-    setFinalMarkers,
     isBoxSelectDangerOpen,
     finalMarkers,
     onMapClick,
@@ -78,33 +75,7 @@ export default function Map() {
     handleBoxDangerDetails,
   } = useGlobalMapContext();
 
-  const [zoom, setZoom] = useState(10);
-  const [bounds, setBounds] = useState(null);
-
-  const url = "http://localhost:4000/location/"
-  const {data, error} = useSwr(url, {fetcher});
-  const getFinalMarkers = data && !error ? data.slice(0,200) : [];
   
-  const points = getFinalMarkers.map(gMarker => ({
-    type:"Feature",
-    properties: {
-      cluster: false,
-      markerId: gMarker.id, 
-    },
-    geometry: { type: "Point",
-    coordinates: [
-      parseFloat(gMarker.lng),
-      parseFloat(gMarker.lat)
-    ]}
-  }));
-
-  const { clusters, supercluster } = useSuperCluster({
-    points,
-    bounds,
-    zoom,
-    options: {radius: 75, maxZoom:75}
-  })
-  const mapRef = useRef();
   return (
     <div>
 
@@ -114,15 +85,6 @@ export default function Map() {
       center={center}
       options={mapOptions}
       onClick={onMapClick}
-      onChange={({ zoom, bounds }) => {
-        setZoom(zoom);
-        setBounds([
-          bounds.nw.lng,
-          bounds.se.lat,
-          bounds.se.lng,
-          bounds.nw.lat
-        ]);
-      }}
       onLoad={onMapLoad}
       yesIWantToUseGoogleMapApiInternals
     >
@@ -130,7 +92,7 @@ export default function Map() {
         <SearchBox panTo={panTo} />
       </div>
         <GpsLocation panTo={panTo} />
-      
+       {/*
       {clusters.map(cluster => {
           const [longitude, latitude] = cluster.geometry.coordinates;
           const {
@@ -138,8 +100,9 @@ export default function Map() {
             point_count: pointCount
           } = cluster.properties;
 
-          if (isCluster) {
+         
             return (
+              
               <Marker
                 key={`cluster-${cluster.id}`}
                 lat={latitude}
@@ -166,38 +129,30 @@ export default function Map() {
             );
           }
         })}
-
-
-    {getFinalMarkers.map((getMarker) => (
-      <Marker 
-        key={getMarker.id}
-        position = {{lat: Number(getMarker.lat), lng:Number(getMarker.lng)}}
-        icon={{
-          url: logo,
-          scaledSize: new window.google.maps.Size(50, 50),
-          origin: new window.google.maps.Point(0, 0),
-          anchor: new window.google.maps.Point(25, 25),
-        }}
-      >
-      </Marker>
-    ))}
-
-      {finalMarkers.map((fMarker) => (
-        <Marker key={fMarker.id}
-          position={{ lat: fMarker.lat, lng: fMarker.lng }}
-          icon={{
-              url: logo,
-              scaledSize: new window.google.maps.Size(50, 50),
-              origin: new window.google.maps.Point(0, 0),
-              anchor: new window.google.maps.Point(25, 25),
-          }}
-          onClick={() => {
-            setSelected(fMarker);
-        }} 
-        />
-      ))
-    }
+      */}
+  <MarkerClusterer
+        /*styles={clusterStyles}*/
+        gridSize = {60}
+  >
+        {(clusterer) =>
+            finalMarkers.map((fMarker) => (
+              <Marker key={fMarker.id}
+                position={{ lat: Number(fMarker.lat), lng: Number(fMarker.lng) }}
+                clusterer={clusterer}
+                icon={{
+                    url: logo,
+                    scaledSize: new window.google.maps.Size(50, 50),
+                    origin: new window.google.maps.Point(0, 0),
+                    anchor: new window.google.maps.Point(25, 25),
+                }}
+                onClick={() => {
+                  setSelected(fMarker);
+              }} 
+              />
+          ))}
+    </MarkerClusterer>
  
+
       {selected ? (
         <InfoWindow
           position={{ lat: selected.lat, lng: selected.lng }}
@@ -224,10 +179,6 @@ export default function Map() {
       <BoxDangerDescription />
       <BoxDangerList />
     </GoogleMap>
- 
-  
-
-  
     </div>
   );
 }
