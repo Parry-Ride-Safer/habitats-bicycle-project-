@@ -1,4 +1,4 @@
-exports.userController = require("./usersController");
+exports.userController = require("./userController");
 exports.authController = require("./authController");
-exports.reportsController = require("./reportsController");
+exports.reportsController = require("./reportController");
 exports.locationController = require("./locationController");
