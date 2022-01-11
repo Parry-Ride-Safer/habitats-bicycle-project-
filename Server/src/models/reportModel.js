@@ -3,38 +3,46 @@ const connection = require("../../db-config");
 const db = connection.promise();
 
 const getAllReports = async () => {
-  const reports = await db.query("SELECT * FROM reports");
+  const reports = await db.query("SELECT * FROM report");
   return reports[0];
 };
 
 const getReportsInOneLocation = async (locationId) => {
   const reports = await db.query(
-    "SELECT information, voting, category_id  FROM reports WHERE address_id = ?",
+    "SELECT information, avg(voting), category_id  FROM report join voting on voting.report_id = report.id WHERE address_id = ? group by  category_id order by category_id asc",
     [locationId]
   );
   const results = reports;
   return results[0];
 };
 
+const createVoting = async (voting, user_id, id) =>
+  await db.query(
+    "INSERT INTO voting ( voting, user_id, report_id) VALUES (?, ?, ?)",
+    [voting, user_id, id]
+  );
+
 const createReport = async ({
   information,
   voting,
   address_id,
-  users_id,
+  user_id,
   category_id,
 }) => {
-  const rawresults = await db.query(
-    "INSERT INTO reports (information, voting, address_id, users_id, category_id) VALUES (?, ?, ?, ?, ?)",
-    [information, voting, address_id, users_id, category_id]
+  const [createdReport] = await db.query(
+    "INSERT INTO report (information, address_id, user_id, category_id) VALUES (?, ?, ?, ?)",
+    [information, address_id, user_id, category_id]
   );
-  const id = rawresults.insertId;
+  const id = createdReport.insertId;
+
+  await createVoting(voting, user_id, id);
 
   return {
     id,
     information,
     voting,
     address_id,
-    users_id,
+    user_id,
     category_id,
   };
 };
@@ -62,4 +70,6 @@ module.exports = {
   findLocation,
   getReportsInOneLocation,
   createLocation,
+
+  createVoting,
 };

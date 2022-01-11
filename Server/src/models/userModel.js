@@ -13,14 +13,14 @@ connection.connect((error) => {
 });
 
 const getUsers = async () => {
-  const users = await db.query("SELECT email from users");
+  const users = await db.query("SELECT email from user");
   return users[0];
 };
 
 const createUser = async ({ password, ...body }) => {
   const hashedPassword = await hashPassword(password, saltedRounds);
   const [rawResults] = await db.query(
-    "INSERT INTO users (email, hashedPassword)  VALUES (?, ?)",
+    "INSERT INTO user (email, hashedPassword)  VALUES (?, ?)",
     [body.email, hashedPassword]
   );
   const id = rawResults.insertId;
@@ -28,15 +28,14 @@ const createUser = async ({ password, ...body }) => {
 };
 
 const validateEmail = async (email) => {
-  const [results] = await db.query(
-    "SELECT id, email FROM users WHERE email=?",
-    [email]
-  );
+  const [results] = await db.query("SELECT id, email FROM user WHERE email=?", [
+    email,
+  ]);
   return results[0];
 };
 
 const findUserbyId = async (userId) => {
-  const rawResults = await db.query("SELECT  email FROM users WHERE id = ?", [
+  const rawResults = await db.query("SELECT  email FROM user WHERE id = ?", [
     userId,
   ]);
   const [results] = rawResults;
@@ -44,14 +43,14 @@ const findUserbyId = async (userId) => {
 };
 
 const findByEmail = async (email) => {
-  const [results] = await db.query("SELECT * FROM users WHERE email = ?", [
+  const [results] = await db.query("SELECT * FROM user WHERE email = ?", [
     email,
   ]);
   return results[0];
 };
 const getUserByEmail = async (email) => {
   let [results] = await db.query(
-    "SELECT id, email, hashedPassword, role FROM users WHERE email= ?;",
+    "SELECT id, email, hashedPassword, role FROM user WHERE email= ?;",
     [email]
   );
   return results;
@@ -62,12 +61,12 @@ const updateUser = async ({ password, ...data }, id) => {
 
   if (password) {
     const hashedPassword = await hashPassword(password, saltedRounds);
-    results = await db.query("UPDATE users SET ? WHERE id=?;", [
+    results = await db.query("UPDATE user SET ? WHERE id=?;", [
       { ...data, hashedPassword },
       id,
     ]);
   } else {
-    results = await db.query("UPDATE users SET ? WHERE id=?;", [
+    results = await db.query("UPDATE user SET ? WHERE id=?;", [
       { ...data },
       id,
     ]);
@@ -76,13 +75,13 @@ const updateUser = async ({ password, ...data }, id) => {
 };
 
 const deleteUser = async (id) => {
-  let [results] = await db.query("DELETE FROM users WHERE id = ?", [id]);
+  let [results] = await db.query("DELETE FROM user WHERE id = ?", [id]);
   return results;
 };
 
 const reportsFromUserId = async (id) => {
   try {
-    let [results] = await db.query("SELECT * from reports WHERE users_id = ?", [
+    let [results] = await db.query("SELECT * from reports WHERE user_id = ?", [
       id,
     ]);
     return results;

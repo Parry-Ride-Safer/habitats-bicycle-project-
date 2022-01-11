@@ -1,5 +1,4 @@
 const { reportsModels } = require("../models");
-const { createReport } = require("../models/reportsModels");
 
 const getAllReportsController = async (req, res) => {
   try {
