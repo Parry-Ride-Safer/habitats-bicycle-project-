@@ -1,7 +1,6 @@
 import React from "react";
-import { GoogleMap, InfoWindow, Marker, MarkerClusterer } from "@react-google-maps/api";
+import { GoogleMap, InfoBox, Marker, MarkerClusterer } from "@react-google-maps/api";
 import { formatRelative, parse } from "date-fns";
-import Axios from "axios";
 import {
   BoxSelectDanger,
   BoxDangerDescription,
@@ -149,12 +148,11 @@ export default function Map() {
                   setSelected(fMarker);
               }} 
               />
-          ))}
+          ))}    
     </MarkerClusterer>
- 
 
-      {selected ? (
-        <InfoWindow
+    {selected ? (
+        <InfoBox
           position={{ lat: selected.lat, lng: selected.lng }}
           onCloseClick={() => {
             setSelected(null);
@@ -165,9 +163,8 @@ export default function Map() {
             <button type="button" onClick={handleBoxDangerDetails}>
               More details
             </button>
-            <p>{formatRelative(selected.time, new Date())}</p>
           </div>
-        </InfoWindow>
+        </InfoBox>
       ) : null}
 
       {isBoxSelectDangerOpen ? <Marker position={markers} icons={{
