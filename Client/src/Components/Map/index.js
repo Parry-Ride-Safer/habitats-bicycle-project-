@@ -3,8 +3,6 @@ import { GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
 import useSwr from "swr";
 import useSuperCluster from "use-supercluster"
 import { formatRelative, parse } from "date-fns";
-import useSuperCluster from "use-supercluster";
-import { formatRelative } from "date-fns";
 import Axios from "axios";
 import {
   BoxSelectDanger,
@@ -17,7 +15,7 @@ import { useGlobalMapContext } from "../../Context/mapContext";
 import "./map.css";
 import "../BoxSelectDanger/boxSelectDanger.css";
 import logo from "./Polygon38.png";
-import useSWR from "swr";
+
 import logoBlue from "./PolygonBlue.png";
 
 
@@ -109,19 +107,6 @@ export default function Map() {
   const mapRef = useRef();
   return (
     <div>
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        zoom={8}
-        center={center}
-        options={options}
-        onClick={onMapClick}
-        onLoad={onMapLoad}
-        yesIWantToUseGoogleMapApiInternals
-      >
-        <div className="search-map-location">
-          <SearchBox panTo={panTo} />
-        </div>
-        <GpsLocation panTo={panTo} />
 
     <GoogleMap
       mapContainerStyle={mapContainerStyle}
@@ -144,7 +129,7 @@ export default function Map() {
       <div className="search-map-location">
         <SearchBox panTo={panTo} />
       </div>
-      <GpsLocation panTo={panTo} />
+        <GpsLocation panTo={panTo} />
       
       {clusters.map(cluster => {
           const [longitude, latitude] = cluster.geometry.coordinates;
@@ -152,21 +137,6 @@ export default function Map() {
             cluster: isCluster,
             point_count: pointCount
           } = cluster.properties;
-        {getFinalMarkers.map((getMarker) => (
-          <Marker
-            key={getMarker.id}
-            position={{
-              lat: Number(getMarker.lat),
-              lng: Number(getMarker.lng),
-            }}
-            icon={{
-              url: logo,
-              scaledSize: new window.google.maps.Size(50, 50),
-              origin: new window.google.maps.Point(0, 0),
-              anchor: new window.google.maps.Point(25, 25),
-            }}
-          ></Marker>
-        ))}
 
           if (isCluster) {
             return (
@@ -203,7 +173,7 @@ export default function Map() {
         key={getMarker.id}
         position = {{lat: Number(getMarker.lat), lng:Number(getMarker.lng)}}
         icon={{
-          
+          url: logo,
           scaledSize: new window.google.maps.Size(50, 50),
           origin: new window.google.maps.Point(0, 0),
           anchor: new window.google.maps.Point(25, 25),
@@ -211,15 +181,15 @@ export default function Map() {
       >
       </Marker>
     ))}
-{/*}
+
       {finalMarkers.map((fMarker) => (
         <Marker key={fMarker.id}
           position={{ lat: fMarker.lat, lng: fMarker.lng }}
           icon={{
-           
-            scaledSize: new window.google.maps.Size(50, 50),
-            origin: new window.google.maps.Point(0, 0),
-            anchor: new window.google.maps.Point(25, 25),
+              url: logo,
+              scaledSize: new window.google.maps.Size(50, 50),
+              origin: new window.google.maps.Point(0, 0),
+              anchor: new window.google.maps.Point(25, 25),
           }}
           onClick={() => {
             setSelected(fMarker);
@@ -227,7 +197,7 @@ export default function Map() {
         />
       ))
     }
-  */}
+ 
       {selected ? (
         <InfoWindow
           position={{ lat: selected.lat, lng: selected.lng }}
@@ -245,23 +215,19 @@ export default function Map() {
         </InfoWindow>
       ) : null}
 
-        {isBoxSelectDangerOpen ? (
-          <Marker
-            position={markers}
-            icon={{
-              url: logoBlue,
-              scaledSize: new window.google.maps.Size(50, 50),
-              origin: new window.google.maps.Point(0, 0),
-              anchor: new window.google.maps.Point(25, 25),
-            }}
-          />
-        ) : (
-          "box-overlay"
-        )}
-        {isBoxSelectDangerOpen ? <BoxSelectDanger /> : "box-overlay"}
-        <BoxDangerDescription />
-        <BoxDangerList />
-      </GoogleMap>
+      {isBoxSelectDangerOpen ? <Marker position={markers} icons={{
+        url: logoBlue,
+        scaledSize: new window.google.maps.Size(50, 50),
+        origin: new window.google.maps.Point(0, 0),
+        anchor: new window.google.maps.Point(25, 25),}} /> : "box-overlay"}
+      {isBoxSelectDangerOpen ? <BoxSelectDanger /> : "box-overlay"}
+      <BoxDangerDescription />
+      <BoxDangerList />
+    </GoogleMap>
+ 
+  
+
+  
     </div>
   );
 }

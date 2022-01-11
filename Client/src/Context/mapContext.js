@@ -54,7 +54,7 @@ const MapProvider = ({ children }) => {
       lng: markers.lng,
       title: dangerDescriptionInputs.title,
       information: dangerDescriptionInputs.description,
-      users_id: user.id,
+      /*users_id: user.id,*/
       category_id: dangerTypeConvert,
     })
       .then((response) => {
