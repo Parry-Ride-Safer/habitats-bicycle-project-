@@ -90,7 +90,7 @@ export default function Map() {
         <SearchBox panTo={panTo} />
       </div>
         <GpsLocation panTo={panTo} />
-
+  
    
   <MarkerClusterer
         /*styles={clusterStyles}*/
@@ -113,7 +113,7 @@ export default function Map() {
               />
           ))}    
     </MarkerClusterer>
-
+{/*
     {selected ? (
         <InfoBox
           position={{ lat: selected.lat, lng: selected.lng }}
@@ -129,7 +129,8 @@ export default function Map() {
           </div>
         </InfoBox>
       ) : null}
-
+        */}
+        
       {isBoxSelectDangerOpen ? <Marker position={markers} 
       icon={{
         url: logoBlue,

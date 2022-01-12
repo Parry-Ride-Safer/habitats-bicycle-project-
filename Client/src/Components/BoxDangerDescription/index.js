@@ -5,9 +5,9 @@ import "./boxDangerDescription.css";
 
 export default function BoxDangerDescription () {
 
-const {alertMsg, dangerType, isDangerDescriptionOpen, dangerLevelVote, dangerFormSubmit, dangerDescriptionInputs, handleDangerDescriptionInputs, numberOfCharacters} = useGlobalMapContext();
+const {alertMsg, dangerType, isDangerDescriptionOpen, handleDangerLevel, voting, dangerFormSubmit, dangerDescriptionInput, handleDangerDescriptionInputs, numberOfCharacters} = useGlobalMapContext();
 
-const handleDangerLevel = () => {""}
+
 
 return (
     <div className={`${isDangerDescriptionOpen ? 'show-danger-box' : 'danger-box-overlay'}`}>
@@ -23,7 +23,7 @@ return (
                 name="description"
                 placeholder="Describe the issue in a few words"
                 maxlength="60" 
-                value={dangerDescriptionInputs.description} 
+                value={dangerDescriptionInput.description} 
                 onChange={handleDangerDescriptionInputs}/><br/>
             <label className="danger-input-labels"> {60 - numberOfCharacters} Characters left </label>
 
@@ -37,7 +37,7 @@ return (
                         type="radio"
                         name="voting"
                         className = {danger.class}
-                        check={dangerLevelVote === danger.lv}
+                        check={voting === danger.lv}
                         value={danger.lv}
                         onChange={handleDangerLevel}
                     />
@@ -45,8 +45,8 @@ return (
                 </label>
                 )}
             </div>     
-            <div className={`${alertMsg ? "alert-msg-overlay" : "show-alert-msg"}`}>
-                You need to fill everything
+            <div className={`${alertMsg ? "show-alert-msg" : "alert-msg-overlay"}`}>
+                <p>You need to fill everything</p>
             </div>
             <div className="danger-buttons-display">    
                 <button className="danger-buttons" id="danger-submit-button" type="submit">Submit</button>
