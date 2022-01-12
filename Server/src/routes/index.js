@@ -1,4 +1,4 @@
-exports.userRoutes = require("./usersRoutes");
+exports.userRoutes = require("./userRoutes");
 exports.authRoutes = require("./authRoutes");
-exports.reportsRoutes = require("./reportsRoutes");
+exports.reportsRoutes = require("./reportRoutes");
 exports.locationRoutes = require("./locationRoutes");

@@ -1,3 +1,3 @@
-exports.usersModels = require("./usersModels");
-exports.reportsModels = require("./reportsModels");
-exports.locationModels = require("./locationModels");
+exports.usersModels = require("./userModel");
+exports.reportsModels = require("./reportModel");
+exports.locationModels = require("./locationModel");
