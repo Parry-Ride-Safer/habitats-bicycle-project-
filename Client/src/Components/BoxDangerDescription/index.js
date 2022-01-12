@@ -5,43 +5,53 @@ import "./boxDangerDescription.css";
 
 export default function BoxDangerDescription () {
 
-    const {dangerType, isDangerDescriptionOpen, dangerFormSubmit, dangerDescriptionInputs, handleDangerDescriptionInputs} = useGlobalMapContext();
-    const [danger, setDanger] = useState()
-    const handleDangerLevel = () => {""}
+const {alertMsg, dangerType, isDangerDescriptionOpen, dangerLevelVote, dangerFormSubmit, dangerDescriptionInputs, handleDangerDescriptionInputs, numberOfCharacters} = useGlobalMapContext();
 
-    return (
-        <div className={`${isDangerDescriptionOpen ? 'show-danger-box' : 'danger-box-overlay'}`}>
-            <form className="danger-form-display" onSubmit={dangerFormSubmit}>
-            <button className="danger-buttons" id="danger-return-button" type="button">Return</button>
-                <h3 className="danger-category">{dangerType}</h3>
-                <p className="danger-input-labels"> Pictures <span>optional</span> </p>
-                <button>Submit your picture</button>
+const handleDangerLevel = () => {""}
 
-                <label className="danger-input-labels"> Description </label>
-                <input className="danger-input-fields" id="danger-description-input-field" 
-                    type="text"
-                    name="description"
-                    placeholder="Describe the issue in a few words" 
-                    value={dangerDescriptionInputs.description} 
-                    onChange={handleDangerDescriptionInputs}/><br/>
+return (
+    <div className={`${isDangerDescriptionOpen ? 'show-danger-box' : 'danger-box-overlay'}`}>
+        <form className="danger-form-display" onSubmit={dangerFormSubmit}>
+        <button className="danger-buttons" id="danger-return-button" type="button">Return</button>
+            <h3 className="danger-category">{dangerType}</h3>
+            <p className="danger-input-labels"> Pictures <span>optional</span> </p>
+            <button>Submit your picture</button>
 
-                <p className="danger-input-labels"> Danger Level </p>
-                <p className="danger-input-labels"> Tell the others how serious the issue is </p>
-                    {dangerLevel.map((danger)=>
+            <label className="danger-input-labels"> Description </label>
+            <input className="danger-input-fields" id="danger-description-input-field" 
+                type="text"
+                name="description"
+                placeholder="Describe the issue in a few words"
+                maxlength="60" 
+                value={dangerDescriptionInputs.description} 
+                onChange={handleDangerDescriptionInputs}/><br/>
+            <label className="danger-input-labels"> {60 - numberOfCharacters} Characters left </label>
+
+            <p className="danger-input-labels"> Danger Level </p>
+            <button>more info</button>
+            <p className="danger-input-labels"> Tell the others how serious the issue is </p>
+            <div className="dangerLevelVote">
+                {dangerLevel.map((danger, index)=>
+                <label key={index}>
                     <input
                         type="radio"
-                        name="dangerLevel"
-                        check={danger === danger.lv}
+                        name="voting"
+                        className = {danger.class}
+                        check={dangerLevelVote === danger.lv}
                         value={danger.lv}
-                        data-icon=""
                         onChange={handleDangerLevel}
                     />
-                    )}       
-                    <br/>
-                <div className="danger-buttons-display">    
-                    <button className="danger-buttons" id="danger-submit-button" type="submit">Submit</button>
-                </div>
-            </form>
-        </div>
+                    {danger.icon}
+                </label>
+                )}
+            </div>     
+            <div className={`${alertMsg ? "alert-msg-overlay" : "show-alert-msg"}`}>
+                You need to fill everything
+            </div>
+            <div className="danger-buttons-display">    
+                <button className="danger-buttons" id="danger-submit-button" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
     )
 }

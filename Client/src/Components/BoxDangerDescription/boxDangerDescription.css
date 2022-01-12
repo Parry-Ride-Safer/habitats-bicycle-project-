@@ -4,7 +4,7 @@
   background: rgb(255, 255, 255);
   border-radius: var(--radius);
   width: 100vw;
-  height: 100vh;
+  
   max-width: var(--fixed-width);
   text-align: center;
   place-items: center;
@@ -84,6 +84,14 @@
   -webkit-box-shadow: 0px 0px 23px -3px #000000;
   box-shadow: 0px 0px 10px -5px #000000;
 }
+.show-alert-msg{
+  visibility: visible;
+}
+
+.alert-msg-overlay{
+  visibility: hidden;
+  z-index: -1;
+}
 
 #danger-submit-button {
   background-color: lightgreen;
@@ -92,3 +100,55 @@
 #danger-return-button {
   background-color: lightskyblue;
 }
+input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+
+input[type="radio"] + svg {
+  -webkit-transition: all 0.2s;
+  transition: all 1s;
+}
+
+input + svg {
+  cursor: pointer;
+}
+
+input[class="classD1"]:hover + svg,
+input[class="classD1"]:checked + svg,
+input[class="classD1"]:focus + svg {
+  fill: rgb(0, 109, 217);
+  transform: scale(1.15,1.15);
+}
+
+
+input[class="classD2"]:hover + svg,
+input[class="classD2"]:checked + svg,
+input[class="classD2"]:focus + svg {
+  fill: rgb(0, 109, 217);
+  transform: scale(1.15,1.15);
+}
+
+input[class="classD3"]:hover + svg,
+input[class="classD3"]:checked + svg,
+input[class="classD3"]:focus + svg {
+  fill: rgb(0, 109, 217);
+  transform: scale(1.15,1.15);
+}
+
+input[class="classD4"]:hover + svg,
+input[class="classD4"]:checked + svg,
+input[class="classD4"]:focus + svg {
+  fill: rgb(0, 109, 217);
+  transform: scale(1.15,1.15);
+}
+
+input[class="classD5"]:hover + svg,
+input[class="classD5"]:checked + svg,
+input[class="classD5"]:focus + svg {
+  fill: rgb(0, 109, 217);
+  transform: scale(1.15,1.15);
+}
+
+
+  

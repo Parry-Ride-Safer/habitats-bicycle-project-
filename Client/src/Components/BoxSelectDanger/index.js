@@ -19,7 +19,7 @@ export default function BoxSelectDanger() {
 
   return (
     <InfoBox position={markers} options={boxOptions}>
-       <div style={{ backgroundColor: 'whitesmoke', opacity: 0.75, padding: 2 }}>
+       <div style={{ backgroundColor: 'white', opacity: 0.75, padding: 2 }}>
         <div style={{ fontSize: 16, fontColor: `#08233B` }}>
         <form className="info-box-display" onSubmit={handleDangerSubmit}>
         <h3>Issue Type</h3>

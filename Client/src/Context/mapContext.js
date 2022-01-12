@@ -34,7 +34,10 @@ const MapProvider = ({ children }) => {
   const [dangerDescriptionInputs, setDangerDescriptionInputs] = useState([]);
   const [isBoxDangerDetailsOpen, setIsBoxDangerDetailsOpen] = useState(false);
   const [dangerTypeConvert, setdangerTypeConvert] = useState(null);
-  
+  const [dangerLevelVote, setDangerLevelVote] = useState()
+  const [numberOfCharacters, setNumberOfCharacters] = useState(0)
+  const [alertMsg, setAlertMsg] = useState("false")
+
    const handleDangerSubmit = (event) => {
     event.preventDefault();
     setIsBoxSelectDangerOpen(false);
@@ -50,6 +53,7 @@ const MapProvider = ({ children }) => {
     const name = event.target.name;
     const value = event.target.value;
     setDangerDescriptionInputs((values) => ({ ...values, [name]: value }));
+    setNumberOfCharacters(event.target.value.length);
   };
 
   const handleDangerChoice = (event) => {
@@ -58,16 +62,17 @@ const MapProvider = ({ children }) => {
   };
 
   const dangerFormSubmit = (event) => {
+    if (dangerDescriptionInputs === '' || dangerLevelVote > 0) {
+      setAlertMsg(true)
+    } else {
     event.preventDefault();
     setIsDangerDescriptionOpen(false);
     setFinalMarkers((finalMarkers) => [...finalMarkers, markers]);
-    console.log({ lat: markers.lat, lng: markers.lng });
-
     Axios.post("http://localhost:4000/reports/", {
       voting: 1,
       lat: markers.lat,
       lng: markers.lng,
-      title: dangerDescriptionInputs.title,
+      title: dangerType,
       information: dangerDescriptionInputs.description,
       /*users_id: user.id,*/
       category_id: dangerTypeConvert,
@@ -77,7 +82,7 @@ const MapProvider = ({ children }) => {
         console.log(response);
       })
       .catch((err) => console.log(err));
-  };
+  }};
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -117,6 +122,7 @@ const MapProvider = ({ children }) => {
   return (
     <MapContext.Provider
       value={{
+        alertMsg,
         dangerType,
         setDangerType,
         markers,
@@ -128,6 +134,7 @@ const MapProvider = ({ children }) => {
         onMapClick,
         onMapLoad,
         dangerFormSubmit,
+        numberOfCharacters,
         isDangerDescriptionOpen,
         isBoxSelectDangerOpen,
         handleDangerSubmit,
