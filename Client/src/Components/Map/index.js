@@ -83,7 +83,7 @@ export default function Map() {
   const url = "http://localhost:4000/location/";
   const { data, error } = useSWR(url, fetcher);
   const getFinalMarkers = data && !error ? data.slice(0, 200) : [];
-  console.log(data);
+  // console.log(data);
 
   return (
     <div>

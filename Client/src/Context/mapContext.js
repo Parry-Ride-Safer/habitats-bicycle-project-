@@ -19,6 +19,13 @@ const MapProvider = ({ children }) => {
   const [dangerDescriptionInputs, setDangerDescriptionInputs] = useState([]);
   const [isBoxDangerDetailsOpen, setIsBoxDangerDetailsOpen] = useState(false);
   const [dangerTypeConvert, setdangerTypeConvert] = useState(null);
+  // login and profile temp tests from here :
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [userTest, setUserTest] = useState([]);
+  const [log, setLog] = useState("");
+  const [infoTest, setinfoTest] = useState([]);
+  const [info, setinfo] = useState([]);
 
   const handleDangerSubmit = (event) => {
     event.preventDefault();
@@ -38,7 +45,7 @@ const MapProvider = ({ children }) => {
   };
 
   const handleDangerChoice = (event) => {
-    console.log("this shit aint working chief");
+    console.log("this aint working chief");
     return setDangerType(event.target.value);
   };
 
@@ -67,7 +74,6 @@ const MapProvider = ({ children }) => {
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
-  
   }, []);
 
   const onMapClick = useCallback((event) => {
@@ -124,6 +130,18 @@ const MapProvider = ({ children }) => {
         handleBoxDangerDetails,
         dangerTypeConvert,
         setdangerTypeConvert,
+        email,
+        setEmail,
+        password,
+        setPassword,
+        userTest,
+        setUserTest,
+        log,
+        setLog,
+        infoTest,
+        setinfoTest,
+        info,
+        setinfo,
       }}
     >
       {children}

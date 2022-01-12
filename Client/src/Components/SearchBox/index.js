@@ -44,7 +44,8 @@ export default function SearchBox() {
         }
       }}
     >
-      <ComboboxInput className='search-box-input'
+      <ComboboxInput
+        className="search-box-input"
         value={value}
         onChange={(e) => {
           setValue(e.target.value);
