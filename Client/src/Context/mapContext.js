@@ -39,6 +39,7 @@ const MapProvider = ({ children }) => {
   const [log, setLog] = useState("");
   const [infoTest, setinfoTest] = useState([]);
   const [info, setinfo] = useState([]);
+  const [stateLogin, setStateLogin] = useState(false);
 
   const [getReportData, setGetReportdata] = useState([]);
   const [sendReportRequest, setSendReportRequest] = useState(false);
@@ -98,10 +99,11 @@ const MapProvider = ({ children }) => {
         lng: markers.lng,
         title: dangerType,
         information: dangerDescriptionInput.description,
-        user_id: 1,
+        user_id: user.id,
         category_id: dangerTypeConvert,
       })
         .then((response) => {
+          console.log(response);
           setAlertMsg(false);
         })
         .catch((err) => console.log(err));
@@ -190,6 +192,8 @@ const MapProvider = ({ children }) => {
         fetchReportData,
         getReportData,
         sendReportRequest,
+        stateLogin,
+        setStateLogin,
       }}
     >
       {children}

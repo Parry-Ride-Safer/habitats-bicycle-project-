@@ -18,6 +18,8 @@ const LoginAndProfile = () => {
     setinfoTest,
     info,
     setinfo,
+    stateLogin,
+    setStateLogin,
   } = useGlobalMapContext();
   /*  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,14 +29,11 @@ const LoginAndProfile = () => {
   const [btnState, setState] = useState(false);
   const [toggleState, setToggleState] = useState(1);
 
-  const [stateLogin, setStateLogin] = useState(false);
   const [userStorage, setUserStorage] = useState(null);
+  const [loginId, setLoginId] = useState();
+  const [SubmitedReports, setSubmitedReports] = useState([]);
 
   let user = JSON.parse(localStorage.getItem("user-info"));
-
-  const handleUserStorage = () => {
-    setUserStorage(!userStorage);
-  };
 
   const toggleTab = (index) => {
     setToggleState(index);
@@ -46,21 +45,40 @@ const LoginAndProfile = () => {
 
   const register = async () => {
     let item = { email, password };
-    let result = await fetch("http://localhost:4000/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(item),
-    });
-    result = await result.json();
-    localStorage.setItem("user-info", JSON.stringify(result));
-    handleUserStorage();
-    handleLoginStatus();
+    if (email <= 0 || password <= 0) {
+      console.log("please enter something( email or password is missing) ");
+    } else {
+      let result = await fetch("http://localhost:4000/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(item),
+      });
+      result = await result.json();
+
+      await localStorage.setItem("user-info", JSON.stringify(result));
+
+      await handleUserStorage();
+      await handleLoginStatus();
+    }
   };
 
-  const login = async () => {
+  /* const handleRegister = () => {
+    if (email <= 0 || password <= 0) {
+      console.log("please enter something( email or password is missing) ");
+    } else if (password < 8) {
+      console.log(
+        "please enter a valid password need to be at least 8 characters"
+      );
+    } else {
+      register();
+    }
+  }; */
+
+  /* const login = async () => {
+    user = JSON.parse(localStorage.getItem("user-info"));
     let item = { email, password };
     let result = await fetch("http://localhost:4000/auth/login", {
       method: "POST",
@@ -72,15 +90,76 @@ const LoginAndProfile = () => {
     });
 
     result = await result.json();
-    localStorage.setItem("user-info", JSON.stringify(result));
+    await localStorage.setItem("user-info", JSON.stringify(result));
+
+    await console.log()
     handleUserStorage();
     handleLoginStatus();
+  }; */
+
+  const login = async () => {
+    let item = { email, password };
+    try {
+      let result = await Axios.post("http://localhost:4000/auth/login", item);
+      localStorage.setItem("user-info", JSON.stringify(result.data));
+      console.log(result, "total result do login");
+      setPassword("");
+      setEmail("");
+      handleUserStorage();
+      handleLoginStatus();
+
+      await console.log(result.data.id, "user id logged");
+      await setLoginId(result.data.id);
+      await console.log(loginId, " agora sim");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const editAccount = async () => {
+    let item = { email, password };
+    let result = await fetch(`http://localhost:4000/user/${loginId}`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(item),
+    });
+
+    result = await result.json();
+    localStorage.setItem("user-info", JSON.stringify(result));
+  };
+
+  const getSubmitedReports = async () => {
+    try {
+      user = JSON.parse(localStorage.getItem("user-info"));
+
+      if (user) {
+        if (user) {
+          await setLoginId(user.id);
+        }
+
+        await Axios.get(`http://localhost:4000/users/${loginId}/reports/`).then(
+          (response) => {
+            console.log(response.data);
+            console.log(user.id, "este é o user id do storage");
+            return setSubmitedReports(response.data);
+          }
+        );
+      } else {
+        console.log("there is not user yet ");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const logout = async (e) => {
     try {
       localStorage.clear();
       handleClick();
+      setLoginId(null);
     } catch (err) {
       console.log(err);
     }
@@ -88,20 +167,45 @@ const LoginAndProfile = () => {
 
   function isLogged(user) {
     user = JSON.parse(localStorage.getItem("user-info"));
+
     if (user && user.id) {
       return user.email;
     } else {
       return null;
     }
   }
+  const handleUserStorage = () => {
+    setUserStorage(!userStorage);
+  };
 
   const handleLoginStatus = () => {
     setStateLogin(!stateLogin);
   };
 
   const savedLogged = isLogged(user);
+
   useEffect(() => {
+    /* const response = async () => {
+      await console.log(user, "novo render user");
+      await setLoginId(user);
+      await console.log(loginId);
+    };
+
     console.log("useEffect is rerendering");
+
+    response();
+    console.log(loginId, " LOOOOOGIN"); */
+    if (btnState === true) {
+      setLoginId(user);
+      getSubmitedReports();
+    }
+    console.log("useEffect is rerendering");
+    console.log(loginId, "useffect loginID");
+  }, [btnState]);
+
+  useEffect(() => {
+    getSubmitedReports();
+    console.log("SEGUNDO USEEFFECT DO USER");
   }, []);
 
   return (
@@ -155,7 +259,7 @@ const LoginAndProfile = () => {
                 <div>
                   <label htmlFor="username">email</label>
                   <input
-                    type="text"
+                    type="email"
                     name="username"
                     placeholder="email@example.com"
                     onChange={(e) => setEmail(e.target.value)}
@@ -214,7 +318,7 @@ const LoginAndProfile = () => {
                 <div className="bloc-tabs">
                   <button
                     className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(1)}
+                    onClick={() => toggleTab(1) + getSubmitedReports()}
                   >
                     Submitted Spots
                   </button>
@@ -241,7 +345,21 @@ const LoginAndProfile = () => {
                     <h2>Submitted Spots:</h2>
                     <hr />
                     <h3>user Logged: {savedLogged}</h3>
-                    <img src={profileLogo} alt="" />
+
+                    <div>
+                      {SubmitedReports.map((contact) => (
+                        <div className="your-spots-container">
+                          <ul key={contact.id}>
+                            <li>
+                              <span className="img-div">img </span>
+                            </li>
+                            <li> information :{contact.information}</li>
+                            <li> voting : {contact.voting}</li>
+                            <li> category : {contact.category_id}</li>
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
                   </div>
 
                   <div
@@ -280,6 +398,10 @@ const LoginAndProfile = () => {
                     <hr />
                     <h3>Your Account: {savedLogged}</h3>
                     <h3>password: ****** </h3>
+                    <button type="button" className="btn">
+                      edit
+                    </button>
+
                     <button onClick={logout} type="button" className="btn">
                       Logout
                     </button>
