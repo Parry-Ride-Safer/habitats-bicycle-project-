@@ -80,11 +80,12 @@ const MapProvider = ({ children }) => {
       category_id: dangerTypeConvert,
     })
       .then((response) => {
-        console.log(dangerType);
         console.log(response);
+        setAlertMsg(false);
       })
       .catch((err) => console.log(err));
-     /*fazer os valores voltarem ao normal*/
+    setVoting("")
+    setDangerDescriptionInput([])
   }};
 
   const mapRef = useRef();
@@ -149,6 +150,7 @@ const MapProvider = ({ children }) => {
         handleBoxDangerDetails,
         dangerTypeConvert,
         setdangerTypeConvert,
+        setIsBoxDangerDetailsOpen,
         setVoting,
         voting,
       }}

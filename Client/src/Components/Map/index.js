@@ -64,6 +64,7 @@ export default function Map() {
   const {
     markers,
     isBoxSelectDangerOpen,
+    setIsBoxDangerDetailsOpen,
     finalMarkers,
     onMapClick,
     onMapLoad,
@@ -131,6 +132,8 @@ export default function Map() {
       ) : null}
         */}
         
+      {selected ? setIsBoxDangerDetailsOpen(true) : null}
+
       {isBoxSelectDangerOpen ? <Marker position={markers} 
       icon={{
         url: logoBlue,
