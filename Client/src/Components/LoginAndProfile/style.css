@@ -3,11 +3,15 @@
 }
 
 .login-form {
+  position: absolute;
   background-color: rgb(255, 255, 255);
   width: 100%;
   border: 1px solid black;
   border-radius: 15px;
   padding: 1rem;
+  z-index: 55;
+
+  top: 10%;
 }
 
 .menu-btn {
@@ -123,19 +127,13 @@ ul {
   list-style: none;
 }
 
-.red-test {
+.login-btn {
   position: absolute;
   z-index: 50;
-  top: 35%;
+  top: 0;
   right: 0;
 }
-.img-red-test {
+.img-login-btn {
   width: 50px;
   height: 50px;
-}
-
-.FDX {
-  position: absolute;
-  z-index: 1000;
-  top: 0;
 }

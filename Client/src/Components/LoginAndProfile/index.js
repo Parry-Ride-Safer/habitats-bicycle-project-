@@ -28,12 +28,12 @@ const LoginAndProfile = () => {
   const [toggleState, setToggleState] = useState(1);
 
   const [stateLogin, setStateLogin] = useState(false);
-  const [storage, setStorage] = useState(null);
+  const [userStorage, setUserStorage] = useState(null);
 
   let user = JSON.parse(localStorage.getItem("user-info"));
 
-  const handleStorage = () => {
-    setStorage(!storage);
+  const handleUserStorage = () => {
+    setUserStorage(!userStorage);
   };
 
   const toggleTab = (index) => {
@@ -42,6 +42,22 @@ const LoginAndProfile = () => {
 
   const handleClick = () => {
     setState(!btnState);
+  };
+
+  const register = async () => {
+    let item = { email, password };
+    let result = await fetch("http://localhost:4000/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(item),
+    });
+    result = await result.json();
+    localStorage.setItem("user-info", JSON.stringify(result));
+    handleUserStorage();
+    handleLoginStatus();
   };
 
   const login = async () => {
@@ -57,8 +73,8 @@ const LoginAndProfile = () => {
 
     result = await result.json();
     localStorage.setItem("user-info", JSON.stringify(result));
-    handleStorage();
-    handleLogin();
+    handleUserStorage();
+    handleLoginStatus();
   };
 
   const logout = async (e) => {
@@ -79,7 +95,7 @@ const LoginAndProfile = () => {
     }
   }
 
-  const handleLogin = () => {
+  const handleLoginStatus = () => {
     setStateLogin(!stateLogin);
   };
 
@@ -90,7 +106,7 @@ const LoginAndProfile = () => {
 
   return (
     <div>
-      <div className="login-form">
+      {/* <div className="login-form">
         <form>
           <div>
             <label htmlFor="username">email</label>
@@ -125,16 +141,12 @@ const LoginAndProfile = () => {
             {localStorage.getItem("user-info") ? (
               <button>get info</button>
             ) : null}
-            <p>
-              {" "}
-              user do login vem daqui :{" "}
-              {/* {user && user.id ? userTest : null}{" "} */}
-            </p>
+           
           </div>
         </form>
 
-        <h3>login name:{/* {user && user.id ? user.email : null} */}</h3>
-      </div>
+        <h3>login name:</h3>
+      </div> */}
       {!user ? (
         <>
           {stateLogin ? (
@@ -165,7 +177,7 @@ const LoginAndProfile = () => {
                   Logout
                 </button>
                 {!localStorage.getItem("user-info") ? (
-                  <button type="button" className="btn">
+                  <button onClick={register} type="button" className="btn">
                     Register
                   </button>
                 ) : null}
@@ -177,8 +189,8 @@ const LoginAndProfile = () => {
               </form>
             </div>
           ) : null}
-          <button onClick={handleLogin} className="red-test">
-            <img src={profileLogo} alt="" className="img-red-test" />
+          <button onClick={handleLoginStatus} className="login-btn">
+            <img src={profileLogo} alt="" className="img-login-btn" />
           </button>
         </>
       ) : (
