@@ -91,7 +91,6 @@ export default function Map() {
           <SearchBox panTo={panTo} />
         </div>
         <GpsLocation panTo={panTo} />
-<<<<<<< HEAD
   
    
   <MarkerClusterer
@@ -99,14 +98,6 @@ export default function Map() {
         gridSize = {60}
   >
         {(clusterer) =>
-=======
-
-        <MarkerClusterer
-          /*styles={clusterStyles}*/
-          gridSize={60}
-        >
-          {(clusterer) =>
->>>>>>> 8294a9fdba8108d3c2b0d8f50bec8c1306ed8cc4
             finalMarkers.map((fMarker) => (
               <Marker
                 key={fMarker.id}
@@ -125,7 +116,6 @@ export default function Map() {
                   setSelected(fMarker);
                 }}
               />
-<<<<<<< HEAD
           ))}    
     </MarkerClusterer>
 {/*
@@ -147,27 +137,6 @@ export default function Map() {
         */}
         
       {selected ? setIsBoxDangerDetailsOpen(true) : null}
-=======
-            ))
-          }
-        </MarkerClusterer>
-
-        {selected ? (
-          <InfoBox
-            position={{ lat: selected.lat, lng: selected.lng }}
-            onCloseClick={() => {
-              setSelected(null);
-            }}
-          >
-            <div>
-              <p>Categorias</p>
-              <button type="button" onClick={handleBoxDangerDetails}>
-                More details
-              </button>
-            </div>
-          </InfoBox>
-        ) : null}
->>>>>>> 8294a9fdba8108d3c2b0d8f50bec8c1306ed8cc4
 
         {isBoxSelectDangerOpen ? (
           <Marker
