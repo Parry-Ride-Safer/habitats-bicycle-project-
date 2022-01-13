@@ -11,8 +11,8 @@ import Axios from "axios";
 const MapContext = createContext();
 
 const MapProvider = ({ children }) => {
-  const base_URL = process.env.REACT_APP_API_ROUTE_URL;
-
+  
+  
   const [dangerType, setDangerType] = useState();
   const [markers, setMarkers] = useState();
   const [finalMarkers, setFinalMarkers] = useState([]);
@@ -27,9 +27,12 @@ const MapProvider = ({ children }) => {
   const [selected, setSelected] = useState(null);
   const [isDangerDescriptionOpen, setIsDangerDescriptionOpen] = useState(false);
   const [isBoxSelectDangerOpen, setIsBoxSelectDangerOpen] = useState(false);
-  const [dangerDescriptionInputs, setDangerDescriptionInputs] = useState([]);
+  const [dangerDescriptionInput, setDangerDescriptionInput] = useState([]);
   const [isBoxDangerDetailsOpen, setIsBoxDangerDetailsOpen] = useState(false);
   const [dangerTypeConvert, setdangerTypeConvert] = useState(null);
+  const [voting, setVoting] = useState("")
+  const [numberOfCharacters, setNumberOfCharacters] = useState(0)
+  const [alertMsg, setAlertMsg] = useState(false)
   // login and profile temp tests from here :
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,9 +40,6 @@ const MapProvider = ({ children }) => {
   const [log, setLog] = useState("");
   const [infoTest, setinfoTest] = useState([]);
   const [info, setinfo] = useState([]);
-  const [dangerLevelVote, setDangerLevelVote] = useState();
-  const [numberOfCharacters, setNumberOfCharacters] = useState(0);
-  const [alertMsg, setAlertMsg] = useState("false");
 
   const handleDangerSubmit = (event) => {
     event.preventDefault();
@@ -55,7 +55,7 @@ const MapProvider = ({ children }) => {
   const handleDangerDescriptionInputs = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setDangerDescriptionInputs((values) => ({ ...values, [name]: value }));
+    setDangerDescriptionInput((values) => ({ ...values, [name]: value }));
     setNumberOfCharacters(event.target.value.length);
   };
 
@@ -64,29 +64,34 @@ const MapProvider = ({ children }) => {
     return setDangerType(event.target.value);
   };
 
+  const handleDangerLevel = (event) => {
+    setVoting(event.target.value)
+}
+
   const dangerFormSubmit = (event) => {
-    if (dangerDescriptionInputs === "" || dangerLevelVote > 0) {
-      setAlertMsg(true);
+    event.preventDefault();
+    if (dangerDescriptionInput.length === 0  || voting ==="") {
+      setAlertMsg(true)
     } else {
-      event.preventDefault();
-      setIsDangerDescriptionOpen(false);
-      setFinalMarkers((finalMarkers) => [...finalMarkers, markers]);
-      Axios.post("http://localhost:4000/reports/", {
-        voting: 1,
-        lat: markers.lat,
-        lng: markers.lng,
-        title: dangerType,
-        information: dangerDescriptionInputs.description,
-        /*users_id: user.id,*/
-        category_id: dangerTypeConvert,
+    setIsDangerDescriptionOpen(false);
+    setFinalMarkers((finalMarkers) => [...finalMarkers, markers]);
+    Axios.post("http://localhost:4000/reports/", {
+      voting: voting,
+      lat: markers.lat,
+      lng: markers.lng,
+      title: dangerType,
+      information: dangerDescriptionInput.description,
+      user_id: 1,
+      category_id: dangerTypeConvert,
+    })
+      .then((response) => {
+        console.log(response);
+        setAlertMsg(false);
       })
-        .then((response) => {
-          console.log(dangerType);
-          console.log(response);
-        })
-        .catch((err) => console.log(err));
-    }
-  };
+      .catch((err) => console.log(err));
+    setVoting("")
+    setDangerDescriptionInput([])
+  }};
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -142,13 +147,17 @@ const MapProvider = ({ children }) => {
         isDangerDescriptionOpen,
         isBoxSelectDangerOpen,
         handleDangerSubmit,
+        handleDangerLevel,
         options,
         isBoxDangerDetailsOpen,
-        dangerDescriptionInputs,
+        dangerDescriptionInput,
         handleDangerDescriptionInputs,
         handleBoxDangerDetails,
         dangerTypeConvert,
         setdangerTypeConvert,
+        setIsBoxDangerDetailsOpen,
+        setVoting,
+        voting,
         email,
         setEmail,
         password,
