@@ -28,7 +28,7 @@ const MapProvider = ({ children }) => {
   const [isDangerDescriptionOpen, setIsDangerDescriptionOpen] = useState(false);
   const [isBoxSelectDangerOpen, setIsBoxSelectDangerOpen] = useState(false);
   const [dangerDescriptionInput, setDangerDescriptionInput] = useState([]);
-  const [isBoxDangerDetailsOpen, setIsBoxDangerDetailsOpen] = useState(false);
+  const [isBoxShowInputDetailsOpen, setIsBoxShowInputDetailsOpen] = useState(false);
   const [dangerTypeConvert, setdangerTypeConvert] = useState(null);
   const [voting, setVoting] = useState("")
   const [numberOfCharacters, setNumberOfCharacters] = useState(0)
@@ -48,8 +48,9 @@ const MapProvider = ({ children }) => {
   };
 
   const handleBoxDangerDetails = () => {
-    setIsBoxDangerDetailsOpen(true);
+    isBoxShowInputDetailsOpen(true);
   };
+  
   let user = JSON.parse(localStorage.getItem("user-info"));
 
   const handleDangerDescriptionInputs = (event) => {
@@ -67,7 +68,7 @@ const MapProvider = ({ children }) => {
   const handleDangerLevel = (event) => {
     setVoting(event.target.value)
 }
-
+  
   const dangerFormSubmit = (event) => {
     event.preventDefault();
     if (dangerDescriptionInput.length === 0  || voting ==="") {
@@ -85,7 +86,6 @@ const MapProvider = ({ children }) => {
       category_id: dangerTypeConvert,
     })
       .then((response) => {
-        console.log(response);
         setAlertMsg(false);
       })
       .catch((err) => console.log(err));
@@ -149,13 +149,13 @@ const MapProvider = ({ children }) => {
         handleDangerSubmit,
         handleDangerLevel,
         options,
-        isBoxDangerDetailsOpen,
+        isBoxShowInputDetailsOpen,
         dangerDescriptionInput,
         handleDangerDescriptionInputs,
         handleBoxDangerDetails,
         dangerTypeConvert,
         setdangerTypeConvert,
-        setIsBoxDangerDetailsOpen,
+        setIsBoxShowInputDetailsOpen,
         setVoting,
         voting,
         email,
@@ -170,6 +170,7 @@ const MapProvider = ({ children }) => {
         setinfoTest,
         info,
         setinfo,
+
       }}
     >
       {children}

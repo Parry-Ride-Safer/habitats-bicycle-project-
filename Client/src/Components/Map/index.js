@@ -1,21 +1,19 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
   GoogleMap,
-  InfoBox,
   Marker,
   MarkerClusterer,
 } from "@react-google-maps/api";
-import { formatRelative, parse } from "date-fns";
+import Axios from "axios";
 import {
   BoxSelectDanger,
   BoxDangerDescription,
+  BoxShowInputDetails,
   GpsLocation,
-  SearchBox,
-  BoxDangerList,
+  SearchBox
 } from "../";
 import { useGlobalMapContext } from "../../Context/mapContext";
 import "./map.css";
-import "../BoxSelectDanger/boxSelectDanger.css";
 import logo from "./Polygon38.png";
 import logoBlue from "./PolygonBlue.png";
 
@@ -66,95 +64,84 @@ export default function Map() {
   const {
     markers,
     isBoxSelectDangerOpen,
-    setIsBoxDangerDetailsOpen,
+    setIsBoxShowInputDetailsOpen,
     finalMarkers,
     onMapClick,
     onMapLoad,
     selected,
     setSelected,
-    panTo,
-    handleBoxDangerDetails,
+    panTo
   } = useGlobalMapContext();
 
-  return (
-    <div>
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        zoom={8}
-        center={center}
-        options={mapOptions}
-        onClick={onMapClick}
-        onLoad={onMapLoad}
-        yesIWantToUseGoogleMapApiInternals
-      >
-        <div className="search-map-location">
-          <SearchBox panTo={panTo} />
-        </div>
-        <GpsLocation panTo={panTo} />
+  const [getReportData, setGetReportdata] = useState([])
+  const [sendReportRequest, setSendReportRequest] = useState(false)
   
-   
-  <MarkerClusterer
-        /*styles={clusterStyles}*/
-        gridSize = {60}
+  const fetchReportData = async () => {
+    setSendReportRequest(true);
+    try {
+      const reportData = await Axios(`http://localhost:4000/reports/${selected.id}`);
+      setGetReportdata(reportData.data[0])
+      setSendReportRequest(false)
+      console.log(getReportData)
+    } catch (e) {
+      setSendReportRequest(false);
+    }
+  };
+ 
+  return (
+  <GoogleMap
+    mapContainerStyle={mapContainerStyle}
+    zoom={8}
+    center={center}
+    options={mapOptions}
+    onClick={onMapClick}
+    onLoad={onMapLoad}
+    yesIWantToUseGoogleMapApiInternals
   >
-        {(clusterer) =>
-            finalMarkers.map((fMarker) => (
-              <Marker
-                key={fMarker.id}
-                position={{
-                  lat: Number(fMarker.lat),
-                  lng: Number(fMarker.lng),
-                }}
-                clusterer={clusterer}
-                icon={{
-                  url: logo,
-                  scaledSize: new window.google.maps.Size(50, 50),
-                  origin: new window.google.maps.Point(0, 0),
-                  anchor: new window.google.maps.Point(25, 25),
-                }}
-                onClick={() => {
-                  setSelected(fMarker);
-                }}
-              />
-          ))}    
-    </MarkerClusterer>
-{/*
-    {selected ? (
-        <InfoBox
-          position={{ lat: selected.lat, lng: selected.lng }}
-          onCloseClick={() => {
-            setSelected(null);
-          }}
-        >
-          <div>
-            <p>Categorias</p>
-            <button type="button" onClick={handleBoxDangerDetails}>
-              More details
-            </button>
-          </div>
-        </InfoBox>
-      ) : null}
-        */}
-        
-      {selected ? setIsBoxDangerDetailsOpen(true) : null}
-
-        {isBoxSelectDangerOpen ? (
-          <Marker
-            position={markers}
+    <div className="search-map-location">
+      <SearchBox panTo={panTo} />
+    </div>
+    <GpsLocation panTo={panTo} />
+    <MarkerClusterer gridSize = {60}
+          /*styles={clusterStyles}*/>
+      {(clusterer) =>
+        finalMarkers.map((fMarker) => (
+          <Marker key={fMarker.id}
+            position={{
+              lat: Number(fMarker.lat),
+              lng: Number(fMarker.lng),
+            }}
+            clusterer={clusterer}
             icon={{
-              url: logoBlue,
+              url: logo,
               scaledSize: new window.google.maps.Size(50, 50),
               origin: new window.google.maps.Point(0, 0),
               anchor: new window.google.maps.Point(25, 25),
             }}
+            onClick={() =>{
+              setSelected(fMarker)
+              fetchReportData()
+            }}
           />
-        ) : (
-          "box-overlay"
-        )}
-        {isBoxSelectDangerOpen ? <BoxSelectDanger /> : "box-overlay"}
-        <BoxDangerDescription />
-        <BoxDangerList />
-      </GoogleMap>
-    </div>
+      ))}  
+    </MarkerClusterer>
+      
+    {selected ? setIsBoxShowInputDetailsOpen(true) : null}
+  
+    {isBoxSelectDangerOpen ? (
+      <Marker
+        position={markers}
+        icon={{
+          url: logoBlue,
+          scaledSize: new window.google.maps.Size(50, 50),
+          origin: new window.google.maps.Point(0, 0),
+          anchor: new window.google.maps.Point(25, 25),
+        }}
+      />
+    ) : ("box-overlay")}
+    {isBoxSelectDangerOpen ? <BoxSelectDanger /> : "box-overlay"}
+    <BoxDangerDescription />
+    <BoxShowInputDetails />
+  </GoogleMap>
   );
 }
