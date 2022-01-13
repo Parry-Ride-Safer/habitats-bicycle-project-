@@ -2,6 +2,7 @@ import React, {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useRef,
   useState,
 } from "react";
@@ -10,9 +11,19 @@ import Axios from "axios";
 const MapContext = createContext();
 
 const MapProvider = ({ children }) => {
+  const base_URL = process.env.REACT_APP_API_ROUTE_URL;
+
   const [dangerType, setDangerType] = useState();
   const [markers, setMarkers] = useState();
   const [finalMarkers, setFinalMarkers] = useState([]);
+  useEffect(() => {
+    const fetchMarkers = async () => {
+      const result = await Axios(process.env.REACT_APP_API_ROUTE_URL);
+      setFinalMarkers(result.data);
+    };
+    fetchMarkers();
+  }, []);
+
   const [selected, setSelected] = useState(null);
   const [isDangerDescriptionOpen, setIsDangerDescriptionOpen] = useState(false);
   const [isBoxSelectDangerOpen, setIsBoxSelectDangerOpen] = useState(false);
@@ -26,6 +37,9 @@ const MapProvider = ({ children }) => {
   const [log, setLog] = useState("");
   const [infoTest, setinfoTest] = useState([]);
   const [info, setinfo] = useState([]);
+  const [dangerLevelVote, setDangerLevelVote] = useState();
+  const [numberOfCharacters, setNumberOfCharacters] = useState(0);
+  const [alertMsg, setAlertMsg] = useState("false");
 
   const handleDangerSubmit = (event) => {
     event.preventDefault();
@@ -42,6 +56,7 @@ const MapProvider = ({ children }) => {
     const name = event.target.name;
     const value = event.target.value;
     setDangerDescriptionInputs((values) => ({ ...values, [name]: value }));
+    setNumberOfCharacters(event.target.value.length);
   };
 
   const handleDangerChoice = (event) => {
@@ -50,25 +65,27 @@ const MapProvider = ({ children }) => {
   };
 
   const dangerFormSubmit = (event) => {
-    event.preventDefault();
-    setIsDangerDescriptionOpen(false);
-    setFinalMarkers((finalMarkers) => [...finalMarkers, markers]);
-    console.log({ lat: markers.lat, lng: markers.lng });
-
-    Axios.post("http://localhost:4000/reports/", {
-      voting: 1,
-      lat: markers.lat,
-      lng: markers.lng,
-      title: dangerDescriptionInputs.title,
-      information: dangerDescriptionInputs.description,
-      users_id: user.id,
-      category_id: dangerTypeConvert,
-    })
-      .then((response) => {
-        console.log(dangerType);
-        console.log(response);
+    if (dangerDescriptionInputs === "" || dangerLevelVote > 0) {
+      setAlertMsg(true);
+    } else {
+      event.preventDefault();
+      setIsDangerDescriptionOpen(false);
+      setFinalMarkers((finalMarkers) => [...finalMarkers, markers]);
+      Axios.post("http://localhost:4000/reports/", {
+        voting: 1,
+        lat: markers.lat,
+        lng: markers.lng,
+        title: dangerType,
+        information: dangerDescriptionInputs.description,
+        /*users_id: user.id,*/
+        category_id: dangerTypeConvert,
       })
-      .catch((err) => console.log(err));
+        .then((response) => {
+          console.log(dangerType);
+          console.log(response);
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   const mapRef = useRef();
@@ -109,6 +126,7 @@ const MapProvider = ({ children }) => {
   return (
     <MapContext.Provider
       value={{
+        alertMsg,
         dangerType,
         setDangerType,
         markers,
@@ -120,6 +138,7 @@ const MapProvider = ({ children }) => {
         onMapClick,
         onMapLoad,
         dangerFormSubmit,
+        numberOfCharacters,
         isDangerDescriptionOpen,
         isBoxSelectDangerOpen,
         handleDangerSubmit,

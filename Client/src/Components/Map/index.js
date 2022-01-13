@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
-import useSwr from "swr";
-import useSuperCluster from "use-supercluster";
-import { formatRelative } from "date-fns";
-import Axios from "axios";
+import React from "react";
+import {
+  GoogleMap,
+  InfoBox,
+  Marker,
+  MarkerClusterer,
+} from "@react-google-maps/api";
+import { formatRelative, parse } from "date-fns";
 import {
   BoxSelectDanger,
   BoxDangerDescription,
@@ -15,7 +17,6 @@ import { useGlobalMapContext } from "../../Context/mapContext";
 import "./map.css";
 import "../BoxSelectDanger/boxSelectDanger.css";
 import logo from "./Polygon38.png";
-import useSWR from "swr";
 import logoBlue from "./PolygonBlue.png";
 
 const mapContainerStyle = {
@@ -28,7 +29,7 @@ const center = {
   lng: 13.405,
 };
 
-const options = {
+const mapOptions = {
   styles: [
     {
       featureType: "poi",
@@ -61,12 +62,9 @@ const options = {
     textSize: 30
   }]*/
 
-const fetcher = (...args) => fetch(...args).then((response) => response.json());
-
 export default function Map() {
   const {
     markers,
-    setFinalMarkers,
     isBoxSelectDangerOpen,
     finalMarkers,
     onMapClick,
@@ -77,21 +75,13 @@ export default function Map() {
     handleBoxDangerDetails,
   } = useGlobalMapContext();
 
-  const [zoom, setZoom] = useState(10);
-  const [bounds, setBounds] = useState(null);
-
-  const url = "http://localhost:4000/location/";
-  const { data, error } = useSWR(url, fetcher);
-  const getFinalMarkers = data && !error ? data.slice(0, 200) : [];
-  // console.log(data);
-
   return (
     <div>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={8}
         center={center}
-        options={options}
+        options={mapOptions}
         onClick={onMapClick}
         onLoad={onMapLoad}
         yesIWantToUseGoogleMapApiInternals
@@ -101,40 +91,35 @@ export default function Map() {
         </div>
         <GpsLocation panTo={panTo} />
 
-        {getFinalMarkers.map((getMarker) => (
-          <Marker
-            key={getMarker.id}
-            position={{
-              lat: Number(getMarker.lat),
-              lng: Number(getMarker.lng),
-            }}
-            icon={{
-              url: logo,
-              scaledSize: new window.google.maps.Size(50, 50),
-              origin: new window.google.maps.Point(0, 0),
-              anchor: new window.google.maps.Point(25, 25),
-            }}
-          ></Marker>
-        ))}
-
-        {finalMarkers.map((fMarker) => (
-          <Marker
-            key={fMarker.id}
-            position={{ lat: fMarker.lat, lng: fMarker.lng }}
-            icon={{
-              url: logo,
-              scaledSize: new window.google.maps.Size(50, 50),
-              origin: new window.google.maps.Point(0, 0),
-              anchor: new window.google.maps.Point(25, 25),
-            }}
-            onClick={() => {
-              setSelected(fMarker);
-            }}
-          />
-        ))}
+        <MarkerClusterer
+          /*styles={clusterStyles}*/
+          gridSize={60}
+        >
+          {(clusterer) =>
+            finalMarkers.map((fMarker) => (
+              <Marker
+                key={fMarker.id}
+                position={{
+                  lat: Number(fMarker.lat),
+                  lng: Number(fMarker.lng),
+                }}
+                clusterer={clusterer}
+                icon={{
+                  url: logo,
+                  scaledSize: new window.google.maps.Size(50, 50),
+                  origin: new window.google.maps.Point(0, 0),
+                  anchor: new window.google.maps.Point(25, 25),
+                }}
+                onClick={() => {
+                  setSelected(fMarker);
+                }}
+              />
+            ))
+          }
+        </MarkerClusterer>
 
         {selected ? (
-          <InfoWindow
+          <InfoBox
             position={{ lat: selected.lat, lng: selected.lng }}
             onCloseClick={() => {
               setSelected(null);
@@ -145,9 +130,8 @@ export default function Map() {
               <button type="button" onClick={handleBoxDangerDetails}>
                 More details
               </button>
-              <p>{formatRelative(selected.time, new Date())}</p>
             </div>
-          </InfoWindow>
+          </InfoBox>
         ) : null}
 
         {isBoxSelectDangerOpen ? (

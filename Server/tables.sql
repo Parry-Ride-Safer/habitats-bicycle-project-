@@ -1,45 +1,51 @@
-create database Habitat;
-use habitat;
+CREATE DATABASE habitat;
 
-create table `users`(
-`id` int not null auto_increment,
-`email` varchar(255) unique not null,
-`hashedPassword` varchar(100) not null,
-`role` varchar(255) NOT NULL DEFAULT 'user',
-primary key (id)
+Use habitat;
+
+CREATE TABLE `user` (
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) UNIQUE NOT NULL,
+  `hashedPassword` varchar(100) NOT NULL,
+  `role` varchar(255) NOT NULL DEFAULT "user"
 );
 
-create table `address`(
-`id` int not null auto_increment,
-`lat` decimal(8,6) not null,
-`lng` decimal (9,6)not null,
-primary key (id)
+CREATE TABLE `address` (
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `lat` decimal(8,6) NOT NULL,
+  `lng` decimal(9,6) NOT NULL
 );
 
-create table `category`(
-`id` int not null auto_increment,
-`name` varchar(100),
-primary key (id));
-
-create table `reports`(
-`id` int not null auto_increment,
-`information` varchar(300),
-`title` varchar(100),
-`voting` int,
-`users_id` int not null,
-`address_id` int not null,
-`category_id` int not null,
-constraint fk_users_reports
-	foreign key (users_id)
-    REFERENCES users(id),
-constraint fk_address_reports
-	foreign key (address_id)
-    REFERENCES address(id),
-constraint fk_category_reports
-	foreign key (category_id)
-    REFERENCES category(id),
-primary key (id)
+CREATE TABLE `category` (
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `name` varchar(100)
 );
 
-INSERT INTO category (name) VALUES('contruction'),('intersection'),('bikelane'),('road');
-INSERT INTO users (email, hashedpassword)  VALUES ('paulo@gmail.com', 'aushduhasud');
+CREATE TABLE `report` (
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `information` varchar(300),
+  `user_id` int NOT NULL,
+  `address_id` int NOT NULL,
+  `category_id` int NOT NULL
+);
+
+CREATE TABLE `voting` (
+  `user_id` int,
+  `report_id` int,
+  `voting` int NOT NULL,
+  PRIMARY KEY (`user_id`, `report_id`)
+);
+
+ALTER TABLE `voting` ADD FOREIGN KEY (`report_id`) REFERENCES `report` (`id`);
+
+ALTER TABLE `voting` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+ALTER TABLE `report` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+ALTER TABLE `report` ADD FOREIGN KEY (`address_id`) REFERENCES `address` (`id`);
+
+ALTER TABLE `report` ADD FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
+
+
+
+insert into category (name) values('traffic'),('intersection'),('bikelane'),('road')('traffic'),('other');
+INSERT INTO user (email, hashedpassword)  VALUES ('paulo@gmail.com', 'aushduhasud');
