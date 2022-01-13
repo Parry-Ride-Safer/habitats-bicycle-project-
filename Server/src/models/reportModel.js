@@ -9,18 +9,20 @@ const getAllReports = async () => {
 
 const getReportsInOneLocation = async (locationId) => {
   const reports = await db.query(
-    "SELECT information, avg(voting), category_id  FROM report join voting on voting.report_id = report.id WHERE address_id = ? group by  category_id order by category_id asc",
+    "SELECT report.id, information, avg(voting), category_id  FROM report join voting on voting.report_id = report.id WHERE address_id = ?  ",
     [locationId]
   );
   const results = reports;
   return results[0];
 };
 
-const createVoting = async (voting, user_id, id) =>
+const createVoting = async (voting, user_id, id) => {
   await db.query(
     "INSERT INTO voting ( voting, user_id, report_id) VALUES (?, ?, ?)",
     [voting, user_id, id]
   );
+  return { voting, user_id, id };
+};
 
 const createReport = async ({
   information,
@@ -70,6 +72,5 @@ module.exports = {
   findLocation,
   getReportsInOneLocation,
   createLocation,
-
   createVoting,
 };

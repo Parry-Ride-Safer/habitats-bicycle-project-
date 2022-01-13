@@ -2,6 +2,18 @@
   box-sizing: border-box;
 }
 
+.login-form {
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 1rem;
+  z-index: 55;
+
+  top: 10%;
+}
+
 .menu-btn {
   position: absolute;
   display: flex;
@@ -70,9 +82,15 @@ div.open-profile {
   transform: rotate(-45deg) translate(35px, 35px);
 }
 
+.absolute-container {
+  position: absolute;
+  z-index: 2;
+}
+
 .tab-wrapper {
   height: 100vh;
-  background-color: rgb(180 177 177);
+  width: 100vw;
+  background-color: rgb(223, 222, 222);
   position: relative;
   z-index: 2;
   display: flex;
@@ -80,11 +98,18 @@ div.open-profile {
   align-items: center;
 }
 
+.your-account {
+  position: absolute;
+  top: 0;
+  left: 10%;
+}
 .tab-container {
   background: rgb(99, 99, 99);
-  width: 500px;
-  height: 500px;
+  width: 100vw;
+  height: 80vh;
   overflow: scroll;
+  position: absolute;
+  bottom: 0;
 }
 .active-tabs {
   background-color: red;
@@ -100,4 +125,15 @@ div.open-profile {
 
 ul {
   list-style: none;
+}
+
+.login-btn {
+  position: absolute;
+  z-index: 50;
+  top: 0;
+  right: 0;
+}
+.img-login-btn {
+  width: 50px;
+  height: 50px;
 }

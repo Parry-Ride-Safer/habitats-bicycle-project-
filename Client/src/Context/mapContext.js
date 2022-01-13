@@ -16,16 +16,14 @@ const MapProvider = ({ children }) => {
   const [dangerType, setDangerType] = useState();
   const [markers, setMarkers] = useState();
   const [finalMarkers, setFinalMarkers] = useState([]);
-    useEffect(() => {
-      const fetchMarkers = async () => {
-        const result = await Axios(
-          process.env.REACT_APP_API_ROUTE_URL
-        );
-        setFinalMarkers(result.data);
-      };
-      fetchMarkers();
-    }, []);
- 
+  useEffect(() => {
+    const fetchMarkers = async () => {
+      const result = await Axios(process.env.REACT_APP_API_ROUTE_URL);
+      setFinalMarkers(result.data);
+    };
+    fetchMarkers();
+  }, []);
+
   const [selected, setSelected] = useState(null);
   const [isDangerDescriptionOpen, setIsDangerDescriptionOpen] = useState(false);
   const [isBoxSelectDangerOpen, setIsBoxSelectDangerOpen] = useState(false);
@@ -35,8 +33,15 @@ const MapProvider = ({ children }) => {
   const [voting, setVoting] = useState("")
   const [numberOfCharacters, setNumberOfCharacters] = useState(0)
   const [alertMsg, setAlertMsg] = useState(false)
+  // login and profile temp tests from here :
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [userTest, setUserTest] = useState([]);
+  const [log, setLog] = useState("");
+  const [infoTest, setinfoTest] = useState([]);
+  const [info, setinfo] = useState([]);
 
-   const handleDangerSubmit = (event) => {
+  const handleDangerSubmit = (event) => {
     event.preventDefault();
     setIsBoxSelectDangerOpen(false);
     setIsDangerDescriptionOpen(true);
@@ -55,7 +60,7 @@ const MapProvider = ({ children }) => {
   };
 
   const handleDangerChoice = (event) => {
-    console.log("this shit aint working chief");
+    console.log("this aint working chief");
     return setDangerType(event.target.value);
   };
 
@@ -153,6 +158,18 @@ const MapProvider = ({ children }) => {
         setIsBoxDangerDetailsOpen,
         setVoting,
         voting,
+        email,
+        setEmail,
+        password,
+        setPassword,
+        userTest,
+        setUserTest,
+        log,
+        setLog,
+        infoTest,
+        setinfoTest,
+        info,
+        setinfo,
       }}
     >
       {children}
