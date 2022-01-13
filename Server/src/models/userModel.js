@@ -80,14 +80,18 @@ const deleteUser = async (id) => {
 };
 
 const reportsFromUserId = async (id) => {
-  try {
-    let [results] = await db.query("SELECT * from reports WHERE user_id = ?", [
-      id,
-    ]);
-    return results;
-  } catch (error) {
-    return error;
-  }
+  let [results] = await db.query("SELECT * from report WHERE user_id = ?", [
+    id,
+  ]);
+  return results;
+};
+
+const ratedFromUserId = async (id) => {
+  const [ratedSpots] = await db.query(
+    "SELECT address_id FROM report join voting on voting.report_id = report.id WHERE voting.user_id = ?",
+    [id]
+  );
+  return ratedSpots;
 };
 
 module.exports = {
@@ -100,4 +104,5 @@ module.exports = {
   findUserbyId,
   getUserByEmail,
   reportsFromUserId,
+  ratedFromUserId,
 };

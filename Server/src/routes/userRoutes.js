@@ -9,5 +9,6 @@ userRoutes.post("/", userController.insertNewUserController);
 userRoutes.put("/:id", userController.updateUserController);
 userRoutes.delete("/:id", userController.deleteUserController);
 userRoutes.get("/:id/reports", userController.reportsFromUserIdController);
+userRoutes.get("/:id/rated", userController.ratedSpotsFromUserIdController);
 
 module.exports = userRoutes;

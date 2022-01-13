@@ -13,8 +13,8 @@ const getReportsInOneLocationController = async (req, res) => {
   const locationId = req.params.id;
   try {
     const results = await reportsModels.getReportsInOneLocation(locationId);
-    if (results.length) res.status(200).json(results);
-    else throw new Error("NO_LOCATION");
+    if (!results.length) throw new Error("NO_LOCATION");
+    res.status(200).json(results);
   } catch (error) {
     console.log(error);
     if ("NO_LOCATION")
@@ -46,8 +46,21 @@ const insertNewReportController = async (req, res) => {
   }
 };
 
+const submitVotingController = async (req, res) => {
+  const { voting, user_id, report_id } = req.body;
+
+  try {
+    const vote = await reportsModels.createVoting(voting, user_id, report_id);
+
+    res.status(201).send(vote);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   getAllReportsController,
   insertNewReportController,
   getReportsInOneLocationController,
+  submitVotingController,
 };

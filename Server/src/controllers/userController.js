@@ -1,4 +1,4 @@
-const { usersModels } = require("../models");
+const { usersModels, reportsModels } = require("../models");
 const { userValidator } = require("../validators");
 
 const getUsersController = async (req, res) => {
@@ -96,6 +96,22 @@ const reportsFromUserIdController = async (req, res) => {
   }
 };
 
+const ratedSpotsFromUserIdController = async (req, res) => {
+  const targetID = req.params.id;
+  try {
+    const [ratedSpots] = await usersModels.ratedFromUserId(targetID);
+    console.log(ratedSpots);
+    const reports = await reportsModels.getReportsInOneLocation(ratedSpots);
+    console.log(reports);
+    if (reports.length < 1) throw new Error("RECORD_NOT_FOUND");
+    res.status(200).send(reports);
+  } catch (error) {
+    console.log(error);
+    if ("RECORD_NOT_FOUND") res.status(404).send("reports not found.");
+    else res.status(500).send("Error error finding reports");
+  }
+};
+
 module.exports = {
   getUsersController,
   insertNewUserController,
@@ -103,4 +119,5 @@ module.exports = {
   updateUserController,
   deleteUserController,
   reportsFromUserIdController,
+  ratedSpotsFromUserIdController,
 };

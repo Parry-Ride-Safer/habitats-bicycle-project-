@@ -1,3 +1,7 @@
+CREATE DATABASE habitat;
+
+Use habitat;
+
 CREATE TABLE `user` (
   `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `email` varchar(255) UNIQUE NOT NULL,
@@ -43,5 +47,5 @@ ALTER TABLE `report` ADD FOREIGN KEY (`category_id`) REFERENCES `category` (`id`
 
 
 
-INSERT INTO category (name) VALUES('contruction'),('intersection'),('bikelane'),('road');
-INSERT INTO users (email, hashedpassword)  VALUES ('paulo@gmail.com', 'aushduhasud');
+insert into category (name) values('traffic'),('intersection'),('bikelane'),('road')('traffic'),('other');
+INSERT INTO user (email, hashedpassword)  VALUES ('paulo@gmail.com', 'aushduhasud');
