@@ -19,6 +19,8 @@ import "../BoxSelectDanger/boxSelectDanger.css";
 import logo from "./Polygon38.png";
 import logoBlue from "./PolygonBlue.png";
 
+let user = JSON.parse(localStorage.getItem("user-info"));
+
 const mapContainerStyle = {
   width: "100vw",
   height: "100vh",
@@ -91,13 +93,12 @@ export default function Map() {
           <SearchBox panTo={panTo} />
         </div>
         <GpsLocation panTo={panTo} />
-  
-   
-  <MarkerClusterer
-        /*styles={clusterStyles}*/
-        gridSize = {60}
-  >
-        {(clusterer) =>
+
+        <MarkerClusterer
+          /*styles={clusterStyles}*/
+          gridSize={60}
+        >
+          {(clusterer) =>
             finalMarkers.map((fMarker) => (
               <Marker
                 key={fMarker.id}
@@ -116,9 +117,10 @@ export default function Map() {
                   setSelected(fMarker);
                 }}
               />
-          ))}    
-    </MarkerClusterer>
-{/*
+            ))
+          }
+        </MarkerClusterer>
+        {/*
     {selected ? (
         <InfoBox
           position={{ lat: selected.lat, lng: selected.lng }}
@@ -135,8 +137,8 @@ export default function Map() {
         </InfoBox>
       ) : null}
         */}
-        
-      {selected ? setIsBoxDangerDetailsOpen(true) : null}
+
+        {selected ? setIsBoxDangerDetailsOpen(true) : null}
 
         {isBoxSelectDangerOpen ? (
           <Marker

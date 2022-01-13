@@ -11,8 +11,6 @@ import Axios from "axios";
 const MapContext = createContext();
 
 const MapProvider = ({ children }) => {
-  
-  
   const [dangerType, setDangerType] = useState();
   const [markers, setMarkers] = useState();
   const [finalMarkers, setFinalMarkers] = useState([]);
@@ -30,9 +28,9 @@ const MapProvider = ({ children }) => {
   const [dangerDescriptionInput, setDangerDescriptionInput] = useState([]);
   const [isBoxDangerDetailsOpen, setIsBoxDangerDetailsOpen] = useState(false);
   const [dangerTypeConvert, setdangerTypeConvert] = useState(null);
-  const [voting, setVoting] = useState("")
-  const [numberOfCharacters, setNumberOfCharacters] = useState(0)
-  const [alertMsg, setAlertMsg] = useState(false)
+  const [voting, setVoting] = useState("");
+  const [numberOfCharacters, setNumberOfCharacters] = useState(0);
+  const [alertMsg, setAlertMsg] = useState(false);
   // login and profile temp tests from here :
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,6 +38,7 @@ const MapProvider = ({ children }) => {
   const [log, setLog] = useState("");
   const [infoTest, setinfoTest] = useState([]);
   const [info, setinfo] = useState([]);
+  const [stateLogin, setStateLogin] = useState(false);
 
   const handleDangerSubmit = (event) => {
     event.preventDefault();
@@ -65,33 +64,34 @@ const MapProvider = ({ children }) => {
   };
 
   const handleDangerLevel = (event) => {
-    setVoting(event.target.value)
-}
+    setVoting(event.target.value);
+  };
 
   const dangerFormSubmit = (event) => {
     event.preventDefault();
-    if (dangerDescriptionInput.length === 0  || voting ==="") {
-      setAlertMsg(true)
+    if (dangerDescriptionInput.length === 0 || voting === "") {
+      setAlertMsg(true);
     } else {
-    setIsDangerDescriptionOpen(false);
-    setFinalMarkers((finalMarkers) => [...finalMarkers, markers]);
-    Axios.post("http://localhost:4000/reports/", {
-      voting: voting,
-      lat: markers.lat,
-      lng: markers.lng,
-      title: dangerType,
-      information: dangerDescriptionInput.description,
-      user_id: 1,
-      category_id: dangerTypeConvert,
-    })
-      .then((response) => {
-        console.log(response);
-        setAlertMsg(false);
+      setIsDangerDescriptionOpen(false);
+      setFinalMarkers((finalMarkers) => [...finalMarkers, markers]);
+      Axios.post("http://localhost:4000/reports/", {
+        voting: voting,
+        lat: markers.lat,
+        lng: markers.lng,
+        title: dangerType,
+        information: dangerDescriptionInput.description,
+        user_id: user.id,
+        category_id: dangerTypeConvert,
       })
-      .catch((err) => console.log(err));
-    setVoting("")
-    setDangerDescriptionInput([])
-  }};
+        .then((response) => {
+          console.log(response);
+          setAlertMsg(false);
+        })
+        .catch((err) => console.log(err));
+      setVoting("");
+      setDangerDescriptionInput([]);
+    }
+  };
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -170,6 +170,8 @@ const MapProvider = ({ children }) => {
         setinfoTest,
         info,
         setinfo,
+        stateLogin,
+        setStateLogin,
       }}
     >
       {children}
