@@ -44,4 +44,4 @@ ALTER TABLE `report` ADD FOREIGN KEY (`category_id`) REFERENCES `category` (`id`
 
 
 INSERT INTO category (name) VALUES('contruction'),('intersection'),('bikelane'),('road');
-INSERT INTO users (email, hashedpassword)  VALUES ('paulo@gmail.com', 'aushduhasud');
+INSERT INTO user (email, hashedpassword)  VALUES ('paulo@gmail.com', 'aushduhasud');
