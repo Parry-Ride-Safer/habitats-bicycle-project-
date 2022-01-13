@@ -37,9 +37,9 @@ class Fullform extends React.Component {
     const current = isLogginActive ? "Register" : "Login";
     const currentActive = isLogginActive ? "login" : "register";
     return (
-      <div className='App'>
-        <div className='login'>
-          <div className='container' ref={(ref) => (this.container = ref)}>
+      <div className="App">
+        <div className="login">
+          <div className="container" ref={(ref) => (this.container = ref)}>
             {isLogginActive && (
               <Login containerRef={(ref) => (this.current = ref)} />
             )}
@@ -62,12 +62,12 @@ class Fullform extends React.Component {
 const RightSide = (props) => {
   return (
     <div
-      className='right-side'
+      className="right-side"
       ref={props.containerRef}
       onClick={props.onClick}
     >
-      <div className='inner-container'>
-        <div className='text'>{props.current}</div>
+      <div className="inner-container">
+        <div className="text">{props.current}</div>
       </div>
     </div>
   );
