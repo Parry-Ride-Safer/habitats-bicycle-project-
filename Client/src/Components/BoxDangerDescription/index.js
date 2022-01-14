@@ -30,13 +30,19 @@ export default function BoxDangerDescription() {
         >
           Return
         </button>
-        <h3 className="danger-category">{dangerType}</h3>
+        
+        
+        <div className="main-title">
+                <h3 className="danger-category-main-title">{dangerType}</h3>
+        </div>
+
         <p className="danger-input-labels">
           {" "}
           Pictures <span>optional</span>{" "}
         </p>
         <button>Submit your picture</button>
 
+        <div className="form-holder"></div>
         <label className="danger-input-labels"> Description </label>
         <input
           className="danger-input-fields"
@@ -53,6 +59,8 @@ export default function BoxDangerDescription() {
           {" "}
           {60 - numberOfCharacters} Characters left{" "}
         </label>
+        <div/>
+
 
         <p className="danger-input-labels"> Danger Level </p>
         <button>more info</button>
