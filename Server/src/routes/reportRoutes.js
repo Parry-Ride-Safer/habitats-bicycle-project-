@@ -6,11 +6,7 @@ const reportsRoutes = express.Router();
 
 reportsRoutes.get("/", reportsController.getAllReportsController);
 reportsRoutes.get("/:id", reportsController.getReportsInOneLocationController);
-reportsRoutes.post(
-  "/",
-  authMiddleware,
-  reportsController.insertNewReportController
-);
+reportsRoutes.post("/", reportsController.insertNewReportController);
 reportsRoutes.put("/:id", reportsController.updateReportController);
 reportsRoutes.post(
   "/:reportId/vote",

@@ -100,7 +100,7 @@ const MapProvider = ({ children }) => {
         title: dangerType,
         information: dangerDescriptionInput.description,
         user_id: user.id,
-        category_id: dangerTypeConvert,
+        category_id: 1 /*dangerTypeConvert*/,
       })
         .then((response) => {
           console.log(response);
