@@ -50,7 +50,7 @@ export default function BoxDangerDescription() {
           type="text"
           name="description"
           placeholder="Describe the issue in a few words"
-          maxlength="60"
+          maxLength="60"
           value={dangerDescriptionInput.description}
           onChange={handleDangerDescriptionInputs}
         />

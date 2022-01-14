@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { GoogleMap, Marker, MarkerClusterer } from "@react-google-maps/api";
-import Axios from "axios";
 import {
   BoxSelectDanger,
   BoxDangerDescription,
@@ -106,7 +105,6 @@ export default function Map() {
                 anchor: new window.google.maps.Point(25, 25),
               }}
               onClick={(event) => {
-                console.log("chegou aqui", {target:event.target, fMarker}) 
                 setSelected(fMarker) 
                 fetchReportData(fMarker);
               }}

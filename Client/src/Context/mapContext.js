@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import Axios from "axios";
-
+import { issueType } from "../Components/BoxDangerDescription/issueType";
 const MapContext = createContext();
 
 const MapProvider = ({ children }) => {
@@ -28,7 +28,7 @@ const MapProvider = ({ children }) => {
   const [dangerDescriptionInput, setDangerDescriptionInput] = useState([]);
   const [isBoxShowInputDetailsOpen, setIsBoxShowInputDetailsOpen] =
     useState(false);
-  const [dangerTypeConvert, setdangerTypeConvert] = useState(null);
+  const [dangerTypeConvert, setDangerTypeConvert] = useState(null);
   const [voting, setVoting] = useState("");
   const [numberOfCharacters, setNumberOfCharacters] = useState(0);
   const [alertMsg, setAlertMsg] = useState(false);
@@ -44,7 +44,6 @@ const MapProvider = ({ children }) => {
   const [getReportData, setGetReportdata] = useState([]);
   const [sendReportRequest, setSendReportRequest] = useState(false);
   
-  
 
   const fetchReportData = async (fMarker) => {
     setSendReportRequest(true);
@@ -52,13 +51,11 @@ const MapProvider = ({ children }) => {
       const reportData = await Axios(
         `http://localhost:4000/reports/${fMarker.id}`
       );
-      console.log("fetchReportData executou")
       setGetReportdata(reportData.data[0]);
       setSendReportRequest(false);
       console.log(getReportData);
     } catch (e) {
       setSendReportRequest(false);
-      console.log("error", e)
     }
   };
 
@@ -90,6 +87,10 @@ const MapProvider = ({ children }) => {
     setVoting(event.target.value);
   };
 
+  const findCategoryID = [issueType.find((element) => element.type === dangerType)]
+  console.log(findCategoryID)
+ 
+
   const dangerFormSubmit = (event) => {
     event.preventDefault();
     if (dangerDescriptionInput.length === 0 || voting === "") {
@@ -104,11 +105,12 @@ const MapProvider = ({ children }) => {
         title: dangerType,
         information: dangerDescriptionInput.description,
         user_id: user.id,
-        category_id: 1,
+        category_id: findCategoryID[0].nb,
       })
         .then((response) => {
           console.log(response);
           setAlertMsg(false);
+          console.log(response)
         })
         .catch((err) => console.log(err));
       setVoting("");
@@ -177,7 +179,7 @@ const MapProvider = ({ children }) => {
         handleDangerDescriptionInputs,
         handleBoxDangerDetails,
         dangerTypeConvert,
-        setdangerTypeConvert,
+        setDangerTypeConvert,
         setIsBoxShowInputDetailsOpen,
         setVoting,
         voting,

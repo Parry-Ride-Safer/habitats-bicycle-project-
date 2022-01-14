@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { issueType } from "../BoxDangerDescription/issueType";
+import {issueType} from "../BoxDangerDescription/issueType";
 import flagReport from "./Flag.png";
 import example from "./image 28.png";
 import { useGlobalMapContext } from "../../Context/mapContext";
@@ -16,6 +16,7 @@ export default function BoxShowInputDetails() {
   const issueCategory = issueType.find(
     (element) => (element.id = getReportData.category_id)
   );
+  
   const [isNextModalOpen, setIsNextModalOpen] = useState(false);
 
   return (
@@ -36,7 +37,7 @@ export default function BoxShowInputDetails() {
               Close
             </button>
           </div>
-          <p>{issueCategory.type}</p>
+          <p>{issueCategory[0].type}</p>
           <p>Date example</p>
           <img className="image-property" src={example} alt="" />
           <p>{getReportData.information}</p>

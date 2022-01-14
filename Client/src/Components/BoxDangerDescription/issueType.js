@@ -2,28 +2,37 @@ import { ReactComponent as Construction } from "./dangerLevelIcons/🚧.svg";
 import { ReactComponent as Junction } from "./dangerLevelIcons/🚦.svg";
 import { ReactComponent as Bikelane } from "./dangerLevelIcons/🚲.svg";
 
-const issueType = [
+export const issueType = [
   {
     type: "Construction",
-    id: 1,
+    nb: 1,
     className: "select-construction",
-    icon: <Construction />,
+    icon: <Construction />
   },
-  { type: "Junction", id: 2, className: "select-junction", icon: <Junction /> },
+  { 
+    type: "Junction",
+    nb: 2, 
+    className: "select-junction", 
+    icon: <Junction /> 
+  },
   {
     type: "Bike Lane",
-    id: 3,
+    nb: 3,
     className: "select-bike-lane",
-    icon: <Bikelane />,
+    icon: <Bikelane />
   },
-  { type: "Road", id: 4, className: "select-road", icon: <Construction /> },
+  { 
+    type: "Road",
+    nb: 4, 
+    className:"select-road",
+    icon: "" 
+  },
   {
     type: "Traffic",
-    id: 5,
+    nb: 5,
     className: "select-traffic",
-    icon: <Construction />,
+    icon: ""
   },
-  { type: "Other", id: 6, className: "select-other", icon: <Construction /> },
+  { type: "Other", nb: 6, className: "select-other", icon: <Construction /> }
 ];
 
-export { issueType };

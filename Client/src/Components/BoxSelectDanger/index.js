@@ -1,7 +1,7 @@
 import React from "react";
 import { useGlobalMapContext } from "../../Context/mapContext";
 import { InfoBox } from "@react-google-maps/api";
-import { issueType } from "../BoxDangerDescription/issueType";
+import {issueType} from "../BoxDangerDescription/issueType";
 import "./boxSelectDanger.css";
 
 export default function BoxSelectDanger() {
@@ -9,7 +9,6 @@ export default function BoxSelectDanger() {
     markers,
     setDangerType,
     handleDangerSubmit,
-    setdangerTypeConvert,
     stateLogin,
     setStateLogin,
   } = useGlobalMapContext();
@@ -34,15 +33,16 @@ export default function BoxSelectDanger() {
             <div style={{ fontSize: 16, fontColor: `#08233B` }}>
               <form className="info-box-display" onSubmit={handleDangerSubmit}>
                 <h3>Issue Type</h3>
-                {issueType.map((issue) => (
+                {issueType.map((issue, index) => (
                   <button
+                  key={index}
                     className={issue.className}
                     type="submit"
                     name="dangerType"
                     value={issue.type}
-                    onClick={() =>
-                      setDangerType(issue.type) + setdangerTypeConvert(issue.id)
-                    }
+                    onClick={(event) => {
+                      setDangerType(issue.type)
+                    }}
                   >
                     {issue.type}
                   </button>
