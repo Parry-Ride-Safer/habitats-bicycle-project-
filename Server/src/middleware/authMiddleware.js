@@ -1,4 +1,5 @@
 const { authHelper } = require("../helpers");
+const { userValidator } = require("../validators");
 
 module.exports = (req, _res, next) => {
   if (!req.cookies?.login) throw new Error("INVALID_TOKEN");
@@ -8,7 +9,8 @@ module.exports = (req, _res, next) => {
 
     next();
   } catch (error) {
-    if ("INVALID_TOKEN") res.status(404).send("not allowed");
-    next();
+    if (error.message === "INVALID_TOKEN")
+      return res.status(404).send("not allowed");
+    next(error);
   }
 };

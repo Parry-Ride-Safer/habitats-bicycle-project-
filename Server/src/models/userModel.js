@@ -71,6 +71,7 @@ const updateUser = async ({ password, ...data }, id) => {
       id,
     ]);
   }
+  console.log(results);
   return results[0].affectedRows;
 };
 
