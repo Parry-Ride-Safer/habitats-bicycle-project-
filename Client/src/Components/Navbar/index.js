@@ -1,26 +1,44 @@
 import React, { useState, useEffect } from "react";
 import "./navbar.css";
 import Axios from "axios";
-
+import { useGlobalMapContext } from "../../Context/mapContext";
 const Navbar = () => {
   const [btnState, setState] = useState(false);
-
+  // const [log2, setLog2] = useState()
+  // const [info, setinfo] = useState([]);
   const [toggleState, setToggleState] = useState(1);
 
-  const [info, setinfo] = useState([]);
   const [user, setUser] = useState([]);
-  const [log2, setLog2] = useState("");
+
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    userTest,
+    setUserTest,
+    log,
+    setLog,
+    infoTest,
+    setinfoTest,
+    info,
+    setinfo,
+  } = useGlobalMapContext();
+
+  let userStorage = JSON.parse(localStorage.getItem("user-info"));
   const getInfo = () => {
-    Axios.get(`http://localhost:4000/reports/${log2}`).then((response) => {
-      console.log(response.data);
-      setinfo(response.data);
-    });
+    Axios.get(`http://localhost:4000/users/${log}/reports/`).then(
+      (response) => {
+        console.log(response.data);
+        setinfo(response.data);
+      }
+    );
   };
 
   const getUser = () => {
-    Axios.get("http://localhost:4000/users/").then((response) => {
+    Axios.get(`http://localhost:4000/users/${log}`).then((response) => {
       console.log(response.data);
-      setUser(response.data[0].email);
+      setUser(response.data.email);
     });
   };
 
@@ -45,10 +63,13 @@ const Navbar = () => {
         <div className="menu-btn__burger"></div>
       </div>
       <div>
-        <div className={btnState ? "aberto" : "fechado"} onClick={handleClick}>
+        <div
+          className={btnState ? "open-profile" : "closed"}
+          onClick={handleClick}
+        >
           {" "}
         </div>
-        <div className={btnState ? "tab-wrapper" : "fechado"}>
+        <div className={btnState ? "tab-wrapper" : "closed"}>
           <div className="tab-container">
             <div className="bloc-tabs">
               <button
@@ -74,42 +95,44 @@ const Navbar = () => {
             <div className="content-tabs">
               <div
                 className={
-                  toggleState === 1 ? "content  active-content" : "fechado"
+                  toggleState === 1 ? "content  active-content" : "closed"
                 }
               >
                 <h2>your Profile</h2>
                 <hr />
                 <h3>user information:</h3>
-                <p> {user} </p>
+                <p> {userStorage ? userTest : null} </p>
               </div>
 
               <div
                 className={
-                  toggleState === 2 ? "content  active-content" : "fechado"
+                  toggleState === 2 ? "content  active-content" : "closed"
                 }
               >
                 <h2>your spots</h2>
                 <hr />
 
                 <div>
-                  {info.map((contact) => (
-                    <div className="your-spots-container">
-                      <ul key={contact.id}>
-                        <li>
-                          <span className="img-div">img </span>
-                        </li>
-                        <li> information :{contact.information}</li>
-                        <li> voting : {contact.voting}</li>
-                        <li> category : {contact.category_id}</li>
-                      </ul>
-                    </div>
-                  ))}
+                  {userStorage
+                    ? info.map((contact) => (
+                        <div className="your-spots-container">
+                          <ul key={contact.id}>
+                            <li>
+                              <span className="img-div">img </span>
+                            </li>
+                            <li> information :{contact.information}</li>
+                            <li> voting : {contact.voting}</li>
+                            <li> category : {contact.category_id}</li>
+                          </ul>
+                        </div>
+                      ))
+                    : null}
                 </div>
               </div>
 
               <div
                 className={
-                  toggleState === 3 ? "content  active-content" : "fechado"
+                  toggleState === 3 ? "content  active-content" : "closed"
                 }
               >
                 <h2>spots rated</h2>
