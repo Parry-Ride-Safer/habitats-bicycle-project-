@@ -32,7 +32,7 @@ export default function BoxDangerDescription() {
         </button>
         
         
-        <div className="main-title">
+        <div className="danger-category-main-title">
                 <h3 className="danger-category-main-title">{dangerType}</h3>
         </div>
 
@@ -55,7 +55,7 @@ export default function BoxDangerDescription() {
           onChange={handleDangerDescriptionInputs}
         />
         <br />
-        <label className="danger-input-labels">
+        <label className="description-input-label">
           {" "}
           {60 - numberOfCharacters} Characters left{" "}
         </label>
