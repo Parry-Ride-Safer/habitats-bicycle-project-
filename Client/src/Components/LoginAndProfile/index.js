@@ -3,6 +3,8 @@ import Axios from "axios";
 import { useGlobalMapContext } from "../../Context/mapContext";
 import "./style.css";
 import profileLogo from "./ProfileIcon.png";
+import WelcomePage from "./welcomePage";
+
 
 const LoginAndProfile = () => {
   const {
@@ -32,6 +34,11 @@ const LoginAndProfile = () => {
   const [userStorage, setUserStorage] = useState(null);
   const [loginId, setLoginId] = useState();
   const [SubmitedReports, setSubmitedReports] = useState([]);
+  const [welcomeStatus,setWelcomeStatus] = useState(false);
+
+const handleWelcomeStatusClick =() => { 
+    setWelcomeStatus(!welcomeStatus)
+}
 
   let user = JSON.parse(localStorage.getItem("user-info"));
 
@@ -45,7 +52,7 @@ const LoginAndProfile = () => {
 
   const register = async () => {
     let item = { email, password };
-    if (email <= 0 || password <= 0) {
+    if (email.length <= 0 || password.length < 8) {
       console.log("please enter something( email or password is missing) ");
     } else {
       let result = await fetch("http://localhost:4000/auth/register", {
@@ -107,6 +114,8 @@ const LoginAndProfile = () => {
       setEmail("");
       handleUserStorage();
       handleLoginStatus();
+      
+     
 
       await console.log(result.data.id, "user id logged");
       await setLoginId(result.data.id);
@@ -160,6 +169,8 @@ const LoginAndProfile = () => {
       localStorage.clear();
       handleClick();
       setLoginId(null);
+      handleLoginStatus()
+
     } catch (err) {
       console.log(err);
     }
@@ -182,6 +193,11 @@ const LoginAndProfile = () => {
     setStateLogin(!stateLogin);
   };
 
+  useEffect(()=>{
+
+console.log('teste teste')
+
+  },[stateLogin])
   const savedLogged = isLogged(user);
 
   useEffect(() => {
@@ -208,8 +224,37 @@ const LoginAndProfile = () => {
     console.log("SEGUNDO USEEFFECT DO USER");
   }, []);
 
+
+  const WelcomePage2 = () => {
+    return (
+        <div>
+            <div className='welcome-page2'>
+                <h2>Welcome rider. <br/> Let's make the streets safer together.</h2>
+                <button onClick={handleWelcomeStatusClick} className='btn'>Start</button>
+            </div>
+        </div>
+    )
+}
+
+const handleSkipForNow = ()=> { 
+    if(WelcomePage2) { setStateLogin(true)} 
+}
+
+const SignUpPop = () => {
+    return (
+        <div>
+            <div className='welcome-page'>
+                <h2>sign up to be able to report or vote on a road issue.</h2>
+                <button className='btn' onClick={handleLoginStatus}>sign up</button>
+                <button onClick={handleSkipForNow} >skip for now</button>
+            </div>
+        </div>
+    )
+}
+
   return (
     <div>
+         
       {/* <div className="login-form">
         <form>
           <div>
@@ -255,6 +300,7 @@ const LoginAndProfile = () => {
         <>
           {stateLogin ? (
             <div className="login-form">
+                
               <form>
                 <div>
                   <label htmlFor="username">email</label>
@@ -293,6 +339,9 @@ const LoginAndProfile = () => {
               </form>
             </div>
           ) : null}
+         
+           {stateLogin === false ? <WelcomePage2 /> : null }
+          {welcomeStatus ? !stateLogin ? <SignUpPop /> : null : null}
           <button onClick={handleLoginStatus} className="login-btn">
             <img src={profileLogo} alt="" className="img-login-btn" />
           </button>
