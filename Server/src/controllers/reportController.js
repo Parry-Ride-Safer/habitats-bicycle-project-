@@ -46,11 +46,60 @@ const insertNewReportController = async (req, res) => {
   }
 };
 
+const updateReportController = async (req, res) => {
+  const reportId = req.params.id;
+  let existingReport, report;
+  try {
+    existingReport = await reportsModels.getReportById(reportId);
+    if (!existingReport) throw new Error("RECORD_NOT_FOUND");
+    report = await reportsModels.updateReport(req.body, reportId);
+
+    if (report === 1) res.status(200).json({ ...existingReport, ...req.body });
+    else throw new Error("NO_UPDATE");
+  } catch (error) {
+    console.error(error);
+    if ("NO_UPDATE") res.status(400).send("No new info");
+    else if ("RECORD_NOT_FOUND")
+      res.status(404).send(`report with id ${reportId} not found.`);
+    else res.status(500).send("Error updating a user");
+  }
+};
+
+const updateVoteController = async (req, res) => {
+  const { reportId } = req.params;
+  let existingReport, report;
+  try {
+    existingReport = await reportsModels.getVoteByReportAndUser(
+      reportId,
+      req.currentUser.id
+    );
+    if (!existingReport) throw new Error("RECORD_NOT_FOUND");
+    report = await reportsModels.updateVote(
+      req.body.voting,
+      reportId,
+      req.currentUser.id
+    );
+    if (report === 1) res.status(200).json({ ...existingReport, ...req.body });
+    else throw new Error("NO_UPDATE");
+  } catch (error) {
+    console.error(error);
+    if ("NO_UPDATE") res.status(400).send("No new info");
+    else if ("RECORD_NOT_FOUND")
+      res.status(404).send(`report with id ${reportId} not found.`);
+    else res.status(500).send("Error updating a vote");
+  }
+};
+
 const submitVotingController = async (req, res) => {
-  const { voting, user_id, report_id } = req.body;
+  const { voting } = req.body;
+  const { reportId } = req.params;
 
   try {
-    const vote = await reportsModels.createVoting(voting, user_id, report_id);
+    const vote = await reportsModels.createVoting(
+      voting,
+      req.currentUser.id,
+      reportId
+    );
 
     res.status(201).send(vote);
   } catch (error) {
@@ -63,4 +112,6 @@ module.exports = {
   insertNewReportController,
   getReportsInOneLocationController,
   submitVotingController,
+  updateReportController,
+  updateVoteController,
 };

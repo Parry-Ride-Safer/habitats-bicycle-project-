@@ -9,19 +9,19 @@ const getAllReports = async () => {
 
 const getReportsInOneLocation = async (locationId) => {
   const reports = await db.query(
-    "SELECT report.id, information, avg(voting), category_id  FROM report join voting on voting.report_id = report.id WHERE address_id = ?  ",
+    "SELECT report.id, information, avg(voting), category_id  FROM report join voting on voting.report_id = report.id WHERE address_id in (?) group by address_id ",
     [locationId]
   );
   const results = reports;
   return results[0];
 };
 
-const createVoting = async (voting, user_id, id) => {
+const createVoting = async (voting, userId, reportId) => {
   await db.query(
     "INSERT INTO voting ( voting, user_id, report_id) VALUES (?, ?, ?)",
-    [voting, user_id, id]
+    [voting, userId, reportId]
   );
-  return { voting, user_id, id };
+  return { voting, userId, reportId };
 };
 
 const createReport = async ({
@@ -65,6 +65,38 @@ const createLocation = async (lat, lng) => {
   const id = location.insertId;
   return { id, lat, lng };
 };
+const updateReport = async ({ ...data }, id) => {
+  const results = await db.query(
+    "UPDATE report join voting on voting.report_id= report.id SET ?  WHERE id=?;",
+    [{ ...data }, id]
+  );
+
+  return results[0].affectedRows;
+};
+
+const getReportById = async (id) => {
+  const [findReport] = await db.query("SELECT * FROM report WHERE id in (?)", [
+    id,
+  ]);
+  console.log(findReport, "ººººººººººº");
+  return findReport;
+};
+const getVoteByReportAndUser = async (reportId, userId) => {
+  const [findReport] = await db.query(
+    "SELECT * FROM voting WHERE report_id = ? AND user_id = ?",
+    [reportId, userId]
+  );
+  return findReport;
+};
+
+const updateVote = async (voting, reportId, userId) => {
+  const results = await db.query(
+    "UPDATE voting SET voting = ? WHERE report_id = ? AND user_id = ? ",
+    [voting, reportId, userId]
+  );
+  console.log(results[0].affectedRows);
+  return results[0].affectedRows;
+};
 
 module.exports = {
   getAllReports,
@@ -73,4 +105,8 @@ module.exports = {
   getReportsInOneLocation,
   createLocation,
   createVoting,
+  updateReport,
+  getReportById,
+  updateVote,
+  getVoteByReportAndUser,
 };

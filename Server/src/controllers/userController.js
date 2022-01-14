@@ -86,6 +86,7 @@ const deleteUserController = async (req, res) => {
 const reportsFromUserIdController = async (req, res) => {
   const targetID = req.params.id;
   try {
+    ///// need error handling
     const reports = await usersModels.reportsFromUserId(targetID);
     if (reports.length < 1) throw new Error("RECORD_NOT_FOUND");
     res.status(200).send(reports);
@@ -99,10 +100,12 @@ const reportsFromUserIdController = async (req, res) => {
 const ratedSpotsFromUserIdController = async (req, res) => {
   const targetID = req.params.id;
   try {
-    const [ratedSpots] = await usersModels.ratedFromUserId(targetID);
-    console.log(ratedSpots);
-    const reports = await reportsModels.getReportsInOneLocation(ratedSpots);
-    console.log(reports);
+    ///// need error handling
+    const ratedSpots = await usersModels.ratedFromUserId(targetID);
+    const selectionIdString = ratedSpots.map((elt) => elt.address_id);
+    const reports = await reportsModels.getReportsInOneLocation(
+      selectionIdString
+    );
     if (reports.length < 1) throw new Error("RECORD_NOT_FOUND");
     res.status(200).send(reports);
   } catch (error) {
