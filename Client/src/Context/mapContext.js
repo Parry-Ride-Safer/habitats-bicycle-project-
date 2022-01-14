@@ -18,7 +18,7 @@ const MapProvider = ({ children }) => {
   const [finalMarkers, setFinalMarkers] = useState([]);
   useEffect(() => {
     const fetchMarkers = async () => {
-      const result = await Axios(process.env.REACT_APP_API_ROUTE_URL);
+    const result = await Axios(process.env.REACT_APP_API_ROUTE_URL);
       setFinalMarkers(result.data);
     };
     fetchMarkers();
