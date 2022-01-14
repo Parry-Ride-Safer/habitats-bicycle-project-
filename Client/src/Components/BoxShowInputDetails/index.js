@@ -61,13 +61,13 @@ export default function BoxShowInputDetails() {
           ) : (
             <div>
               <p>Danger Level</p>
-              <p>icons to vote on this spot {getReportData.voting}</p>
+              <p>icons to vote on this spot</p>
               <div className="btn-container">
                 <button
                   className="submit-btn"
                   type="button"
                   onClick={() => {
-                    setIsNextModalOpen(true);
+                    setIsNextModalOpen(false);
                   }}
                 >
                   Submit
