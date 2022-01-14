@@ -11,4 +11,4 @@ const BoxDoneMsg = () => {
     )
 }
 
-export default ReportIssue;
+export default BoxDoneMsg;

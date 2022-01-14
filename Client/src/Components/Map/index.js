@@ -105,9 +105,10 @@ export default function Map() {
                 origin: new window.google.maps.Point(0, 0),
                 anchor: new window.google.maps.Point(25, 25),
               }}
-              onClick={() => {
-                setSelected(fMarker);
-                fetchReportData();
+              onClick={(event) => {
+                console.log("chegou aqui", {target:event.target, fMarker}) 
+                setSelected(fMarker) 
+                fetchReportData(fMarker);
               }}
             />
           ))

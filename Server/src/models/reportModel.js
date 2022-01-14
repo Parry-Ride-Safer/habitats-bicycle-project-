@@ -9,7 +9,7 @@ const getAllReports = async () => {
 
 const getReportsInOneLocation = async (locationId) => {
   const reports = await db.query(
-    "SELECT report.id, information, avg(voting), category_id  FROM report join voting on voting.report_id = report.id WHERE address_id = ?  ",
+    "SELECT report.id, information, avg(voting) AS voting, category_id  FROM report join voting on voting.report_id = report.id WHERE address_id = ?  ",
     [locationId]
   );
   const results = reports;

@@ -12,6 +12,7 @@ export default function BoxShowInputDetails() {
     isBoxShowInputDetailsOpen,
     setIsBoxShowInputDetailsOpen,
   } = useGlobalMapContext();
+  
   const issueCategory = issueType.find(
     (element) => (element.id = getReportData.category_id)
   );
