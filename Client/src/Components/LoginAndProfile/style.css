@@ -6,7 +6,7 @@
   position: absolute;
   background-color: rgb(255, 255, 255);
   width: 100%;
-  border: 1px solid black;
+  border: 1px solid rgb(211, 211, 211);
   border-radius: 15px;
   padding: 1rem;
   z-index: 55;
@@ -15,8 +15,8 @@
 }
 
 .btn {
-  border: 1px solid black;
-  background-color: black;
+  border: 1px solid rgb(155, 155, 155);
+  background-color: rgb(155, 155, 155);
   color: white;
   border-radius: 15px;
   margin: 0.5rem;
@@ -27,15 +27,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80px;
-  height: 80px;
+  width: 65px;
+  height: 65px;
   cursor: pointer;
   transition: all 0.5s ease-in-out;
-  border: 5px solid black;
+  border: 5px solid rgb(223, 223, 223);
   right: 20px;
   overflow: hidden;
   z-index: 3;
   border-radius: 5px;
+  margin-top: 2vh;
 }
 
 .closed {
@@ -50,9 +51,9 @@ div.open-profile {
   z-index: 2;
 }
 .menu-btn__burger {
-  width: 50px;
+  width: 40px;
   height: 6px;
-  background: black;
+  background: rgb(155, 155, 155);
   border-radius: 5px;
   /* box-shadow: 0 2px 5px orange; */
   transition: all 0.5s ease-in-out;
@@ -62,9 +63,9 @@ div.open-profile {
 .menu-btn__burger::after {
   content: " ";
   position: absolute;
-  width: 50px;
+  width: 40px;
   height: 6px;
-  background: black;
+  background: rgb(155, 155, 155);
   border-radius: 5px;
   /* box-shadow: 0 2px 5px orange; */
   transition: all 0.5s ease-in-out;
@@ -112,7 +113,7 @@ div.open-profile {
   left: 10%;
 }
 .tab-container {
-  background: rgb(99, 99, 99);
+  background: rgb(155, 155, 155);
   width: 100vw;
   height: 80vh;
   overflow: scroll;
