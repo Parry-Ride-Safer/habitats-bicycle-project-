@@ -37,7 +37,7 @@ export default function BoxShowInputDetails() {
               Close
             </button>
           </div>
-          <p>{issueCategory[0].type}</p>
+          <p>{issueCategory.type}</p>
           <p>Date example</p>
           <img className="image-property" src={example} alt="" />
           <p>{getReportData.information}</p>
