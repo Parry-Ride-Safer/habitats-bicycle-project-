@@ -88,9 +88,7 @@ const MapProvider = ({ children }) => {
   };
 
   const findCategoryID = [issueType.find((element) => element.type === dangerType)]
-  console.log(findCategoryID)
- 
-
+  
   const dangerFormSubmit = (event) => {
     event.preventDefault();
     if (dangerDescriptionInput.length === 0 || voting === "") {

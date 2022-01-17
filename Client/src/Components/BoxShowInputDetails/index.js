@@ -13,9 +13,10 @@ export default function BoxShowInputDetails() {
     setIsBoxShowInputDetailsOpen,
   } = useGlobalMapContext();
   
-  const issueCategory = issueType.find(
-    (element) => (element.id = getReportData.category_id)
+  /*const issueCategory = issueType.find(
+    (element) => (element.nb = getReportData.category_id)
   );
+  console.log(getReportData)*/
   
   const [isNextModalOpen, setIsNextModalOpen] = useState(false);
 
@@ -37,7 +38,7 @@ export default function BoxShowInputDetails() {
               Close
             </button>
           </div>
-          <p>{issueCategory.type}</p>
+          <p>{getReportData.name}</p>
           <p>Date example</p>
           <img className="image-property" src={example} alt="" />
           <p>{getReportData.information}</p>
