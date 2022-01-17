@@ -51,6 +51,22 @@
   top: 10%;
 }
 
+.edit-Form{
+
+  position: absolute;
+  z-index: 55;
+  border: 1px solid black;
+  border-radius: 15px;
+  background-color: white;
+  top:60%;
+  left: 35% ;
+  padding: 2rem;
+ 
+}
+
+
+
+
 .btn {
   border: 1px solid black;
   background-color: black;

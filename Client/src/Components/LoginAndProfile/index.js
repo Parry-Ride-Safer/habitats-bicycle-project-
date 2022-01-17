@@ -35,6 +35,19 @@ const LoginAndProfile = () => {
   const [loginId, setLoginId] = useState();
   const [SubmitedReports, setSubmitedReports] = useState([]);
   const [welcomeStatus,setWelcomeStatus] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [showEditAccount, setShowEditAccount] = useState(false);
+
+  const handleShowEditAccount = ()=> {
+    setShowEditAccount(!showEditAccount)
+  }
+
+
+  const handleShowForm = () => { 
+      setShowForm(true)
+      HandleshowWelcomePage();
+      setWelcomeStatus(false) ;
+  }
 
 const handleWelcomeStatusClick =() => { 
     setWelcomeStatus(!welcomeStatus)
@@ -65,8 +78,8 @@ const handleWelcomeStatusClick =() => {
       });
       result = await result.json();
 
-      await localStorage.setItem("user-info", JSON.stringify(result));
-
+      localStorage.setItem("user-info", JSON.stringify(result));
+      
       await handleUserStorage();
       await handleLoginStatus();
     }
@@ -125,6 +138,35 @@ const handleWelcomeStatusClick =() => {
     }
   };
 
+  const register2 = async () => {
+    let item = { email, password };
+    try {
+        if (email.length <= 0 || password.length < 8) {
+            console.log("please enter something( email or password is missing) ");
+          } else {
+      let result = await Axios.post(
+        "http://localhost:4000/auth/register",
+        item
+      );
+      localStorage.setItem("user-info", JSON.stringify(result.data));
+      
+      setPassword("");
+      setEmail("");
+     handleUserStorage();
+    handleLoginStatus();
+
+      await console.log(result.data.id, "user id logged");
+      await setLoginId(result.data.id);
+      await console.log(loginId, " agora sim");};
+      
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
+
+
   const editAccount = async () => {
     let item = { email, password };
     let result = await fetch(`http://localhost:4000/user/${loginId}`, {
@@ -169,7 +211,8 @@ const handleWelcomeStatusClick =() => {
       localStorage.clear();
       handleClick();
       setLoginId(null);
-      handleLoginStatus()
+      setStateLogin(true);
+      setShowWelcomePage(false);
 
     } catch (err) {
       console.log(err);
@@ -191,6 +234,7 @@ const handleWelcomeStatusClick =() => {
 
   const handleLoginStatus = () => {
     setStateLogin(!stateLogin);
+    setShowForm(true)
   };
 
   useEffect(()=>{
@@ -224,20 +268,28 @@ console.log('teste teste')
     console.log("SEGUNDO USEEFFECT DO USER");
   }, []);
 
+const [showWelcomePage, setShowWelcomePage] = useState(true)
 
+const HandleshowWelcomePage =() => { 
+    setShowWelcomePage(false)
+}
   const WelcomePage2 = () => {
-    return (
-        <div>
+    return ( showWelcomePage ? ( <div>
             <div className='welcome-page2'>
                 <h2>Welcome rider. <br/> Let's make the streets safer together.</h2>
                 <button onClick={handleWelcomeStatusClick} className='btn'>Start</button>
             </div>
-        </div>
+        </div>) : null 
+       
     )
 }
 
 const handleSkipForNow = ()=> { 
-    if(WelcomePage2) { setStateLogin(true)} 
+    
+    HandleshowWelcomePage();
+    setWelcomeStatus(false) ;
+    setStateLogin(!stateLogin);
+    
 }
 
 const SignUpPop = () => {
@@ -245,12 +297,13 @@ const SignUpPop = () => {
         <div>
             <div className='welcome-page'>
                 <h2>sign up to be able to report or vote on a road issue.</h2>
-                <button className='btn' onClick={handleLoginStatus}>sign up</button>
-                <button onClick={handleSkipForNow} >skip for now</button>
+                <button className='btn' onClick={handleShowForm} >sign up</button>
+                <button onClick={handleSkipForNow}>skip for now</button>
             </div>
         </div>
     )
 }
+
 
   return (
     <div>
@@ -298,8 +351,49 @@ const SignUpPop = () => {
       </div> */}
       {!user ? (
         <>
-          {stateLogin ? (
-            <div className="login-form">
+        <WelcomePage2 />
+        {welcomeStatus ? !stateLogin ? <SignUpPop /> : null : null}
+        {showForm && !stateLogin  ? (<div className="login-form">
+                
+                <form>
+                  <div>
+                    <label htmlFor="username">email</label>
+                    <input
+                      type="email"
+                      name="username"
+                      placeholder="email@example.com"
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="password"
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                  <button onClick={login} type="button" className="btn">
+                    Login
+                  </button>
+                  <button onClick={logout} type="button" className="btn">
+                    Logout
+                  </button>
+                  {!localStorage.getItem("user-info") ? (
+                    <button onClick={register2} type="button" className="btn">
+                      Register
+                    </button>
+                  ) : null}
+                  <div>
+                    {localStorage.getItem("user-info") ? (
+                      <button>get info</button>
+                    ) : null}
+                  </div>
+                </form>
+              </div>) : null }
+        {/*{stateLogin ? ( 
+            { <div className="login-form">
                 
               <form>
                 <div>
@@ -337,14 +431,14 @@ const SignUpPop = () => {
                   ) : null}
                 </div>
               </form>
-            </div>
-          ) : null}
+            </div> 
+                  ) : null} */}
          
-           {stateLogin === false ? <WelcomePage2 /> : null }
-          {welcomeStatus ? !stateLogin ? <SignUpPop /> : null : null}
-          <button onClick={handleLoginStatus} className="login-btn">
+          
+          {!showWelcomePage ? (<button onClick={handleLoginStatus} className="login-btn">
             <img src={profileLogo} alt="" className="img-login-btn" />
-          </button>
+          </button>) : null}
+          
         </>
       ) : (
         <>
@@ -447,7 +541,7 @@ const SignUpPop = () => {
                     <hr />
                     <h3>Your Account: {savedLogged}</h3>
                     <h3>password: ****** </h3>
-                    <button type="button" className="btn">
+                    <button onClick={handleShowEditAccount } type="button" className="btn">
                       edit
                     </button>
 
@@ -459,6 +553,35 @@ const SignUpPop = () => {
               </div>
             </div>
           </div>
+          {showEditAccount ?( <div className="edit-Form">
+              <form>
+              <div>
+                    <label htmlFor="username">email</label>
+                    <input
+                      type="email"
+                      name="username"
+                      placeholder="email@example.com"
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="password"
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                  <button  type="button" className="btn">
+                    Save Changes
+                  </button>
+                  <button  type="button" className="btn">
+                    Close
+                  </button>
+                  
+              </form>
+          </div>) : null}
         </>
       )}
     </div>

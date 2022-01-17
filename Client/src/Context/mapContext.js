@@ -43,18 +43,22 @@ const MapProvider = ({ children }) => {
 
   const [getReportData, setGetReportdata] = useState([]);
   const [sendReportRequest, setSendReportRequest] = useState(false);
+  
+  
 
-  const fetchReportData = async () => {
+  const fetchReportData = async (fMarker) => {
     setSendReportRequest(true);
     try {
       const reportData = await Axios(
-        `http://localhost:4000/reports/${selected.id}`
+        `http://localhost:4000/reports/${fMarker.id}`
       );
+      console.log("fetchReportData executou")
       setGetReportdata(reportData.data[0]);
       setSendReportRequest(false);
       console.log(getReportData);
     } catch (e) {
       setSendReportRequest(false);
+      console.log("error", e)
     }
   };
 
@@ -100,7 +104,7 @@ const MapProvider = ({ children }) => {
         title: dangerType,
         information: dangerDescriptionInput.description,
         user_id: user.id,
-        category_id: 1 /* dangerTypeConvert, */
+        category_id: 1
       })
         .then((response) => {
           console.log(response);
