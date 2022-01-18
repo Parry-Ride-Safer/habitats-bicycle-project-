@@ -2,7 +2,7 @@ const { authService } = require("../services/index.js");
 const { usersModels } = require("../models");
 const { userValidator } = require("../validators/index.js");
 
-const cookiesOptions = { httpOnly: true };
+const cookiesOptions = { httpOnly: true, sameSite: "lax" };
 
 const register = async (req, res) => {
   const { email } = req.body;
@@ -16,7 +16,10 @@ const register = async (req, res) => {
     if (validationErrors) throw new Error("INVALID_DATA");
     const { token, ...user } = await authService.register(req.body);
 
-    res.cookie("login", token, cookiesOptions).json(user);
+    res
+      .cookie("login", token, cookiesOptions)
+      .cookie("Register", true)
+      .json(user);
   } catch (error) {
     console.error(error);
     const treatedError = error.toString().slice(7);

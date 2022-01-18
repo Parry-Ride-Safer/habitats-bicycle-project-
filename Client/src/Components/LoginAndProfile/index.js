@@ -35,6 +35,8 @@ const LoginAndProfile = () => {
 
   let user = JSON.parse(localStorage.getItem("user-info"));
 
+  Axios.defaults.withCredentials = true;
+
   const toggleTab = (index) => {
     setToggleState(index);
   };
@@ -140,7 +142,7 @@ const LoginAndProfile = () => {
           await setLoginId(user.id);
         }
 
-        await Axios.get(`http://localhost:4000/users/${loginId}/reports/`).then(
+        await Axios.get(`http://localhost:4000/users/reports/`).then(
           (response) => {
             console.log(response.data);
             console.log(user.id, "este é o user id do storage");

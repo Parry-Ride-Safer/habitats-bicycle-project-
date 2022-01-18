@@ -43,10 +43,9 @@ const MapProvider = ({ children }) => {
 
   const [getReportData, setGetReportdata] = useState([]);
   const [sendReportRequest, setSendReportRequest] = useState(false);
-  
 
   const fetchReportData = async (fMarker) => {
-    console.log({fMarker});
+    console.log({ fMarker });
     setSendReportRequest(true);
     try {
       const reportData = await Axios(
@@ -54,7 +53,6 @@ const MapProvider = ({ children }) => {
       );
       setGetReportdata(reportData.data[0]);
       setSendReportRequest(false);
-     
     } catch (e) {
       setSendReportRequest(false);
     }
@@ -88,8 +86,10 @@ const MapProvider = ({ children }) => {
     setVoting(event.target.value);
   };
 
-  const findCategoryID = [issueType.find((element) => element.type === dangerType)]
-  
+  const findCategoryID = [
+    issueType.find((element) => element.type === dangerType),
+  ];
+
   const dangerFormSubmit = (event) => {
     event.preventDefault();
     if (dangerDescriptionInput.length === 0 || voting === "") {
@@ -102,13 +102,15 @@ const MapProvider = ({ children }) => {
         lng: markers.lng,
         title: dangerType,
         information: dangerDescriptionInput.description,
-        user_id: user.id,
         category_id: findCategoryID[0].nb,
       })
         .then((response) => {
           setAlertMsg(false);
-          console.log(response)
-          setFinalMarkers((finalMarkers) => [...finalMarkers, {...markers, id:response.data.id}]);
+          console.log(response);
+          setFinalMarkers((finalMarkers) => [
+            ...finalMarkers,
+            { ...markers, id: response.data.id },
+          ]);
         })
         .catch((err) => console.log(err));
       setVoting("");
