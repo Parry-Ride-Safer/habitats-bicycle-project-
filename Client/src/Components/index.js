@@ -5,5 +5,6 @@ export { default as BoxShowInputDetails } from "./UserFlowOpenSingleReport/BoxSh
 export { default as GpsLocation } from "./MainPageDisplay/GpsLocation";
 export { default as Map } from "./MainPageDisplay/Map";
 export { default as Navbar } from "./Navbar";
+export { default as ReportIssue } from "./UserFlowOpenSingleReport/ReportIssue";
 export { default as SearchBox } from "./MainPageDisplay/SearchBox";
 export { default as VotingBox } from "./UserFlowOpenSingleReport/VotingBox";

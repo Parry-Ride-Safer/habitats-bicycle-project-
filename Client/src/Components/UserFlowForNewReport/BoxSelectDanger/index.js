@@ -1,7 +1,7 @@
 import React from "react";
 import { useGlobalMapContext } from "../../../Context/mapContext";
 import { InfoBox } from "@react-google-maps/api";
-import {issueType} from "../BoxDangerDescription/issueType";
+import {issueType} from "../../../Data/dangerTypeSelection";
 import "./boxSelectDanger.css";
 
 export default function BoxSelectDanger() {

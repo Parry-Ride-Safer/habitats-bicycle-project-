@@ -7,7 +7,8 @@ import {
   BoxShowInputDetails,
   GpsLocation,
   SearchBox,
-  VotingBox
+  VotingBox,
+  ReportIssue
 } from "../../index";
 import { useGlobalMapContext } from "../../../Context/mapContext";
 import "./map.css";
@@ -135,6 +136,7 @@ export default function Map() {
       <BoxDoneMsg />
       <BoxShowInputDetails />
       <VotingBox />
+      <ReportIssue />
     </GoogleMap>
   );
 }

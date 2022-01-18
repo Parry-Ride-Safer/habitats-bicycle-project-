@@ -1,6 +1,7 @@
 import React from "react";
 import { useGlobalMapContext } from "../../../Context/mapContext";
-import dangerLevel from "./dangerLevel";
+import dangerLevel from "../../../Data/dangerLevelToVote";
+
 import "./boxDangerDescription.css";
 
 export default function BoxDangerDescription() {

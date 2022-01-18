@@ -1,6 +1,6 @@
 import React from "react";
 import { useGlobalMapContext } from "../../../Context/mapContext";
-import dangerLevel from "../../UserFlowForNewReport/BoxDangerDescription/dangerLevel";
+import dangerLevel from "../../../Data/dangerLevelToVote";
 import "./votingBox.css";
 
 export default function VotingBox() {

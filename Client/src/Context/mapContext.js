@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import Axios from "axios";
-import { issueType } from "../Components/UserFlowForNewReport/BoxDangerDescription/issueType";
+import { issueType } from "../Data/dangerTypeSelection";
 const MapContext = createContext();
 
 const MapProvider = ({ children }) => {
@@ -21,7 +21,6 @@ const MapProvider = ({ children }) => {
     };
     fetchMarkers();
   }, []);
-
 
   const [voting, setVoting] = useState("");
   const [numberOfCharacters, setNumberOfCharacters] = useState(0);
@@ -102,6 +101,7 @@ const showSubmittedReport = () => {
 const [sendReportRequest, setSendReportRequest] = useState(false);
 const [getReportData, setGetReportdata] = useState([]);
 const [isBoxShowInputDetailsOpen, setIsBoxShowInputDetailsOpen] = useState(false);
+const [isReportIssueBoxOpen, setIsReportIssueBoxOpen] = useState(false)
 const [isVotingBoxOpen, setIsVotingBoxOpen] = useState(false);
 
 const fetchReportData = async (fMarker) => {
@@ -122,6 +122,10 @@ const handleBoxShowInputDetailsState = () => {
   setIsBoxShowInputDetailsOpen(false)
 }
 
+const handleReportIssueWindow = () => {
+  setIsReportIssueBoxOpen(true)
+}
+
 const handleAddVote = (event) => {
   event.preventDefault();
   Axios.post(`http://localhost:4000/reports/${getReportData.id}/vote`, {
@@ -138,11 +142,10 @@ const handleAddVote = (event) => {
 }
 
 
- 
+
 
   let user = JSON.parse(localStorage.getItem("user-info"));
 
-  
 
   const handleDangerChoice = (event) => {
     console.log("this aint working chief");
@@ -214,9 +217,11 @@ const handleAddVote = (event) => {
         handleDangerSubmit,
         handleDangerLevel,
         handleRateSpotButton,
+        handleReportIssueWindow,
         options,
         isBoxShowInputDetailsOpen,
         isBoxWithDoneMsgOpen,
+        isReportIssueBoxOpen,
         reportDescriptionInput,
         setIsBoxShowInputDetailsOpen,
         setVoting,

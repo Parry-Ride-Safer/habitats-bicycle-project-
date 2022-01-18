@@ -1,6 +1,5 @@
 import React from "react";
 import { useGlobalMapContext } from "../../../Context/mapContext";
-import {issueType} from "../../UserFlowForNewReport/BoxDangerDescription/issueType";
 import flagReport from "./Flag.png";
 import example from "./image 28.png";
 export default function BoxShowInputDetails() {
@@ -9,7 +8,8 @@ export default function BoxShowInputDetails() {
     getReportData,
     isBoxShowInputDetailsOpen,
     handleBoxShowInputDetailsState,
-    handleRateSpotButton
+    handleRateSpotButton,
+    handleReportIssueWindow
   } = useGlobalMapContext();
 
   return (
@@ -37,7 +37,7 @@ export default function BoxShowInputDetails() {
                 <button className="submit-btn" type="button" onClick={handleRateSpotButton}>
                   Rate Spot
                 </button>
-                <button className="flag-btn" type="button">
+                <button className="flag-btn" type="button" onClick={handleReportIssueWindow} >
                   <img src={flagReport} alt="" />
                 </button>
               </div>
