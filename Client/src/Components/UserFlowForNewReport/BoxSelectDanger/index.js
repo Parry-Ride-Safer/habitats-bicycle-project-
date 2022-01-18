@@ -1,15 +1,14 @@
 import React from "react";
-import { useGlobalMapContext } from "../../Context/mapContext";
+import { useGlobalMapContext } from "../../../Context/mapContext";
 import { InfoBox } from "@react-google-maps/api";
-import { issueType } from "../BoxDangerDescription/issueType";
+import {issueType} from "../../../Data/dangerTypeSelection";
 import "./boxSelectDanger.css";
 
 export default function BoxSelectDanger() {
   const {
-    markers,
+    marker,
     setDangerType,
     handleDangerSubmit,
-    setdangerTypeConvert,
     stateLogin,
     setStateLogin,
   } = useGlobalMapContext();
@@ -24,25 +23,27 @@ export default function BoxSelectDanger() {
     },
   };
 
-  let user = JSON.parse(localStorage.getItem("user-info"));
+  /* let user = JSON.parse(localStorage.getItem("user-info")); */
+  let user = document.cookie;
 
   return (
     <>
       {user ? (
-        <InfoBox position={markers} options={boxOptions}>
+        <InfoBox position={marker} options={boxOptions}>
           <div style={{ backgroundColor: "white", opacity: 0.75, padding: 2 }}>
             <div style={{ fontSize: 16, fontColor: `#08233B` }}>
               <form className="info-box-display" onSubmit={handleDangerSubmit}>
                 <h3>Issue Type</h3>
-                {issueType.map((issue) => (
+                {issueType.map((issue, index) => (
                   <button
+                  key={index}
                     className={issue.className}
                     type="submit"
                     name="dangerType"
                     value={issue.type}
-                    onClick={() =>
-                      setDangerType(issue.type) + setdangerTypeConvert(issue.id)
-                    }
+                    onClick={(event) => {
+                      setDangerType(issue.type)
+                    }}
                   >
                     {issue.type}
                   </button>

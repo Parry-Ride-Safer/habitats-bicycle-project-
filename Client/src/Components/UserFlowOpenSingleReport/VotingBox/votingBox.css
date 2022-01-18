@@ -1,0 +1,62 @@
+.show-danger-details {
+    visibility: visible;
+    z-index: 10;
+    background: white;
+    border-radius: var(--radius);
+    width: 100vw;
+    height: 70vh;
+    max-width: var(--fixed-width);
+    text-align: center;
+    place-items: center;
+    position: absolute;
+    bottom: 0;
+    border: 0px solid;
+  }
+  
+  .danger-box-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: grid;
+    place-items: center;
+    transition: var(--transition);
+    visibility: hidden;
+    z-index: -1;
+  }
+  
+  
+  button {
+    border: 1px solid black;
+  }
+  
+  .close-window-position {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  
+  .image-property {
+    height: 25vh;
+    width: 60vw;
+  }
+  
+  .btn-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .submit-btn {
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+    color: white;
+    background-color: black;
+  }
+  
+  .flag-btn {
+    border: 0;
+  }
+  

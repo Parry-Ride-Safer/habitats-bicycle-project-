@@ -1,7 +1,7 @@
 import React from "react";
-import { useGlobalMapContext } from "../../Context/mapContext";
+import { useGlobalMapContext } from "../../../Context/mapContext";
 import "./style.css";
-import gpsIcon from "../../resources/gps-icon.png";
+import gpsIcon from "../../../resources/gps-icon.png";
 
 export default function GpsLocation() {
   const { panTo } = useGlobalMapContext();

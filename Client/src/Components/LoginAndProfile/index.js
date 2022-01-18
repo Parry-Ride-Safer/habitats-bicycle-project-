@@ -52,8 +52,10 @@ const LoginAndProfile = () => {
 const handleWelcomeStatusClick =() => { 
     setWelcomeStatus(!welcomeStatus)
 }
+console.log(document.cookie)
+  let user = document.cookie /* JSON.parse(localStorage.getItem("user-info")); */
 
-  let user = JSON.parse(localStorage.getItem("user-info"));
+  Axios.defaults.withCredentials = true;
 
   const toggleTab = (index) => {
     setToggleState(index);
@@ -216,7 +218,7 @@ const handleWelcomeStatusClick =() => {
           await setLoginId(user.id);
         }
 
-        await Axios.get(`http://localhost:4000/users/${loginId}/reports/`).then(
+        await Axios.get(`http://localhost:4000/users/reports/`).then(
           (response) => {
             console.log(response.data);
             console.log(user.id, "este é o user id do storage");
@@ -233,6 +235,7 @@ const handleWelcomeStatusClick =() => {
 
   const logout = async (e) => {
     try {
+      await Axios.get(`http://localhost:4000/auth/logout/`)
       localStorage.clear();
       handleClick();
       setLoginId(null);
@@ -243,6 +246,9 @@ const handleWelcomeStatusClick =() => {
       console.log(err);
     }
   };
+
+  
+
 
   function isLogged(user) {
     user = JSON.parse(localStorage.getItem("user-info"));
@@ -422,31 +428,31 @@ const SignUpPop = () => {
                 
               <form>
                 <div>
-                  <label htmlFor="username">email</label>
+                  <label htmlFor='username'>email</label>
                   <input
-                    type="email"
-                    name="username"
-                    placeholder="email@example.com"
+                    type='email'
+                    name='username'
+                    placeholder='email@example.com'
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-                <div className="form-group">
-                  <label htmlFor="password">Password</label>
+                <div className='form-group'>
+                  <label htmlFor='password'>Password</label>
                   <input
-                    type="password"
-                    name="password"
-                    placeholder="password"
+                    type='password'
+                    name='password'
+                    placeholder='password'
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <button onClick={login} type="button" className="btn">
+                <button onClick={login} type='button' className='btn'>
                   Login
                 </button>
-                <button onClick={logout} type="button" className="btn">
+                <button onClick={logout} type='button' className='btn'>
                   Logout
                 </button>
                 {!localStorage.getItem("user-info") ? (
-                  <button onClick={register} type="button" className="btn">
+                  <button onClick={register} type='button' className='btn'>
                     Register
                   </button>
                 ) : null}
@@ -471,9 +477,9 @@ const SignUpPop = () => {
             className={btnState ? "menu-btn open" : "menu-btn"}
             onClick={handleClick}
           >
-            <div className="menu-btn__burger"></div>
+            <div className='menu-btn__burger'></div>
           </div>
-          <div className="absolute-container">
+          <div className='absolute-container'>
             <div
               className={btnState ? "open-profile" : "closed"}
               onClick={handleClick}
@@ -481,9 +487,9 @@ const SignUpPop = () => {
               {" "}
             </div>
             <div className={btnState ? "tab-wrapper" : "closed"}>
-              <h3 className="your-account">Your Account</h3>
-              <div className="tab-container">
-                <div className="bloc-tabs">
+              <h3 className='your-account'>Your Account</h3>
+              <div className='tab-container'>
+                <div className='bloc-tabs'>
                   <button
                     className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
                     onClick={() => toggleTab(1) + getSubmitedReports()}
@@ -504,7 +510,7 @@ const SignUpPop = () => {
                   </button>
                 </div>
 
-                <div className="content-tabs">
+                <div className='content-tabs'>
                   <div
                     className={
                       toggleState === 1 ? "content  active-content" : "closed"
@@ -516,10 +522,10 @@ const SignUpPop = () => {
 
                     <div>
                       {SubmitedReports.map((contact) => (
-                        <div className="your-spots-container">
+                        <div className='your-spots-container'>
                           <ul key={contact.id}>
                             <li>
-                              <span className="img-div">img </span>
+                              <span className='img-div'>img </span>
                             </li>
                             <li> information :{contact.information}</li>
                             <li> voting : {contact.voting}</li>
@@ -570,7 +576,7 @@ const SignUpPop = () => {
                       edit
                     </button>
 
-                    <button onClick={logout} type="button" className="btn">
+                    <button onClick={logout} type='button' className='btn'>
                       Logout
                     </button>
                   </div>

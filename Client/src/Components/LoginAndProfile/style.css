@@ -43,7 +43,7 @@
   position: absolute;
   background-color: rgb(255, 255, 255);
   width: 100%;
-  border: 1px solid black;
+  border: 1px solid rgb(211, 211, 211);
   border-radius: 15px;
   padding: 1rem;
   z-index: 55;
@@ -60,7 +60,6 @@
   background-color: white;
   top:60%;
   left: 35% ;
-  padding: 2rem;
  
 }
 
@@ -68,8 +67,8 @@
 
 
 .btn {
-  border: 1px solid black;
-  background-color: black;
+  border: 1px solid rgb(0, 0, 0);
+  background-color: rgb(3, 3, 3);
   color: white;
   border-radius: 15px;
   margin: 0.5rem;
@@ -80,15 +79,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80px;
-  height: 80px;
+  width: 65px;
+  height: 65px;
   cursor: pointer;
   transition: all 0.5s ease-in-out;
-  border: 5px solid black;
+  border: 5px solid rgb(12, 12, 12);
   right: 20px;
   overflow: hidden;
   z-index: 3;
   border-radius: 5px;
+  margin-top: 2vh;
 }
 
 .closed {
@@ -98,14 +98,14 @@
 div.open-profile {
   width: 100%;
   height: 100%;
-  background-color: rgb(230, 230, 230);
+  background-color: rgb(0, 0, 0);
   position: absolute;
   z-index: 2;
 }
 .menu-btn__burger {
-  width: 50px;
+  width: 40px;
   height: 6px;
-  background: black;
+  background: rgb(0, 0, 0);
   border-radius: 5px;
   /* box-shadow: 0 2px 5px orange; */
   transition: all 0.5s ease-in-out;
@@ -115,9 +115,9 @@ div.open-profile {
 .menu-btn__burger::after {
   content: " ";
   position: absolute;
-  width: 50px;
+  width: 40px;
   height: 6px;
-  background: black;
+  background: rgb(0, 0, 0);
   border-radius: 5px;
   /* box-shadow: 0 2px 5px orange; */
   transition: all 0.5s ease-in-out;
@@ -151,7 +151,7 @@ div.open-profile {
 .tab-wrapper {
   height: 100vh;
   width: 100vw;
-  background-color: rgb(223, 222, 222);
+  background-color: rgb(182, 181, 181);
   position: relative;
   z-index: 2;
   display: flex;
@@ -165,7 +165,7 @@ div.open-profile {
   left: 10%;
 }
 .tab-container {
-  background: rgb(99, 99, 99);
+  background: rgb(255, 255, 255);
   width: 100vw;
   height: 80vh;
   overflow: scroll;

@@ -30,9 +30,8 @@ const insertNewUserController = async (req, res) => {
 };
 
 const findUserbyIdController = async (req, res) => {
-  const userId = req.params.id;
   try {
-    const results = await usersModels.findUserbyId(userId);
+    const results = await usersModels.findUserbyId(req.currentUser.id);
     if (results) res.status(200).json(results);
     else throw new Error("NO_USER");
   } catch (error) {
@@ -43,19 +42,21 @@ const findUserbyIdController = async (req, res) => {
 };
 
 const updateUserController = async (req, res) => {
-  const userId = req.params.id;
   let newEmail = req.body.email;
 
   let existingUser, validationErrors, user;
   try {
-    existingUser = await usersModels.findUserbyId(userId);
+    existingUser = await usersModels.findUserbyId(req.currentUser.id);
     existingUserWithEmail = await usersModels.findByEmail(newEmail);
     if (!existingUser) throw new Error("RECORD_NOT_FOUND");
-    if (existingUserWithEmail && existingUserWithEmail.id !== parseInt(userId))
+    if (
+      existingUserWithEmail &&
+      existingUserWithEmail.id !== parseInt(req.currentUser.id)
+    )
       throw new Error("DUPLICATE_EMAIL");
     validationErrors = userValidator.validate(req.body, false);
     if (validationErrors) throw new Error("INVALID_DATA");
-    user = await usersModels.updateUser(req.body, userId);
+    user = await usersModels.updateUser(req.body, req.currentUser.id);
     delete req.body.password;
     if (user === 1) res.status(200).json({ ...existingUser, ...req.body });
     else throw new Error("NO_UPDATE");
@@ -66,7 +67,7 @@ const updateUserController = async (req, res) => {
     else if ("INVALID_DATA") res.status(422).json({ validationErrors: error });
     else if ("NO_UPDATE") res.status(400).send("No new info");
     else if ("RECORD_NOT_FOUND")
-      res.status(404).send(`User with id ${userId} not found.`);
+      res.status(404).send(`User with id ${req.currentUser.id} not found.`);
     else res.status(500).send("Error updating a user");
   }
 };
@@ -84,10 +85,9 @@ const deleteUserController = async (req, res) => {
   }
 };
 const reportsFromUserIdController = async (req, res) => {
-  const targetID = req.params.id;
   try {
-    ///// need error handling
-    const reports = await usersModels.reportsFromUserId(targetID);
+    ///// need error
+    const reports = await usersModels.reportsFromUserId(req.currentUser.id);
     if (reports.length < 1) throw new Error("RECORD_NOT_FOUND");
     res.status(200).send(reports);
   } catch (error) {
@@ -98,10 +98,9 @@ const reportsFromUserIdController = async (req, res) => {
 };
 
 const ratedSpotsFromUserIdController = async (req, res) => {
-  const targetID = req.params.id;
   try {
     ///// need error handling
-    const ratedSpots = await usersModels.ratedFromUserId(targetID);
+    const ratedSpots = await usersModels.ratedFromUserId(req.currentUser.id);
     const selectionIdString = ratedSpots.map((elt) => elt.address_id);
     const reports = await reportsModels.getReportsInOneLocation(
       selectionIdString

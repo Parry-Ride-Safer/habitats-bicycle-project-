@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { GoogleMap, Marker, MarkerClusterer } from "@react-google-maps/api";
-import Axios from "axios";
 import {
   BoxSelectDanger,
   BoxDangerDescription,
+  BoxDoneMsg,
   BoxShowInputDetails,
   GpsLocation,
   SearchBox,
-} from "../";
-import { useGlobalMapContext } from "../../Context/mapContext";
+  VotingBox,
+  ReportIssue
+} from "../../index";
+import { useGlobalMapContext } from "../../../Context/mapContext";
 import "./map.css";
 import logo from "./Polygon38.png";
 import logoBlue from "./PolygonBlue.png";
 
-let user = JSON.parse(localStorage.getItem("user-info"));
+
 
 const mapContainerStyle = {
   width: "100vw",
@@ -61,7 +63,7 @@ const mapOptions = {
 export default function Map() {
   const {
     fetchReportData,
-    markers,
+    marker,
     isBoxSelectDangerOpen,
     setIsBoxShowInputDetailsOpen,
     finalMarkers,
@@ -106,8 +108,7 @@ export default function Map() {
                 anchor: new window.google.maps.Point(25, 25),
               }}
               onClick={(event) => {
-                console.log("chegou aqui", {target:event.target, fMarker}) 
-                setSelected(fMarker) 
+                setSelected(fMarker)
                 fetchReportData(fMarker);
               }}
             />
@@ -119,7 +120,7 @@ export default function Map() {
 
       {isBoxSelectDangerOpen ? (
         <Marker
-          position={markers}
+          position={marker}
           icon={{
             url: logoBlue,
             scaledSize: new window.google.maps.Size(50, 50),
@@ -132,7 +133,10 @@ export default function Map() {
       )}
       {isBoxSelectDangerOpen ? <BoxSelectDanger /> : "box-overlay"}
       <BoxDangerDescription />
+      <BoxDoneMsg />
       <BoxShowInputDetails />
+      <VotingBox />
+      <ReportIssue />
     </GoogleMap>
   );
 }

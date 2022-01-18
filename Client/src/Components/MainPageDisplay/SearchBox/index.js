@@ -10,7 +10,7 @@ import {
   ComboboxList,
   ComboboxOption,
 } from "@reach/combobox";
-import { useGlobalMapContext } from "../../Context/mapContext";
+import { useGlobalMapContext } from "../../../Context/mapContext";
 import "./style.css";
 
 export default function SearchBox() {
@@ -52,6 +52,7 @@ export default function SearchBox() {
         }}
         disabled={!ready}
         placeholder="Enter an address"
+        style={{ width: 250, height: 50, fontSize: 20, marginLeft: 25, borderRadius: 8 }}
       />
       <ComboboxPopover>
         <ComboboxList>

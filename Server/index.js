@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 
 const corsOptions = {
   origin: "http://localhost:3000",
+  methods: ["GET", "POST"],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
@@ -17,6 +18,7 @@ app.use(cookieParser());
 
 app.use(express.json());
 app.use(cors(corsOptions));
+app.use(express.urlencoded({ extended: true }));
 setupRoutes(app);
 
 app.listen(4000, () => console.log(`Server is running in port ${port}`));

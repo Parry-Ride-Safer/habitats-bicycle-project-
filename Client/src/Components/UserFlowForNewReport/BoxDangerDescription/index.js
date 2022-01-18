@@ -1,17 +1,18 @@
 import React from "react";
-import { useGlobalMapContext } from "../../Context/mapContext";
-import dangerLevel from "./dangerLevel";
+import { useGlobalMapContext } from "../../../Context/mapContext";
+import dangerLevel from "../../../Data/dangerLevelToVote";
+
 import "./boxDangerDescription.css";
 
 export default function BoxDangerDescription() {
   const {
     alertMsg,
     dangerType,
-    isDangerDescriptionOpen,
+    isReportWindowInputOpen,
     handleDangerLevel,
     voting,
     dangerFormSubmit,
-    dangerDescriptionInput,
+    reportDescriptionInput,
     handleDangerDescriptionInputs,
     numberOfCharacters,
   } = useGlobalMapContext();
@@ -19,7 +20,7 @@ export default function BoxDangerDescription() {
   return (
     <div
       className={`${
-        isDangerDescriptionOpen ? "show-danger-box" : "danger-box-overlay"
+        isReportWindowInputOpen ? "show-danger-box" : "danger-box-overlay"
       }`}
     >
       <form className="danger-form-display" onSubmit={dangerFormSubmit}>
@@ -50,8 +51,8 @@ export default function BoxDangerDescription() {
           type="text"
           name="description"
           placeholder="Describe the issue in a few words"
-          maxlength="60"
-          value={dangerDescriptionInput.description}
+          maxLength="60"
+          value={reportDescriptionInput.description}
           onChange={handleDangerDescriptionInputs}
         />
         <br />
