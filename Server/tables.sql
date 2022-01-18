@@ -23,6 +23,7 @@ CREATE TABLE `category` (
 CREATE TABLE `report` (
   `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `information` varchar(300),
+   `createdAt` DATETIME DEFAULT now() ON UPDATE now(),
   `user_id` int NOT NULL,
   `address_id` int NOT NULL,
   `category_id` int NOT NULL
@@ -48,6 +49,6 @@ ALTER TABLE `report` ADD FOREIGN KEY (`category_id`) REFERENCES `category` (`id`
 
 
 
-insert into category (name) values('traffic'),('intersection'),('bikelane'),('road'),('traffic'),('other');
+insert into category (name) values('Construction'),('Junction'),('Bike Lane'),('Road'),('Traffic'),('Other');
 
 INSERT INTO user (email, hashedpassword)  VALUES ('paulo@gmail.com', 'aushduhasud');
