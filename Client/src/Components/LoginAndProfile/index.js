@@ -63,7 +63,7 @@ const handleWelcomeStatusClick =() => {
     setState(!btnState);
   };
 
-  const register = async () => {
+/*   const register = async () => {
     let item = { email, password };
     if (email.length <= 0 || password.length < 8) {
       console.log("please enter something( email or password is missing) ");
@@ -83,7 +83,7 @@ const handleWelcomeStatusClick =() => {
       await handleUserStorage();
       await handleLoginStatus();
     }
-  };
+  }; */
 
   /* const handleRegister = () => {
     if (email <= 0 || password <= 0) {
@@ -164,12 +164,36 @@ const handleWelcomeStatusClick =() => {
     }
   };
 
+  const editAccount2 = async () => {
+    let item = { email, password };
+    try {
+        
+      let result = await Axios.put(
+        `http://localhost:4000/users/${loginId}`,
+        item
+      );
+      localStorage.setItem("user-info", JSON.stringify(result.data));
+      
+      setPassword("");
+      setEmail("");
+      handleUserStorage();
+    handleLoginStatus();
+    
+
+      await console.log(result.data.id, "user id logged");
+      await setLoginId(result.data.id);
+      await console.log(loginId, " agora sim");
+      
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
 
 
   const editAccount = async () => {
     let item = { email, password };
-    let result = await fetch(`http://localhost:4000/user/${loginId}`, {
+    let result = await fetch(`http://localhost:4000/users/${loginId}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -181,6 +205,7 @@ const handleWelcomeStatusClick =() => {
     result = await result.json();
     localStorage.setItem("user-info", JSON.stringify(result));
   };
+
 
   const getSubmitedReports = async () => {
     try {
@@ -573,10 +598,10 @@ const SignUpPop = () => {
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
-                  <button  type="button" className="btn">
+                  <button onClick={editAccount2}  type="button" className="btn">
                     Save Changes
                   </button>
-                  <button  type="button" className="btn">
+                  <button onClick={handleShowEditAccount} type="button" className="btn">
                     Close
                   </button>
                   
