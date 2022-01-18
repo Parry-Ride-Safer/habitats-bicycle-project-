@@ -46,6 +46,7 @@ const MapProvider = ({ children }) => {
   
 
   const fetchReportData = async (fMarker) => {
+    console.log({fMarker});
     setSendReportRequest(true);
     try {
       const reportData = await Axios(
@@ -53,7 +54,7 @@ const MapProvider = ({ children }) => {
       );
       setGetReportdata(reportData.data[0]);
       setSendReportRequest(false);
-      console.log(getReportData);
+     
     } catch (e) {
       setSendReportRequest(false);
     }
@@ -88,16 +89,13 @@ const MapProvider = ({ children }) => {
   };
 
   const findCategoryID = [issueType.find((element) => element.type === dangerType)]
-  console.log(findCategoryID)
- 
-
+  
   const dangerFormSubmit = (event) => {
     event.preventDefault();
     if (dangerDescriptionInput.length === 0 || voting === "") {
       setAlertMsg(true);
     } else {
       setIsDangerDescriptionOpen(false);
-      setFinalMarkers((finalMarkers) => [...finalMarkers, markers]);
       Axios.post("http://localhost:4000/reports/", {
         voting: voting,
         lat: markers.lat,
@@ -108,9 +106,9 @@ const MapProvider = ({ children }) => {
         category_id: findCategoryID[0].nb,
       })
         .then((response) => {
-          console.log(response);
           setAlertMsg(false);
           console.log(response)
+          setFinalMarkers((finalMarkers) => [...finalMarkers, {...markers, id:response.data.id}]);
         })
         .catch((err) => console.log(err));
       setVoting("");
