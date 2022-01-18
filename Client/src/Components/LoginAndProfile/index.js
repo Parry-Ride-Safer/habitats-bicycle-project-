@@ -254,34 +254,34 @@ const LoginAndProfile = () => {
       {!user ? (
         <>
           {stateLogin ? (
-            <div className="login-form">
+            <div className='login-form'>
               <form>
                 <div>
-                  <label htmlFor="username">email</label>
+                  <label htmlFor='username'>email</label>
                   <input
-                    type="email"
-                    name="username"
-                    placeholder="email@example.com"
+                    type='email'
+                    name='username'
+                    placeholder='email@example.com'
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-                <div className="form-group">
-                  <label htmlFor="password">Password</label>
+                <div className='form-group'>
+                  <label htmlFor='password'>Password</label>
                   <input
-                    type="password"
-                    name="password"
-                    placeholder="password"
+                    type='password'
+                    name='password'
+                    placeholder='password'
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <button onClick={login} type="button" className="btn">
+                <button onClick={login} type='button' className='btn'>
                   Login
                 </button>
-                <button onClick={logout} type="button" className="btn">
+                <button onClick={logout} type='button' className='btn'>
                   Logout
                 </button>
                 {!localStorage.getItem("user-info") ? (
-                  <button onClick={register} type="button" className="btn">
+                  <button onClick={register} type='button' className='btn'>
                     Register
                   </button>
                 ) : null}
@@ -293,8 +293,8 @@ const LoginAndProfile = () => {
               </form>
             </div>
           ) : null}
-          <button onClick={handleLoginStatus} className="login-btn">
-            <img src={profileLogo} alt="" className="img-login-btn" />
+          <button onClick={handleLoginStatus} className='login-btn'>
+            <img src={profileLogo} alt='' className='img-login-btn' />
           </button>
         </>
       ) : (
@@ -303,9 +303,9 @@ const LoginAndProfile = () => {
             className={btnState ? "menu-btn open" : "menu-btn"}
             onClick={handleClick}
           >
-            <div className="menu-btn__burger"></div>
+            <div className='menu-btn__burger'></div>
           </div>
-          <div className="absolute-container">
+          <div className='absolute-container'>
             <div
               className={btnState ? "open-profile" : "closed"}
               onClick={handleClick}
@@ -313,9 +313,9 @@ const LoginAndProfile = () => {
               {" "}
             </div>
             <div className={btnState ? "tab-wrapper" : "closed"}>
-              <h3 className="your-account">Your Account</h3>
-              <div className="tab-container">
-                <div className="bloc-tabs">
+              <h3 className='your-account'>Your Account</h3>
+              <div className='tab-container'>
+                <div className='bloc-tabs'>
                   <button
                     className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
                     onClick={() => toggleTab(1) + getSubmitedReports()}
@@ -336,7 +336,7 @@ const LoginAndProfile = () => {
                   </button>
                 </div>
 
-                <div className="content-tabs">
+                <div className='content-tabs'>
                   <div
                     className={
                       toggleState === 1 ? "content  active-content" : "closed"
@@ -348,10 +348,10 @@ const LoginAndProfile = () => {
 
                     <div>
                       {SubmitedReports.map((contact) => (
-                        <div className="your-spots-container">
+                        <div className='your-spots-container'>
                           <ul key={contact.id}>
                             <li>
-                              <span className="img-div">img </span>
+                              <span className='img-div'>img </span>
                             </li>
                             <li> information :{contact.information}</li>
                             <li> voting : {contact.voting}</li>
@@ -398,11 +398,11 @@ const LoginAndProfile = () => {
                     <hr />
                     <h3>Your Account: {savedLogged}</h3>
                     <h3>password: ****** </h3>
-                    <button type="button" className="btn">
+                    <button type='button' className='btn'>
                       edit
                     </button>
 
-                    <button onClick={logout} type="button" className="btn">
+                    <button onClick={logout} type='button' className='btn'>
                       Logout
                     </button>
                   </div>

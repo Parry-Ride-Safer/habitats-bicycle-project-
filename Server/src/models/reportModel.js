@@ -9,7 +9,7 @@ const getAllReports = async () => {
 
 const getReportsInOneLocation = async (locationId) => {
   const reports = await db.query(
-    "SELECT report.id, information, avg(voting) AS voting, category_id  FROM report join voting on voting.report_id = report.id WHERE address_id = ?  ",
+    "SELECT report.id, information, avg(voting) AS voting, category_id  FROM report join voting on voting.report_id = report.id WHERE address_id IN (?) group by address_id  ",
     [locationId]
   );
   const results = reports;
@@ -67,7 +67,7 @@ const createLocation = async (lat, lng) => {
 };
 const updateReport = async ({ ...data }, id) => {
   const results = await db.query(
-    "UPDATE report join voting on voting.report_id= report.id SET ?  WHERE id=?;",
+    "UPDATE report join voting on voting.report_id= report.id SET ?  WHERE report.id=? ",
     [{ ...data }, id]
   );
 
@@ -78,7 +78,6 @@ const getReportById = async (id) => {
   const [findReport] = await db.query("SELECT * FROM report WHERE id in (?)", [
     id,
   ]);
-  console.log(findReport, "ººººººººººº");
   return findReport;
 };
 const getVoteByReportAndUser = async (reportId, userId) => {
