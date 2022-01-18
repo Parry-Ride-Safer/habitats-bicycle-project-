@@ -7,12 +7,12 @@ import React, {
   useState,
 } from "react";
 import Axios from "axios";
-import { issueType } from "../Components/BoxDangerDescription/issueType";
+import { issueType } from "../Components/UserFlowForNewReport/BoxDangerDescription/issueType";
 const MapContext = createContext();
 
 const MapProvider = ({ children }) => {
   const [dangerType, setDangerType] = useState();
-  const [markers, setMarkers] = useState();
+  const [marker, setMarker] = useState();
   const [finalMarkers, setFinalMarkers] = useState([]);
   useEffect(() => {
     const fetchMarkers = async () => {
@@ -22,16 +22,11 @@ const MapProvider = ({ children }) => {
     fetchMarkers();
   }, []);
 
-  const [selected, setSelected] = useState(null);
-  const [isDangerDescriptionOpen, setIsDangerDescriptionOpen] = useState(false);
-  const [isBoxSelectDangerOpen, setIsBoxSelectDangerOpen] = useState(false);
-  const [dangerDescriptionInput, setDangerDescriptionInput] = useState([]);
-  const [isBoxShowInputDetailsOpen, setIsBoxShowInputDetailsOpen] =
-    useState(false);
-  const [dangerTypeConvert, setDangerTypeConvert] = useState(null);
+
   const [voting, setVoting] = useState("");
   const [numberOfCharacters, setNumberOfCharacters] = useState(0);
   const [alertMsg, setAlertMsg] = useState(false);
+ 
   // login and profile temp tests from here :
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,44 +35,114 @@ const MapProvider = ({ children }) => {
   const [infoTest, setinfoTest] = useState([]);
   const [info, setinfo] = useState([]);
   const [stateLogin, setStateLogin] = useState(false);
-
-  const [getReportData, setGetReportdata] = useState([]);
-  const [sendReportRequest, setSendReportRequest] = useState(false);
   
+  
+  /*Flow to create a new Marker*/
+  const [selected, setSelected] = useState(null);
+  const [isBoxSelectDangerOpen, setIsBoxSelectDangerOpen] = useState(false);
+  const [isReportWindowInputOpen, setIsReportWindowInputOpen] = useState(false);
+  const [reportDescriptionInput, setReportDescriptionInput] = useState([]);
+  const [isBoxWithDoneMsgOpen, setIsBoxWithDoneMsgOpen] = useState(false) 
+  
+  const onMapClick = useCallback((event) => {
+  setIsBoxSelectDangerOpen((prevState) => !prevState);
+  setMarker({
+    lat: event.latLng.lat(),
+    lng: event.latLng.lng(),
+    time: new Date(),
+  });
+}, []);
 
-  const fetchReportData = async (fMarker) => {
-    console.log({fMarker});
-    setSendReportRequest(true);
-    try {
-      const reportData = await Axios(
-        `http://localhost:4000/reports/${fMarker.id}`
-      );
-      setGetReportdata(reportData.data[0]);
-      setSendReportRequest(false);
-     
-    } catch (e) {
-      setSendReportRequest(false);
-    }
-  };
+const handleDangerSubmit = (event) => {
+  event.preventDefault();
+  setIsBoxSelectDangerOpen(false);
+  setIsReportWindowInputOpen(true);
+};
 
-  const handleDangerSubmit = (event) => {
-    event.preventDefault();
-    setIsBoxSelectDangerOpen(false);
-    setIsDangerDescriptionOpen(true);
-  };
+const handleDangerDescriptionInputs = (event) => {
+  const name = event.target.name;
+  const value = event.target.value;
+  setReportDescriptionInput((values) => ({ ...values, [name]: value }));
+  setNumberOfCharacters(event.target.value.length);
+};
 
-  const handleBoxDangerDetails = () => {
-    isBoxShowInputDetailsOpen(true);
-  };
+const findCategoryID = [issueType.find((element) => element.type === dangerType)]
+  
+const dangerFormSubmit = (event) => {
+  event.preventDefault();
+  if (reportDescriptionInput.length === 0 || voting === "") {
+    setAlertMsg(true);
+  } else {
+    setIsReportWindowInputOpen(false);
+    Axios.post("http://localhost:4000/reports/", {
+      voting: voting,
+      lat: marker.lat,
+      lng: marker.lng,
+      title: dangerType,
+      information: reportDescriptionInput.description,
+      user_id: user.id,
+      category_id: findCategoryID[0].nb,
+    })
+      .then((response) => {
+        setAlertMsg(false);
+        setFinalMarkers((finalMarkers) => [...finalMarkers, {...marker, id:response.data.id}]);
+        setIsBoxWithDoneMsgOpen(true)
+      })
+      .catch((err) => console.log(err));
+    setVoting("");
+    setReportDescriptionInput([]);
+  }
+};
+
+const showSubmittedReport = () => {
+  setIsBoxWithDoneMsgOpen(false)
+}
+
+/*Flow to watch a single spot informations*/
+const [sendReportRequest, setSendReportRequest] = useState(false);
+const [getReportData, setGetReportdata] = useState([]);
+const [isBoxShowInputDetailsOpen, setIsBoxShowInputDetailsOpen] = useState(false);
+const [isVotingBoxOpen, setIsVotingBoxOpen] = useState(false);
+
+const fetchReportData = async (fMarker) => {
+  setSendReportRequest(true);
+  try {
+    const reportData = await Axios(
+      `http://localhost:4000/reports/${fMarker.id}`
+    );
+    setGetReportdata(reportData.data[0]);
+    setSendReportRequest(false);
+    setSelected("");
+  } catch (e) {
+    setSendReportRequest(false);
+  }
+};
+
+const handleBoxShowInputDetailsState = () => {
+  setIsBoxShowInputDetailsOpen(false)
+}
+
+const handleAddVote = (event) => {
+  event.preventDefault();
+  Axios.post(`http://localhost:4000/reports/${getReportData.id}/vote`, {
+    voting: voting,
+    report_id: getReportData.id,
+    user_id: user.id,
+  })
+    .then((response) => {
+      setAlertMsg(false);
+      setIsBoxWithDoneMsgOpen(true)
+      console.log(response)
+  })
+    .catch((err) => console.log(err));
+}
+
+
+ 
 
   let user = JSON.parse(localStorage.getItem("user-info"));
 
-  const handleDangerDescriptionInputs = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setDangerDescriptionInput((values) => ({ ...values, [name]: value }));
-    setNumberOfCharacters(event.target.value.length);
-  };
+  
 
   const handleDangerChoice = (event) => {
     console.log("this aint working chief");
@@ -87,48 +152,21 @@ const MapProvider = ({ children }) => {
   const handleDangerLevel = (event) => {
     setVoting(event.target.value);
   };
-
-  const findCategoryID = [issueType.find((element) => element.type === dangerType)]
   
-  const dangerFormSubmit = (event) => {
-    event.preventDefault();
-    if (dangerDescriptionInput.length === 0 || voting === "") {
-      setAlertMsg(true);
-    } else {
-      setIsDangerDescriptionOpen(false);
-      Axios.post("http://localhost:4000/reports/", {
-        voting: voting,
-        lat: markers.lat,
-        lng: markers.lng,
-        title: dangerType,
-        information: dangerDescriptionInput.description,
-        user_id: user.id,
-        category_id: findCategoryID[0].nb,
-      })
-        .then((response) => {
-          setAlertMsg(false);
-          console.log(response)
-          setFinalMarkers((finalMarkers) => [...finalMarkers, {...markers, id:response.data.id}]);
-        })
-        .catch((err) => console.log(err));
-      setVoting("");
-      setDangerDescriptionInput([]);
-    }
-  };
+  const handleRateSpotButton = () => {
+    setIsVotingBoxOpen(true)
+  }
+
+ 
+
+  
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, []);
 
-  const onMapClick = useCallback((event) => {
-    setIsBoxSelectDangerOpen((prevState) => !prevState);
-    setMarkers({
-      lat: event.latLng.lat(),
-      lng: event.latLng.lng(),
-      time: new Date(),
-    });
-  }, []);
+
 
   const options = {
     styles: [
@@ -157,29 +195,33 @@ const MapProvider = ({ children }) => {
         alertMsg,
         dangerType,
         setDangerType,
-        markers,
+        marker,
         finalMarkers,
         selected,
         setSelected,
-        handleDangerChoice,
         panTo,
         onMapClick,
         onMapLoad,
         dangerFormSubmit,
         numberOfCharacters,
-        isDangerDescriptionOpen,
+        isVotingBoxOpen,
+        isReportWindowInputOpen,
         isBoxSelectDangerOpen,
+        handleAddVote,
+        handleBoxShowInputDetailsState,
+        handleDangerChoice,
+        handleDangerDescriptionInputs,
         handleDangerSubmit,
         handleDangerLevel,
+        handleRateSpotButton,
         options,
         isBoxShowInputDetailsOpen,
-        dangerDescriptionInput,
-        handleDangerDescriptionInputs,
-        handleBoxDangerDetails,
-        dangerTypeConvert,
-        setDangerTypeConvert,
+        isBoxWithDoneMsgOpen,
+        reportDescriptionInput,
         setIsBoxShowInputDetailsOpen,
         setVoting,
+        setIsVotingBoxOpen,
+        showSubmittedReport,
         voting,
         email,
         setEmail,

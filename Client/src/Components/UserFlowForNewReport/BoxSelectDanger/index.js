@@ -1,12 +1,12 @@
 import React from "react";
-import { useGlobalMapContext } from "../../Context/mapContext";
+import { useGlobalMapContext } from "../../../Context/mapContext";
 import { InfoBox } from "@react-google-maps/api";
 import {issueType} from "../BoxDangerDescription/issueType";
 import "./boxSelectDanger.css";
 
 export default function BoxSelectDanger() {
   const {
-    markers,
+    marker,
     setDangerType,
     handleDangerSubmit,
     stateLogin,
@@ -28,7 +28,7 @@ export default function BoxSelectDanger() {
   return (
     <>
       {user ? (
-        <InfoBox position={markers} options={boxOptions}>
+        <InfoBox position={marker} options={boxOptions}>
           <div style={{ backgroundColor: "white", opacity: 0.75, padding: 2 }}>
             <div style={{ fontSize: 16, fontColor: `#08233B` }}>
               <form className="info-box-display" onSubmit={handleDangerSubmit}>

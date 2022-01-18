@@ -10,7 +10,7 @@ import {
   ComboboxList,
   ComboboxOption,
 } from "@reach/combobox";
-import { useGlobalMapContext } from "../../Context/mapContext";
+import { useGlobalMapContext } from "../../../Context/mapContext";
 import "./style.css";
 
 export default function SearchBox() {
