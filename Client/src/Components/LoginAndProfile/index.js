@@ -211,7 +211,7 @@ console.log(document.cookie)
 
   const getSubmitedReports = async () => {
     try {
-      user = JSON.parse(localStorage.getItem("user-info"));
+    /*   user = JSON.parse(localStorage.getItem("user-info")); */
 
       if (user) {
         if (user) {
@@ -230,6 +230,7 @@ console.log(document.cookie)
       }
     } catch (err) {
       console.log(err);
+      setSubmitedReports([])
     }
   };
 
@@ -268,11 +269,11 @@ console.log(document.cookie)
     setShowForm(true)
   };
 
-  useEffect(()=>{
+ /*  useEffect(()=>{
 
-console.log('teste teste')
+console.log('useffect rerendering on stateLogin')
 
-  },[stateLogin])
+  },[stateLogin]) */
   const savedLogged = isLogged(user);
 
   useEffect(() => {
@@ -411,13 +412,13 @@ const SignUpPop = () => {
                   <button onClick={logout} type="button" className="btn">
                     Logout
                   </button>
-                  {!localStorage.getItem("user-info") ? (
+                  {!user ? (
                     <button onClick={register2} type="button" className="btn">
                       Register
                     </button>
                   ) : null}
                   <div>
-                    {localStorage.getItem("user-info") ? (
+                    {user? (
                       <button>get info</button>
                     ) : null}
                   </div>
@@ -521,7 +522,7 @@ const SignUpPop = () => {
                     <h3>user Logged: {savedLogged}</h3>
 
                     <div>
-                      {SubmitedReports.map((contact) => (
+                      {SubmitedReports.length > 0 ?( SubmitedReports.map((contact) => (
                         <div className='your-spots-container'>
                           <ul key={contact.id}>
                             <li>
@@ -532,7 +533,7 @@ const SignUpPop = () => {
                             <li> category : {contact.category_id}</li>
                           </ul>
                         </div>
-                      ))}
+                      ))): <p> you haven't Submitted any reports yet :D</p>}
                     </div>
                   </div>
 
