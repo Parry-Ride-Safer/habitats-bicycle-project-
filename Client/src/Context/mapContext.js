@@ -160,9 +160,38 @@ const handleAddVote = (event) => {
     setIsVotingBoxOpen(true)
   }
 
- 
 
-  
+  const findCategoryID = [
+    issueType.find((element) => element.type === dangerType),
+  ];
+
+  const dangerFormSubmit = (event) => {
+    event.preventDefault();
+    if (dangerDescriptionInput.length === 0 || voting === "") {
+      setAlertMsg(true);
+    } else {
+      setIsDangerDescriptionOpen(false);
+      Axios.post("http://localhost:4000/reports/", {
+        voting: voting,
+        lat: markers.lat,
+        lng: markers.lng,
+        title: dangerType,
+        information: dangerDescriptionInput.description,
+        category_id: findCategoryID[0].nb,
+      })
+        .then((response) => {
+          setAlertMsg(false);
+          console.log(response);
+          setFinalMarkers((finalMarkers) => [
+            ...finalMarkers,
+            { ...markers, id: response.data.id },
+          ]);
+        })
+        .catch((err) => console.log(err));
+      setVoting("");
+      setDangerDescriptionInput([]);
+    }
+  };
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
