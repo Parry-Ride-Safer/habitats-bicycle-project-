@@ -26,7 +26,6 @@ const getReportsInOneLocationController = async (req, res) => {
 const insertNewReportController = async (req, res) => {
   const { lat, lng } = req.body;
   let address_id = req.body.address_id;
-
   try {
     if (!address_id) {
       let location = await reportsModels.findLocation(lat, lng);
@@ -35,6 +34,7 @@ const insertNewReportController = async (req, res) => {
     }
     const createdReport = await reportsModels.createReport({
       ...req.body,
+      user_id: req.currentUser.id,
       address_id,
     });
     if (!createdReport) throw new Error("INVALID_DATA");
@@ -54,7 +54,7 @@ const updateReportController = async (req, res) => {
     if (!existingReport) throw new Error("RECORD_NOT_FOUND");
     report = await reportsModels.updateReport(req.body, reportId);
 
-    if (report === 1) res.status(200).json({ ...existingReport, ...req.body });
+    if (report === 2) res.status(200).json({ ...existingReport, ...req.body });
     else throw new Error("NO_UPDATE");
   } catch (error) {
     console.error(error);

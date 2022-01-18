@@ -31,7 +31,10 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { token, ...user } = await authService.login(req.body);
-    res.cookie("login", token, cookiesOptions).json(user);
+    res
+      .cookie("login", token, cookiesOptions)
+      .cookie("LoggedIn", true)
+      .json({ message: "Welcome Back Rider" });
   } catch (error) {
     console.log(error);
   }

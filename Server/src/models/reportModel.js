@@ -67,7 +67,7 @@ const createLocation = async (lat, lng) => {
 };
 const updateReport = async ({ ...data }, id) => {
   const results = await db.query(
-    "UPDATE report join voting on voting.report_id= report.id SET ?  WHERE id=?;",
+    "UPDATE report join voting on voting.report_id= report.id SET ?  WHERE report.id=? ",
     [{ ...data }, id]
   );
 
@@ -78,7 +78,6 @@ const getReportById = async (id) => {
   const [findReport] = await db.query("SELECT * FROM report WHERE id in (?)", [
     id,
   ]);
-  console.log(findReport, "ººººººººººº");
   return findReport;
 };
 const getVoteByReportAndUser = async (reportId, userId) => {
