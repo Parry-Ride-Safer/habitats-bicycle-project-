@@ -1,0 +1,101 @@
+.show-reportIssue-box {
+    visibility: visible;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgb(255, 255, 255);
+    width: 70vw;
+    right: 15vw;
+    height: 70vh;
+    top: 15vh;
+    border-radius: 15px;
+    -webkit-box-shadow: 0px 0px 23px -3px #000000;
+    box-shadow: 0px 0px 10px -5px #000000;
+    text-align: center;
+    z-index: 150;
+  }
+  
+.reportIssue-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: grid;
+  place-items: center;
+  transition: var(--transition);
+  visibility: hidden;
+  z-index: -1;
+}
+
+.reportIssue-form-display {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-reportIssue-display{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.title-reportIssue {
+  font-family: "Roboto Condensed";
+  font-size: 1.2rem;
+}
+
+.subTitle-reportIssue{
+  font-family: "Roboto Condensed";
+  font-size: 1rem;
+}
+
+.boldSubTitle-reportIssue{
+  font-family: "Roboto Condensed";
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-left:15px;
+}
+
+.add-picture{
+  width: 60vw;
+  height: 8vh;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+}
+
+.danger-description {
+  width: 60vw;
+  height: 5vh;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+}
+.reportIssue-submit-button {
+  color: white;
+  background-color: black;
+  width: 20vw;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 0px;
+  border-radius: 15px;
+  -webkit-box-shadow: 0px 0px 23px -3px #000000;
+  box-shadow: 0px 0px 10px -5px #000000;
+}
+
+.input[type="radio"] {
+  position: relative;
+  opacity: 1;
+}
+
+.input[type="radio"] {
+  -webkit-transition: all 0.2s;
+  transition: all 0.5s;
+}
+
+.input {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}

@@ -58,6 +58,10 @@ const handleDangerSubmit = (event) => {
   setIsReportWindowInputOpen(true);
 };
 
+const handleCloseNewReportWindow = () => {
+  setIsReportWindowInputOpen(false)
+}
+
 const handleDangerDescriptionInputs = (event) => {
   const name = event.target.name;
   const value = event.target.value;
@@ -72,7 +76,6 @@ const dangerFormSubmit = (event) => {
   if (reportDescriptionInput.length === 0 || voting === "") {
     setAlertMsg(true);
   } else {
-    setIsReportWindowInputOpen(false);
     Axios.post("http://localhost:4000/reports/", {
       voting: voting,
       lat: marker.lat,
@@ -93,10 +96,6 @@ const dangerFormSubmit = (event) => {
   }
 };
 
-const showSubmittedReport = () => {
-  setIsBoxWithDoneMsgOpen(false)
-}
-
 /*Flow to watch a single spot informations*/
 const [sendReportRequest, setSendReportRequest] = useState(false);
 const [getReportData, setGetReportdata] = useState([]);
@@ -111,6 +110,7 @@ const fetchReportData = async (fMarker) => {
       `http://localhost:4000/reports/${fMarker.id}`
     );
     setGetReportdata(reportData.data[0]);
+    console.log(getReportData)
     setSendReportRequest(false);
     setSelected("");
   } catch (e) {
@@ -126,12 +126,20 @@ const handleReportIssueWindow = () => {
   setIsReportIssueBoxOpen(true)
 }
 
+const handleReportIssueSubmit = (event) => {
+  event.preventDefault();
+  setIsBoxWithDoneMsgOpen(true)
+}
+
+const handleRateSpotButton = () => {
+  setIsVotingBoxOpen(true)
+}
+
 const handleAddVote = (event) => {
   event.preventDefault();
   Axios.post(`http://localhost:4000/reports/${getReportData.id}/vote`, {
     voting: voting,
     report_id: getReportData.id,
-    user_id: user.id,
   })
     .then((response) => {
       setAlertMsg(false);
@@ -140,7 +148,6 @@ const handleAddVote = (event) => {
   })
     .catch((err) => console.log(err));
 }
-
 
 
 /* 
@@ -155,18 +162,20 @@ const handleAddVote = (event) => {
   const handleDangerLevel = (event) => {
     setVoting(event.target.value);
   };
-  
-  const handleRateSpotButton = () => {
-    setIsVotingBoxOpen(true)
-  }
 
+  /*Box for both flows*/
+  const showSubmittedReport = () => {
+    setIsBoxWithDoneMsgOpen(false)
+    setIsReportWindowInputOpen(false)
+    setIsReportIssueBoxOpen(false)
+    setIsBoxShowInputDetailsOpen(false)
+    setIsVotingBoxOpen(false)
+  }
   
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, []);
-
-
 
   const options = {
     styles: [
@@ -209,12 +218,14 @@ const handleAddVote = (event) => {
         isBoxSelectDangerOpen,
         handleAddVote,
         handleBoxShowInputDetailsState,
+        handleCloseNewReportWindow,
         handleDangerChoice,
         handleDangerDescriptionInputs,
         handleDangerSubmit,
         handleDangerLevel,
         handleRateSpotButton,
         handleReportIssueWindow,
+        handleReportIssueSubmit,
         options,
         isBoxShowInputDetailsOpen,
         isBoxWithDoneMsgOpen,

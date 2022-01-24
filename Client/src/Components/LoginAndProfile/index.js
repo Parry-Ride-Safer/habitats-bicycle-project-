@@ -58,7 +58,7 @@ console.log(document.cookie)
   let user = document.cookie /* JSON.parse(localStorage.getItem("user-info")); */
 
   Axios.defaults.withCredentials = true;
-
+  console.log(userStorage)
   const toggleTab = (index) => {
     setToggleState(index);
   };
