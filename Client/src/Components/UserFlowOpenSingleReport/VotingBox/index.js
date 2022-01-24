@@ -13,9 +13,9 @@ export default function VotingBox() {
   } = useGlobalMapContext();
 
   return (
-    <div className={`${isVotingBoxOpen ? "show-danger-box" : "danger-box-overlay"}`}>
+    <div className={`${isVotingBoxOpen ? "show-vote-box" : "vote-box-overlay"}`}>
       <form className="danger-form-display" onSubmit={handleAddVote}>
-        <p className="danger-input-labels"> Danger Level </p>
+        <p className="title-vote"> Give your input </p>
         <div className="dangerLevelVote">
           {dangerLevel.map((danger, index) => (
             <label key={index}>
@@ -36,8 +36,7 @@ export default function VotingBox() {
         </div>
         <div className="danger-buttons-display">
           <button 
-            className="danger-buttons" 
-            id="danger-submit-button"
+            className="submit-button" 
             type="submit"
           >
             Submit

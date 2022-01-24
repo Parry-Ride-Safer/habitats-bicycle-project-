@@ -4,15 +4,13 @@
   background: rgb(255, 255, 255);
   border-radius: var(--radius);
   width: 100vw;
-
+  height: 70vh;
   max-width: var(--fixed-width);
   text-align: center;
   place-items: center;
   position: absolute;
   bottom: 0;
-  border: 1px solid rgb(231, 36, 36);
-  position: absolute;
-  z-index: 51;
+  border: 0px solid rgb(255, 255, 255);
 }
 
 .danger-box-overlay {
@@ -35,53 +33,61 @@
   align-items: center;
 }
 
-.danger-category {
-  font-family: "Verdana";
-  font-size: 1.5rem;
-  padding-top: 16px;
-  padding-bottom: 8px;
+.close-button{
+  position: absolute;
+  top:0;
+  right: 0;
+  border:0;
 }
 
-.danger-line {
-  display: block;
-  width: 50vw;
-  border: 0;
-  height: 1.25px;
-  background: #333;
-  background-image: linear-gradient(to right, #ccc, #333, #ccc);
+.close-button-img{
+  height: 18px;
+  width: 18px;
 }
 
-.danger-input-labels {
-  font-size: 1.25rem;
+.title {
+  font-family: "Roboto Condensed";
+  font-size: 1.2rem;
+}
+
+.sub-titles{
+  font-family: "Roboto Condensed";
+  font-size: 1rem;
+  margin:0.15rem;
+}
+
+#sub-titles-margin{
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.danger-level-text{
+  font-family: "Roboto Condensed";
+  font-size: 0.9rem;
+  color: lightslategrey;
+}
+
+.add-picture{
+  width: 60vw;
+  height: 8vh;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+}
+
+.danger-description {
+  width: 60vw;
+  height: 5vh;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+}
+.submit-button {
+  color: white;
+  background-color: black;
+  width: 20vw;
   padding: 0.5rem;
   margin: 0.5rem;
-}
-
-.danger-input-fields {
-  width: 65vw;
-  height: 2.5vh;
-  padding: 1.25rem;
-  margin: 0.5rem;
   border: 0px;
-  border-radius: 10px;
-  -webkit-box-shadow: 0px 0px 23px -3px #000000;
-  box-shadow: 0px 0px 10px -5px #000000;
-}
-
-#danger-description-input-field {
-  height: 15vh;
-}
-
-.danger-buttons-display {
-  flex-direction: row;
-}
-
-.danger-buttons {
-  width: 15vw;
-  padding: 0.5rem;
-  margin: 0.5rem;
-  border: 0px;
-  border-radius: 10px;
+  border-radius: 15px;
   -webkit-box-shadow: 0px 0px 23px -3px #000000;
   box-shadow: 0px 0px 10px -5px #000000;
 }
@@ -93,13 +99,11 @@
   display: none;
 }
 
-#danger-submit-button {
-  background-color: lightgreen;
+.danger-buttons-display {
+  flex-direction: row;
 }
 
-#danger-return-button {
-  background-color: lightskyblue;
-}
+
 input[type="radio"] {
   position: absolute;
   opacity: 0;
@@ -172,3 +176,8 @@ input[class="classD5"]:focus + svg {
 .description-input-label {
   font-size: 10px;
 }
+
+
+
+
+

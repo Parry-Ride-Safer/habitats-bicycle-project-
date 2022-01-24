@@ -1,19 +1,17 @@
-.show-danger-details {
+.show-spot-details {
+  position: absolute;
   visibility: visible;
-  z-index: 10;
-  background: white;
-  border-radius: var(--radius);
+  z-index: 50;
+  background: rgb(255, 255, 255);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   width: 100vw;
   height: 70vh;
   max-width: var(--fixed-width);
-  text-align: center;
-  place-items: center;
-  position: absolute;
   bottom: 0;
-  border: 0px solid;
 }
 
-.danger-box-overlay {
+.spot-box-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -21,41 +19,55 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   display: grid;
-  place-items: center;
   transition: var(--transition);
   visibility: hidden;
   z-index: -1;
 }
 
-
-button {
-  border: 1px solid black;
+.spot-info-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.close-window-position {
+.title {
+  font-family: "Roboto Condensed";
+  font-size: 1.2rem;
+}
+
+.close-button{
   position: absolute;
-  top: 0;
+  top:0;
   right: 0;
+  border:0;
 }
 
-.image-property {
-  height: 25vh;
+.close-button-img{
+  height: 18px;
+  width: 18px;
+}
+
+.sub-titles{
+  font-family: "Roboto Condensed";
+  font-size: 1rem;
+  margin:0.15rem;
+}
+
+.add-picture{
   width: 60vw;
+  height: 25vh;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
 }
 
-.btn-container {
-  display: flex;
-  justify-content: center;
-}
-
-.submit-btn {
-  display: flex;
-  justify-content: center;
-  border-radius: 20px;
+.submit-button {
   color: white;
   background-color: black;
-}
-
-.flag-btn {
-  border: 0;
+  width: 20vw;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border: 0px;
+  border-radius: 15px;
+  -webkit-box-shadow: 0px 0px 23px -3px #000000;
+  box-shadow: 0px 0px 10px -5px #000000;
 }

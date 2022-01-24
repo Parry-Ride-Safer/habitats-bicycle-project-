@@ -36,7 +36,7 @@ const LoginAndProfile = () => {
   let user = JSON.parse(localStorage.getItem("user-info"));
 
   Axios.defaults.withCredentials = true;
-
+  console.log(userStorage)
   const toggleTab = (index) => {
     setToggleState(index);
   };
