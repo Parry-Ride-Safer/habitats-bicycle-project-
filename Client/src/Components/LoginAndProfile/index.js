@@ -125,6 +125,7 @@ console.log(document.cookie)
       let result = await Axios.post("http://localhost:4000/auth/login", item);
       localStorage.setItem("user-info", JSON.stringify(result.data));
       console.log(result, "total result do login");
+     
       setPassword("");
       setEmail("");
       handleUserStorage();
@@ -336,51 +337,20 @@ const SignUpPop = () => {
     )
 }
 
+const ReportDetailsWindow = () => { 
+  return (
+    <div>
+
+      
+    </div>
+  )
+}
+
 
   return (
     <div>
          
-      {/* <div className="login-form">
-        <form>
-          <div>
-            <label htmlFor="username">email</label>
-            <input
-              type="text"
-              name="username"
-              placeholder="email@example.com"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <button onClick={login} type="button" className="btn">
-            Login
-          </button>
-          <button onClick={logout} type="button" className="btn">
-            Logout
-          </button>
-          {!localStorage.getItem("user-info") ? (
-            <button type="button" className="btn">
-              Register
-            </button>
-          ) : null}
-          <div>
-            {localStorage.getItem("user-info") ? (
-              <button>get info</button>
-            ) : null}
-           
-          </div>
-        </form>
-
-        <h3>login name:</h3>
-      </div> */}
+     
       {!user ? (
         <>
         <WelcomePage2 />

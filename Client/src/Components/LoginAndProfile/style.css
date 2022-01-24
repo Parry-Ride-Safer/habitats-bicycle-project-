@@ -184,6 +184,12 @@ div.open-profile {
   display: block;
 }
 
+.your-spots-container{
+  border: 1px solid black;
+  margin-bottom: 1rem;
+}
+
+
 ul {
   list-style: none;
 }
