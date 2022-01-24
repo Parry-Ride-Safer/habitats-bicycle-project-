@@ -37,6 +37,8 @@ const LoginAndProfile = () => {
   const [welcomeStatus,setWelcomeStatus] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [showEditAccount, setShowEditAccount] = useState(false);
+  const [votedReports, setVotedReports] = useState([]);
+  const [currentUser, setCurrentUser] = useState([]);
 
   const handleShowEditAccount = ()=> {
     setShowEditAccount(!showEditAccount)
@@ -130,6 +132,7 @@ console.log(document.cookie)
       setEmail("");
       handleUserStorage();
       handleLoginStatus();
+      getCurrentUser();
       
      
 
@@ -157,6 +160,7 @@ console.log(document.cookie)
       setEmail("");
      handleUserStorage();
     handleLoginStatus();
+    getCurrentUser();
 
       await console.log(result.data.id, "user id logged");
       await setLoginId(result.data.id);
@@ -167,34 +171,32 @@ console.log(document.cookie)
     }
   };
 
-  const editAccount2 = async () => {
+  const editUserAccount = async () => {
     let item = { email, password };
     try {
-        
-      let result = await Axios.put(
-        `http://localhost:4000/users/${loginId}`,
-        item
-      );
-      localStorage.setItem("user-info", JSON.stringify(result.data));
+
+      if(email <= 0 ){ item = {password}}
+      let result = await Axios.put(`http://localhost:4000/users/current`, item);
+      /* localStorage.setItem("user-info", JSON.stringify(result.data)); */
+      console.log(result, "total result do login");
       
       setPassword("");
       setEmail("");
-      handleUserStorage();
-    handleLoginStatus();
-    
-
-      await console.log(result.data.id, "user id logged");
-      await setLoginId(result.data.id);
-      await console.log(loginId, " agora sim");
+      handleShowEditAccount();
+      getCurrentUser();
+     /*  handleUserStorage();
+      handleLoginStatus(); */
       
+      
+     
+
     } catch (err) {
       console.log(err);
     }
   };
 
 
-
-  const editAccount = async () => {
+ /*  const editAccount = async () => {
     let item = { email, password };
     let result = await fetch(`http://localhost:4000/users/${loginId}`, {
       method: "POST",
@@ -207,7 +209,7 @@ console.log(document.cookie)
 
     result = await result.json();
     localStorage.setItem("user-info", JSON.stringify(result));
-  };
+  }; */
 
 
   const getSubmitedReports = async () => {
@@ -234,6 +236,47 @@ console.log(document.cookie)
       setSubmitedReports([])
     }
   };
+  
+  const getVotedSpots = async () => {
+    try {
+    /*   user = JSON.parse(localStorage.getItem("user-info")); */
+
+      if (user) {
+        if (user) {
+          await setLoginId(user.id);
+        }
+
+        await Axios.get(`http://localhost:4000/users/rated`).then(
+          (response) => {
+            console.log(response.data);
+           
+            return setVotedReports(response.data);
+          }
+        );
+      } else {
+        console.log("there is not user yet ");
+      }
+    } catch (err) {
+      console.log(err);
+      setVotedReports([])
+    }
+  };
+
+  const getCurrentUser = async () => { 
+    try{
+      await Axios.get(`http://localhost:4000/users/current`).then(
+        (response) => { 
+          console.log(response.data)
+          setCurrentUser(response.data.email)
+        }
+      )
+
+    } catch (err){ console.log(err)}
+  }
+
+
+
+
 
   const logout = async (e) => {
     try {
@@ -341,7 +384,7 @@ const ReportDetailsWindow = () => {
   return (
     <div>
 
-      
+
     </div>
   )
 }
@@ -469,13 +512,13 @@ const ReportDetailsWindow = () => {
                   </button>
                   <button
                     className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(2)}
+                    onClick={() => toggleTab(2) + getVotedSpots()}
                   >
                     Rated Spots
                   </button>
                   <button
                     className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(3)}
+                    onClick={() => toggleTab(3) + getCurrentUser()}
                   >
                     Settings
                   </button>
@@ -517,20 +560,19 @@ const ReportDetailsWindow = () => {
                     <hr />
 
                     <div>
-                      {/* {userStorage
-                    ? info.map((contact) => (
-                        <div className="your-spots-container">
-                          <ul key={contact.id}>
+                    {votedReports.length > 0 ?( votedReports.map((spot) => (
+                        <div className='your-spots-container'>
+                          <ul key={spot.id}>
                             <li>
-                              <span className="img-div">img </span>
+                              <span className='img-div'>img </span>
                             </li>
-                            <li> information :{contact.information}</li>
-                            <li> voting : {contact.voting}</li>
-                            <li> category : {contact.category_id}</li>
+                            <li> information :{spot.information}</li>
+                            <li> voting : {spot.voting}</li>
+                            <li> category : {spot.name}</li>
+                            <li> Created at : {spot.createdAt}</li>
                           </ul>
                         </div>
-                      ))
-                    : null} */}
+                      ))): <p> you haven't rated any reports yet :D</p>}
                     </div>
                   </div>
 
@@ -541,7 +583,7 @@ const ReportDetailsWindow = () => {
                   >
                     <h2>Settings</h2>
                     <hr />
-                    <h3>Your Account: {savedLogged}</h3>
+                    <h3>Your Account: {currentUser}</h3>
                     <h3>password: ****** </h3>
                     <button onClick={handleShowEditAccount } type="button" className="btn">
                       edit
@@ -575,7 +617,7 @@ const ReportDetailsWindow = () => {
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
-                  <button onClick={editAccount2}  type="button" className="btn">
+                  <button onClick={editUserAccount}  type="button" className="btn">
                     Save Changes
                   </button>
                   <button onClick={handleShowEditAccount} type="button" className="btn">
