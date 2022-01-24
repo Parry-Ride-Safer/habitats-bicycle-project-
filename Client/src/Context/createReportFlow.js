@@ -2,7 +2,7 @@
 
 
 
-const handleDangerSubmit = (event) => {
+/* const handleDangerSubmit = (event) => {
   event.preventDefault();
   setIsBoxSelectDangerOpen(false);
   setIsReportWindowInputOpen(true);
@@ -41,3 +41,4 @@ const dangerFormSubmit = (event) => {
     setReportDescriptionInput([]);
   }
 };
+ */

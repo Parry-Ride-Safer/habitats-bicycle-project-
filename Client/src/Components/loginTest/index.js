@@ -32,8 +32,8 @@ const LoginTest = () => {
     getInfoTest();
   };
 
-  let user = JSON.parse(localStorage.getItem("user-info"));
-  console.log(user, "this is the logged user ");
+  /* let user = JSON.parse(localStorage.getItem("user-info"));
+  console.log(user, "this is the logged user "); */
 
   const logout = async (e) => {
     try {

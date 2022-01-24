@@ -15,7 +15,7 @@ import "./map.css";
 import logo from "./Polygon38.png";
 import logoBlue from "./PolygonBlue.png";
 
-let user = JSON.parse(localStorage.getItem("user-info"));
+
 
 const mapContainerStyle = {
   width: "100vw",

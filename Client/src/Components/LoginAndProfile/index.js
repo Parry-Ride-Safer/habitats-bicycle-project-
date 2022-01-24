@@ -3,6 +3,8 @@ import Axios from "axios";
 import { useGlobalMapContext } from "../../Context/mapContext";
 import "./style.css";
 import profileLogo from "./ProfileIcon.png";
+import WelcomePage from "./welcomePage";
+
 
 const LoginAndProfile = () => {
   const {
@@ -32,8 +34,26 @@ const LoginAndProfile = () => {
   const [userStorage, setUserStorage] = useState(null);
   const [loginId, setLoginId] = useState();
   const [SubmitedReports, setSubmitedReports] = useState([]);
+  const [welcomeStatus,setWelcomeStatus] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [showEditAccount, setShowEditAccount] = useState(false);
 
-  let user = JSON.parse(localStorage.getItem("user-info"));
+  const handleShowEditAccount = ()=> {
+    setShowEditAccount(!showEditAccount)
+  }
+
+
+  const handleShowForm = () => { 
+      setShowForm(true)
+      HandleshowWelcomePage();
+      setWelcomeStatus(false) ;
+  }
+
+const handleWelcomeStatusClick =() => { 
+    setWelcomeStatus(!welcomeStatus)
+}
+console.log(document.cookie)
+  let user = document.cookie /* JSON.parse(localStorage.getItem("user-info")); */
 
   Axios.defaults.withCredentials = true;
   console.log(userStorage)
@@ -45,9 +65,9 @@ const LoginAndProfile = () => {
     setState(!btnState);
   };
 
-  const register = async () => {
+/*   const register = async () => {
     let item = { email, password };
-    if (email <= 0 || password <= 0) {
+    if (email.length <= 0 || password.length < 8) {
       console.log("please enter something( email or password is missing) ");
     } else {
       let result = await fetch("http://localhost:4000/auth/register", {
@@ -60,12 +80,12 @@ const LoginAndProfile = () => {
       });
       result = await result.json();
 
-      await localStorage.setItem("user-info", JSON.stringify(result));
-
+      localStorage.setItem("user-info", JSON.stringify(result));
+      
       await handleUserStorage();
       await handleLoginStatus();
     }
-  };
+  }; */
 
   /* const handleRegister = () => {
     if (email <= 0 || password <= 0) {
@@ -105,10 +125,13 @@ const LoginAndProfile = () => {
       let result = await Axios.post("http://localhost:4000/auth/login", item);
       localStorage.setItem("user-info", JSON.stringify(result.data));
       console.log(result, "total result do login");
+     
       setPassword("");
       setEmail("");
       handleUserStorage();
       handleLoginStatus();
+      
+     
 
       await console.log(result.data.id, "user id logged");
       await setLoginId(result.data.id);
@@ -118,9 +141,62 @@ const LoginAndProfile = () => {
     }
   };
 
+  const register2 = async () => {
+    let item = { email, password };
+    try {
+        if (email.length <= 0 || password.length < 8) {
+            console.log("please enter something( email or password is missing) ");
+          } else {
+      let result = await Axios.post(
+        "http://localhost:4000/auth/register",
+        item
+      );
+      localStorage.setItem("user-info", JSON.stringify(result.data));
+      
+      setPassword("");
+      setEmail("");
+     handleUserStorage();
+    handleLoginStatus();
+
+      await console.log(result.data.id, "user id logged");
+      await setLoginId(result.data.id);
+      await console.log(loginId, " agora sim");};
+      
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const editAccount2 = async () => {
+    let item = { email, password };
+    try {
+        
+      let result = await Axios.put(
+        `http://localhost:4000/users/${loginId}`,
+        item
+      );
+      localStorage.setItem("user-info", JSON.stringify(result.data));
+      
+      setPassword("");
+      setEmail("");
+      handleUserStorage();
+    handleLoginStatus();
+    
+
+      await console.log(result.data.id, "user id logged");
+      await setLoginId(result.data.id);
+      await console.log(loginId, " agora sim");
+      
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
+
   const editAccount = async () => {
     let item = { email, password };
-    let result = await fetch(`http://localhost:4000/user/${loginId}`, {
+    let result = await fetch(`http://localhost:4000/users/${loginId}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -133,9 +209,10 @@ const LoginAndProfile = () => {
     localStorage.setItem("user-info", JSON.stringify(result));
   };
 
+
   const getSubmitedReports = async () => {
     try {
-      user = JSON.parse(localStorage.getItem("user-info"));
+    /*   user = JSON.parse(localStorage.getItem("user-info")); */
 
       if (user) {
         if (user) {
@@ -154,18 +231,26 @@ const LoginAndProfile = () => {
       }
     } catch (err) {
       console.log(err);
+      setSubmitedReports([])
     }
   };
 
   const logout = async (e) => {
     try {
+      await Axios.get(`http://localhost:4000/auth/logout/`)
       localStorage.clear();
       handleClick();
       setLoginId(null);
+      setStateLogin(true);
+      setShowWelcomePage(false);
+
     } catch (err) {
       console.log(err);
     }
   };
+
+  
+
 
   function isLogged(user) {
     user = JSON.parse(localStorage.getItem("user-info"));
@@ -182,8 +267,14 @@ const LoginAndProfile = () => {
 
   const handleLoginStatus = () => {
     setStateLogin(!stateLogin);
+    setShowForm(true)
   };
 
+ /*  useEffect(()=>{
+
+console.log('useffect rerendering on stateLogin')
+
+  },[stateLogin]) */
   const savedLogged = isLogged(user);
 
   useEffect(() => {
@@ -210,53 +301,102 @@ const LoginAndProfile = () => {
     console.log("SEGUNDO USEEFFECT DO USER");
   }, []);
 
+const [showWelcomePage, setShowWelcomePage] = useState(true)
+
+const HandleshowWelcomePage =() => { 
+    setShowWelcomePage(false)
+}
+  const WelcomePage2 = () => {
+    return ( showWelcomePage ? ( <div>
+            <div className='welcome-page2'>
+                <h2>Welcome rider. <br/> Let's make the streets safer together.</h2>
+                <button onClick={handleWelcomeStatusClick} className='btn'>Start</button>
+            </div>
+        </div>) : null 
+       
+    )
+}
+
+const handleSkipForNow = ()=> { 
+    
+    HandleshowWelcomePage();
+    setWelcomeStatus(false) ;
+    setStateLogin(!stateLogin);
+    
+}
+
+const SignUpPop = () => {
+    return (
+        <div>
+            <div className='welcome-page'>
+                <h2>sign up to be able to report or vote on a road issue.</h2>
+                <button className='btn' onClick={handleShowForm} >sign up</button>
+                <button onClick={handleSkipForNow}>skip for now</button>
+            </div>
+        </div>
+    )
+}
+
+const ReportDetailsWindow = () => { 
   return (
     <div>
-      {/* <div className="login-form">
-        <form>
-          <div>
-            <label htmlFor="username">email</label>
-            <input
-              type="text"
-              name="username"
-              placeholder="email@example.com"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <button onClick={login} type="button" className="btn">
-            Login
-          </button>
-          <button onClick={logout} type="button" className="btn">
-            Logout
-          </button>
-          {!localStorage.getItem("user-info") ? (
-            <button type="button" className="btn">
-              Register
-            </button>
-          ) : null}
-          <div>
-            {localStorage.getItem("user-info") ? (
-              <button>get info</button>
-            ) : null}
-           
-          </div>
-        </form>
 
-        <h3>login name:</h3>
-      </div> */}
+      
+    </div>
+  )
+}
+
+
+  return (
+    <div>
+         
+     
       {!user ? (
         <>
-          {stateLogin ? (
-            <div className='login-form'>
+        <WelcomePage2 />
+        {welcomeStatus ? !stateLogin ? <SignUpPop /> : null : null}
+        {showForm && !stateLogin  ? (<div className="login-form">
+                
+                <form>
+                  <div>
+                    <label htmlFor="username">email</label>
+                    <input
+                      type="email"
+                      name="username"
+                      placeholder="email@example.com"
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="password"
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                  <button onClick={login} type="button" className="btn">
+                    Login
+                  </button>
+                  <button onClick={logout} type="button" className="btn">
+                    Logout
+                  </button>
+                  {!user ? (
+                    <button onClick={register2} type="button" className="btn">
+                      Register
+                    </button>
+                  ) : null}
+                  <div>
+                    {user? (
+                      <button>get info</button>
+                    ) : null}
+                  </div>
+                </form>
+              </div>) : null }
+        {/*{stateLogin ? ( 
+            { <div className="login-form">
+                
               <form>
                 <div>
                   <label htmlFor='username'>email</label>
@@ -293,11 +433,14 @@ const LoginAndProfile = () => {
                   ) : null}
                 </div>
               </form>
-            </div>
-          ) : null}
-          <button onClick={handleLoginStatus} className='login-btn'>
-            <img src={profileLogo} alt='' className='img-login-btn' />
-          </button>
+            </div> 
+                  ) : null} */}
+         
+          
+          {!showWelcomePage ? (<button onClick={handleLoginStatus} className="login-btn">
+            <img src={profileLogo} alt="" className="img-login-btn" />
+          </button>) : null}
+          
         </>
       ) : (
         <>
@@ -349,7 +492,7 @@ const LoginAndProfile = () => {
                     <h3>user Logged: {savedLogged}</h3>
 
                     <div>
-                      {SubmitedReports.map((contact) => (
+                      {SubmitedReports.length > 0 ?( SubmitedReports.map((contact) => (
                         <div className='your-spots-container'>
                           <ul key={contact.id}>
                             <li>
@@ -360,7 +503,7 @@ const LoginAndProfile = () => {
                             <li> category : {contact.category_id}</li>
                           </ul>
                         </div>
-                      ))}
+                      ))): <p> you haven't Submitted any reports yet :D</p>}
                     </div>
                   </div>
 
@@ -400,7 +543,7 @@ const LoginAndProfile = () => {
                     <hr />
                     <h3>Your Account: {savedLogged}</h3>
                     <h3>password: ****** </h3>
-                    <button type='button' className='btn'>
+                    <button onClick={handleShowEditAccount } type="button" className="btn">
                       edit
                     </button>
 
@@ -412,6 +555,35 @@ const LoginAndProfile = () => {
               </div>
             </div>
           </div>
+          {showEditAccount ?( <div className="edit-Form">
+              <form>
+              <div>
+                    <label htmlFor="username">email</label>
+                    <input
+                      type="email"
+                      name="username"
+                      placeholder="email@example.com"
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="password"
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                  <button onClick={editAccount2}  type="button" className="btn">
+                    Save Changes
+                  </button>
+                  <button onClick={handleShowEditAccount} type="button" className="btn">
+                    Close
+                  </button>
+                  
+              </form>
+          </div>) : null}
         </>
       )}
     </div>

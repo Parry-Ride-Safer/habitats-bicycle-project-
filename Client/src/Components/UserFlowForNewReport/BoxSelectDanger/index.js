@@ -23,7 +23,8 @@ export default function BoxSelectDanger() {
     },
   };
 
-  let user = JSON.parse(localStorage.getItem("user-info"));
+  /* let user = JSON.parse(localStorage.getItem("user-info")); */
+  let user = document.cookie;
 
   return (
     <>

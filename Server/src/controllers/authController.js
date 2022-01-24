@@ -18,8 +18,8 @@ const register = async (req, res) => {
 
     res
       .cookie("login", token, cookiesOptions)
-      .cookie("Register", true)
-      .json(user);
+      .cookie("LoggedIn", true)
+      .json({ message: "Welcome to the rider family!" });
   } catch (error) {
     console.error(error);
     const treatedError = error.toString().slice(7);
@@ -45,7 +45,10 @@ const login = async (req, res) => {
 
 const logout = async (_req, res) => {
   try {
-    res.clearCookie("login").json({ message: "logout" });
+    res
+      .clearCookie("login")
+      .clearCookie("LoggedIn")
+      .json({ message: "logout" });
   } catch (error) {
     console.log(error);
   }

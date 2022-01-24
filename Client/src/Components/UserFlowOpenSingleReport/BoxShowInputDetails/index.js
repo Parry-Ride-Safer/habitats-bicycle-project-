@@ -19,7 +19,7 @@ export default function BoxShowInputDetails() {
     <div
       className={`${isBoxShowInputDetailsOpen ? "show-spot-details" : "spot-box-overlay"}`}
     >
-      {getReportData.length != "" ? (
+      {getReportData.length !== "" ? (
         <div>
           <button
             className="close-button"
