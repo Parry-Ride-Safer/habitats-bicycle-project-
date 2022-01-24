@@ -16,7 +16,7 @@ export default function BoxShowInputDetails() {
     <div
       className={`${isBoxShowInputDetailsOpen ? "show-danger-details" : "danger-box-overlay"}`}
     >
-      {getReportData.length != "" ? (
+      {getReportData.length !== "" ? (
         <div>
           <div className="close-window-position">
             <button

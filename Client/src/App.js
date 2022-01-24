@@ -23,10 +23,9 @@ function App() {
 
   return (
     <>
-      {/* <Test2login /> */}
-      {/* <LoginTest /> */}
+     
       <LoginAndProfile />
-      {/* <Navbar /> */}
+     
 
       {/* <FormComponent /> */}
       <Map options={options} onMapLoad={onMapLoad} onMapClick={onMapClick} />

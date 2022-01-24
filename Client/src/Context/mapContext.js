@@ -143,9 +143,9 @@ const handleAddVote = (event) => {
 
 
 
-
-  let user = JSON.parse(localStorage.getItem("user-info"));
-
+/* 
+  let user = JSON.parse(localStorage.getItem("user-info")); */
+  let user = document.cookie
 
   const handleDangerChoice = (event) => {
     console.log("this aint working chief");

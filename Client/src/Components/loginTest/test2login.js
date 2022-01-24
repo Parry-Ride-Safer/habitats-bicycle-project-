@@ -7,7 +7,7 @@ const Test2login = () => {
   const [userTest, setUserTest] = useState([]);
   const [infoTest, setinfoTest] = useState([]);
 
-  let user = JSON.parse(localStorage.getItem("user-info"));
+  /* let user = JSON.parse(localStorage.getItem("user-info")); */
 
   const handleClickInfo = (e) => {
     e.preventDefault();
