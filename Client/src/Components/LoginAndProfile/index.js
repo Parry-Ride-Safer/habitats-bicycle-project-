@@ -38,6 +38,8 @@ const LoginAndProfile = () => {
   const [showForm, setShowForm] = useState(false);
   const [showEditAccount, setShowEditAccount] = useState(false);
 
+
+
   const handleShowEditAccount = ()=> {
     setShowEditAccount(!showEditAccount)
   }
@@ -192,7 +194,7 @@ console.log(document.cookie)
     }
   };
 
-
+  
 
   const editAccount = async () => {
     let item = { email, password };
@@ -234,7 +236,8 @@ console.log(document.cookie)
       setSubmitedReports([])
     }
   };
-
+ 
+  
   const logout = async (e) => {
     try {
       await Axios.get(`http://localhost:4000/auth/logout/`)

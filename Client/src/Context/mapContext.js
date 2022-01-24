@@ -82,7 +82,6 @@ const dangerFormSubmit = (event) => {
       lng: marker.lng,
       title: dangerType,
       information: reportDescriptionInput.description,
-      user_id: user.id,
       category_id: findCategoryID[0].nb,
     })
       .then((response) => {
@@ -102,6 +101,8 @@ const [getReportData, setGetReportdata] = useState([]);
 const [isBoxShowInputDetailsOpen, setIsBoxShowInputDetailsOpen] = useState(false);
 const [isReportIssueBoxOpen, setIsReportIssueBoxOpen] = useState(false)
 const [isVotingBoxOpen, setIsVotingBoxOpen] = useState(false);
+const [currentUser, setCurrentUser] = useState([])
+
 
 const fetchReportData = async (fMarker) => {
   setSendReportRequest(true);
@@ -110,6 +111,7 @@ const fetchReportData = async (fMarker) => {
       `http://localhost:4000/reports/${fMarker.id}`
     );
     setGetReportdata(reportData.data[0]);
+    getCurrentUser()
     console.log(getReportData)
     setSendReportRequest(false);
     setSelected("");
@@ -117,6 +119,19 @@ const fetchReportData = async (fMarker) => {
     setSendReportRequest(false);
   }
 };
+
+const getCurrentUser = async () => { 
+  try{
+    await Axios.get("http://localhost:4000/users/current").then(
+      (response) => { 
+        console.log(response.data.id)
+        setCurrentUser(response.data.id)
+      }
+    )
+
+  } catch (err){ console.log(err)}
+}
+
 
 const handleBoxShowInputDetailsState = () => {
   setIsBoxShowInputDetailsOpen(false)
@@ -149,10 +164,10 @@ const handleAddVote = (event) => {
     .catch((err) => console.log(err));
 }
 
-
 /* 
   let user = JSON.parse(localStorage.getItem("user-info")); */
   let user = document.cookie
+  console.log(`my user is ${user}`)
 
   const handleDangerChoice = (event) => {
     console.log("this aint working chief");
@@ -202,6 +217,7 @@ const handleAddVote = (event) => {
     <MapContext.Provider
       value={{
         alertMsg,
+        currentUser,
         dangerType,
         setDangerType,
         marker,

@@ -1,19 +1,20 @@
 import React from "react";
 import { useGlobalMapContext } from "../../../Context/mapContext";
+import {ModalShowReportDetails, ModalShowUserInputDetails} from "../../index";
 import "./boxShowInputDetails.css";
 import closeBtn from "../../../icons/modalBoxIcons/close-window-icon.png";
-import flagReport from "./Flag.png";
 import example from "./image 28.png";
 
 export default function BoxShowInputDetails() {
   const {
+    currentUser,
     fetchReportData,
     getReportData,
     isBoxShowInputDetailsOpen,
-    handleBoxShowInputDetailsState,
-    handleRateSpotButton,
-    handleReportIssueWindow
+    handleBoxShowInputDetailsState
   } = useGlobalMapContext();
+
+  let user = document.cookie;
 
   return (
     <div
@@ -33,18 +34,10 @@ export default function BoxShowInputDetails() {
           <img className="add-picture" src={example} alt="" />
           <p className="sub-titles">{getReportData.information}</p>
 
-          {}
-            <div>
-              <p>Info about the number of votes {getReportData.voting}</p>
-              <div className="btn-container">
-                <button className="submit-btn" type="button" onClick={handleRateSpotButton}>
-                  Rate Spot
-                </button>
-                <button className="flag-btn" type="button" onClick={handleReportIssueWindow} >
-                  <img src={flagReport} alt="" />
-                </button>
-              </div>
-            </div>
+          {(currentUser === getReportData.user_id) ?
+            <ModalShowUserInputDetails /> : 
+            <ModalShowReportDetails />
+          }
         </div>
       ) : (
         <div>
