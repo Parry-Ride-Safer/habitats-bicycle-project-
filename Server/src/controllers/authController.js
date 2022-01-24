@@ -45,7 +45,10 @@ const login = async (req, res) => {
 
 const logout = async (_req, res) => {
   try {
-    res.clearCookie("login").json({ message: "logout" });
+    res
+      .clearCookie("login")
+      .clearCookie("LoggedIn")
+      .json({ message: "logout" });
   } catch (error) {
     console.log(error);
   }

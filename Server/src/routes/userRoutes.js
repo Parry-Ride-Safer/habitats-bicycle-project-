@@ -11,8 +11,8 @@ userRoutes.get(
   userController.findUserbyIdController
 );
 userRoutes.post("/", userController.insertNewUserController);
-userRoutes.put("/:id", userController.updateUserController);
 userRoutes.delete("/:id", userController.deleteUserController);
+userRoutes.put("/current", authMiddleware, userController.updateUserController);
 userRoutes.get(
   "/reports",
   authMiddleware,
