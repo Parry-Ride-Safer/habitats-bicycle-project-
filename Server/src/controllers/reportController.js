@@ -106,6 +106,25 @@ const submitVotingController = async (req, res) => {
     console.log(error);
   }
 };
+const submitFlagController = async (req, res) => {
+  const { flag } = req.body;
+  const { reportId } = req.params;
+
+  try {
+    const flags = await reportsModels.createFlag(
+      flag,
+      req.currentUser.id,
+      reportId
+    );
+    const [results] = await reportsModels.moderateReports(reportId);
+    console.log(results);
+    if (results[0].result < 0) await reportsModels.isVisable(reportId);
+
+    res.status(201).send(flags);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 module.exports = {
   getAllReportsController,
@@ -114,4 +133,5 @@ module.exports = {
   submitVotingController,
   updateReportController,
   updateVoteController,
+  submitFlagController,
 };

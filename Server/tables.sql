@@ -1,6 +1,4 @@
-CREATE DATABASE habitat;
-
-Use habitat;
+use habitat;
 
 CREATE TABLE `user` (
   `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -23,17 +21,25 @@ CREATE TABLE `category` (
 CREATE TABLE `report` (
   `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `information` varchar(300),
-   `createdAt` DATETIME DEFAULT now() ON UPDATE now(),
+  `createdAt` DATETIME DEFAULT now() ON UPDATE now(),
   `user_id` int NOT NULL,
   `address_id` int NOT NULL,
+  `is_hidden` boolean,
+  `image` varchar(255),
   `category_id` int NOT NULL
 );
 
 CREATE TABLE `voting` (
   `user_id` int,
   `report_id` int,
-  `voting` int NOT NULL,
-  PRIMARY KEY (`user_id`, `report_id`)
+  `voting` int,
+  `flag_id` int,
+  PRIMARY KEY (`user_id`, `report_id`, `flag_id`)
+);
+
+CREATE TABLE `flag` (
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `name` varchar(255)
 );
 
 ALTER TABLE `voting` ADD FOREIGN KEY (`report_id`) REFERENCES `report` (`id`);
@@ -46,9 +52,4 @@ ALTER TABLE `report` ADD FOREIGN KEY (`address_id`) REFERENCES `address` (`id`);
 
 ALTER TABLE `report` ADD FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 
-
-
-
-insert into category (name) values('Construction'),('Junction'),('Bike Lane'),('Road'),('Traffic'),('Other');
-
-INSERT INTO user (email, hashedpassword)  VALUES ('paulo@gmail.com', 'aushduhasud');
+ALTER TABLE `voting` ADD FOREIGN KEY (`flag_id`) REFERENCES `flag` (`id`);
