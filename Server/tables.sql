@@ -24,9 +24,9 @@ CREATE TABLE `report` (
   `createdAt` DATETIME DEFAULT now() ON UPDATE now(),
   `user_id` int NOT NULL,
   `address_id` int NOT NULL,
-  `is_hidden` boolean,
   `image` varchar(255),
-  `category_id` int NOT NULL
+  `category_id` int NOT NULL,
+  `is_hidden` boolean
 );
 
 CREATE TABLE `voting` (
@@ -53,3 +53,6 @@ ALTER TABLE `report` ADD FOREIGN KEY (`address_id`) REFERENCES `address` (`id`);
 ALTER TABLE `report` ADD FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 
 ALTER TABLE `voting` ADD FOREIGN KEY (`flag_id`) REFERENCES `flag` (`id`);
+
+insert into category (name) values('traffic'),('intersection'),('bikelane'),('road'),('traffic'),('other');
+insert into flag (name) values ('Innapropiate Report'), ('Wrong Location'), ('Issue Resolved')
