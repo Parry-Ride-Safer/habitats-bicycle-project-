@@ -36,12 +36,19 @@ const LoginAndProfile = () => {
   const [SubmitedReports, setSubmitedReports] = useState([]);
   const [welcomeStatus,setWelcomeStatus] = useState(false);
   const [showForm, setShowForm] = useState(false);
-  const [showEditAccount, setShowEditAccount] = useState(false);
+  const [showEditPassword, setShowEditPassword] = useState(false);
+  const [votedReports, setVotedReports] = useState([]);
+  const [currentUser, setCurrentUser] = useState([]);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showEditEmail, setShowEditEmail] = useState(false);
+  const [showRegisterForm,setShowRegisterForm] = useState(false);
 
+  const handleshowEditPassword = ()=> {
+    setShowEditPassword(!showEditPassword)
+  }
 
-
-  const handleShowEditAccount = ()=> {
-    setShowEditAccount(!showEditAccount)
+  const handleshowEditEmail = ()=> {
+    setShowEditEmail(!showEditEmail)
   }
 
 
@@ -51,6 +58,16 @@ const LoginAndProfile = () => {
       setWelcomeStatus(false) ;
   }
 
+  const handleShowRegisterForm = () => { 
+    setShowRegisterForm(true)
+    HandleshowWelcomePage();
+    setWelcomeStatus(false) ;
+}
+
+
+
+
+
 const handleWelcomeStatusClick =() => { 
     setWelcomeStatus(!welcomeStatus)
 }
@@ -58,7 +75,7 @@ console.log(document.cookie)
   let user = document.cookie /* JSON.parse(localStorage.getItem("user-info")); */
 
   Axios.defaults.withCredentials = true;
-  console.log(userStorage)
+  
   const toggleTab = (index) => {
     setToggleState(index);
   };
@@ -132,6 +149,7 @@ console.log(document.cookie)
       setEmail("");
       handleUserStorage();
       handleLoginStatus();
+      getCurrentUser();
       
      
 
@@ -159,6 +177,7 @@ console.log(document.cookie)
       setEmail("");
      handleUserStorage();
     handleLoginStatus();
+    getCurrentUser();
 
       await console.log(result.data.id, "user id logged");
       await setLoginId(result.data.id);
@@ -169,26 +188,50 @@ console.log(document.cookie)
     }
   };
 
-  const editAccount2 = async () => {
-    let item = { email, password };
+  const editPassword = async () => {
+    let item = { }; 
     try {
-        
-      let result = await Axios.put(
-        `http://localhost:4000/users/${loginId}`,
-        item
-      );
-      localStorage.setItem("user-info", JSON.stringify(result.data));
+
+      if(password === confirmPassword ){ item = {password}}
+      let result = await Axios.put(`http://localhost:4000/users/current`, item);
+      /* localStorage.setItem("user-info", JSON.stringify(result.data)); */
+      console.log(result, "total result do login");
       
       setPassword("");
       setEmail("");
-      handleUserStorage();
-    handleLoginStatus();
-    
-
-      await console.log(result.data.id, "user id logged");
-      await setLoginId(result.data.id);
-      await console.log(loginId, " agora sim");
+      handleshowEditPassword();
+      getCurrentUser();
+      setConfirmPassword('')
+     /*  handleUserStorage();
+      handleLoginStatus(); */
       
+      
+     
+
+    } catch (err) {
+      console.log('passwords do not match!')
+      console.log(err);
+    }
+  };
+
+  const editEmail = async () => {
+    let item = {email};
+    try {
+
+      let result = await Axios.put(`http://localhost:4000/users/current`, item);
+      
+      console.log(result, "total result do login");
+      
+     
+      setEmail("");
+      handleshowEditEmail();
+      getCurrentUser();
+     /*  handleUserStorage();
+      handleLoginStatus(); */
+      
+      
+     
+
     } catch (err) {
       console.log(err);
     }
@@ -196,7 +239,7 @@ console.log(document.cookie)
 
   
 
-  const editAccount = async () => {
+ /*  const editAccount = async () => {
     let item = { email, password };
     let result = await fetch(`http://localhost:4000/users/${loginId}`, {
       method: "POST",
@@ -209,7 +252,7 @@ console.log(document.cookie)
 
     result = await result.json();
     localStorage.setItem("user-info", JSON.stringify(result));
-  };
+  }; */
 
 
   const getSubmitedReports = async () => {
@@ -236,8 +279,53 @@ console.log(document.cookie)
       setSubmitedReports([])
     }
   };
+<<<<<<< HEAD
  
   
+=======
+  
+  const getVotedSpots = async () => {
+    try {
+    /*   user = JSON.parse(localStorage.getItem("user-info")); */
+
+      if (user) {
+        if (user) {
+          await setLoginId(user.id);
+        }
+
+        await Axios.get(`http://localhost:4000/users/rated`).then(
+          (response) => {
+            console.log(response.data);
+           
+            return setVotedReports(response.data);
+          }
+        );
+      } else {
+        console.log("there is not user yet ");
+      }
+    } catch (err) {
+      console.log(err);
+      setVotedReports([])
+    }
+  };
+
+  const getCurrentUser = async () => { 
+    try{
+      await Axios.get(`http://localhost:4000/users/current`).then(
+        (response) => { 
+          console.log(response.data)
+          setCurrentUser(response.data.email)
+        }
+      )
+
+    } catch (err){ console.log(err)}
+  }
+
+
+
+
+
+>>>>>>> add13ca7ab5eff9a1c4d7786a074a51b2a365877
   const logout = async (e) => {
     try {
       await Axios.get(`http://localhost:4000/auth/logout/`)
@@ -269,9 +357,21 @@ console.log(document.cookie)
   };
 
   const handleLoginStatus = () => {
+    /* setStateLogin(!stateLogin);
+    //  setShowForm(true) 
+    setShowWelcomePage(false);
+    setWelcomeStatus(!welcomeStatus)
+    setShowRegisterForm(false) */
+    setShowRegisterForm(false) 
+    setShowForm(false) 
+    HandleshowWelcomePage();
+    setWelcomeStatus(true) ;
     setStateLogin(!stateLogin);
-    setShowForm(true)
+    
+    
+
   };
+  
 
  /*  useEffect(()=>{
 
@@ -333,7 +433,8 @@ const SignUpPop = () => {
         <div>
             <div className='welcome-page'>
                 <h2>sign up to be able to report or vote on a road issue.</h2>
-                <button className='btn' onClick={handleShowForm} >sign up</button>
+                <button className='btn' onClick={handleShowRegisterForm} >sign up</button>
+                <button onClick={handleShowForm}>log in</button>
                 <button onClick={handleSkipForNow}>skip for now</button>
             </div>
         </div>
@@ -344,7 +445,7 @@ const ReportDetailsWindow = () => {
   return (
     <div>
 
-      
+
     </div>
   )
 }
@@ -356,11 +457,15 @@ const ReportDetailsWindow = () => {
      
       {!user ? (
         <>
+        {!showWelcomePage ? (<button onClick={handleLoginStatus} className="login-btn">
+            <img src={profileLogo} alt="" className="img-login-btn" />
+          </button>) : null}
         <WelcomePage2 />
         {welcomeStatus ? !stateLogin ? <SignUpPop /> : null : null}
         {showForm && !stateLogin  ? (<div className="login-form">
                 
                 <form>
+                <h2>Email Sign-in</h2>
                   <div>
                     <label htmlFor="username">email</label>
                     <input
@@ -382,19 +487,44 @@ const ReportDetailsWindow = () => {
                   <button onClick={login} type="button" className="btn">
                     Login
                   </button>
-                  <button onClick={logout} type="button" className="btn">
-                    Logout
+                  <button onClick={handleSkipForNow }  type="button" className="btn">
+                    close
                   </button>
-                  {!user ? (
-                    <button onClick={register2} type="button" className="btn">
+                 
+                </form>
+              </div>) : null }
+{/* ------- from here is show register only form---------------------------- */}
+              {showRegisterForm && !stateLogin  ? (<div className="register-form">
+                
+                <form>
+                  <h2>Email Sign-up</h2>
+                  <div>
+                    <label htmlFor="username">Email Address</label>
+                    <input
+                      type="email"
+                      name="username"
+                      placeholder="email@example.com"
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="password"
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                  <button onClick={register2} type="button" className="btn">
                       Register
                     </button>
-                  ) : null}
-                  <div>
-                    {user? (
-                      <button>get info</button>
-                    ) : null}
-                  </div>
+                  
+                  
+                  <button onClick={handleSkipForNow }  type="button" className="btn">
+                    close
+                  </button>
+                 
                 </form>
               </div>) : null }
         {/*{stateLogin ? ( 
@@ -439,13 +569,9 @@ const ReportDetailsWindow = () => {
             </div> 
                   ) : null} */}
          
-          
-          {!showWelcomePage ? (<button onClick={handleLoginStatus} className="login-btn">
-            <img src={profileLogo} alt="" className="img-login-btn" />
-          </button>) : null}
-          
         </>
       ) : (
+        // ----------------- from here is if user is logged in --------------------
         <>
           <div
             className={btnState ? "menu-btn open" : "menu-btn"}
@@ -472,13 +598,13 @@ const ReportDetailsWindow = () => {
                   </button>
                   <button
                     className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(2)}
+                    onClick={() => toggleTab(2) + getVotedSpots()}
                   >
                     Rated Spots
                   </button>
                   <button
                     className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(3)}
+                    onClick={() => toggleTab(3) + getCurrentUser()}
                   >
                     Settings
                   </button>
@@ -492,7 +618,7 @@ const ReportDetailsWindow = () => {
                   >
                     <h2>Submitted Spots:</h2>
                     <hr />
-                    <h3>user Logged: {savedLogged}</h3>
+                   
 
                     <div>
                       {SubmitedReports.length > 0 ?( SubmitedReports.map((contact) => (
@@ -520,20 +646,19 @@ const ReportDetailsWindow = () => {
                     <hr />
 
                     <div>
-                      {/* {userStorage
-                    ? info.map((contact) => (
-                        <div className="your-spots-container">
-                          <ul key={contact.id}>
+                    {votedReports.length > 0 ?( votedReports.map((spot) => (
+                        <div className='your-spots-container'>
+                          <ul key={spot.id}>
                             <li>
-                              <span className="img-div">img </span>
+                              <span className='img-div'>img </span>
                             </li>
-                            <li> information :{contact.information}</li>
-                            <li> voting : {contact.voting}</li>
-                            <li> category : {contact.category_id}</li>
+                            <li> information :{spot.information}</li>
+                            <li> voting : {spot.voting}</li>
+                            <li> category : {spot.name}</li>
+                            <li> Created at : {spot.createdAt}</li>
                           </ul>
                         </div>
-                      ))
-                    : null} */}
+                      ))): <p> you haven't rated any reports yet :D</p>}
                     </div>
                   </div>
 
@@ -544,10 +669,13 @@ const ReportDetailsWindow = () => {
                   >
                     <h2>Settings</h2>
                     <hr />
-                    <h3>Your Account: {savedLogged}</h3>
+                    <h3>Your Account: {currentUser}</h3>
+                    <button onClick={handleshowEditEmail } type="button" className="btn">
+                      edit email
+                    </button>
                     <h3>password: ****** </h3>
-                    <button onClick={handleShowEditAccount } type="button" className="btn">
-                      edit
+                    <button onClick={handleshowEditPassword } type="button" className="btn">
+                      edit password
                     </button>
 
                     <button onClick={logout} type='button' className='btn'>
@@ -558,19 +686,11 @@ const ReportDetailsWindow = () => {
               </div>
             </div>
           </div>
-          {showEditAccount ?( <div className="edit-Form">
+          {/* ----------------------- from here is the edit password window------ */}
+          {showEditPassword ?( <div className="edit-Form-password">
               <form>
-              <div>
-                    <label htmlFor="username">email</label>
-                    <input
-                      type="email"
-                      name="username"
-                      placeholder="email@example.com"
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="password">Password</label>
+              <div className="form-group">
+                    <label htmlFor="password">enter new Password:</label>
                     <input
                       type="password"
                       name="password"
@@ -578,10 +698,43 @@ const ReportDetailsWindow = () => {
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
-                  <button onClick={editAccount2}  type="button" className="btn">
+              
+                  <div className="form-group">
+                    <label htmlFor="password">confirm new Password:</label>
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="password"
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                  </div>
+                  <button onClick={editPassword}  type="button" className="btn">
                     Save Changes
                   </button>
-                  <button onClick={handleShowEditAccount} type="button" className="btn">
+                  <button onClick={handleshowEditPassword} type="button" className="btn">
+                    Close
+                  </button>
+                  
+              </form>
+          </div>) : null}
+          {/* ----------- from here is the edit email window ------------- */}
+          {showEditEmail?( <div className="edit-Form-password">
+              <form className="form-group">
+              <div>
+                    <label htmlFor="username">enter new E-Mail address:</label>
+                    <input
+                      type="email"
+                      name="username"
+                      placeholder="email@example.com"
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+              
+                  
+                  <button onClick={editEmail}  type="button" className="btn">
+                    Save Changes
+                  </button>
+                  <button onClick={handleshowEditEmail} type="button" className="btn">
                     Close
                   </button>
                   

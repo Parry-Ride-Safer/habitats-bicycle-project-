@@ -14,8 +14,6 @@ export default function BoxShowInputDetails() {
     handleBoxShowInputDetailsState
   } = useGlobalMapContext();
 
-  let user = document.cookie;
-
   return (
     <div
       className={`${isBoxShowInputDetailsOpen ? "show-spot-details" : "spot-box-overlay"}`}

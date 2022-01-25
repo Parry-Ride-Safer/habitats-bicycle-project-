@@ -6,7 +6,7 @@
 
 .welcome-page{
   width: 200px;
-  height: 200px;
+  height: 300px;
   background-color:white;
   border: 1px solid black;
   border-radius: 10px;
@@ -22,7 +22,7 @@
 
 .welcome-page2{ 
   width: 200px;
-  height: 200px;
+  height: 300px;
   background-color:white;
   border: 1px solid black;
   border-radius: 10px;
@@ -51,7 +51,20 @@
   top: 10%;
 }
 
-.edit-Form{
+
+.register-form{
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 1rem;
+  z-index: 55;
+
+  top: 10%;
+ }
+
+.edit-Form-{
 
   position: absolute;
   z-index: 55;
@@ -62,7 +75,18 @@
   left: 35% ;
  
 }
+.edit-Form-password{
+  position: absolute;
+  z-index: 55;
+  border: 1px solid black;
+  border-radius: 15px;
+  background-color: white;
+  top:60%;
+  left: 35% ;
+  padding:3rem
 
+
+}
 
 
 

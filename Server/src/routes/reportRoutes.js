@@ -26,5 +26,10 @@ reportsRoutes.put(
   authMiddleware,
   reportsController.updateVoteController
 );
+reportsRoutes.post(
+  "/:reportId/flag",
+  authMiddleware,
+  reportsController.submitFlagController
+);
 
 module.exports = reportsRoutes;
