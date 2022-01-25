@@ -279,10 +279,6 @@ console.log(document.cookie)
       setSubmitedReports([])
     }
   };
-<<<<<<< HEAD
- 
-  
-=======
   
   const getVotedSpots = async () => {
     try {
@@ -325,7 +321,6 @@ console.log(document.cookie)
 
 
 
->>>>>>> add13ca7ab5eff9a1c4d7786a074a51b2a365877
   const logout = async (e) => {
     try {
       await Axios.get(`http://localhost:4000/auth/logout/`)

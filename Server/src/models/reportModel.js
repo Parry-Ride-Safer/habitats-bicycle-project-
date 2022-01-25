@@ -30,13 +30,12 @@ const createReport = async ({
   address_id,
   user_id,
   image,
-  is_hidden,
   category_id,
 }) => {
   const [createdReport] = await db.query(
-    "INSERT INTO report (information, address_id, user_id, image, is_hidden, category_id) VALUES (?, ?, ?, ?, ?, ?)",
-    [information, address_id, user_id, image, is_hidden, category_id]
-  );
+    "INSERT INTO report (information, address_id, user_id, image, category_id) VALUES (?, ?, ?, ?, ?)",
+    [information, address_id, user_id, image, category_id]
+  )
   const id = createdReport.insertId;
 
   await createVoting(voting, user_id, id);
@@ -48,7 +47,6 @@ const createReport = async ({
     address_id,
     user_id,
     image,
-    is_hidden,
     category_id,
   };
 };

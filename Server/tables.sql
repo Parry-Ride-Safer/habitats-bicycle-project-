@@ -26,7 +26,7 @@ CREATE TABLE `report` (
   `address_id` int NOT NULL,
   `image` varchar(255),
   `category_id` int NOT NULL,
-  `is_hidden` boolean
+  `is_hidden` boolean DEFAULT false
 );
 
 CREATE TABLE `voting` (
@@ -34,7 +34,7 @@ CREATE TABLE `voting` (
   `report_id` int,
   `voting` int,
   `flag_id` int,
-  PRIMARY KEY (`user_id`, `report_id`, `flag_id`)
+  PRIMARY KEY (`user_id`, `report_id`)
 );
 
 CREATE TABLE `flag` (
