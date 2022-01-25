@@ -8,6 +8,8 @@ import React, {
 } from "react";
 import Axios from "axios";
 import { issueType } from "../Data/dangerTypeSelection";
+
+
 const MapContext = createContext();
 
 const MapProvider = ({ children }) => {
@@ -42,6 +44,19 @@ const MapProvider = ({ children }) => {
   const [isReportWindowInputOpen, setIsReportWindowInputOpen] = useState(false);
   const [reportDescriptionInput, setReportDescriptionInput] = useState([]);
   const [isBoxWithDoneMsgOpen, setIsBoxWithDoneMsgOpen] = useState(false) 
+
+  
+  
+  /*image Upload*/
+  // const [fileInputState, setFileInputState] = useState('');
+  // const [previewSource, setPreviewSource] = useState('');
+  // const [selectedFile, setSelectedFile] = useState();
+  // const [successMsg, setSuccessMsg] = useState('');
+  // const [errMsg, setErrMsg] = useState('');
+
+
+
+  
   
   const onMapClick = useCallback((event) => {
   setIsBoxSelectDangerOpen((prevState) => !prevState);
@@ -51,6 +66,7 @@ const MapProvider = ({ children }) => {
     time: new Date(),
   });
 }, []);
+
 
 const handleDangerSubmit = (event) => {
   event.preventDefault();
@@ -81,7 +97,8 @@ const dangerFormSubmit = (event) => {
       information: reportDescriptionInput.description,
       user_id: user.id,
       category_id: findCategoryID[0].nb,
-    })
+      // image: fileInputState, 
+        })
       .then((response) => {
         setAlertMsg(false);
         setFinalMarkers((finalMarkers) => [...finalMarkers, {...marker, id:response.data.id}]);
@@ -92,6 +109,9 @@ const dangerFormSubmit = (event) => {
     setReportDescriptionInput([]);
   }
 };
+
+
+
 
 const showSubmittedReport = () => {
   setIsBoxWithDoneMsgOpen(false)
