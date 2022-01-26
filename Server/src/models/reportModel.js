@@ -23,7 +23,7 @@ const createVoting = async (voting, userId, reportId) => {
   );
   return { voting, userId, reportId };
 };
-/* DELETE is_hidden*/
+
 const createReport = async ({
   information,
   voting,
@@ -35,7 +35,7 @@ const createReport = async ({
   const [createdReport] = await db.query(
     "INSERT INTO report (information, address_id, user_id, image, category_id) VALUES (?, ?, ?, ?, ?)",
     [information, address_id, user_id, image, category_id]
-  )
+  );
   const id = createdReport.insertId;
 
   await createVoting(voting, user_id, id);
