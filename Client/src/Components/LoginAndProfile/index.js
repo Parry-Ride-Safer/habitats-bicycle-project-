@@ -3,7 +3,7 @@ import Axios from "axios";
 import { useGlobalMapContext } from "../../Context/mapContext";
 import "./style.css";
 import profileLogo from "./ProfileIcon.png";
-import WelcomePage from "./welcomePage";
+import WelcomePage from "./WelcomeModal/welcomePage";
 
 
 const LoginAndProfile = () => {

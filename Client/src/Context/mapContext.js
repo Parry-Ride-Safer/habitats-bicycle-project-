@@ -26,6 +26,11 @@ const MapProvider = ({ children }) => {
   const [numberOfCharacters, setNumberOfCharacters] = useState(0);
   const [alertMsg, setAlertMsg] = useState(false);
  
+  const [welcomeStatus,setWelcomeStatus] = useState(false);
+  const handleWelcomeStatusClick =() => { 
+    setWelcomeStatus(!welcomeStatus)
+}
+
   // login and profile temp tests from here :
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -285,6 +290,7 @@ const handleAddVote = async (event) => {
         handleEditRateBtn,
         handleReportIssueWindow,
         handleReportIssueSubmit,
+        handleWelcomeStatusClick,
         options,
         isBoxShowInputDetailsOpen,
         isBoxWithDoneMsgOpen,
