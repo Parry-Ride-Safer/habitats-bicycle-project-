@@ -4,6 +4,7 @@ import { useGlobalMapContext } from "../../Context/mapContext";
 import "./style.css";
 import profileLogo from "./ProfileIcon.png";
 // import WelcomePage from "./welcomePage";
+import { ReactComponent as AccountIcon} from "./Vector.svg";
 
 
 const LoginAndProfile = () => {
@@ -177,7 +178,7 @@ const handleWelcomeStatusClick =() => {
 
  
 
-  /* const [showDetailedReport , setShowDetailedReport] = useState(false);
+   const [showDetailedReport , setShowDetailedReport] = useState(false);
   const [ filteredArray , setFilteredArray] = useState([]);
 
   const handleShowDetailedReport = ()=> { 
@@ -200,7 +201,7 @@ const reportDetailsWindow = (id) => {
   return pleasework
   
 
-}  */
+}  
 
 
 
@@ -283,15 +284,7 @@ const reportDetailsWindow = (id) => {
   
 
 
-  /* function isLogged(user) {
-    user = JSON.parse(localStorage.getItem("user-info"));
-
-    if (user && user.id) {
-      return user.email;
-    } else {
-      return null;
-    }
-  } */
+  
   const handleUserStorage = () => {
     setUserStorage(!userStorage);
   };
@@ -377,9 +370,8 @@ const SignUpPop = () => {
      
       {!user ? (
         <>
-        {!showWelcomePage ? (<button onClick={handleLoginStatus} className="login-btn">
-            <img src={profileLogo} alt="" className="img-login-btn" />
-          </button>) : null}
+        {/* <AccountIcon className='account-icon' onClick={handleLoginStatus} /> */}
+        {!showWelcomePage ? (<AccountIcon className='account-icon' onClick={handleLoginStatus} />) : null}
         <WelcomePage />
         {welcomeStatus ? !stateLogin ? <SignUpPop /> : null : null}
         {showForm && !stateLogin  ? (<div className="login-form">

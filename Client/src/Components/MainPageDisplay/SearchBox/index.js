@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState} from "react";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -15,6 +15,12 @@ import "./style.css";
 
 export default function SearchBox() {
   const { panTo } = useGlobalMapContext();
+  const [searchState , setSearchState] = useState(false);
+  
+
+  const handleSearchState =() => { 
+    setSearchState(!searchState)
+  }
 
   const {
     ready,
@@ -29,9 +35,25 @@ export default function SearchBox() {
     },
   });
 
+
+
+
+
+
+
   return (
+    <>
+  {/*   <div className={searchState ?  "new-search-bar active" :"new-search-bar"}>
+<div className="icon" onClick={handleSearchState}></div>
+<div className="input">
+  <input type='text' placeholder="Search" id='my-search'/>
+</div>
+<span className="clear-search" ></span>
+    </div> */}
+    <div className={searchState ?  "new-search-bar active" :"new-search-bar"}>
+    <div className="icon" onClick={handleSearchState}></div>
     <Combobox
-      className="search-bar"
+      
       onSelect={async (address) => {
         setValue(address, false);
         clearSuggestions();
@@ -45,23 +67,26 @@ export default function SearchBox() {
       }}
     >
       <ComboboxInput
-        className="search-box-input"
+        className="input"
         value={value}
         onChange={(e) => {
           setValue(e.target.value);
         }}
         disabled={!ready}
         placeholder="Enter an address"
-        style={{ width: 250, height: 50, fontSize: 20, marginLeft: 25, borderRadius: 8 }}
+        style={{ border: "none" , outline:'none', fontSize:'18px' ,width: "72%" }} 
       />
-      <ComboboxPopover>
-        <ComboboxList>
+      <ComboboxPopover className="comboboxpop">
+        <ComboboxList className="comboboxlist">
           {status === "OK" &&
             data.map(({ id, description }) => (
-              <ComboboxOption key={id} value={description} />
+              <ComboboxOption key={id} value={description}  />
             ))}
         </ComboboxList>
       </ComboboxPopover>
     </Combobox>
+    <span className="clear-search" onClick={()=> setValue('')} ></span>
+    </div>
+    </>
   );
 }
