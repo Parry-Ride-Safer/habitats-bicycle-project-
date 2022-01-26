@@ -115,13 +115,9 @@ const uploadImage = async (base64EncodedImage) => {
         isReportWindowInputOpen ? "show-danger-box" : "danger-box-overlay"
       }`}
     >
-      <form className="danger-form-display" onSubmit={dangerFormSubmit, handleSubmitFile}>
-        <button
-          className="danger-buttons"
-          id="danger-return-button"
-          type="button"
-        >
-          Return
+      <form className="danger-form-display" onSubmit={dangerFormSubmit /*,handleSubmitFile*/}>
+        <button className="close-button" type="button" onClick={handleCloseNewReportWindow}>
+          <img className="close-button-img" src={closeBtn} alt=""/>
         </button>
         <p className="title">{dangerType}</p>
 
@@ -145,7 +141,7 @@ const uploadImage = async (base64EncodedImage) => {
 
 
 
-
+{/*
 
         <div className="image-upload-holder">
             <h1 className="title">Upload an Image</h1>
@@ -160,9 +156,9 @@ const uploadImage = async (base64EncodedImage) => {
                     value={fileInputState}
                     className="form-input"
                 />
-                {/* <button className="btn" type="submit">
+                 <button className="btn" type="submit">
                     Submit
-                </button> */}
+                </button> 
             </form>
             {previewSource && (
                 <img
@@ -172,12 +168,7 @@ const uploadImage = async (base64EncodedImage) => {
                 />
             )}
         </div>
-
-
-
-
-
-
+*/}
         <label className="sub-titles" id="sub-titles-margin"> Description </label>
         <input
           className="danger-description"

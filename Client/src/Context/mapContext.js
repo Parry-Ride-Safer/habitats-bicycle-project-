@@ -122,11 +122,6 @@ const handleEditRateBtn = () => {
   getVotedSpots()
 }
 
-const showSubmittedReport = () => {
-  setIsBoxWithDoneMsgOpen(false)
-}
-  
- 
 /*Flow to watch a single spot informations*/
 const [sendReportRequest, setSendReportRequest] = useState(false);
 const [getReportData, setGetReportdata] = useState([]);
