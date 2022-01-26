@@ -9,4 +9,4 @@ export { default as ModalShowReportDetails} from "./UserFlowOpenSingleReport/Mod
 export { default as Navbar } from "./Navbar";
 export { default as ReportIssue } from "./UserFlowOpenSingleReport/ReportIssue";
 export { default as SearchBox } from "./MainPageDisplay/SearchBox";
-export { default as VotingBox } from "./UserFlowOpenSingleReport/VotingBox";
+export { default as VotingBox } from "./UserFlowSharedBoxes/VotingBox";

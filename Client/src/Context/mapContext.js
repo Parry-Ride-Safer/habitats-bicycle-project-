@@ -95,6 +95,13 @@ const dangerFormSubmit = (event) => {
   }
 };
 
+const handleEditRateBtn = () => {
+  setIsVotingBoxOpen(true)
+  getVotedSpots()
+  
+}
+  
+ 
 /*Flow to watch a single spot informations*/
 const [sendReportRequest, setSendReportRequest] = useState(false);
 const [getReportData, setGetReportdata] = useState([]);
@@ -102,6 +109,34 @@ const [isBoxShowInputDetailsOpen, setIsBoxShowInputDetailsOpen] = useState(false
 const [isReportIssueBoxOpen, setIsReportIssueBoxOpen] = useState(false)
 const [isVotingBoxOpen, setIsVotingBoxOpen] = useState(false);
 const [currentUser, setCurrentUser] = useState([])
+const [isSpotVoted, setIsSpotVoted] = useState(false)
+const [votedReports, setVotedReports] = useState([]);
+const [loginId, setLoginId] = useState();
+
+const getVotedSpots = async () => {
+  try {
+  /*   user = JSON.parse(localStorage.getItem("user-info")); */
+
+    if (user) {
+      if (user) {
+        await setLoginId(user.id);
+      }
+      await Axios.get(`http://localhost:4000/users/rated`).then(
+        (response) => {
+          console.log(response.data);
+         
+          return setVotedReports(response.data);
+        }
+      );
+    } else {
+      console.log("there is not user yet ");
+    }
+  } catch (err) {
+    console.log(err);
+    setVotedReports([])
+  }
+};
+
 
 
 const fetchReportData = async (fMarker) => {
@@ -124,7 +159,6 @@ const getCurrentUser = async () => {
   try{
     await Axios.get("http://localhost:4000/users/current").then(
       (response) => { 
-        console.log(response.data.id)
         setCurrentUser(response.data.id)
       }
     )
@@ -146,28 +180,36 @@ const handleReportIssueSubmit = (event) => {
   setIsBoxWithDoneMsgOpen(true)
 }
 
-const handleRateSpotButton = () => {
-  setIsVotingBoxOpen(true)
-}
+let user = document.cookie
 
-const handleAddVote = (event) => {
+const handleAddVote = async (event) => {
   event.preventDefault();
-  Axios.post(`http://localhost:4000/reports/${getReportData.id}/vote`, {
-    voting: voting,
-    report_id: getReportData.id,
-  })
-    .then((response) => {
-      setAlertMsg(false);
-      setIsBoxWithDoneMsgOpen(true)
-      console.log(response)
-  })
-    .catch((err) => console.log(err));
+  const findReportID = votedReports.find(({id}) => id == getReportData.id)
+  if (currentUser === getReportData.user_id || (currentUser !== getReportData.user && findReportID)){
+    await Axios.put(
+      `http://localhost:4000/reports/${getReportData.id}/vote`, {
+        voting: voting,
+        report_id: getReportData.id,
+      })
+      .then((response) => {
+        setAlertMsg(false);
+        setIsBoxWithDoneMsgOpen(true)
+        setIsSpotVoted(true)
+      })
+  } 
+  else {
+    await Axios.post(`http://localhost:4000/reports/${getReportData.id}/vote`, {
+      voting: voting,
+      report_id: getReportData.id,
+    })
+      .then((response) => {
+        setAlertMsg(false);
+        setIsBoxWithDoneMsgOpen(true)
+        console.log(response)
+    })
+    }
 }
 
-/* 
-  let user = JSON.parse(localStorage.getItem("user-info")); */
-  let user = document.cookie
-  console.log(`my user is ${user}`)
 
   const handleDangerChoice = (event) => {
     console.log("this aint working chief");
@@ -229,6 +271,7 @@ const handleAddVote = (event) => {
         onMapLoad,
         dangerFormSubmit,
         numberOfCharacters,
+        isSpotVoted,
         isVotingBoxOpen,
         isReportWindowInputOpen,
         isBoxSelectDangerOpen,
@@ -239,7 +282,7 @@ const handleAddVote = (event) => {
         handleDangerDescriptionInputs,
         handleDangerSubmit,
         handleDangerLevel,
-        handleRateSpotButton,
+        handleEditRateBtn,
         handleReportIssueWindow,
         handleReportIssueSubmit,
         options,
@@ -248,10 +291,12 @@ const handleAddVote = (event) => {
         isReportIssueBoxOpen,
         reportDescriptionInput,
         setIsBoxShowInputDetailsOpen,
+        setVotedReports,
         setVoting,
         setIsVotingBoxOpen,
         showSubmittedReport,
         voting,
+        votedReports,
         email,
         setEmail,
         password,

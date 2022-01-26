@@ -288,7 +288,6 @@ console.log(document.cookie)
         if (user) {
           await setLoginId(user.id);
         }
-
         await Axios.get(`http://localhost:4000/users/rated`).then(
           (response) => {
             console.log(response.data);
@@ -316,9 +315,6 @@ console.log(document.cookie)
 
     } catch (err){ console.log(err)}
   }
-
-
-
 
 
   const logout = async (e) => {
