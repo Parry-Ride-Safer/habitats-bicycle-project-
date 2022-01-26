@@ -48,11 +48,11 @@ const MapProvider = ({ children }) => {
   
   
   /*image Upload*/
-  // const [fileInputState, setFileInputState] = useState('');
-  // const [previewSource, setPreviewSource] = useState('');
-  // const [selectedFile, setSelectedFile] = useState();
-  // const [successMsg, setSuccessMsg] = useState('');
-  // const [errMsg, setErrMsg] = useState('');
+  const [fileInputState, setFileInputState] = useState('');
+  const [previewSource, setPreviewSource] = useState('');
+  const [selectedFile, setSelectedFile] = useState();
+  const [successMsg, setSuccessMsg] = useState('');
+  const [errMsg, setErrMsg] = useState('');
 
 
 
@@ -81,6 +81,58 @@ const handleDangerDescriptionInputs = (event) => {
   setNumberOfCharacters(event.target.value.length);
 };
 
+
+const handleFileInputChange = (e) => {
+  const file = e.target.files[0];
+  previewFile(file);
+  setSelectedFile(file);
+  setFileInputState(e.target.value);
+};
+
+const previewFile = (file) => {
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onloadend = () => {
+      setPreviewSource(reader.result);
+  };
+};
+
+const handleSubmitFile = (e) => {
+  e.preventDefault();
+  if (!selectedFile) return;
+  const reader = new FileReader();
+  reader.readAsDataURL(selectedFile);
+  reader.onloadend = () => {
+      uploadImage(reader.result);
+  };
+  reader.onerror = () => {
+      console.error('AHHHHHHHH!!');
+      setErrMsg('something went wrong!');
+  };
+};
+
+
+const uploadImage = async (base64EncodedImage) => {
+console.log(base64EncodedImage);
+try {
+    await fetch('/api/upload', {
+        method: 'POST',
+        body: JSON.stringify({ data: base64EncodedImage }),
+        headers: { 'Content-Type': 'application/json' },
+    });
+    setFileInputState('');
+    setPreviewSource('');
+    setSuccessMsg('Image uploaded successfully');
+    console.log(previewSource);
+
+} catch (err) {
+    console.error(err);
+    setErrMsg('Something went wrong!');
+}
+
+};
+
+
 const findCategoryID = [issueType.find((element) => element.type === dangerType)]
   
 const dangerFormSubmit = (event) => {
@@ -97,7 +149,7 @@ const dangerFormSubmit = (event) => {
       information: reportDescriptionInput.description,
       user_id: user.id,
       category_id: findCategoryID[0].nb,
-      // image: fileInputState, 
+      image: previewSource, 
         })
       .then((response) => {
         setAlertMsg(false);
@@ -235,6 +287,18 @@ const handleAddVote = (event) => {
         handleDangerLevel,
         handleRateSpotButton,
         handleReportIssueWindow,
+        
+
+        handleSubmitFile,
+        handleFileInputChange,
+        fileInputState,
+        previewSource,
+        selectedFile,
+        successMsg,
+        errMsg,
+        
+        
+        
         options,
         isBoxShowInputDetailsOpen,
         isBoxWithDoneMsgOpen,
