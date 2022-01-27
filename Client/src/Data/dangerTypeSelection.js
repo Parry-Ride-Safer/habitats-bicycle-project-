@@ -2,7 +2,7 @@ import { ReactComponent as Construction } from "../icons/modalBoxIcons/🚧.svg"
 import { ReactComponent as Junction } from "../icons/modalBoxIcons/🚦.svg";
 import { ReactComponent as Bikelane } from "../icons/modalBoxIcons/🚲.svg";
 
-export const issueType = [
+const issueType = [
   {
     type: "Construction",
     nb: 1,
@@ -39,3 +39,4 @@ export const issueType = [
     icon: <Construction /> }
 ];
 
+export default issueType;

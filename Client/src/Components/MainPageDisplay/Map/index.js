@@ -1,7 +1,6 @@
 import React from "react";
 import { GoogleMap, Marker, MarkerClusterer } from "@react-google-maps/api";
 import {
-  BoxSelectDanger,
   BoxDangerDescription,
   BoxDoneMsg,
   BoxShowInputDetails,
@@ -66,6 +65,7 @@ export default function Map() {
     marker,
     isBoxSelectDangerOpen,
     setIsBoxShowInputDetailsOpen,
+    isReportWindowInputOpen,
     finalMarkers,
     onMapClick,
     onMapLoad,
@@ -118,7 +118,7 @@ export default function Map() {
 
       {selected ? setIsBoxShowInputDetailsOpen(true) : null}
 
-      {isBoxSelectDangerOpen ? (
+      {isReportWindowInputOpen ? (
         <Marker
           position={marker}
           icon={{
@@ -131,8 +131,8 @@ export default function Map() {
       ) : (
         "box-overlay"
       )}
-      {isBoxSelectDangerOpen ? <BoxSelectDanger /> : "box-overlay"}
-      <BoxDangerDescription />
+      {isReportWindowInputOpen ? <BoxDangerDescription /> : "box-overlay"}
+      
       <BoxDoneMsg />
       <BoxShowInputDetails />
       <VotingBox />
