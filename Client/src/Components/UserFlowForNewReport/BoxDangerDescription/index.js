@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useGlobalMapContext } from "../../../Context/mapContext";
 import dangerLevel from "../../../Data/dangerLevelToVote";
+import issueType from "../../../Data/dangerLevelToVote";
 import closeBtn from "../../../icons/modalBoxIcons/close-window-icon.png";
 import Alert from "../../ImageUploadForm/alert.js";
 
@@ -14,7 +15,7 @@ export default function BoxDangerDescription() {
     isReportWindowInputOpen,
     handleCloseNewReportWindow,
     handleDangerLevel,
-
+    setDangerType,
     voting,
     dangerFormSubmit,
     reportDescriptionInput,
@@ -185,6 +186,20 @@ const uploadImage = async (base64EncodedImage) => {
           {60 - numberOfCharacters} Characters left{" "}
         </label>
         <div/>
+        {issueType.map((issue, index) => (
+          <button
+            key={index}
+             
+              type="submit"
+              name="dangerType"
+              value={issue.type}
+              onClick={(event) => {
+                setDangerType(issue.type)
+              }}
+            >
+              {issue.type}
+          </button>
+        ))}
 
         <div className={`${alertMsg ? "show-alert-msg" : "alert-msg-overlay"}`}>
           <p>You need to fill everything</p>
