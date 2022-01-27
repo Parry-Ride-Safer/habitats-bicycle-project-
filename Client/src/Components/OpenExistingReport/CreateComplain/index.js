@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useGlobalMapContext } from '../../../Context/mapContext';
 import reportIssueOptions from '../../../Data/reportIssueOptions';
-import "./reportIssue.css";
+import "./createComplain.css";
 
-const ReportIssue = () => {
+const CreateComplain = () => {
 
   const {submitComplain, isReportIssueBoxOpen} = useGlobalMapContext()
   const [reportIssue, setReportIssue] = useState()
@@ -33,4 +33,4 @@ const ReportIssue = () => {
   )
 }
 
-export default ReportIssue;
+export default CreateComplain;

@@ -6,9 +6,9 @@ import closeBtn from "../../../icons/modalBoxIcons/close-window-icon.png";
 import Alert from "../../ImageUploadForm/alert.js";
 
 
-import "./boxDangerDescription.css";
+import "./createReport.css";
 
-export default function BoxDangerDescription() {
+export default function CreateReport() {
   const {
     alertMsg,
     isReportWindowInputOpen,
@@ -27,13 +27,6 @@ export default function BoxDangerDescription() {
     handleDangerDescriptionInputs,
     numberOfCharacters,
   } = useGlobalMapContext();
-
-
-
-
-
-
-
 
 
   return (

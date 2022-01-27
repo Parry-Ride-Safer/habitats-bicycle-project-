@@ -1,13 +1,13 @@
 import React from "react";
 import { GoogleMap, Marker, MarkerClusterer } from "@react-google-maps/api";
 import {
-  BoxDangerDescription,
   BoxDoneMsg,
+  CreateComplain,
   BoxShowInputDetails,
   GpsLocation,
   SearchBox,
   VotingBox,
-  ReportIssue
+  CreateReport
 } from "../../index";
 import { useGlobalMapContext } from "../../../Context/mapContext";
 import "./map.css";
@@ -126,12 +126,12 @@ export default function Map() {
       ) : (
         "box-overlay"
       )}
-      {isReportWindowInputOpen ? <BoxDangerDescription /> : "box-overlay"}
+      {isReportWindowInputOpen ? <CreateReport /> : "box-overlay"}
       
       <BoxDoneMsg />
       <BoxShowInputDetails />
       <VotingBox />
-      <ReportIssue />
+      <CreateComplain />
     </GoogleMap>
   );
 }
