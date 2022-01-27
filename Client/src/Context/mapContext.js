@@ -156,6 +156,7 @@ const dangerFormSubmit = (event) => {
       /*image: previewSource,*/
         })
       .then((response) => {
+        console.log(response)
         setAlertMsg(false);
         setFinalMarkers((finalMarkers) => [...finalMarkers, {...marker, id:response.data.id}]);
         setIsBoxWithDoneMsgOpen(true)
