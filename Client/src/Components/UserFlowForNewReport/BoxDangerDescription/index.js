@@ -86,7 +86,7 @@ export default function BoxDangerDescription() {
                 <img
                     src={previewSource}
                     alt="chosen"
-                    style={{ height: '25vh' }}
+                    style={{ height: '15vh' }}
                 />
             )}
 
@@ -135,27 +135,6 @@ export default function BoxDangerDescription() {
           </button>
         ))}
 
-
-        <p className="danger-input-labels" id="danger-level"> Danger Level </p>
-        <p className="danger-input-labels">
-          {" "}
-          Tell the others how serious the issue is{" "}
-        </p>
-        <div className="dangerLevelVote">
-          {dangerLevel.map((danger, index) => (
-            <label key={index}>
-              <input
-                type="radio"
-                name="voting"
-                className={danger.class}
-                check={voting === danger.lv}
-                value={danger.lv}
-                onChange={handleDangerLevel}
-              />
-              {danger.icon}
-            </label>
-          ))}
-        </div>
         <div className={`${alertMsg ? "show-alert-msg" : "alert-msg-overlay"}`}>
           <p>You need to fill everything</p>
         </div>

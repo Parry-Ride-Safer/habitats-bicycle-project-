@@ -153,7 +153,7 @@ const dangerFormSubmit = (event) => {
       title: dangerType,
       information: reportDescriptionInput.description,
       category_id: findCategoryID[0].nb,
-      image: previewSource, 
+      /*image: previewSource,*/
         })
       .then((response) => {
         setAlertMsg(false);
