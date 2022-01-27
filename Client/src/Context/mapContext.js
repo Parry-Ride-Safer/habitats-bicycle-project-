@@ -181,6 +181,45 @@ try {
 }
 };
 
+<<<<<<< HEAD
+=======
+
+const findCategoryID = [issueType.find((element) => element.type === dangerType)]
+  
+const dangerFormSubmit = (event) => {
+  event.preventDefault();
+  if (reportDescriptionInput.length === 0 || voting === "") {
+    setAlertMsg(true);
+  } else {
+    Axios.post("http://localhost:4000/reports/", {
+      voting: voting,
+      lat: marker.lat,
+      lng: marker.lng,
+      title: dangerType,
+      information: reportDescriptionInput.description,
+      category_id: findCategoryID[0].nb,
+      /*image: previewSource,*/
+        })
+      .then((response) => {
+        console.log(response)
+        setAlertMsg(false);
+        setFinalMarkers((finalMarkers) => [...finalMarkers, {...marker, id:response.data.id}]);
+        setIsBoxWithDoneMsgOpen(true)
+        setIsReportWindowInputOpen(false)
+        setIsBoxShowInputDetailsOpen(true)
+      })
+      .catch((err) => console.log(err));
+    setVoting("");
+    setReportDescriptionInput([]);
+  }
+};
+
+const handleEditRateBtn = () => {
+  setIsVotingBoxOpen(true)
+  getVotedSpots()
+}
+
+>>>>>>> 4c6aded843c63197002df7c48a1bda9ccc17b6a6
 /*Flow to watch a single spot informations*/
 const [sendReportRequest, setSendReportRequest] = useState(false);
 const [getReportData, setGetReportdata] = useState([]);

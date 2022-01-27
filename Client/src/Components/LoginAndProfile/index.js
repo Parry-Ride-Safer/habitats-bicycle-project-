@@ -216,7 +216,7 @@ const reportDetailsWindow = (id) => {
         await Axios.get(`http://localhost:4000/users/reports/`).then(
           (response) => {
             
-            
+            console.log(response.data,'submited Reports array')
             return setSubmitedReports(response.data);
           }
         );
@@ -457,7 +457,7 @@ const SignUpPop = () => {
               {" "}
             </div>
             <div className={btnState ? "tab-wrapper" : "closed"}>
-              <h3 className='your-account'>Your Account</h3>
+              <h1 className='your-account'>Your Account</h1>
               <div className='tab-container'>
                 <div className='bloc-tabs'>
                   <button
@@ -500,6 +500,7 @@ const SignUpPop = () => {
                             <li> information :{report.information}</li>
                             <li> voting : {report.voting}</li>
                             <li> category : {report.category_id}</li>
+                            <li> created : {report.createdAt}</li>
                           </ul>
                         </div>
                       ))): <p> you haven't Submitted any reports yet :D</p>}
