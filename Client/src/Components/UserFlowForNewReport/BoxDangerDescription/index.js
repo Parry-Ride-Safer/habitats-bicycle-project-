@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useGlobalMapContext } from "../../../Context/mapContext";
 import dangerLevel from "../../../Data/dangerLevelToVote";
-import issueType from "../../../Data/dangerLevelToVote";
+import issueType from "../../../Data/dangerTypeSelection";
 import closeBtn from "../../../icons/modalBoxIcons/close-window-icon.png";
 import Alert from "../../ImageUploadForm/alert.js";
 
@@ -16,8 +16,6 @@ export default function BoxDangerDescription() {
     handleCloseNewReportWindow,
     handleDangerLevel,
     setDangerType,
-
-
     handleSubmitFile,
     handleFileInputChange,
     fileInputState,
@@ -25,9 +23,6 @@ export default function BoxDangerDescription() {
     selectedFile,
     successMsg,
     errMsg,
-
-
-
     voting,
     dangerFormSubmit,
     reportDescriptionInput,
@@ -53,9 +48,7 @@ export default function BoxDangerDescription() {
         <button className="close-button" type="button" onClick={handleCloseNewReportWindow}>
           <img className="close-button-img" src={closeBtn} alt=""/>
         </button>
-        <p className="title">{dangerType}</p>
-
-        <p className="sub-titles"> Danger Level </p>
+           <p className="title"> Danger Level </p>
         <p className="danger-level-text">Tell the others how serious the issue is</p>
         <div className="dangerLevelVote">
           {dangerLevel.map((danger, index) => (
@@ -72,10 +65,6 @@ export default function BoxDangerDescription() {
             </label>
           ))}
         </div>
-
-
-
-
 
         <div className="image-upload-holder">
             <h1 className="title">Upload an Image</h1>
@@ -103,7 +92,22 @@ export default function BoxDangerDescription() {
             </form>
 
         </div>
-
+        <p className="title"> What's the issue? </p>
+        <div>
+        {issueType.map((issue, index) => (
+          <button
+            key={index}
+              type="button"
+              name="dangerType"
+              value={issue.type}
+              onClick={() => {
+                setDangerType(issue.type)
+              }}
+            >
+              {issue.type}
+          </button>
+        ))}
+        </div>
         <label className="sub-titles" id="sub-titles-margin"> Description </label>
         <input
           className="danger-description"
@@ -120,21 +124,7 @@ export default function BoxDangerDescription() {
           {60 - numberOfCharacters} Characters left{" "}
         </label>
         <div/>
-        {issueType.map((issue, index) => (
-          <button
-            key={index}
-             
-              type="submit"
-              name="dangerType"
-              value={issue.type}
-              onClick={(event) => {
-                setDangerType(issue.type)
-              }}
-            >
-              {issue.type}
-          </button>
-        ))}
-
+        
         <div className={`${alertMsg ? "show-alert-msg" : "alert-msg-overlay"}`}>
           <p>You need to fill everything</p>
         </div>

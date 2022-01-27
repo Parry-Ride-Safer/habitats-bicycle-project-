@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import Axios from "axios";
-import { issueType } from "../Data/dangerTypeSelection";
+import issueType from "../Data/dangerTypeSelection";
 
 
 const MapContext = createContext();
@@ -27,7 +27,7 @@ const MapProvider = ({ children }) => {
   const [voting, setVoting] = useState("");
   const [numberOfCharacters, setNumberOfCharacters] = useState(0);
   const [alertMsg, setAlertMsg] = useState(false);
- 
+  const [isBoxShowInputDetailsOpen, setIsBoxShowInputDetailsOpen] = useState(false);
   
 
   // login and profile temp tests from here :
@@ -42,7 +42,6 @@ const MapProvider = ({ children }) => {
 
   /*Flow to create a new Marker*/
   const [selected, setSelected] = useState(null);
-  const [isBoxSelectDangerOpen, setIsBoxSelectDangerOpen] = useState(false);
   const [isReportWindowInputOpen, setIsReportWindowInputOpen] = useState(false);
   const [reportDescriptionInput, setReportDescriptionInput] = useState([]);
   const [isBoxWithDoneMsgOpen, setIsBoxWithDoneMsgOpen] = useState(false) 
@@ -61,7 +60,7 @@ const MapProvider = ({ children }) => {
   
   
   const onMapClick = useCallback((event) => {
-  setIsBoxSelectDangerOpen((prevState) => !prevState);
+    setIsReportWindowInputOpen((prevState) => !prevState);
   setMarker({
     lat: event.latLng.lat(),
     lng: event.latLng.lng(),
@@ -69,12 +68,6 @@ const MapProvider = ({ children }) => {
   });
 }, []);
 
-
-const handleDangerSubmit = (event) => {
-  event.preventDefault();
-  setIsBoxSelectDangerOpen(false);
-  setIsReportWindowInputOpen(true);
-};
 
 const handleCloseNewReportWindow = () => {
   setIsReportWindowInputOpen(false)
@@ -160,6 +153,8 @@ const dangerFormSubmit = (event) => {
         setAlertMsg(false);
         setFinalMarkers((finalMarkers) => [...finalMarkers, {...marker, id:response.data.id}]);
         setIsBoxWithDoneMsgOpen(true)
+        setIsReportWindowInputOpen(false)
+        setIsBoxShowInputDetailsOpen(true)
       })
       .catch((err) => console.log(err));
     setVoting("");
@@ -175,7 +170,7 @@ const handleEditRateBtn = () => {
 /*Flow to watch a single spot informations*/
 const [sendReportRequest, setSendReportRequest] = useState(false);
 const [getReportData, setGetReportdata] = useState([]);
-const [isBoxShowInputDetailsOpen, setIsBoxShowInputDetailsOpen] = useState(false);
+
 const [isReportIssueBoxOpen, setIsReportIssueBoxOpen] = useState(false)
 const [isVotingBoxOpen, setIsVotingBoxOpen] = useState(false);
 const [currentUser, setCurrentUser] = useState([])
@@ -344,13 +339,11 @@ const handleAddVote = async (event) => {
         isSpotVoted,
         isVotingBoxOpen,
         isReportWindowInputOpen,
-        isBoxSelectDangerOpen,
         handleAddVote,
         handleBoxShowInputDetailsState,
         handleCloseNewReportWindow,
         handleDangerChoice,
         handleDangerDescriptionInputs,
-        handleDangerSubmit,
         handleDangerLevel,
         handleEditRateBtn,
         handleReportIssueWindow,
