@@ -50,11 +50,11 @@ const MapProvider = ({ children }) => {
   
   
   /*image Upload*/
-  // const [fileInputState, setFileInputState] = useState('');
-  // const [previewSource, setPreviewSource] = useState('');
-  // const [selectedFile, setSelectedFile] = useState();
-  // const [successMsg, setSuccessMsg] = useState('');
-  // const [errMsg, setErrMsg] = useState('');
+ const [fileInputState, setFileInputState] = useState('');
+ const [previewSource, setPreviewSource] = useState('');
+ const [selectedFile, setSelectedFile] = useState();
+ const [successMsg, setSuccessMsg] = useState('');
+ const [errMsg, setErrMsg] = useState('');
 
 
 

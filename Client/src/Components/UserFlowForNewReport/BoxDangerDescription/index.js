@@ -142,7 +142,7 @@ const uploadImage = async (base64EncodedImage) => {
 
 
 
-{/*
+
 
         <div className="image-upload-holder">
             <h1 className="title">Upload an Image</h1>
@@ -169,7 +169,7 @@ const uploadImage = async (base64EncodedImage) => {
                 />
             )}
         </div>
-*/}
+
         <label className="sub-titles" id="sub-titles-margin"> Description </label>
         <input
           className="danger-description"
