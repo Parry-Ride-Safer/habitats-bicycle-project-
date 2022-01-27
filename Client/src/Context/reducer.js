@@ -40,7 +40,8 @@ const reducer = (state, action) => {
     if (action.type === "SUBMIT_COMPLAIN"){
         return{
             ...state,
-            isReportIssueBoxOpen: false
+            isReportIssueBoxOpen: false,
+            isBoxWithDoneMsgOpen: true
         }
     }
     if (action.type === "OPEN_VOTE_WINDOW"){

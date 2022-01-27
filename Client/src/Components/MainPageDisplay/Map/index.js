@@ -66,7 +66,6 @@ export default function Map() {
     finalMarkers,
     onMapClick,
     onMapLoad,
-    selected,
     setSelected,
     panTo,
   } = useGlobalMapContext();

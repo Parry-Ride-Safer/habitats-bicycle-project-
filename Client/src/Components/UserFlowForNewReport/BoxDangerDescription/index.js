@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React from "react";
 import { useGlobalMapContext } from "../../../Context/mapContext";
 import dangerLevel from "../../../Data/dangerLevelToVote";
 import issueType from "../../../Data/dangerTypeSelection";
@@ -11,7 +11,6 @@ import "./boxDangerDescription.css";
 export default function BoxDangerDescription() {
   const {
     alertMsg,
-    dangerType,
     isReportWindowInputOpen,
     closeReportWindow,
     handleDangerLevel,
@@ -20,7 +19,6 @@ export default function BoxDangerDescription() {
     handleFileInputChange,
     fileInputState,
     previewSource,
-    selectedFile,
     successMsg,
     errMsg,
     voting,

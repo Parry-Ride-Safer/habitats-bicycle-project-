@@ -342,7 +342,6 @@ const handleAddVote = async (event) => {
         reportDescriptionInput,
         setVotedReports,
         setVoting,
-      
         voting,
         votedReports,
         email,

@@ -16,7 +16,7 @@ export default function ModalShowReportDetails() {
             <p>Info about the number of votes {getReportData.voting}</p>
             <div className="btn-container">
               <button className="submit-btn" type="button" onClick={openVoteWindow}>
-                {isSpotVoted == "" ? "Rate Spot" : "Edit Vote"}
+                {isSpotVoted === "" ? "Rate Spot" : "Edit Vote"}
               </button>
               <button className="flag-btn" type="button" onClick={createComplain} >
                 <img src={flagReport} alt="" />
@@ -25,4 +25,3 @@ export default function ModalShowReportDetails() {
         </div>
     )
 }
-
