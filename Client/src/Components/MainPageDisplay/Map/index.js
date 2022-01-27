@@ -14,8 +14,6 @@ import "./map.css";
 import logo from "./Polygon38.png";
 import logoBlue from "./PolygonBlue.png";
 
-
-
 const mapContainerStyle = {
   width: "100vw",
   height: "100vh",
@@ -63,8 +61,7 @@ export default function Map() {
   const {
     fetchReportData,
     marker,
-    isBoxSelectDangerOpen,
-    setIsBoxShowInputDetailsOpen,
+    dispatch,
     isReportWindowInputOpen,
     finalMarkers,
     onMapClick,
@@ -108,6 +105,7 @@ export default function Map() {
                 anchor: new window.google.maps.Point(25, 25),
               }}
               onClick={(event) => {
+                dispatch({type: "OPEN_MARKER_REPORT"})
                 setSelected(fMarker)
                 fetchReportData(fMarker);
               }}
@@ -115,8 +113,6 @@ export default function Map() {
           ))
         }
       </MarkerClusterer>
-
-      {selected ? setIsBoxShowInputDetailsOpen(true) : null}
 
       {isReportWindowInputOpen ? (
         <Marker

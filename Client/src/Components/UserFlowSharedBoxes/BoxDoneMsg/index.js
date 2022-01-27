@@ -5,13 +5,13 @@ import "./boxDoneMsg.css";
 
 const BoxDoneMsg = () => {
    
-    const {isBoxWithDoneMsgOpen, showSubmittedReport} = useGlobalMapContext()
+    const {isBoxWithDoneMsgOpen, reportProcessDone} = useGlobalMapContext()
 
     return (
         <div className={`${isBoxWithDoneMsgOpen ? "show-done-msg" : "done-msg-overlay"}`}>
             <p><DoneMsg /></p>
             <p className="text">Thanks for making the streets safer for other roders!</p>
-            <button className="done-msg-btn" type="button" onClick={showSubmittedReport}> Done</button>
+            <button className="done-msg-btn" type="button" onClick={reportProcessDone}> Done</button>
         </div>
     )
 }

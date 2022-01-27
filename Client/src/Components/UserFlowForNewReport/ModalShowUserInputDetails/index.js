@@ -7,7 +7,7 @@ export default function ModalShowUserInputDetails() {
     const {
         getReportData,
         handleEditRateBtn,
-        handleReportIssueWindow
+        createComplain
       } = useGlobalMapContext();
 
     return(
@@ -17,7 +17,7 @@ export default function ModalShowUserInputDetails() {
             <button className="submit-btn" type="button" onClick={handleEditRateBtn}>
                 Edit Rate
             </button>
-            <button className="flag-btn" type="button" onClick={handleReportIssueWindow} >
+            <button className="flag-btn" type="button" onClick={createComplain} >
                 <img src={flagReport} alt="" />
             </button>
             </div>

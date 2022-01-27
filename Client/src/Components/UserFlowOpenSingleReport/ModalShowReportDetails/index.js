@@ -8,7 +8,7 @@ export default function ModalShowReportDetails() {
     getReportData,
     isSpotVoted,
     handleEditRateBtn,
-    handleReportIssueWindow,
+    createComplain,
   } = useGlobalMapContext();
 
     return (
@@ -18,7 +18,7 @@ export default function ModalShowReportDetails() {
               <button className="submit-btn" type="button" onClick={handleEditRateBtn}>
                 {isSpotVoted == "" ? "Rate Spot" : "Edit Vote"}
               </button>
-              <button className="flag-btn" type="button" onClick={handleReportIssueWindow} >
+              <button className="flag-btn" type="button" onClick={createComplain} >
                 <img src={flagReport} alt="" />
               </button>
             </div>

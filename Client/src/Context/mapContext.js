@@ -15,16 +15,17 @@ import issueType from "../Data/dangerTypeSelection";
 const MapContext = createContext();
 
 const createReportInitialState = {
-  isReportWindowInputOpen: false,
   isBoxWithDoneMsgOpen: false,
+  isBoxShowInputDetailsOpen: false,
+  isReportIssueBoxOpen: false,
+  isReportWindowInputOpen: false,
+  isVotingBoxOpen: false
 }
 
 const MapProvider = ({ children }) => {
   
   
   const [state, dispatch] = useReducer(reducer, createReportInitialState)
-
-
   const [dangerType, setDangerType] = useState();
   const [marker, setMarker] = useState();
   const [finalMarkers, setFinalMarkers] = useState([]);
@@ -39,7 +40,7 @@ const MapProvider = ({ children }) => {
   const [voting, setVoting] = useState("");
   const [numberOfCharacters, setNumberOfCharacters] = useState(0);
   const [alertMsg, setAlertMsg] = useState(false);
-  const [isBoxShowInputDetailsOpen, setIsBoxShowInputDetailsOpen] = useState(false);
+  /*const [isBoxShowInputDetailsOpen, setIsBoxShowInputDetailsOpen] = useState(false);*/
   
 
   // login and profile temp tests from here :
@@ -54,12 +55,8 @@ const MapProvider = ({ children }) => {
 
   /*Flow to create a new Marker*/
   const [selected, setSelected] = useState(null);
-  /*const [isReportWindowInputOpen, setIsReportWindowInputOpen] = useState(false);*/
   const [reportDescriptionInput, setReportDescriptionInput] = useState([]);
-  /*const [isBoxWithDoneMsgOpen, setIsBoxWithDoneMsgOpen] = useState(false)*/
 
-  
-  
   /*image Upload*/
   const [fileInputState, setFileInputState] = useState('');
   const [previewSource, setPreviewSource] = useState('');
@@ -67,12 +64,9 @@ const MapProvider = ({ children }) => {
   const [successMsg, setSuccessMsg] = useState('');
   const [errMsg, setErrMsg] = useState('');
 
-
-
-  
   
   const onMapClick = useCallback((event) => {
-    dispatch({type: "CREATE_REPORT"})
+    dispatch({type: "START_REPORT"})
     setMarker({
     lat: event.latLng.lat(),
     lng: event.latLng.lng(),
@@ -82,6 +76,10 @@ const MapProvider = ({ children }) => {
 
 const closeReportWindow = () => {
   dispatch({type: "CLOSE_REPORT_WINDOW"})
+}
+
+const reportProcessDone = () => {
+  dispatch({type: "CONCLUDE_PROCESS"})
 }
 
 const handleDangerDescriptionInputs = (event) => {
@@ -163,7 +161,6 @@ const dangerFormSubmit = (event) => {
         setAlertMsg(false);
         setFinalMarkers((finalMarkers) => [...finalMarkers, {...marker, id:response.data.id}]);
         dispatch({type: "SUBMIT_REPORT"})
-        setIsBoxShowInputDetailsOpen(true)
       })
       .catch((err) => console.log(err));
     setVoting("");
@@ -172,7 +169,7 @@ const dangerFormSubmit = (event) => {
 };
 
 const handleEditRateBtn = () => {
-  setIsVotingBoxOpen(true)
+  /*setIsVotingBoxOpen(true)*/
   getVotedSpots()
 }
 
@@ -180,8 +177,6 @@ const handleEditRateBtn = () => {
 const [sendReportRequest, setSendReportRequest] = useState(false);
 const [getReportData, setGetReportdata] = useState([]);
 
-const [isReportIssueBoxOpen, setIsReportIssueBoxOpen] = useState(false)
-const [isVotingBoxOpen, setIsVotingBoxOpen] = useState(false);
 const [currentUser, setCurrentUser] = useState([])
 const [isSpotVoted, setIsSpotVoted] = useState(false)
 const [votedReports, setVotedReports] = useState([]);
@@ -242,16 +237,16 @@ const getCurrentUser = async () => {
 
 
 const handleBoxShowInputDetailsState = () => {
-  setIsBoxShowInputDetailsOpen(false)
+/*  setIsBoxShowInputDetailsOpen(false)*/
 }
 
-const handleReportIssueWindow = () => {
-  setIsReportIssueBoxOpen(true)
+const createComplain = () => {
+  dispatch({type: "OPEN_WINDOW_TO_COMPLAIN"})
 }
 
-const handleReportIssueSubmit = (event) => {
+const submitComplain = (event) => {
   event.preventDefault();
-  /*setIsBoxWithDoneMsgOpen(true)*/
+  dispatch({type: "SUBMIT_COMPLAIN"})
 }
 
 let user = document.cookie
@@ -284,24 +279,10 @@ const handleAddVote = async (event) => {
     }
 }
 
-
-  const handleDangerChoice = (event) => {
-    console.log("this aint working chief");
-    return setDangerType(event.target.value);
-  };
-
   const handleDangerLevel = (event) => {
     setVoting(event.target.value);
   };
 
-  /*Box for both flows*/
-  const showSubmittedReport = () => {
-    /*setIsBoxWithDoneMsgOpen(false)*/
-    /*setIsReportWindowInputOpen(false)*/
-    setIsReportIssueBoxOpen(false)
-    setIsBoxShowInputDetailsOpen(false)
-    setIsVotingBoxOpen(false)
-  }
   
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -333,6 +314,7 @@ const handleAddVote = async (event) => {
     <MapContext.Provider
       value={{
         ...state,
+        dispatch,
         createReportInitialState,
         alertMsg,
         closeReportWindow,
@@ -349,20 +331,14 @@ const handleAddVote = async (event) => {
         dangerFormSubmit,
         numberOfCharacters,
         isSpotVoted,
-        isVotingBoxOpen,
-        
+        reportProcessDone,
         handleAddVote,
         handleBoxShowInputDetailsState,
-    
-        handleDangerChoice,
         handleDangerDescriptionInputs,
         handleDangerLevel,
         handleEditRateBtn,
-        handleReportIssueWindow,
-        handleReportIssueSubmit,
+        submitComplain,
         handleWelcomeStatusClick,
-        
-
         handleSubmitFile,
         handleFileInputChange,
         fileInputState,
@@ -370,26 +346,17 @@ const handleAddVote = async (event) => {
         selectedFile,
         successMsg,
         errMsg,
-        
-        
-        
+        createComplain,
         options,
-        isBoxShowInputDetailsOpen,
-        /*isBoxWithDoneMsgOpen,*/
-        isReportIssueBoxOpen,
         reportDescriptionInput,
-        setIsBoxShowInputDetailsOpen,
         setVotedReports,
         setVoting,
-        setIsVotingBoxOpen,
-        showSubmittedReport,
         voting,
         votedReports,
         email,
         setEmail,
         password,
         setPassword,
-        
         fetchReportData,
         getReportData,
         sendReportRequest,

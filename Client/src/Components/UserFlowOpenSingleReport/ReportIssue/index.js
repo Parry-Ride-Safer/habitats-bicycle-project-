@@ -5,14 +5,14 @@ import "./reportIssue.css";
 
 const ReportIssue = () => {
 
-  const {handleReportIssueSubmit, isReportIssueBoxOpen} = useGlobalMapContext()
+  const {submitComplain, isReportIssueBoxOpen} = useGlobalMapContext()
   const [reportIssue, setReportIssue] = useState()
 
   return (
     <div className={`${isReportIssueBoxOpen ? "show-reportIssue-box" : "reportIssue-overlay"}`}>
       <p className="title-reportIssue">Report Issue</p>
       <p className="subTitle-reportIssue">Let us know about issues with this report</p>
-      <form className="report-form-display" onSubmit={handleReportIssueSubmit}>
+      <form className="report-form-display" onSubmit={submitComplain}>
         {reportIssueOptions.map((reportOption)=>{
           return(
             <div className="input-reportIssue-display">
