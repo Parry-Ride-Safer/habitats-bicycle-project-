@@ -3,6 +3,7 @@ import { useGlobalMapContext } from "../../../Context/mapContext";
 import "./style.css";
 import gpsIcon from "../../../resources/gps-icon.png";
 
+
 export default function GpsLocation() {
   const { panTo } = useGlobalMapContext();
 

@@ -1,11 +1,11 @@
 import React from "react";
-import { Map, Navbar } from "./Components";
+import { Map} from "./Components";
 import { useGlobalMapContext } from "./Context/mapContext";
 import { useLoadScript } from "@react-google-maps/api";
 // import FormComponent from "./Components/Login";
-// import LoginTest from "./Components/loginTest";
+
 import "./app.css";
-// import Test2login from "./Components/loginTest/test2login";
+
 import LoginAndProfile from "./Components/LoginAndProfile";
 
 const libraries = ["places"];
@@ -23,11 +23,7 @@ function App() {
 
   return (
     <>
-     
       <LoginAndProfile />
-     
-
-      {/* <FormComponent /> */}
       <Map options={options} onMapLoad={onMapLoad} onMapClick={onMapClick} />
     </>
   );

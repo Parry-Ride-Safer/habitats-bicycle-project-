@@ -28,18 +28,18 @@ const MapProvider = ({ children }) => {
   const [numberOfCharacters, setNumberOfCharacters] = useState(0);
   const [alertMsg, setAlertMsg] = useState(false);
  
+<<<<<<< HEAD
   const [welcomeStatus,setWelcomeStatus] = useState(false);
   const handleWelcomeStatusClick =() => { 
     setWelcomeStatus(!welcomeStatus)
 }
 
   // login and profile temp tests from here :
+=======
+  // login and profile Comp from here :
+>>>>>>> 216d21629950e5755ebc3a78aed1312a7796e57f
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userTest, setUserTest] = useState([]);
-  const [log, setLog] = useState("");
-  const [infoTest, setinfoTest] = useState([]);
-  const [info, setinfo] = useState([]);
   const [stateLogin, setStateLogin] = useState(false);
   
   
@@ -322,14 +322,7 @@ const handleAddVote = async (event) => {
         setEmail,
         password,
         setPassword,
-        userTest,
-        setUserTest,
-        log,
-        setLog,
-        infoTest,
-        setinfoTest,
-        info,
-        setinfo,
+        
         fetchReportData,
         getReportData,
         sendReportRequest,
