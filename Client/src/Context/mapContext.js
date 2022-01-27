@@ -3,16 +3,29 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useReducer,
   useRef,
   useState,
 } from "react";
+import reducer from "./reducer";
 import Axios from "axios";
 import issueType from "../Data/dangerTypeSelection";
 
 
 const MapContext = createContext();
 
+const createReportInitialState = {
+  isReportWindowInputOpen: false,
+}
+
 const MapProvider = ({ children }) => {
+  
+  
+  const [state, dispatch] = useReducer(reducer, createReportInitialState)
+
+ 
+
+
   const [dangerType, setDangerType] = useState();
   const [marker, setMarker] = useState();
   const [finalMarkers, setFinalMarkers] = useState([]);
@@ -42,9 +55,9 @@ const MapProvider = ({ children }) => {
 
   /*Flow to create a new Marker*/
   const [selected, setSelected] = useState(null);
-  const [isReportWindowInputOpen, setIsReportWindowInputOpen] = useState(false);
+  /*const [isReportWindowInputOpen, setIsReportWindowInputOpen] = useState(false);*/
   const [reportDescriptionInput, setReportDescriptionInput] = useState([]);
-  const [isBoxWithDoneMsgOpen, setIsBoxWithDoneMsgOpen] = useState(false) 
+  const [isBoxWithDoneMsgOpen, setIsBoxWithDoneMsgOpen] = useState(false)
 
   
   
@@ -60,17 +73,16 @@ const MapProvider = ({ children }) => {
   
   
   const onMapClick = useCallback((event) => {
-    setIsReportWindowInputOpen((prevState) => !prevState);
-  setMarker({
+    dispatch({type: "CREATE_REPORT"})
+    setMarker({
     lat: event.latLng.lat(),
     lng: event.latLng.lng(),
     time: new Date(),
   });
 }, []);
 
-
 const handleCloseNewReportWindow = () => {
-  setIsReportWindowInputOpen(false)
+  dispatch({type: "CLOSE_REPORT_WINDOW"})
 }
 
 const handleDangerDescriptionInputs = (event) => {
@@ -152,7 +164,7 @@ const dangerFormSubmit = (event) => {
         setAlertMsg(false);
         setFinalMarkers((finalMarkers) => [...finalMarkers, {...marker, id:response.data.id}]);
         setIsBoxWithDoneMsgOpen(true)
-        setIsReportWindowInputOpen(false)
+        /*setIsReportWindowInputOpen(false)*/
         setIsBoxShowInputDetailsOpen(true)
       })
       .catch((err) => console.log(err));
@@ -287,7 +299,7 @@ const handleAddVote = async (event) => {
   /*Box for both flows*/
   const showSubmittedReport = () => {
     setIsBoxWithDoneMsgOpen(false)
-    setIsReportWindowInputOpen(false)
+    /*setIsReportWindowInputOpen(false)*/
     setIsReportIssueBoxOpen(false)
     setIsBoxShowInputDetailsOpen(false)
     setIsVotingBoxOpen(false)
@@ -322,6 +334,8 @@ const handleAddVote = async (event) => {
   return (
     <MapContext.Provider
       value={{
+        ...state,
+        createReportInitialState,
         alertMsg,
         currentUser,
         dangerType,
@@ -337,7 +351,7 @@ const handleAddVote = async (event) => {
         numberOfCharacters,
         isSpotVoted,
         isVotingBoxOpen,
-        isReportWindowInputOpen,
+        
         handleAddVote,
         handleBoxShowInputDetailsState,
         handleCloseNewReportWindow,
