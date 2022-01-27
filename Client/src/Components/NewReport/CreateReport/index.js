@@ -89,7 +89,8 @@ export default function CreateReport() {
           {issueType.map((issue, index) => (
             <button
               key={index}
-              type="button"
+              type="radio"
+              className="issueTypeBtn"
               name="dangerType"
               value={issue.type}
               onClick={() => {
