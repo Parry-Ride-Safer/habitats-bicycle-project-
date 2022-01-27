@@ -13,7 +13,7 @@ export default function BoxDangerDescription() {
     alertMsg,
     dangerType,
     isReportWindowInputOpen,
-    handleCloseNewReportWindow,
+    closeReportWindow,
     handleDangerLevel,
     setDangerType,
     handleSubmitFile,
@@ -45,7 +45,7 @@ export default function BoxDangerDescription() {
       }`}
     >
       <form className="danger-form-display" onSubmit={dangerFormSubmit /*,handleSubmitFile*/}>
-        <button className="close-button" type="button" onClick={handleCloseNewReportWindow}>
+        <button className="close-button" type="button" onClick={closeReportWindow}>
           <img className="close-button-img" src={closeBtn} alt=""/>
         </button>
            <p className="title"> Danger Level </p>

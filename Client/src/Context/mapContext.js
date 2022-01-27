@@ -16,14 +16,13 @@ const MapContext = createContext();
 
 const createReportInitialState = {
   isReportWindowInputOpen: false,
+  isBoxWithDoneMsgOpen: false,
 }
 
 const MapProvider = ({ children }) => {
   
   
   const [state, dispatch] = useReducer(reducer, createReportInitialState)
-
- 
 
 
   const [dangerType, setDangerType] = useState();
@@ -57,7 +56,7 @@ const MapProvider = ({ children }) => {
   const [selected, setSelected] = useState(null);
   /*const [isReportWindowInputOpen, setIsReportWindowInputOpen] = useState(false);*/
   const [reportDescriptionInput, setReportDescriptionInput] = useState([]);
-  const [isBoxWithDoneMsgOpen, setIsBoxWithDoneMsgOpen] = useState(false)
+  /*const [isBoxWithDoneMsgOpen, setIsBoxWithDoneMsgOpen] = useState(false)*/
 
   
   
@@ -81,7 +80,7 @@ const MapProvider = ({ children }) => {
   });
 }, []);
 
-const handleCloseNewReportWindow = () => {
+const closeReportWindow = () => {
   dispatch({type: "CLOSE_REPORT_WINDOW"})
 }
 
@@ -163,8 +162,7 @@ const dangerFormSubmit = (event) => {
       .then((response) => {
         setAlertMsg(false);
         setFinalMarkers((finalMarkers) => [...finalMarkers, {...marker, id:response.data.id}]);
-        setIsBoxWithDoneMsgOpen(true)
-        /*setIsReportWindowInputOpen(false)*/
+        dispatch({type: "SUBMIT_REPORT"})
         setIsBoxShowInputDetailsOpen(true)
       })
       .catch((err) => console.log(err));
@@ -253,7 +251,7 @@ const handleReportIssueWindow = () => {
 
 const handleReportIssueSubmit = (event) => {
   event.preventDefault();
-  setIsBoxWithDoneMsgOpen(true)
+  /*setIsBoxWithDoneMsgOpen(true)*/
 }
 
 let user = document.cookie
@@ -269,7 +267,7 @@ const handleAddVote = async (event) => {
       })
       .then((response) => {
         setAlertMsg(false);
-        setIsBoxWithDoneMsgOpen(true)
+        /*setIsBoxWithDoneMsgOpen(true)*/
         setIsSpotVoted(true)
       })
   } 
@@ -280,7 +278,7 @@ const handleAddVote = async (event) => {
     })
       .then((response) => {
         setAlertMsg(false);
-        setIsBoxWithDoneMsgOpen(true)
+        /*setIsBoxWithDoneMsgOpen(true)*/
         console.log(response)
     })
     }
@@ -298,7 +296,7 @@ const handleAddVote = async (event) => {
 
   /*Box for both flows*/
   const showSubmittedReport = () => {
-    setIsBoxWithDoneMsgOpen(false)
+    /*setIsBoxWithDoneMsgOpen(false)*/
     /*setIsReportWindowInputOpen(false)*/
     setIsReportIssueBoxOpen(false)
     setIsBoxShowInputDetailsOpen(false)
@@ -337,6 +335,7 @@ const handleAddVote = async (event) => {
         ...state,
         createReportInitialState,
         alertMsg,
+        closeReportWindow,
         currentUser,
         dangerType,
         setDangerType,
@@ -354,7 +353,7 @@ const handleAddVote = async (event) => {
         
         handleAddVote,
         handleBoxShowInputDetailsState,
-        handleCloseNewReportWindow,
+    
         handleDangerChoice,
         handleDangerDescriptionInputs,
         handleDangerLevel,
@@ -376,7 +375,7 @@ const handleAddVote = async (event) => {
         
         options,
         isBoxShowInputDetailsOpen,
-        isBoxWithDoneMsgOpen,
+        /*isBoxWithDoneMsgOpen,*/
         isReportIssueBoxOpen,
         reportDescriptionInput,
         setIsBoxShowInputDetailsOpen,
