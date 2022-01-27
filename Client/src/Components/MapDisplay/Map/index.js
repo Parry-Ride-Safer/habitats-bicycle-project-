@@ -7,7 +7,7 @@ import {
   GpsLocation,
   SearchBox,
   VotingBox,
-  CreateReport
+  CreateReport,
 } from "../../index";
 import { useGlobalMapContext } from "../../../Context/mapContext";
 import "./map.css";
@@ -104,8 +104,8 @@ export default function Map() {
                 anchor: new window.google.maps.Point(25, 25),
               }}
               onClick={(event) => {
-                dispatch({type: "OPEN_MARKER_REPORT"})
-                setSelected(fMarker)
+                dispatch({ type: "OPEN_MARKER_REPORT" });
+                setSelected(fMarker);
                 fetchReportData(fMarker);
               }}
             />
@@ -127,7 +127,7 @@ export default function Map() {
         "box-overlay"
       )}
       {isReportWindowInputOpen ? <CreateReport /> : "box-overlay"}
-      
+
       <BoxDoneMsg />
       <BoxShowInputDetails />
       <VotingBox />

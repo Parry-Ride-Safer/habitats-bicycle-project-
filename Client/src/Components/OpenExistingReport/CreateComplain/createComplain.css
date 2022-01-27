@@ -1,22 +1,22 @@
 .show-reportIssue-box {
-    visibility: visible;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: rgb(255, 255, 255);
-    width: 70vw;
-    right: 15vw;
-    height: 70vh;
-    top: 15vh;
-    border-radius: 15px;
-    -webkit-box-shadow: 0px 0px 23px -3px #000000;
-    box-shadow: 0px 0px 10px -5px #000000;
-    text-align: center;
-    z-index: 150;
-  }
-  
+  visibility: visible;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgb(255, 255, 255);
+  width: 70vw;
+  right: 15vw;
+  height: 70vh;
+  top: 15vh;
+  border-radius: 15px;
+  -webkit-box-shadow: 0px 0px 23px -3px #000000;
+  box-shadow: 0px 0px 10px -5px #000000;
+  text-align: center;
+  z-index: 150;
+}
+
 .reportIssue-overlay {
   position: fixed;
   top: 0;
@@ -36,7 +36,7 @@
   flex-direction: column;
 }
 
-.input-reportIssue-display{
+.input-reportIssue-display {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -47,19 +47,19 @@
   font-size: 1.2rem;
 }
 
-.subTitle-reportIssue{
+.subTitle-reportIssue {
   font-family: "Roboto Condensed";
   font-size: 1rem;
 }
 
-.boldSubTitle-reportIssue{
+.boldSubTitle-reportIssue {
   font-family: "Roboto Condensed";
   font-size: 0.9rem;
   font-weight: bold;
-  margin-left:15px;
+  margin-left: 15px;
 }
 
-.add-picture{
+.add-picture {
   width: 60vw;
   height: 8vh;
   border: 1px solid lightgrey;

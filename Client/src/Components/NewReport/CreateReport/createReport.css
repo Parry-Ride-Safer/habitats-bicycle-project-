@@ -1,9 +1,3 @@
-.upload-form-input {
-border-color: #ccc;
-
-}
-
-
 .show-danger-box {
   visibility: visible;
   z-index: 10;
@@ -39,14 +33,15 @@ border-color: #ccc;
   align-items: center;
 }
 
-.close-button{
+.close-button {
   position: absolute;
-  top:0;
+  top: 0;
   right: 0;
-  border:0;
+  border: 0;
+  background-color: white;
 }
 
-.close-button-img{
+.close-button-img {
   height: 18px;
   width: 18px;
 }
@@ -56,24 +51,24 @@ border-color: #ccc;
   font-size: 1.2rem;
 }
 
-.sub-titles{
+.sub-titles {
   font-family: "Roboto Condensed";
   font-size: 1rem;
-  margin:0.15rem;
+  margin: 0.15rem;
 }
 
-#sub-titles-margin{
+#sub-titles-margin {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
 
-.danger-level-text{
+.danger-level-text {
   font-family: "Roboto Condensed";
   font-size: 0.9rem;
   color: lightslategrey;
 }
 
-.add-picture{
+.add-picture {
   width: 60vw;
   height: 8vh;
   border: 1px solid lightgrey;
@@ -109,7 +104,6 @@ border-color: #ccc;
   flex-direction: row;
 }
 
-
 input[type="radio"] {
   position: absolute;
   opacity: 0;
@@ -130,16 +124,13 @@ input + svg {
 input[class="classD1"]:hover + svg,
 input[class="classD1"]:checked + svg,
 input[class="classD1"]:focus + svg {
-  fill: rgb(255, 217, 4);
   transform: scale(1.5);
   opacity: 1;
 }
 
-
 input[class="classD2"]:hover + svg,
 input[class="classD2"]:checked + svg,
 input[class="classD2"]:focus + svg {
-  fill: rgb(250, 142, 0);
   transform: scale(1.5);
   opacity: 1;
 }
@@ -147,31 +138,16 @@ input[class="classD2"]:focus + svg {
 input[class="classD3"]:hover + svg,
 input[class="classD3"]:checked + svg,
 input[class="classD3"]:focus + svg {
-  fill: rgb(217, 0, 0);
   transform: scale(1.5);
   opacity: 1;
 }
 
-input[class="classD4"]:hover + svg,
-input[class="classD4"]:checked + svg,
-input[class="classD4"]:focus + svg {
-  fill: rgb(0, 109, 217);
-  transform: scale(1.25, 1.25);
-}
-
-input[class="classD5"]:hover + svg,
-input[class="classD5"]:checked + svg,
-input[class="classD5"]:focus + svg {
-  fill: rgb(0, 109, 217);
-  transform: scale(1.25, 1.25);
-}
-
-.form-holder{
+.form-holder {
   display: flex;
   flex-direction: column;
 }
 
-.danger-category-main-title{
+.danger-category-main-title {
   display: flex;
   justify-content: flex-start;
   font-size: 35px;
@@ -183,5 +159,6 @@ input[class="classD5"]:focus + svg {
   font-size: 10px;
 }
 
-
-
+.upload-form-input {
+  border-color: #ccc;
+}

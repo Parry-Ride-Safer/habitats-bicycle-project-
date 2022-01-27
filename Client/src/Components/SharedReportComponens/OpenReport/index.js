@@ -1,6 +1,6 @@
 import React from "react";
 import { useGlobalMapContext } from "../../../Context/mapContext";
-import {ModalShowReportDetails, ModalShowUserInputDetails} from "../../index";
+import { ModalShowReportDetails, ModalShowUserInputDetails } from "../../index";
 import "./boxShowInputDetails.css";
 import closeBtn from "../../../icons/modalBoxIcons/close-window-icon.png";
 import example from "./image 28.png";
@@ -11,12 +11,14 @@ export default function BoxShowInputDetails() {
     fetchReportData,
     getReportData,
     isBoxShowInputDetailsOpen,
-    closeReportWindow
+    closeReportWindow,
   } = useGlobalMapContext();
 
   return (
     <div
-      className={`${isBoxShowInputDetailsOpen ? "show-spot-details" : "spot-box-overlay"}`}
+      className={`${
+        isBoxShowInputDetailsOpen ? "show-spot-details" : "spot-box-overlay"
+      }`}
     >
       {getReportData.length !== "" ? (
         <div>
@@ -25,17 +27,18 @@ export default function BoxShowInputDetails() {
             type="button"
             onClick={closeReportWindow}
           >
-             <img className="close-button-img" src={closeBtn} alt=""/>
+            <img className="close-button-img" src={closeBtn} alt="" />
           </button>
-         
+
           <p className="title">{getReportData.name}</p>
           <img className="add-picture" src={example} alt="" />
           <p className="sub-titles">{getReportData.information}</p>
 
-          {(currentUser === getReportData.user_id) ?
-            <ModalShowUserInputDetails /> : 
+          {currentUser === getReportData.user_id ? (
+            <ModalShowUserInputDetails />
+          ) : (
             <ModalShowReportDetails />
-          }
+          )}
         </div>
       ) : (
         <div>

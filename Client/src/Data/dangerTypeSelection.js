@@ -7,36 +7,33 @@ const issueType = [
     type: "Construction",
     nb: 1,
     className: "select-construction",
-    icon: <Construction />
+    icon: <Construction />,
   },
-  { 
+  {
     type: "Junction",
-    nb: 2, 
-    className: "select-junction", 
-    icon: <Junction /> 
+    nb: 2,
+    className: "select-junction",
+    icon: <Junction />,
   },
   {
     type: "Bike Lane",
     nb: 3,
     className: "select-bike-lane",
-    icon: <Bikelane />
+    icon: <Bikelane />,
   },
-  { 
+  {
     type: "Road",
-    nb: 4, 
-    className:"select-road",
-    icon: "" 
+    nb: 4,
+    className: "select-road",
+    icon: "",
   },
   {
     type: "Traffic",
     nb: 5,
     className: "select-traffic",
-    icon: ""
+    icon: "",
   },
-  { type: "Other", 
-    nb: 6, 
-    className: "select-other", 
-    icon: <Construction /> }
+  { type: "Other", nb: 6, className: "select-other", icon: <Construction /> },
 ];
 
 export default issueType;

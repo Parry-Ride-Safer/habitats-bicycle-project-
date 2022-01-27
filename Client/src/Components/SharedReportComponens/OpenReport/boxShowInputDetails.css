@@ -35,25 +35,25 @@
   font-size: 1.2rem;
 }
 
-.close-button{
+.close-button {
   position: absolute;
-  top:0;
+  top: 0;
   right: 0;
-  border:0;
+  border: 0;
 }
 
-.close-button-img{
+.close-button-img {
   height: 18px;
   width: 18px;
 }
 
-.sub-titles{
+.sub-titles {
   font-family: "Roboto Condensed";
   font-size: 1rem;
-  margin:0.15rem;
+  margin: 0.15rem;
 }
 
-.add-picture{
+.add-picture {
   width: 60vw;
   height: 25vh;
   border: 1px solid lightgrey;

@@ -5,7 +5,6 @@ import issueType from "../../../Data/dangerTypeSelection";
 import closeBtn from "../../../icons/modalBoxIcons/close-window-icon.png";
 import Alert from "../../ImageUploadForm/alert.js";
 
-
 import "./createReport.css";
 
 export default function CreateReport() {
@@ -28,19 +27,27 @@ export default function CreateReport() {
     numberOfCharacters,
   } = useGlobalMapContext();
 
-
   return (
     <div
       className={`${
         isReportWindowInputOpen ? "show-danger-box" : "danger-box-overlay"
       }`}
     >
-      <form className="danger-form-display" onSubmit={dangerFormSubmit /*,handleSubmitFile*/}>
-        <button className="close-button" type="button" onClick={closeReportWindow}>
-          <img className="close-button-img" src={closeBtn} alt=""/>
+      <form
+        className="danger-form-display"
+        onSubmit={dangerFormSubmit /*,handleSubmitFile*/}
+      >
+        <button
+          className="close-button"
+          type="button"
+          onClick={closeReportWindow}
+        >
+          <img className="close-button-img" src={closeBtn} alt="" />
         </button>
-           <p className="title"> Danger Level </p>
-        <p className="danger-level-text">Tell the others how serious the issue is</p>
+        <p className="title"> Danger Level </p>
+        <p className="danger-level-text">
+          Tell the others how serious the issue is
+        </p>
         <div className="dangerLevelVote">
           {dangerLevel.map((danger, index) => (
             <label key={index}>
@@ -58,48 +65,45 @@ export default function CreateReport() {
         </div>
 
         <div className="image-upload-holder">
-            <h1 className="title">Upload an Image</h1>
-            <Alert msg={errMsg} type="danger" />
-            <Alert msg={successMsg} type="success" />
+          <h1 className="title">Upload an Image</h1>
+          <Alert msg={errMsg} type="danger" />
+          <Alert msg={successMsg} type="success" />
 
-            {previewSource && (
-                <img
-                    src={previewSource}
-                    alt="chosen"
-                    style={{ height: '15vh' }}
-                />
-            )}
+          {previewSource && (
+            <img src={previewSource} alt="chosen" style={{ height: "15vh" }} />
+          )}
 
-            <form onSubmit={handleSubmitFile} className="form">
-                <input
-                    id="fileInput"
-                    type="file"
-                    name="image"
-                    onChange={handleFileInputChange}
-                    value={fileInputState}
-                    className="upload-form-input"
-                />
-                
-            </form>
-
+          <form onSubmit={handleSubmitFile} className="form">
+            <input
+              id="fileInput"
+              type="file"
+              name="image"
+              onChange={handleFileInputChange}
+              value={fileInputState}
+              className="upload-form-input"
+            />
+          </form>
         </div>
         <p className="title"> What's the issue? </p>
         <div>
-        {issueType.map((issue, index) => (
-          <button
-            key={index}
+          {issueType.map((issue, index) => (
+            <button
+              key={index}
               type="button"
               name="dangerType"
               value={issue.type}
               onClick={() => {
-                setDangerType(issue.type)
+                setDangerType(issue.type);
               }}
             >
               {issue.type}
-          </button>
-        ))}
+            </button>
+          ))}
         </div>
-        <label className="sub-titles" id="sub-titles-margin"> Description </label>
+        <label className="sub-titles" id="sub-titles-margin">
+          {" "}
+          Description{" "}
+        </label>
         <input
           className="danger-description"
           type="text"
@@ -114,16 +118,13 @@ export default function CreateReport() {
           {" "}
           {60 - numberOfCharacters} Characters left{" "}
         </label>
-        <div/>
-        
+        <div />
+
         <div className={`${alertMsg ? "show-alert-msg" : "alert-msg-overlay"}`}>
           <p>You need to fill everything</p>
         </div>
         <div className="danger-buttons-display">
-          <button
-            className="submit-button"
-            type="submit"
-          >
+          <button className="submit-button" type="submit">
             Submit
           </button>
         </div>

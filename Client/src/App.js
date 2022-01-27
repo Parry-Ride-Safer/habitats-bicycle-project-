@@ -1,5 +1,5 @@
 import React from "react";
-import { Map} from "./Components";
+import { Map } from "./Components";
 import { useGlobalMapContext } from "./Context/mapContext";
 import { useLoadScript } from "@react-google-maps/api";
 // import FormComponent from "./Components/Login";

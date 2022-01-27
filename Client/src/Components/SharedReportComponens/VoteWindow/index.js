@@ -13,7 +13,9 @@ export default function VotingBox() {
   } = useGlobalMapContext();
 
   return (
-    <div className={`${isVotingBoxOpen ? "show-vote-box" : "vote-box-overlay"}`}>
+    <div
+      className={`${isVotingBoxOpen ? "show-vote-box" : "vote-box-overlay"}`}
+    >
       <form className="danger-form-display" onSubmit={handleAddVote}>
         <p className="title-vote"> Give your input </p>
         <div className="dangerLevelVote">
@@ -35,10 +37,7 @@ export default function VotingBox() {
           <p>You need to fill everything</p>
         </div>
         <div className="danger-buttons-display">
-          <button 
-            className="submit-button" 
-            type="submit"
-          >
+          <button className="submit-button" type="submit">
             Submit
           </button>
         </div>

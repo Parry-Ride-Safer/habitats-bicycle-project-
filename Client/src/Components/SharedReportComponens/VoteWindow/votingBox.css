@@ -1,7 +1,7 @@
 .show-vote-box {
   position: absolute;
-  top:30vh;
-  right:25vw;
+  top: 30vh;
+  right: 25vw;
   visibility: visible;
   width: 60vw;
   height: 25vh;
@@ -27,8 +27,8 @@
   visibility: hidden;
   z-index: -1;
 }
-  
-.title-vote{
+
+.title-vote {
   font-family: "Roboto Condensed";
   font-size: 1rem;
   font-weight: bold;
@@ -44,7 +44,7 @@
   display: flex;
   justify-content: center;
 }
-  
+
 .submit-btn {
   display: flex;
   justify-content: center;
