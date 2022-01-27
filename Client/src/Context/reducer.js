@@ -23,6 +23,7 @@ const reducer = (state, action) => {
     if (action.type === "CLOSE_REPORT_WINDOW"){
         return {
             ...state, 
+            isBoxShowInputDetailsOpen: false,
             isReportWindowInputOpen: false}
     }
     if (action.type === "OPEN_MARKER_REPORT"){
@@ -30,7 +31,7 @@ const reducer = (state, action) => {
             ...state, 
             isBoxShowInputDetailsOpen: true}
     }
-    if (action.type === "OPEN_WINDOW_TO_COMPLAIN"){
+    if (action.type === "OPEN_COMPLAIN_WINDOW"){
         return{
             ...state,
             isReportIssueBoxOpen: true
@@ -40,6 +41,19 @@ const reducer = (state, action) => {
         return{
             ...state,
             isReportIssueBoxOpen: false
+        }
+    }
+    if (action.type === "OPEN_VOTE_WINDOW"){
+        return{
+            ...state,
+            isVotingBoxOpen: true
+        }
+    }
+    if (action.type === "SUBMIT_VOTE"){
+        return{
+            ...state,
+            isVotingBoxOpen: false,
+            isBoxWithDoneMsgOpen: true
         }
     }
 }

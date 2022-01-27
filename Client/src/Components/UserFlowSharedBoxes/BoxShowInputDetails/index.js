@@ -11,7 +11,7 @@ export default function BoxShowInputDetails() {
     fetchReportData,
     getReportData,
     isBoxShowInputDetailsOpen,
-    handleBoxShowInputDetailsState
+    closeReportWindow
   } = useGlobalMapContext();
 
   return (
@@ -23,7 +23,7 @@ export default function BoxShowInputDetails() {
           <button
             className="close-button"
             type="button"
-            onClick={handleBoxShowInputDetailsState}
+            onClick={closeReportWindow}
           >
              <img className="close-button-img" src={closeBtn} alt=""/>
           </button>

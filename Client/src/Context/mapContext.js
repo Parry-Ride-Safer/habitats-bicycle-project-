@@ -26,6 +26,7 @@ const MapProvider = ({ children }) => {
   
   
   const [state, dispatch] = useReducer(reducer, createReportInitialState)
+  
   const [dangerType, setDangerType] = useState();
   const [marker, setMarker] = useState();
   const [finalMarkers, setFinalMarkers] = useState([]);
@@ -78,8 +79,49 @@ const closeReportWindow = () => {
   dispatch({type: "CLOSE_REPORT_WINDOW"})
 }
 
+const findCategoryID = [issueType.find((element) => element.type === dangerType)]
+  
+const dangerFormSubmit = (event) => {
+  event.preventDefault();
+  if (reportDescriptionInput.length === 0 || voting === "") {
+    setAlertMsg(true);
+  } else {
+    Axios.post("http://localhost:4000/reports/", {
+      voting: voting,
+      lat: marker.lat,
+      lng: marker.lng,
+      title: dangerType,
+      information: reportDescriptionInput.description,
+      category_id: findCategoryID[0].nb,
+      /*image: previewSource,*/
+        })
+      .then((response) => {
+        setAlertMsg(false);
+        setFinalMarkers((finalMarkers) => [...finalMarkers, {...marker, id:response.data.id}]);
+        dispatch({type: "SUBMIT_REPORT"})
+      })
+      .catch((err) => console.log(err));
+    setVoting("");
+    setReportDescriptionInput([]);
+  }
+};
+
 const reportProcessDone = () => {
   dispatch({type: "CONCLUDE_PROCESS"})
+}
+
+const createComplain = () => {
+  dispatch({type: "OPEN_COMPLAIN_WINDOW"})
+}
+
+const submitComplain = (event) => {
+  event.preventDefault();
+  dispatch({type: "SUBMIT_COMPLAIN"})
+}
+
+const openVoteWindow = () => {
+  dispatch({type: "OPEN_VOTE_WINDOW"})
+  getVotedSpots()
 }
 
 const handleDangerDescriptionInputs = (event) => {
@@ -137,41 +179,7 @@ try {
     console.error(err);
     setErrMsg('Something went wrong!');
 }
-
 };
-
-
-const findCategoryID = [issueType.find((element) => element.type === dangerType)]
-  
-const dangerFormSubmit = (event) => {
-  event.preventDefault();
-  if (reportDescriptionInput.length === 0 || voting === "") {
-    setAlertMsg(true);
-  } else {
-    Axios.post("http://localhost:4000/reports/", {
-      voting: voting,
-      lat: marker.lat,
-      lng: marker.lng,
-      title: dangerType,
-      information: reportDescriptionInput.description,
-      category_id: findCategoryID[0].nb,
-      /*image: previewSource,*/
-        })
-      .then((response) => {
-        setAlertMsg(false);
-        setFinalMarkers((finalMarkers) => [...finalMarkers, {...marker, id:response.data.id}]);
-        dispatch({type: "SUBMIT_REPORT"})
-      })
-      .catch((err) => console.log(err));
-    setVoting("");
-    setReportDescriptionInput([]);
-  }
-};
-
-const handleEditRateBtn = () => {
-  /*setIsVotingBoxOpen(true)*/
-  getVotedSpots()
-}
 
 /*Flow to watch a single spot informations*/
 const [sendReportRequest, setSendReportRequest] = useState(false);
@@ -206,8 +214,6 @@ const getVotedSpots = async () => {
   }
 };
 
-
-
 const fetchReportData = async (fMarker) => {
   setSendReportRequest(true);
   try {
@@ -236,19 +242,6 @@ const getCurrentUser = async () => {
 }
 
 
-const handleBoxShowInputDetailsState = () => {
-/*  setIsBoxShowInputDetailsOpen(false)*/
-}
-
-const createComplain = () => {
-  dispatch({type: "OPEN_WINDOW_TO_COMPLAIN"})
-}
-
-const submitComplain = (event) => {
-  event.preventDefault();
-  dispatch({type: "SUBMIT_COMPLAIN"})
-}
-
 let user = document.cookie
 
 const handleAddVote = async (event) => {
@@ -262,7 +255,7 @@ const handleAddVote = async (event) => {
       })
       .then((response) => {
         setAlertMsg(false);
-        /*setIsBoxWithDoneMsgOpen(true)*/
+        dispatch({type: "SUBMIT_VOTE"})
         setIsSpotVoted(true)
       })
   } 
@@ -273,7 +266,7 @@ const handleAddVote = async (event) => {
     })
       .then((response) => {
         setAlertMsg(false);
-        /*setIsBoxWithDoneMsgOpen(true)*/
+        dispatch({type: "SUBMIT_VOTE"})
         console.log(response)
     })
     }
@@ -283,7 +276,6 @@ const handleAddVote = async (event) => {
     setVoting(event.target.value);
   };
 
-  
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
@@ -331,12 +323,11 @@ const handleAddVote = async (event) => {
         dangerFormSubmit,
         numberOfCharacters,
         isSpotVoted,
+        openVoteWindow,
         reportProcessDone,
         handleAddVote,
-        handleBoxShowInputDetailsState,
         handleDangerDescriptionInputs,
         handleDangerLevel,
-        handleEditRateBtn,
         submitComplain,
         handleWelcomeStatusClick,
         handleSubmitFile,
@@ -351,6 +342,7 @@ const handleAddVote = async (event) => {
         reportDescriptionInput,
         setVotedReports,
         setVoting,
+      
         voting,
         votedReports,
         email,
