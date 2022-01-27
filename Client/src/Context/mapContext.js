@@ -26,13 +26,9 @@ const MapProvider = ({ children }) => {
   const [numberOfCharacters, setNumberOfCharacters] = useState(0);
   const [alertMsg, setAlertMsg] = useState(false);
  
-  // login and profile temp tests from here :
+  // login and profile Comp from here :
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userTest, setUserTest] = useState([]);
-  const [log, setLog] = useState("");
-  const [infoTest, setinfoTest] = useState([]);
-  const [info, setinfo] = useState([]);
   const [stateLogin, setStateLogin] = useState(false);
   
   
@@ -256,14 +252,7 @@ const handleAddVote = (event) => {
         setEmail,
         password,
         setPassword,
-        userTest,
-        setUserTest,
-        log,
-        setLog,
-        infoTest,
-        setinfoTest,
-        info,
-        setinfo,
+        
         fetchReportData,
         getReportData,
         sendReportRequest,
