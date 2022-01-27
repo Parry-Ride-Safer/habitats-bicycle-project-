@@ -28,21 +28,18 @@ const MapProvider = ({ children }) => {
   const [numberOfCharacters, setNumberOfCharacters] = useState(0);
   const [alertMsg, setAlertMsg] = useState(false);
  
-<<<<<<< HEAD
-  const [welcomeStatus,setWelcomeStatus] = useState(false);
-  const handleWelcomeStatusClick =() => { 
-    setWelcomeStatus(!welcomeStatus)
-}
+  
 
   // login and profile temp tests from here :
-=======
-  // login and profile Comp from here :
->>>>>>> 216d21629950e5755ebc3a78aed1312a7796e57f
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [stateLogin, setStateLogin] = useState(false);
   
-  
+  const [welcomeStatus,setWelcomeStatus] = useState(false);
+  const handleWelcomeStatusClick =() => { 
+    setWelcomeStatus(!welcomeStatus)
+} 
+
   /*Flow to create a new Marker*/
   const [selected, setSelected] = useState(null);
   const [isBoxSelectDangerOpen, setIsBoxSelectDangerOpen] = useState(false);

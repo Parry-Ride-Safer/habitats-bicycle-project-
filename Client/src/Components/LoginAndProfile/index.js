@@ -3,12 +3,8 @@ import Axios from "axios";
 import { useGlobalMapContext } from "../../Context/mapContext";
 import "./style.css";
 import profileLogo from "./ProfileIcon.png";
-<<<<<<< HEAD
-import WelcomePage from "./WelcomeModal/welcomePage";
-=======
 // import WelcomePage from "./welcomePage";
 import { ReactComponent as AccountIcon} from "./Vector.svg";
->>>>>>> 216d21629950e5755ebc3a78aed1312a7796e57f
 
 
 const LoginAndProfile = () => {
