@@ -27,7 +27,7 @@ const MapProvider = ({ children }) => {
   const [voting, setVoting] = useState("");
   const [numberOfCharacters, setNumberOfCharacters] = useState(0);
   const [alertMsg, setAlertMsg] = useState(false);
- 
+  const [isBoxShowInputDetailsOpen, setIsBoxShowInputDetailsOpen] = useState(false);
   
 
   // login and profile temp tests from here :
@@ -152,6 +152,8 @@ const dangerFormSubmit = (event) => {
         setAlertMsg(false);
         setFinalMarkers((finalMarkers) => [...finalMarkers, {...marker, id:response.data.id}]);
         setIsBoxWithDoneMsgOpen(true)
+        setIsReportWindowInputOpen(false)
+        setIsBoxShowInputDetailsOpen(true)
       })
       .catch((err) => console.log(err));
     setVoting("");
@@ -167,7 +169,7 @@ const handleEditRateBtn = () => {
 /*Flow to watch a single spot informations*/
 const [sendReportRequest, setSendReportRequest] = useState(false);
 const [getReportData, setGetReportdata] = useState([]);
-const [isBoxShowInputDetailsOpen, setIsBoxShowInputDetailsOpen] = useState(false);
+
 const [isReportIssueBoxOpen, setIsReportIssueBoxOpen] = useState(false)
 const [isVotingBoxOpen, setIsVotingBoxOpen] = useState(false);
 const [currentUser, setCurrentUser] = useState([])

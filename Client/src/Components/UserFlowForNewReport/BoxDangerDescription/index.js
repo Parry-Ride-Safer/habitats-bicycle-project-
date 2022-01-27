@@ -66,10 +66,6 @@ export default function BoxDangerDescription() {
           ))}
         </div>
 
-
-
-
-
         <div className="image-upload-holder">
             <h1 className="title">Upload an Image</h1>
             <Alert msg={errMsg} type="danger" />
