@@ -500,6 +500,7 @@ const SignUpPop = () => {
                             <li> information :{report.information}</li>
                             <li> voting : {report.voting}</li>
                             <li> category : {report.category_id}</li>
+                            <li> voting : {report.voting}</li>
                           </ul>
                         </div>
                       ))): <p> you haven't Submitted any reports yet :D</p>}
