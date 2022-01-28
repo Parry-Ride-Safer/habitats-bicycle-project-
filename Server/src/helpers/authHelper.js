@@ -6,7 +6,7 @@ const generateToken = ({ id, role }) => {
   try {
     if (!id || !role) throw new Error("INVALID_TOKEN_PAYLOAD");
 
-    return jwt.sign({ id, role }, JWT_PRIVATE_KEY, { expiresIn: "1h" });
+    return jwt.sign({ id, role }, JWT_PRIVATE_KEY, { expiresIn: "3610000" });
   } catch (error) {
     console.log(error);
     if ("INVALID_TOKEN_PAYLOAD") res.status(401).send("Invalid Payload");
