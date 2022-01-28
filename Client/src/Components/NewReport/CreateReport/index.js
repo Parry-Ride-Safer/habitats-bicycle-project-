@@ -27,7 +27,11 @@ export default function CreateReport() {
     numberOfCharacters,
   } = useGlobalMapContext();
 
+  let user = document.cookie;
+
   return (
+    <div>
+  {user ? (
     <div
       className={`${
         isReportWindowInputOpen ? "show-danger-box" : "danger-box-overlay"
@@ -97,7 +101,7 @@ export default function CreateReport() {
                 setDangerType(issue.type);
               }}
             >
-              {issue.type}
+              {issue.icon}{issue.type}
             </button>
           ))}
         </div>
@@ -130,6 +134,8 @@ export default function CreateReport() {
           </button>
         </div>
       </form>
-    </div>
+    </div>)
+  : null}
+</div>
   );
 }
