@@ -2,42 +2,37 @@
   box-sizing: border-box;
 }
 
-
-
-.welcome-page{
+.welcome-page {
   width: 200px;
   height: 300px;
-  background-color:white;
+  background-color: white;
   border: 1px solid black;
   border-radius: 10px;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position:absolute;
+  position: absolute;
   z-index: 53;
-  top:100px;
-  left:50%
+  top: 100px;
+  left: 50%;
 }
 
-.welcome-page2{ 
+.welcome-page2 {
   width: 200px;
   height: 300px;
-  background-color:white;
+  background-color: white;
   border: 1px solid black;
   border-radius: 10px;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position:absolute;
+  position: absolute;
   z-index: 53;
-  top:100px;
-  left:50%;
-
+  top: 100px;
+  left: 50%;
 }
-
-
 
 .login-form {
   position: absolute;
@@ -51,8 +46,7 @@
   top: 10%;
 }
 
-
-.register-form{
+.register-form {
   position: absolute;
   background-color: rgb(255, 255, 255);
   width: 100%;
@@ -62,33 +56,27 @@
   z-index: 55;
 
   top: 10%;
- }
+}
 
-.edit-Form-{
-
+.edit-Form- {
   position: absolute;
   z-index: 55;
   border: 1px solid black;
   border-radius: 15px;
   background-color: white;
-  top:60%;
-  left: 35% ;
- 
+  top: 60%;
+  left: 35%;
 }
-.edit-Form-password{
+.edit-Form-password {
   position: absolute;
   z-index: 55;
   border: 1px solid black;
   border-radius: 15px;
   background-color: white;
-  top:60%;
-  left: 35% ;
-  padding:3rem
-
-
+  top: 60%;
+  left: 35%;
+  padding: 3rem;
 }
-
-
 
 .btn {
   border: 1px solid rgb(0, 0, 0);
@@ -175,7 +163,7 @@ div.open-profile {
 .tab-wrapper {
   height: 100vh;
   width: 100vw;
-  background-color: #F8F9FA;
+  background-color: #f8f9fa;
   position: relative;
   z-index: 2;
   display: flex;
@@ -198,24 +186,23 @@ div.open-profile {
   bottom: 0;
 }
 
-.bloc-tabs{
-  background-color:#F8F9FA;
-  display:flex;
+.bloc-tabs {
+  background-color: #f8f9fa;
+  display: flex;
   justify-content: space-evenly;
 }
 .tabs {
-  background-color: #F8F9FA;
+  background-color: #f8f9fa;
   font-size: 1rem;
-  border:none;
+  border: none;
 }
 .active-tabs {
-
   font-weight: bold;
   border-bottom: 3px solid black;
- font-size: 1rem;
+  font-size: 1rem;
 }
 
-.content{ 
+.content {
   border-top: 2px solid rgb(56, 56, 56);
 }
 
@@ -227,11 +214,10 @@ div.open-profile {
   display: block;
 }
 
-.your-spots-container{
+.your-spots-container {
   border: 1px solid black;
   margin-bottom: 1rem;
 }
-
 
 ul {
   list-style: none;
@@ -248,23 +234,21 @@ ul {
   height: 50px;
 } */
 
-.detailed-report-window{
+.detailed-report-window {
   position: absolute;
   z-index: 5000;
   top: 0;
   left: 0;
   width: 300px;
   height: 300px;
-  background-color:blue;
-  
+  background-color: blue;
 }
 
-.account-icon{
-  
-  position:absolute;
+.account-icon {
+  position: absolute;
   z-index: 3;
-  width:60px;
-  height:60px;
-  right:20px;
-  margin-top:2vh
+  width: 60px;
+  height: 60px;
+  right: 20px;
+  margin-top: 2vh;
 }
