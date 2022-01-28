@@ -247,7 +247,6 @@ ul {
 .account-icon {
   position: absolute;
   z-index: 3;
-<<<<<<< HEAD
   width:60px;
   height:60px;
   right:20px;
@@ -257,10 +256,3 @@ ul {
 -moz-box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.20);
 border-radius:50%;
 }
-=======
-  width: 60px;
-  height: 60px;
-  right: 20px;
-  margin-top: 2vh;
-}
->>>>>>> 93e2814c68e58ef1383fce8f31918fb2cb71fea0
