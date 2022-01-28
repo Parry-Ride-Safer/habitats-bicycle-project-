@@ -9,14 +9,14 @@ import "./createReport.css";
 
 export default function CreateReport() {
   const {
-    
     alertMsg,
     isReportWindowInputOpen,
     closeReportWindow,
     handleDangerLevel,
-    setDangerType,
+    dangerType,
     handleSubmitFile,
     handleFileInputChange,
+    handleDangerType,
     fileInputState,
     previewSource,
     successMsg,
@@ -68,9 +68,8 @@ export default function CreateReport() {
             </label>
           ))}
         </div>
-
-        <div className="image-upload-holder">
-          <h1 className="title">Upload an Image</h1>
+        <p className="sub-title">Take a picture</p>
+        <div>
           <Alert msg={errMsg} type="danger" />
           <Alert msg={successMsg} type="success" />
 
@@ -78,9 +77,9 @@ export default function CreateReport() {
             <img src={previewSource} alt="chosen" style={{ height: "15vh" }} />
           )}
 
-          <form onSubmit={handleSubmitFile} className="form">
+          <form onSubmit={handleSubmitFile}>
             <input
-              id="fileInput"
+              id="file-input"
               type="file"
               name="image"
               onChange={handleFileInputChange}
@@ -89,40 +88,34 @@ export default function CreateReport() {
             />
           </form>
         </div>
-        <p className="title"> What's the issue? </p>
-        <div>
-          {issueType.map((issue, index) => (
-            <button
-              key={index}
-              type="radio"
-              className="issueTypeBtn"
-              name="dangerType"
-              value={issue.type}
-              onClick={() => {
-                setDangerType(issue.type);
-              }}
-            >
-              {issue.type}
-            </button>
-          ))}
+        <p className="sub-title"> What's the issue? </p>
+        <div className="danger-type-display">
+          {issueType.map((issue, index) => {
+            return(
+              <label key={index} className="issueTypeBtn">
+                <input
+                  key={index}
+                  type="radio"
+                  check={dangerType === issue.type}
+                  name="dangerType"
+                  value={issue.type}
+                  onChange={handleDangerType}
+                />
+                  {issue.type}
+              </label>)
+          })}
         </div>
-        <label className="sub-titles" id="sub-titles-margin">
-          {" "}
-          Description{" "}
-        </label>
         <input
-          className="danger-description"
+          className="report-danger-description"
           type="text"
           name="description"
-          placeholder="Describe the issue in a few words"
-          maxLength="60"
+          placeholder="Add a description (optional)"
+          maxLength="200"
           value={reportDescriptionInput.description}
           onChange={handleDangerDescriptionInputs}
         />
-        <br />
         <label className="description-input-label">
-          {" "}
-          {60 - numberOfCharacters} Characters left{" "}
+          {200 - numberOfCharacters} Characters left{" "}
         </label>
         <div />
 

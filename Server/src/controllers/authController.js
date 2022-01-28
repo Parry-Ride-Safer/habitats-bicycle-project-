@@ -2,7 +2,7 @@ const { authService } = require("../services/index.js");
 const { usersModels } = require("../models");
 const { userValidator } = require("../validators/index.js");
 
-const cookiesOptions = { httpOnly: true, sameSite: "lax" };
+const cookiesOptions = { httpOnly: true, maxAge: "3600000", sameSite: "lax" };
 
 const register = async (req, res) => {
   const { email } = req.body;
@@ -14,7 +14,7 @@ const register = async (req, res) => {
     if (existingUserWithEmail) throw new Error("DUPLICATE_EMAIL");
     validationErrors = userValidator.validate(req.body);
     if (validationErrors) throw new Error("INVALID_DATA");
-    const { token, ...user } = await authService.register(req.body);
+    const { token } = await authService.register(req.body);
 
     res
       .cookie("login", token, cookiesOptions)

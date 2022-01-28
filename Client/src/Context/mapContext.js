@@ -276,6 +276,10 @@ const MapProvider = ({ children }) => {
     setVoting(event.target.value);
   };
 
+  const handleDangerType = (event) => {
+    setDangerType(event.target.value)
+  }
+
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
@@ -353,6 +357,7 @@ const MapProvider = ({ children }) => {
         sendReportRequest,
         stateLogin,
         setStateLogin,
+        handleDangerType
       }}
     >
       {children}
