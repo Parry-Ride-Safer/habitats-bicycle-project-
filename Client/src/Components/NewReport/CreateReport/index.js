@@ -9,7 +9,6 @@ import "./createReport.css";
 
 export default function CreateReport() {
   const {
-    user,
     alertMsg,
     isReportWindowInputOpen,
     closeReportWindow,
@@ -27,6 +26,8 @@ export default function CreateReport() {
     handleDangerDescriptionInputs,
     numberOfCharacters,
   } = useGlobalMapContext();
+
+  let user = document.cookie;
 
   return (
     <div>
@@ -100,7 +101,7 @@ export default function CreateReport() {
                 setDangerType(issue.type);
               }}
             >
-              {issue.type}
+              {issue.icon}{issue.type}
             </button>
           ))}
         </div>
