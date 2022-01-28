@@ -9,7 +9,7 @@ import "./createReport.css";
 
 export default function CreateReport() {
   const {
-    user,
+    
     alertMsg,
     isReportWindowInputOpen,
     closeReportWindow,
@@ -28,6 +28,8 @@ export default function CreateReport() {
     numberOfCharacters,
   } = useGlobalMapContext();
 
+
+  let user = document.cookie
   return (
     <div>
   {user ? (

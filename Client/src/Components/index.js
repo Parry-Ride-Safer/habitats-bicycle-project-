@@ -8,3 +8,4 @@ export { default as ModalShowReportDetails } from "./OpenExistingReport/VoteModa
 export { default as CreateComplain } from "./OpenExistingReport/CreateComplain";
 export { default as SearchBox } from "./MapDisplay/SearchBox";
 export { default as VotingBox } from "./SharedReportComponens/VoteWindow";
+export { default as LoginAndProfile} from "./LoginAndProfile/index";

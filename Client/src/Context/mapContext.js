@@ -187,7 +187,7 @@ const MapProvider = ({ children }) => {
 
   const getVotedSpots = async () => {
     try {
-      /*   user = JSON.parse(localStorage.getItem("user-info")); */
+     
 
       if (user) {
         if (user) {

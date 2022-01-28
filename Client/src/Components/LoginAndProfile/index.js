@@ -5,6 +5,7 @@ import "./style.css";
 import profileLogo from "./ProfileIcon.png";
 // import WelcomePage from "./welcomePage";
 import { ReactComponent as AccountIcon } from "./Vector.svg";
+import { ReactComponent as DangerIcon } from "../../icons/modalBoxIcons/Group 550.svg"
 
 const LoginAndProfile = () => {
   const { email, setEmail, password, setPassword, stateLogin, setStateLogin } =
@@ -300,8 +301,16 @@ const LoginAndProfile = () => {
     );
   };
 
+
+  const handleDangerIcons = (props)=> { 
+      let vote = Number(props.voting).toFixed(2)
+    
+    
+    
+  }
+
   return (
-    <div>
+    <div className="teste2">
       {!user ? (
         <>
         
@@ -437,14 +446,16 @@ const LoginAndProfile = () => {
                             className="your-spots-container"
                             onClick={() => reportDetailsWindow(report.id)}
                           >
+                            
                             <ul key={report.id}>
                               <li>
                                 <span className="img-div">img </span>
                               </li>
                               <li> information :{report.information}</li>
-                              <li> voting : {report.voting}</li>
+                              <li> voting : {Number(report.voting).toFixed(2)}{<DangerIcon />}</li>
                               <li> category : {report.category_id}</li>
                               <li> created : {report.createdAt}</li>
+                              <li>{handleDangerIcons(report)}</li>
                             </ul>
                           </div>
                         ))
@@ -452,7 +463,7 @@ const LoginAndProfile = () => {
                         <p> you haven't Submitted any reports yet :D</p>
                       )}
                     </div>
-                    {showDetailedReport ? (
+                    {/* {showDetailedReport ? (
                       <div className="detailed-report-window">
                         {" "}
                         <h1>
@@ -463,7 +474,7 @@ const LoginAndProfile = () => {
                             : null}
                         </h1>
                       </div>
-                    ) : null}
+                    ) : null} */}
                   </div>
 
                   <div
@@ -484,7 +495,7 @@ const LoginAndProfile = () => {
                                 <span className="img-div">img </span>
                               </li>
                               <li> information :{spot.information}</li>
-                              <li> voting : {spot.voting}</li>
+                              <li> voting : {Number(spot.voting).toFixed(2)}</li>
                               <li> category : {spot.name}</li>
                               <li> Created at : {spot.createdAt}</li>
                             </ul>

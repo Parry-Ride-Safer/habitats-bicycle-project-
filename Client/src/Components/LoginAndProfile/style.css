@@ -190,6 +190,9 @@ div.open-profile {
   background-color: #f8f9fa;
   display: flex;
   justify-content: space-evenly;
+  position: sticky;
+  top:0;
+  border-bottom: 2px solid rgb(56, 56, 56);
 }
 .tabs {
   background-color: #f8f9fa;
@@ -202,9 +205,9 @@ div.open-profile {
   font-size: 1rem;
 }
 
-.content {
+/* .content {
   border-top: 2px solid rgb(56, 56, 56);
-}
+} */
 
 .img-div {
   background-color: rgb(73, 72, 72);
@@ -223,16 +226,7 @@ ul {
   list-style: none;
 }
 
-/* .login-btn {
-  position: absolute;
-  z-index: 50;
-  top: 0;
-  right: 0;
-}
-.img-login-btn {
-  width: 50px;
-  height: 50px;
-} */
+
 
 .detailed-report-window {
   position: absolute;
@@ -256,3 +250,4 @@ ul {
 -moz-box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.20);
 border-radius:50%;
 }
+
