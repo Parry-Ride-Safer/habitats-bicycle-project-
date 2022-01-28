@@ -20,8 +20,8 @@ const getUsers = async () => {
 const createUser = async ({ password, ...body }) => {
   const hashedPassword = await hashPassword(password, saltedRounds);
   const [rawResults] = await db.query(
-    "INSERT INTO user (email, hashedPassword)  VALUES (?, ?)",
-    [body.email, hashedPassword]
+    "INSERT INTO user (email, hashedPassword, role)  VALUES (?, ?, ?)",
+    [body.email, hashedPassword, body.role]
   );
   const id = rawResults.insertId;
   return { id, ...body };
