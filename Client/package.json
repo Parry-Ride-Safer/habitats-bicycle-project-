@@ -47,5 +47,6 @@
   "devDependencies": {
     "dotenv": "10.0.0",
     "prettier": "2.5.1"
-  }
+  },
+  "proxy": "http://localhost:4000"
 }

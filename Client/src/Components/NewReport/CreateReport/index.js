@@ -3,7 +3,7 @@ import { useGlobalMapContext } from "../../../Context/mapContext";
 import dangerLevel from "../../../Data/dangerLevelToVote";
 import issueType from "../../../Data/dangerTypeSelection";
 import closeBtn from "../../../icons/modalBoxIcons/close-window-icon.png";
-import Alert from "../../ImageUploadForm/alert.js";
+// import Alert from "../../ImageUploadForm/alert.js";
 
 import "./createReport.css";
 
@@ -14,12 +14,19 @@ export default function CreateReport() {
     closeReportWindow,
     handleDangerLevel,
     setDangerType,
-    handleSubmitFile,
-    handleFileInputChange,
-    fileInputState,
-    previewSource,
-    successMsg,
-    errMsg,
+
+    handleOnChange,
+    handleOnSubmit,
+    imageSrc,
+    uploadData,
+
+    // handleSubmitFile,
+    // handleFileInputChange,
+    // fileInputState,
+    // previewSource,
+    // successMsg,
+    // errMsg,
+
     voting,
     dangerFormSubmit,
     reportDescriptionInput,
@@ -69,7 +76,40 @@ export default function CreateReport() {
         </div>
 
         <div className="image-upload-holder">
-          <h1 className="title">Upload an Image</h1>
+
+
+      <main className="main">
+        <h1 className="title-upload">
+          Image Uploader
+        </h1>
+
+        <p className="subtitle">
+          Upload your image to Cloudinary!
+        </p>
+
+        <form className="upload-form" method="post" onChange={handleOnChange} onSubmit={handleOnSubmit}>
+          <p>
+            <input type="file" name="file" />
+          </p>
+          
+          <img src={imageSrc} width="300" />
+          
+          {imageSrc && !uploadData && (
+            <p>
+              <button>Upload File</button>
+            </p>
+          )}
+
+          {uploadData && (
+            <code><pre>{JSON.stringify(uploadData, null, 2)}</pre></code>
+          )}
+        </form>
+      </main>
+
+
+    
+
+          {/* <h1 className="title">Upload an Image</h1>
           <Alert msg={errMsg} type="danger" />
           <Alert msg={successMsg} type="success" />
 
@@ -86,7 +126,9 @@ export default function CreateReport() {
               value={fileInputState}
               className="upload-form-input"
             />
-          </form>
+          </form> */}
+
+          
         </div>
         <p className="title"> What's the issue? </p>
         <div>
