@@ -9,6 +9,7 @@ import "./createReport.css";
 
 export default function CreateReport() {
   const {
+    user,
     alertMsg,
     isReportWindowInputOpen,
     closeReportWindow,
@@ -28,6 +29,8 @@ export default function CreateReport() {
   } = useGlobalMapContext();
 
   return (
+    <div>
+  {user ? (
     <div
       className={`${
         isReportWindowInputOpen ? "show-danger-box" : "danger-box-overlay"
@@ -130,6 +133,8 @@ export default function CreateReport() {
           </button>
         </div>
       </form>
-    </div>
+    </div>)
+  : null}
+</div>
   );
 }
