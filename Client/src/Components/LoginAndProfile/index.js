@@ -368,7 +368,7 @@ const SignUpPop = () => {
      
       {!user ? (
         <>
-        {/* <AccountIcon className='account-icon' onClick={handleLoginStatus} /> */}
+        
         {!showWelcomePage ? (<AccountIcon className='account-icon' onClick={handleLoginStatus} />) : null}
         <WelcomePage />
         {welcomeStatus ? !stateLogin ? <SignUpPop /> : null : null}
