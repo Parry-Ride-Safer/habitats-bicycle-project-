@@ -6,6 +6,9 @@ import profileLogo from "./ProfileIcon.png";
 // import WelcomePage from "./welcomePage";
 import { ReactComponent as AccountIcon } from "./Vector.svg";
 import { ReactComponent as DangerIcon } from "../../icons/modalBoxIcons/Group 550.svg"
+import { ReactComponent as WelcomeIcon } from "../../icons/modalBoxIcons/welcome.svg"
+import { ReactComponent as SignIcon } from "../../icons/modalBoxIcons/signup.svg"
+
 
 const LoginAndProfile = () => {
   const { email, setEmail, password, setPassword, stateLogin, setStateLogin } =
@@ -48,6 +51,7 @@ const LoginAndProfile = () => {
 
   const handleWelcomeStatusClick = () => {
     setWelcomeStatus(!welcomeStatus);
+    setShowWelcomePage(false);
   };
 
   let user = document.cookie;
@@ -268,11 +272,12 @@ const LoginAndProfile = () => {
   const WelcomePage = () => {
     return showWelcomePage ? (
       <div>
-        <div className="welcome-page2">
-          <h2>
+        <div className="welcome-page-start">
+          <WelcomeIcon className='welcome-hand' />
+          <h3>
             Welcome rider. <br /> Let's make the streets safer together.
-          </h2>
-          <button onClick={handleWelcomeStatusClick} className="btn">
+          </h3>
+          <button onClick={handleWelcomeStatusClick} className="btn-start">
             Start
           </button>
         </div>
@@ -289,13 +294,14 @@ const LoginAndProfile = () => {
   const SignUpPop = () => {
     return (
       <div>
-        <div className="welcome-page">
-          <h2>sign up to be able to report or vote on a road issue.</h2>
-          <button className="btn" onClick={handleShowRegisterForm}>
+        <div className="welcome-page-sign">
+          <SignIcon className='welcome-hand' />
+          <h3>sign up to be able to report or vote on a road issue.</h3>
+          <button className="btn-start" onClick={handleShowRegisterForm}>
             sign up
           </button>
-          <button onClick={handleShowForm}>log in</button>
-          <button onClick={handleSkipForNow}>skip for now</button>
+          <button onClick={handleShowForm} className='button-login'>login</button>
+          <button onClick={handleSkipForNow} className='clear-button-register'></button>
         </div>
       </div>
     );
@@ -317,13 +323,15 @@ const LoginAndProfile = () => {
         {!showWelcomePage ? (<AccountIcon className='account-icon' onClick={handleLoginStatus} />) : null}
         <WelcomePage />
         {welcomeStatus ? !stateLogin ? <SignUpPop /> : null : null}
-        {showForm && !stateLogin  ? (<div className="login-form">
+        {showForm && !stateLogin  ? (<div className="register-form">
                 
-                <form>
+                <form className='sign-up-form'>
                 <h2>Email Sign-in</h2>
                 <div>
-                  <label htmlFor="username">email</label>
+                  <label htmlFor="username">Email Address</label>
+                  <br/>
                   <input
+                    className='sign-up-input'
                     type="email"
                     name="username"
                     placeholder="email@example.com"
@@ -332,22 +340,24 @@ const LoginAndProfile = () => {
                 </div>
                 <div className="form-group">
                   <label htmlFor="password">Password</label>
+                  <br/>
                   <input
+                    className='sign-up-input'
                     type="password"
                     name="password"
                     placeholder="password"
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <button onClick={login} type="button" className="btn">
-                  Login
+                <button onClick={login} type="button" className="btn-register">
+                  Confirm
                 </button>
                 <button
                   onClick={handleSkipForNow}
                   type="button"
-                  className="btn"
+                  className="clear-button-register"
                 >
-                  close
+                 
                 </button>
               </form>
             </div>
@@ -355,11 +365,14 @@ const LoginAndProfile = () => {
           {/* ------- from here is show register only form---------------------------- */}
           {showRegisterForm && !stateLogin ? (
             <div className="register-form">
-              <form>
+              <form className='sign-up-form'>
                 <h2>Email Sign-up</h2>
+                
                 <div>
                   <label htmlFor="username">Email Address</label>
+                  <br/>
                   <input
+                  className='sign-up-input'
                     type="email"
                     name="username"
                     placeholder="email@example.com"
@@ -368,23 +381,25 @@ const LoginAndProfile = () => {
                 </div>
                 <div className="form-group">
                   <label htmlFor="password">Password</label>
+                  <br/>
                   <input
+                  className='sign-up-input'
                     type="password"
                     name="password"
                     placeholder="password"
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <button onClick={register} type="button" className="btn">
-                  Register
+                <button onClick={register} type="button" className="btn-register">
+                  Confirm
                 </button>
 
                 <button
                   onClick={handleSkipForNow}
                   type="button"
-                  className="btn"
+                  className="clear-button-register"
                 >
-                  close
+                  
                 </button>
               </form>
             </div>
@@ -455,7 +470,7 @@ const LoginAndProfile = () => {
                               <li> voting : {Number(report.voting).toFixed(2)}{<DangerIcon />}</li>
                               <li> category : {report.category_id}</li>
                               <li> created : {report.createdAt}</li>
-                              <li>{handleDangerIcons(report)}</li>
+                              
                             </ul>
                           </div>
                         ))
@@ -568,9 +583,9 @@ const LoginAndProfile = () => {
                 <button
                   onClick={handleshowEditPassword}
                   type="button"
-                  className="btn"
+                  className="clear-button"
                 >
-                  Close
+                  
                 </button>
               </form>
             </div>
@@ -595,9 +610,9 @@ const LoginAndProfile = () => {
                 <button
                   onClick={handleshowEditEmail}
                   type="button"
-                  className="btn"
+                  className="clear-button"
                 >
-                  Close
+                 
                 </button>
               </form>
             </div>
