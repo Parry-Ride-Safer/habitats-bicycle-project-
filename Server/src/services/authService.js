@@ -1,3 +1,4 @@
+const { RecordNotFoundError } = require("../error-types");
 const { authHelper } = require("../helpers");
 const { usersModels } = require("../models");
 const { authValidator } = require("../validators");
@@ -8,7 +9,7 @@ const login = async (credentials) => {
       credentials
     );
     console.log(user);
-    if (!user) throw new Error("NO_RECORD_FOUND");
+    if (!user) throw new RecordNotFoundError();
     const token = authHelper.generateToken(user);
 
     delete user.hashedPassword;
@@ -16,8 +17,7 @@ const login = async (credentials) => {
     return { ...user, action: "login", token };
   } catch (error) {
     console.log(error);
-    if ("NO_RECORD_FOUND") res.status(404).send("User not found.");
-    else res.status(500).send("Error finding user");
+    throw error;
   }
 };
 

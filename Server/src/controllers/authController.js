@@ -1,19 +1,21 @@
 const { authService } = require("../services/index.js");
 const { usersModels } = require("../models");
 const { userValidator } = require("../validators/index.js");
+const { AlreadyExistsError, InvalidDataError } = require("../error-types");
 
 const cookiesOptions = { httpOnly: true, maxAge: "3600000", sameSite: "lax" };
 
-const register = async (req, res) => {
+const register = async (req, res, next) => {
   const { email } = req.body;
   let validationErrors = null;
 
   try {
     const existingUserWithEmail = await usersModels.findByEmail(email);
 
-    if (existingUserWithEmail) throw new Error("DUPLICATE_EMAIL");
+    if (existingUserWithEmail)
+      throw new AlreadyExistsError("Email Already Exists");
     validationErrors = userValidator.validate(req.body);
-    if (validationErrors) throw new Error("INVALID_DATA");
+    if (validationErrors) throw new InvalidDataError("Invalid input");
     const { token } = await authService.register(req.body);
 
     res
@@ -22,16 +24,11 @@ const register = async (req, res) => {
       .json({ message: "Welcome to the rider family!" });
   } catch (error) {
     console.error(error);
-    const treatedError = error.toString().slice(7);
-    if (treatedError === "DUPLICATE_EMAIL")
-      res.status(409).json({ message: "This email is already used" });
-    else if (treatedError === "INVALID_DATA")
-      res.status(422).json({ validationErrors });
-    else res.status(500).send("Error saving the user");
+    next(error);
   }
 };
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   try {
     const { token, ...user } = await authService.login(req.body);
     res
@@ -40,10 +37,11 @@ const login = async (req, res) => {
       .json({ message: "Welcome Back Rider" });
   } catch (error) {
     console.log(error);
+    next(error);
   }
 };
 
-const logout = async (_req, res) => {
+const logout = async (_req, res, next) => {
   try {
     res
       .clearCookie("login")
@@ -51,6 +49,7 @@ const logout = async (_req, res) => {
       .json({ message: "logout" });
   } catch (error) {
     console.log(error);
+    next(error);
   }
 };
 
