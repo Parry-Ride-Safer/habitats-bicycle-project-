@@ -82,7 +82,8 @@ export default function SearchBox() {
             </ComboboxList>
           </ComboboxPopover>
         </Combobox>
-        <span className="clear-search" onClick={() => setValue("")}></span>
+        <span className="clear-search" onClick={handleSearchState}></span>
+        {/* <span className="clear-search" onClick={() => setValue("")}></span> ////////OPTION TO CLEAR CONTENT ON "x"//////// */}
       </div>
     </>
   );
