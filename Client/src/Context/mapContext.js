@@ -104,6 +104,7 @@ const MapProvider = ({ children }) => {
           dispatch({ type: "SUBMIT_REPORT" });
           setVoting("");
           setReportDescriptionInput([]);
+          setImage("")
         })
         .catch((err) => console.log(err));
     }
@@ -254,6 +255,7 @@ const uploadImage = async e => {
       const reportData = await Axios(
         `http://localhost:4000/reports/${fMarker.id}`
       );
+      
       setGetReportdata(reportData.data[0]);
       getCurrentUser();
       console.log(getReportData);

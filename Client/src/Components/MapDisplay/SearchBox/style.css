@@ -28,7 +28,7 @@
 }
 
 .new-search-bar.active {
-  width: 360px;
+  width: 65vw;
   z-index: 1;
 }
 
@@ -129,4 +129,23 @@
 
 .comboboxpop {
   padding-top: 5px;
+}
+
+
+
+@media only screen and (min-width: 700px) {
+  .new-search-bar.active {
+    width: 40vw;
+    z-index: 1;
+  }
+  .search-map-location {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+  
+    position: absolute;
+    margin-right: 20vw;
+    margin-top: 2vh;
+  }
 }

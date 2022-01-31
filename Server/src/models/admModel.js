@@ -7,4 +7,18 @@ const getUsers = async () => {
   return users[0];
 };
 
-module.exports = { getUsers };
+const getAllHiddenLocations = async () => {
+  const [locations] = await db.query(
+    "SELECT address.id, lat, lng, avg(voting) from address join report on report.address_id= address.id join voting on voting.report_id = report.id WHERE is_hidden = true group by address.id, lat, lng order by address.id asc "
+  );
+  return locations[0];
+};
+
+const deleteReport = async (id) => {
+  let [results] = await db.query("DELETE FROM report WHERE report.id = ?", [
+    id,
+  ]);
+  return results;
+};
+
+module.exports = { getUsers, getAllHiddenLocations, deleteReport };

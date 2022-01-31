@@ -1,5 +1,6 @@
 const Joi = require("joi");
 const { userHelper } = require("../helpers");
+const { UnauthorizedError } = require("../error-types");
 
 const validate = (data, forCreation = true) => {
   const presence = forCreation ? "required" : "optional";
