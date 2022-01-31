@@ -3,7 +3,6 @@ import { useGlobalMapContext } from "../../../Context/mapContext";
 import { ModalShowReportDetails, ModalShowUserInputDetails } from "../../index";
 import "./boxShowInputDetails.css";
 import closeBtn from "../../../icons/modalBoxIcons/close-window-icon.png";
-import example from "./image 28.png";
 
 export default function BoxShowInputDetails() {
   const {

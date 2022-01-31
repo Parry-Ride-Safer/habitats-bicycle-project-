@@ -68,7 +68,10 @@ const LoginAndProfile = () => {
   const login = async () => {
     let item = { email, password };
     try {
-      let result = await Axios.post("http://localhost:4000/auth/login", item);
+      let result = await Axios.post(
+        `${process.env.REACT_APP_API_ROUTE_URL}/auth/login`,
+        item
+      );
       localStorage.setItem("user-info", JSON.stringify(result.data));
       console.log(result, "total result do login");
 
@@ -89,7 +92,7 @@ const LoginAndProfile = () => {
         console.log("please enter something( email or password is missing) ");
       } else {
         let result = await Axios.post(
-          "http://localhost:4000/auth/register",
+          `${process.env.REACT_APP_API_ROUTE_URL}/auth/register`,
           item
         );
         localStorage.setItem("user-info", JSON.stringify(result.data));
@@ -111,7 +114,10 @@ const LoginAndProfile = () => {
       if (password === confirmPassword) {
         item = { password };
       }
-      await Axios.put(`http://localhost:4000/users/current`, item);
+      await Axios.put(
+        `${process.env.REACT_APP_API_ROUTE_URL}/users/current`,
+        item
+      );
 
       setPassword("");
       setEmail("");
@@ -129,7 +135,10 @@ const LoginAndProfile = () => {
   const editEmail = async () => {
     let item = { email };
     try {
-      await Axios.put(`http://localhost:4000/users/current`, item);
+      await Axios.put(
+        `${process.env.REACT_APP_API_ROUTE_URL}/users/current`,
+        item
+      );
 
       setEmail("");
       handleshowEditEmail();
@@ -170,12 +179,12 @@ const LoginAndProfile = () => {
   const getSubmitedReports = async () => {
     try {
       if (user) {
-        await Axios.get(`http://localhost:4000/users/reports/`).then(
-          (response) => {
-            console.log(response.data, "submited Reports array");
-            return setSubmitedReports(response.data);
-          }
-        );
+        await Axios.get(
+          `${process.env.REACT_APP_API_ROUTE_URL}/users/reports/`
+        ).then((response) => {
+          console.log(response.data, "submited Reports array");
+          return setSubmitedReports(response.data);
+        });
       } else {
         console.log("not logged in");
       }
@@ -191,13 +200,13 @@ const LoginAndProfile = () => {
         if (user) {
           await setLoginId(user.id);
         }
-        await Axios.get(`http://localhost:4000/users/rated`).then(
-          (response) => {
-            console.log(response.data);
+        await Axios.get(
+          `${process.env.REACT_APP_API_ROUTE_URL}/users/rated`
+        ).then((response) => {
+          console.log(response.data);
 
-            return setVotedReports(response.data);
-          }
-        );
+          return setVotedReports(response.data);
+        });
       } else {
         console.log("there is not user yet ");
       }
@@ -209,12 +218,12 @@ const LoginAndProfile = () => {
 
   const getCurrentUser = async () => {
     try {
-      await Axios.get(`http://localhost:4000/users/current`).then(
-        (response) => {
-          console.log(response.data);
-          setCurrentUser(response.data.email);
-        }
-      );
+      await Axios.get(
+        `${process.env.REACT_APP_API_ROUTE_URL}/users/current`
+      ).then((response) => {
+        console.log(response.data);
+        setCurrentUser(response.data.email);
+      });
     } catch (err) {
       console.log(err);
     }
@@ -222,7 +231,7 @@ const LoginAndProfile = () => {
 
   const logout = async (e) => {
     try {
-      await Axios.get(`http://localhost:4000/auth/logout/`);
+      await Axios.get(`${process.env.REACT_APP_API_ROUTE_URL}/auth/logout/`);
       localStorage.clear();
       handleClick();
       setLoginId(null);
