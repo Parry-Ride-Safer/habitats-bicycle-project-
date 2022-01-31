@@ -103,7 +103,6 @@
   background-color: rgb(3, 3, 3);
   color: white;
   border-radius: 15px;
-  /* margin-left:40%; */
   margin-top:1rem;
   padding:0.3rem;
   padding-left:1rem;
@@ -180,7 +179,7 @@
 
 
 
-.edit-Form- {
+.edit-Form {
   position: absolute;
   z-index: 55;
   border: 1px solid black;
@@ -189,15 +188,31 @@
   top: 60%;
   left: 35%;
 }
+
 .edit-Form-password {
-  position: absolute;
+  /* position: absolute;
   z-index: 55;
   border: 1px solid black;
   border-radius: 15px;
   background-color: white;
-  top: 60%;
-  left: 35%;
-  padding: 3rem;
+  top: 24%;
+  width:100vw */
+  position: absolute;
+  visibility: visible;
+  z-index: 50;
+  background: rgb(255, 255, 255);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  width: 100vw;
+  height: 75vh;
+  max-width: var(--fixed-width);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  
+  
+
+
 }
 
 .btn {
@@ -406,6 +421,49 @@ border-radius:50%;
 /* -------  account settings page style ----------- */ 
 
 
+.settings-container{
+  display:flex;
+  flex-direction: column;
+  padding-top: 10%;
+  
+}
+
+.div-h3-password{
+  width: 70%;
+ 
+  
+  position: relative;
+  font-size: 12px;
+  display:flex;
+  justify-content: space-between;
+
+}
+
+.div-h3-password span { 
+  font-weight: bold;
+  background-color:white;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 2%;
+  }
+
+  .btn-logout{
+    border: 1px solid rgb(0, 0, 0);
+    background-color: rgb(3, 3, 3);
+    color: white;
+    border-radius: 15px;
+    margin-top:2rem;
+    padding:0.3rem;
+    padding-left:1rem;
+    padding-right:1rem;
+    width:100px;
+    margin-left:calc(50% - 50px)
+    
+}
+
+
  .div-h3{ 
   width: 70%;
  
@@ -413,7 +471,7 @@ border-radius:50%;
   position: relative;
   font-size: 12px;
   display:flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
  .div-h3 span { 
 font-weight: bold;
@@ -490,3 +548,75 @@ justify-content:center;
 
 }
 
+.clear-button-edit {
+  position: absolute;
+  top: 5%;
+  transform: translateY(-50%);
+  width: 15px;
+  height: 15px;
+  left: 3%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border:none;
+}
+
+.clear-button-edit::before {
+  position: absolute;
+  content: "";
+  width: 2px;
+  height: 15px;
+  background: black;
+  transform: rotate(45deg);
+}
+
+.clear-button-edit::after {
+  position: absolute;
+  content: "";
+  width: 2px;
+  height: 15px;
+  background: black;
+  transform: rotate(-45deg);
+}
+
+ .form-group-edit{
+  background:white;
+  display:flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 80vw;
+  padding-top: 15%;
+  align-items: center;
+} 
+
+.form-group-edit input{
+  
+  border-radius: 15px;
+  border: 1px solid rgb(130, 130, 131);
+  padding:0.4rem;
+  width:70vw
+
+} 
+
+.btn-save{
+  border: 1px solid rgb(0, 0, 0);
+  background-color: rgb(3, 3, 3);
+  color: white;
+  border-radius: 15px;
+  margin-top:1rem;
+  padding:0.3rem;
+  padding-left:1.5rem;
+  padding-right:1.5rem;
+
+}
+
+.previous-arrow{
+  width: 20px;
+  height: 20px;
+  left:3%;
+  position: absolute;
+  top: 5%;
+  cursor: pointer;
+
+}
