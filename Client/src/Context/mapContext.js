@@ -29,7 +29,9 @@ const MapProvider = ({ children }) => {
   const [finalMarkers, setFinalMarkers] = useState([]);
   useEffect(() => {
     const fetchMarkers = async () => {
-      const result = await Axios(process.env.REACT_APP_API_ROUTE_URL);
+      const result = await Axios(
+        `${process.env.REACT_APP_API_ROUTE_URL}/location`
+      );
       setFinalMarkers(result.data);
     };
     fetchMarkers();
@@ -55,7 +57,7 @@ const MapProvider = ({ children }) => {
   /*image Upload*/
 
   const [loading, setLoading] = useState(false);
-  const [image, setImage] = useState ("");
+  const [image, setImage] = useState("");
 
   // const [fileInputState, setFileInputState] = useState("");
   // const [previewSource, setPreviewSource] = useState("");
@@ -86,7 +88,7 @@ const MapProvider = ({ children }) => {
       setAlertMsg(true);
     } else {
       // console.log(previewSource)
-      Axios.post("http://localhost:4000/reports/", {
+      Axios.post(`${process.env.REACT_APP_API_ROUTE_URL}/reports/`, {
         voting: voting,
         lat: marker.lat,
         lng: marker.lng,
@@ -102,9 +104,13 @@ const MapProvider = ({ children }) => {
             { ...marker, id: response.data.id },
           ]);
           dispatch({ type: "SUBMIT_REPORT" });
+<<<<<<< HEAD
           setVoting("");
           setReportDescriptionInput([]);
           setImage("")
+=======
+          setImage("");
+>>>>>>> 250904b719a8f7c8656604ca178f898116eb5317
         })
         .catch((err) => console.log(err));
     }
@@ -135,35 +141,30 @@ const MapProvider = ({ children }) => {
     setNumberOfCharacters(event.target.value.length);
   };
 
+  /*Image Upload Element  [parte do LINK CLOUDINARY  a mudar - dc1bhahph]*/
 
+  const uploadImage = async (e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "habitat_bike_upload");
+    setLoading(true);
 
- /*Image Upload Element  [parte do LINK CLOUDINARY  a mudar - dc1bhahph]*/
+    const res = await fetch(
+      "http://api.cloudinary.com/v1_1/dc1bhahph/image/upload",
+      {
+        method: "POST",
+        body: data,
+      }
+    );
 
-const uploadImage = async e => {
-  const files = e.target.files
-  const data = new FormData()
-  data.append("file", files [0])
-  data.append("upload_preset", "habitat_bike_upload")
-  setLoading(true)
+    const file = await res.json();
 
-  const res = await fetch("http://api.cloudinary.com/v1_1/dc1bhahph/image/upload", {
-    method: "POST",
-    body:data
+    console.log(file);
 
-
-
-  })
-
-  const file = await res.json()
-
-  console.log(file)
-
-  setImage(file.secure_url)
-  setLoading(false)
-
-}
-
-
+    setImage(file.secure_url);
+    setLoading(false);
+  };
 
   // const handleFileInputChange = (e) => {
   //   const file = e.target.files[0];
@@ -212,10 +213,6 @@ const uploadImage = async e => {
   //   }
   // };
 
-
-
-
-
   /*Flow to watch a single spot informations*/
   const [sendReportRequest, setSendReportRequest] = useState(false);
   const [getReportData, setGetReportdata] = useState([]);
@@ -227,19 +224,17 @@ const uploadImage = async e => {
   console.log(getReportData)
   const getVotedSpots = async () => {
     try {
-     
-
       if (user) {
         if (user) {
           await setLoginId(user.id);
         }
-        await Axios.get(`http://localhost:4000/users/rated`).then(
-          (response) => {
-            console.log(response.data);
+        await Axios.get(
+          `${process.env.REACT_APP_API_ROUTE_URL}/users/rated`
+        ).then((response) => {
+          console.log(response.data);
 
-            return setVotedReports(response.data);
-          }
-        );
+          return setVotedReports(response.data);
+        });
       } else {
         console.log("there is not user yet ");
       }
@@ -253,7 +248,7 @@ const uploadImage = async e => {
     setSendReportRequest(true);
     try {
       const reportData = await Axios(
-        `http://localhost:4000/reports/${fMarker.id}`
+        `${process.env.REACT_APP_API_ROUTE_URL}/reports/${fMarker.id}`
       );
       
       setGetReportdata(reportData.data[0]);
@@ -268,11 +263,11 @@ const uploadImage = async e => {
 
   const getCurrentUser = async () => {
     try {
-      await Axios.get("http://localhost:4000/users/current").then(
-        (response) => {
-          setCurrentUser(response.data.id);
-        }
-      );
+      await Axios.get(
+        `${process.env.REACT_APP_API_ROUTE_URL}/users/current`
+      ).then((response) => {
+        setCurrentUser(response.data.id);
+      });
     } catch (err) {
       console.log(err);
     }
@@ -288,7 +283,7 @@ const uploadImage = async e => {
       (currentUser !== getReportData.user && findReportID)
     ) {
       await Axios.put(
-        `http://localhost:4000/reports/${getReportData.id}/vote`,
+        `${process.env.REACT_APP_API_ROUTE_URL}/reports/${getReportData.id}/vote`,
         {
           voting: voting,
           report_id: getReportData.id,
@@ -300,7 +295,7 @@ const uploadImage = async e => {
       });
     } else {
       await Axios.post(
-        `http://localhost:4000/reports/${getReportData.id}/vote`,
+        `${process.env.REACT_APP_API_ROUTE_URL}/reports/${getReportData.id}/vote`,
         {
           voting: voting,
           report_id: getReportData.id,
@@ -317,8 +312,8 @@ const uploadImage = async e => {
   };
 
   const handleDangerType = (event) => {
-    setDangerType(event.target.value)
-  }
+    setDangerType(event.target.value);
+  };
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -375,7 +370,6 @@ const uploadImage = async e => {
         submitComplain,
         handleWelcomeStatusClick,
 
-
         uploadImage,
         loading,
         image,
@@ -387,8 +381,11 @@ const uploadImage = async e => {
         // successMsg,
         // errMsg,
 
+<<<<<<< HEAD
 
         findReportID,
+=======
+>>>>>>> 250904b719a8f7c8656604ca178f898116eb5317
         createComplain,
         options,
         reportDescriptionInput,
@@ -405,7 +402,7 @@ const uploadImage = async e => {
         sendReportRequest,
         stateLogin,
         setStateLogin,
-        handleDangerType
+        handleDangerType,
       }}
     >
       {children}
