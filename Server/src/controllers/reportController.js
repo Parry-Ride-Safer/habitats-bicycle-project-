@@ -1,4 +1,5 @@
 const { reportsModels } = require("../models");
+const { InvalidDataError, RecordNotFoundError } = require("../error-types");
 
 const getAllReportsController = async (req, res) => {
   try {
@@ -9,21 +10,20 @@ const getAllReportsController = async (req, res) => {
   }
 };
 
-const getReportsInOneLocationController = async (req, res) => {
+const getReportsInOneLocationController = async (req, res, next) => {
   const locationId = req.params.id;
   try {
     const results = await reportsModels.getReportsInOneLocation(locationId);
-    if (!results.length) throw new Error("NO_LOCATION");
+    if (!results.length)
+      throw new RecordNotFoundError("No Location with the requested id");
     res.status(200).json(results);
   } catch (error) {
     console.log(error);
-    if ("NO_LOCATION")
-      res.status(404).send("No Location with the requested id");
-    else res.status(500).send("Error in information retrieval");
+    next(error);
   }
 };
 
-const insertNewReportController = async (req, res) => {
+const insertNewReportController = async (req, res, next) => {
   const { lat, lng } = req.body;
   let address_id = req.body.address_id;
   try {
@@ -37,35 +37,32 @@ const insertNewReportController = async (req, res) => {
       user_id: req.currentUser.id,
       address_id,
     });
-    if (!createdReport) throw new Error("INVALID_DATA");
+    if (!createdReport) throw new InvalidDataError("Missing data");
     res.status(201).json(createdReport);
   } catch (error) {
     console.log(error);
-    if ("INVALID_DATA") res.status(400).send("Missing data");
-    else res.status(500).send("Error saving Location");
+    next(error);
   }
 };
 
-const updateReportController = async (req, res) => {
+const updateReportController = async (req, res, next) => {
   const reportId = req.params.id;
   let existingReport, report;
   try {
     existingReport = await reportsModels.getReportById(reportId);
-    if (!existingReport) throw new Error("RECORD_NOT_FOUND");
+    if (!existingReport)
+      throw new RecordNotFoundError(`report with id ${reportId} not found.`);
     report = await reportsModels.updateReport(req.body, reportId);
 
     if (report === 2) res.status(200).json({ ...existingReport, ...req.body });
-    else throw new Error("NO_UPDATE");
+    else throw new InvalidDataError("Nothing to be changed");
   } catch (error) {
     console.error(error);
-    if ("NO_UPDATE") res.status(400).send("No new info");
-    else if ("RECORD_NOT_FOUND")
-      res.status(404).send(`report with id ${reportId} not found.`);
-    else res.status(500).send("Error updating a user");
+    next(error);
   }
 };
 
-const updateVoteController = async (req, res) => {
+const updateVoteController = async (req, res, next) => {
   const { reportId } = req.params;
   let existingReport, report;
   try {
@@ -73,20 +70,18 @@ const updateVoteController = async (req, res) => {
       reportId,
       req.currentUser.id
     );
-    if (!existingReport) throw new Error("RECORD_NOT_FOUND");
+    if (!existingReport)
+      throw new RecordNotFoundError(`report with id ${reportId} not found.`);
     report = await reportsModels.updateVote(
       req.body.voting,
       reportId,
       req.currentUser.id
     );
     if (report === 1) res.status(200).json({ ...existingReport, ...req.body });
-    else throw new Error("NO_UPDATE");
+    else throw new InvalidDataError("Nothing to be changed");
   } catch (error) {
     console.error(error);
-    if ("NO_UPDATE") res.status(400).send("No new info");
-    else if ("RECORD_NOT_FOUND")
-      res.status(404).send(`report with id ${reportId} not found.`);
-    else res.status(500).send("Error updating a vote");
+    next(error);
   }
 };
 

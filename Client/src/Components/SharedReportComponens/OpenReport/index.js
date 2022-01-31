@@ -21,20 +21,20 @@ export default function BoxShowInputDetails() {
       }`}
     >
       {getReportData.length !== "" ? (
-        <div className="open-window-display">
+        <div className='open-window-display'>
           <button
-            className="close-button"
-            type="button"
+            className='close-button'
+            type='button'
             onClick={closeReportWindow}
           >
-            <img className="close-button-img" src={closeBtn} alt="" />
+            <img className='close-button-img' src={closeBtn} alt='' />
           </button>
 
-          <p className="title">{getReportData.name}</p>
-          <p className="date-text">{getReportData.createdAt}</p>
-          <img className="open-report-image" src={example} alt="" />
-          <p className="open-report-description">{getReportData.information}</p>
-          <div className="open-report-btn">
+          <p className='title'>{getReportData.name}</p>
+          <p className='date-text'>{getReportData.createdAt}</p>
+          <img className='open-report-image' src={getReportData.image} alt='' />
+          <p className='open-report-description'>{getReportData.information}</p>
+          <div className='open-report-btn'>
             {currentUser === getReportData.user_id ? (
               <ModalShowUserInputDetails />
             ) : (

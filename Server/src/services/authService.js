@@ -1,15 +1,24 @@
+const { RecordNotFoundError } = require("../error-types");
 const { authHelper } = require("../helpers");
 const { usersModels } = require("../models");
 const { authValidator } = require("../validators");
 
 const login = async (credentials) => {
-  const [user] = await authValidator.validateCredentialsAndGetUser(credentials);
+  try {
+    const [user] = await authValidator.validateCredentialsAndGetUser(
+      credentials
+    );
+    console.log(user);
+    if (!user) throw new RecordNotFoundError();
+    const token = authHelper.generateToken(user);
 
-  const token = authHelper.generateToken(user);
+    delete user.hashedPassword;
 
-  delete user.hashedPassword;
-
-  return { ...user, action: "login", token };
+    return { ...user, action: "login", token };
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };
 
 const register = async (user) => {

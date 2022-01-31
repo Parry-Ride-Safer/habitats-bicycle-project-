@@ -103,6 +103,7 @@ const MapProvider = ({ children }) => {
             { ...marker, id: response.data.id },
           ]);
           dispatch({ type: "SUBMIT_REPORT" });
+          setImage("")
         })
         .catch((err) => console.log(err));
       setVoting("");

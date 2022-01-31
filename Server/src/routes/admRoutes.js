@@ -7,10 +7,24 @@ const { authMiddleware } = require("../middleware");
 const admRoutes = express.Router();
 
 admRoutes.get(
-  "/",
+  "/users",
   authMiddleware,
   protectMiddleware,
   admController.getUsersController
+);
+
+admRoutes.get(
+  "/hiddenLocation",
+  authMiddleware,
+  protectMiddleware,
+  admController.getAllHiddenLocationsController
+);
+
+admRoutes.delete(
+  "/:id",
+  authMiddleware,
+  protectMiddleware,
+  admController.deleteReportController
 );
 
 module.exports = admRoutes;
