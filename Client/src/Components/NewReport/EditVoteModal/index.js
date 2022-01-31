@@ -19,7 +19,7 @@ export default function ModalShowUserInputDetails() {
       <p>{Number(getReportData.voting).toFixed(1)}</p>
       <div className="btn-container">
         <button className="submit-btn" type="button" onClick={openVoteWindow}>
-          Edit Rate
+          Edit Spot
         </button>
         <button className="flag-btn" type="button" onClick={createComplain}>
           <img src={flagReport} alt="" />
