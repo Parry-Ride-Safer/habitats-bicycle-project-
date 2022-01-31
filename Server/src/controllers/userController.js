@@ -110,7 +110,7 @@ const ratedSpotsFromUserIdController = async (req, res) => {
   } catch (error) {
     console.log(error);
     if ("RECORD_NOT_FOUND") res.status(404).send("reports not found.");
-    else res.status(500).send("Error error finding reports");
+    else res.status(500).send("Error finding reports");
   }
 };
 
