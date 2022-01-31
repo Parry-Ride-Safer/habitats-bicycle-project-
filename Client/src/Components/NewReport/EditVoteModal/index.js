@@ -11,9 +11,9 @@ export default function ModalShowUserInputDetails() {
   return (
     <div>
       <p>{
-        (parseInt(getReportData.voting) === 1) ? dangerLevel[0].icon : 
-        (parseInt(getReportData.voting) === 2) ? dangerLevel[1].icon :
-        dangerLevel[2].icon
+        (parseInt(getReportData.voting) === 1) ? (<div>{dangerLevel[0].icon} Low Danger </div>) : 
+        (parseInt(getReportData.voting) === 2) ? (<div>{dangerLevel[1].icon} Medium Danger </div>) :
+        (<div>{dangerLevel[2].icon}, "High Danger"</div>)
       }</p>
       <p>including mine</p>
       <p>{Number(getReportData.voting).toFixed(1)}</p>

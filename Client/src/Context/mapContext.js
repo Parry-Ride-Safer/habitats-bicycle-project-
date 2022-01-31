@@ -94,7 +94,6 @@ const MapProvider = ({ children }) => {
         information: reportDescriptionInput.description,
         category_id: findCategoryID[0].nb,
         image: image,
-        
       })
         .then((response) => {
           setAlertMsg(false);
@@ -103,10 +102,10 @@ const MapProvider = ({ children }) => {
             { ...marker, id: response.data.id },
           ]);
           dispatch({ type: "SUBMIT_REPORT" });
+          setVoting("");
+          setReportDescriptionInput([]);
         })
         .catch((err) => console.log(err));
-      setVoting("");
-      setReportDescriptionInput([]);
     }
   };
 
@@ -224,7 +223,7 @@ const uploadImage = async e => {
   const [isSpotVoted, setIsSpotVoted] = useState(false);
   const [votedReports, setVotedReports] = useState([]);
   const [loginId, setLoginId] = useState();
-
+  console.log(getReportData)
   const getVotedSpots = async () => {
     try {
      
@@ -278,10 +277,10 @@ const uploadImage = async e => {
   };
 
   let user = document.cookie;
-
+  const findReportID = votedReports.find(({ id }) => id == getReportData.id);
+  
   const handleAddVote = async (event) => {
     event.preventDefault();
-    const findReportID = votedReports.find(({ id }) => id == getReportData.id);
     if (
       currentUser === getReportData.user_id ||
       (currentUser !== getReportData.user && findReportID)
@@ -307,7 +306,6 @@ const uploadImage = async e => {
       ).then((response) => {
         setAlertMsg(false);
         dispatch({ type: "SUBMIT_VOTE" });
-        console.log(response);
       });
     }
   };
@@ -388,7 +386,7 @@ const uploadImage = async e => {
         // errMsg,
 
 
-        
+        findReportID,
         createComplain,
         options,
         reportDescriptionInput,
