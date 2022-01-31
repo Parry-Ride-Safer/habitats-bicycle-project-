@@ -86,7 +86,7 @@ export default function CreateReport() {
         {loading?(
           <h3>Loading...</h3>
         ):(
-          <img src={image} style={{width:"300px"}} />
+          <img src={image} style={{width:"100px"}}  alt=''/>
         )}
           {/* <Alert msg={errMsg} type="danger" />
           <Alert msg={successMsg} type="success" />
