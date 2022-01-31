@@ -83,7 +83,7 @@ const deleteUser = async (id) => {
 
 const reportsFromUserId = async (id) => {
   let [results] = await db.query(
-    "SELECT address_id, createdAt, category_id, report.id, information, avg(voting) AS voting  from report join voting on voting.report_id = report.id WHERE report.user_id = ? group by address_id",
+    "SELECT address_id, createdAt, category_id, report.id, information, avg(voting) AS voting, image  from report join voting on voting.report_id = report.id WHERE report.user_id = ? group by address_id",
     [id]
   );
   return results;

@@ -4,6 +4,7 @@ const { userValidator } = require("../validators/index.js");
 const { AlreadyExistsError, InvalidDataError } = require("../error-types");
 
 const cookiesOptions = { httpOnly: true, maxAge: "3600000", sameSite: "lax" };
+const cookiesOptions2 = { maxAge: "3600000", sameSite: "lax" };
 
 const register = async (req, res, next) => {
   const { email } = req.body;
@@ -20,7 +21,7 @@ const register = async (req, res, next) => {
 
     res
       .cookie("login", token, cookiesOptions)
-      .cookie("LoggedIn", true)
+      .cookie("LoggedIn", true, cookiesOptions2)
       .json({ message: "Welcome to the rider family!" });
   } catch (error) {
     console.error(error);
@@ -33,7 +34,7 @@ const login = async (req, res, next) => {
     const { token, ...user } = await authService.login(req.body);
     res
       .cookie("login", token, cookiesOptions)
-      .cookie("LoggedIn", true)
+      .cookie("LoggedIn", true, cookiesOptions2)
       .json({ message: "Welcome Back Rider" });
   } catch (error) {
     console.log(error);

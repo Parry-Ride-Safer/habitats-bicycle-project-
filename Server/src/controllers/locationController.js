@@ -1,14 +1,14 @@
 const { locationModels } = require("../models");
+const { RecordNotFoundError } = require("../error-types");
 
-const getAllLocationsController = async (req, res) => {
+const getAllLocationsController = async (_req, res, next) => {
   try {
     const locations = await locationModels.getAllLocations();
-    if (!locations) throw new Error("NO_DATA");
+    if (!locations) throw new RecordNotFoundError("No locations Saved");
     res.status(200).json(locations);
   } catch (error) {
     console.log(error);
-    if ("NO_DATA") res.status(404).send("No locations Saved");
-    else res.status(500).send("Internal Server Error");
+    next(error);
   }
 };
 

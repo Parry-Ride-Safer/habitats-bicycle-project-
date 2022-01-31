@@ -1,3 +1,5 @@
+DROP DATABASE habitat;
+create database habitat;
 use habitat;
 
 CREATE TABLE `user` (
@@ -26,7 +28,7 @@ CREATE TABLE `report` (
   `address_id` int NOT NULL,
   `image` varchar(255),
   `category_id` int NOT NULL,
-  `is_hidden` boolean DEFAULT false
+  `is_hidden` boolean default false
 );
 
 CREATE TABLE `voting` (
@@ -42,13 +44,13 @@ CREATE TABLE `flag` (
   `name` varchar(255)
 );
 
-ALTER TABLE `voting` ADD FOREIGN KEY (`report_id`) REFERENCES `report` (`id`);
+ALTER TABLE `voting` ADD FOREIGN KEY (`report_id`) REFERENCES `report` (`id`) ON delete CASCADE;
 
-ALTER TABLE `voting` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+ALTER TABLE `voting` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE cascade;
 
 ALTER TABLE `report` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
-ALTER TABLE `report` ADD FOREIGN KEY (`address_id`) REFERENCES `address` (`id`);
+ALTER TABLE `report` ADD FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE cascade;
 
 ALTER TABLE `report` ADD FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 
@@ -56,3 +58,6 @@ ALTER TABLE `voting` ADD FOREIGN KEY (`flag_id`) REFERENCES `flag` (`id`);
 
 insert into category (name) values('traffic'),('intersection'),('bikelane'),('road'),('traffic'),('other');
 insert into flag (name) values ('Innapropiate Report'), ('Wrong Location'), ('Issue Resolved');
+
+
+

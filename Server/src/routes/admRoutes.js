@@ -20,4 +20,11 @@ admRoutes.get(
   admController.getAllHiddenLocationsController
 );
 
+admRoutes.delete(
+  "/:id",
+  authMiddleware,
+  protectMiddleware,
+  admController.deleteReportController
+);
+
 module.exports = admRoutes;

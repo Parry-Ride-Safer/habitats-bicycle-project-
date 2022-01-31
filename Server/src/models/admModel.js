@@ -14,4 +14,11 @@ const getAllHiddenLocations = async () => {
   return locations[0];
 };
 
-module.exports = { getUsers, getAllHiddenLocations };
+const deleteReport = async (id) => {
+  let [results] = await db.query("DELETE FROM report WHERE report.id = ?", [
+    id,
+  ]);
+  return results;
+};
+
+module.exports = { getUsers, getAllHiddenLocations, deleteReport };

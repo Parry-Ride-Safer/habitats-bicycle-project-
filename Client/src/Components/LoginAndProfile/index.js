@@ -5,10 +5,9 @@ import "./style.css";
 import profileLogo from "./ProfileIcon.png";
 // import WelcomePage from "./welcomePage";
 import { ReactComponent as AccountIcon } from "./Vector.svg";
-import { ReactComponent as DangerIcon } from "../../icons/modalBoxIcons/Group 550.svg"
-import { ReactComponent as WelcomeIcon } from "../../icons/modalBoxIcons/welcome.svg"
-import { ReactComponent as SignIcon } from "../../icons/modalBoxIcons/signup.svg"
-
+import { ReactComponent as DangerIcon } from "../../icons/modalBoxIcons/Group 550.svg";
+import { ReactComponent as WelcomeIcon } from "../../icons/modalBoxIcons/welcome.svg";
+import { ReactComponent as SignIcon } from "../../icons/modalBoxIcons/signup.svg";
 
 const LoginAndProfile = () => {
   const { email, setEmail, password, setPassword, stateLogin, setStateLogin } =
@@ -151,7 +150,7 @@ const LoginAndProfile = () => {
 
   const DetailedWindow = (props) => {
     return (
-      <div className="detailed-report-window">
+      <div className='detailed-report-window'>
         {" "}
         <h1> TESTE WINDOW {props.information}</h1>
       </div>
@@ -272,12 +271,12 @@ const LoginAndProfile = () => {
   const WelcomePage = () => {
     return showWelcomePage ? (
       <div>
-        <div className="welcome-page-start">
+        <div className='welcome-page-start'>
           <WelcomeIcon className='welcome-hand' />
           <h3>
             Welcome rider. <br /> Let's make the streets safer together.
           </h3>
-          <button onClick={handleWelcomeStatusClick} className="btn-start">
+          <button onClick={handleWelcomeStatusClick} className='btn-start'>
             Start
           </button>
         </div>
@@ -294,113 +293,115 @@ const LoginAndProfile = () => {
   const SignUpPop = () => {
     return (
       <div>
-        <div className="welcome-page-sign">
+        <div className='welcome-page-sign'>
           <SignIcon className='welcome-hand' />
           <h3>sign up to be able to report or vote on a road issue.</h3>
-          <button className="btn-start" onClick={handleShowRegisterForm}>
+          <button className='btn-start' onClick={handleShowRegisterForm}>
             sign up
           </button>
-          <button onClick={handleShowForm} className='button-login'>login</button>
-          <button onClick={handleSkipForNow} className='clear-button-register'></button>
+          <button onClick={handleShowForm} className='button-login'>
+            login
+          </button>
+          <button
+            onClick={handleSkipForNow}
+            className='clear-button-register'
+          ></button>
         </div>
       </div>
     );
   };
 
-
-  const handleDangerIcons = (props)=> { 
-      let vote = Number(props.voting).toFixed(2)
-    
-    
-    
-  }
+  const handleDangerIcons = (props) => {
+    let vote = Number(props.voting).toFixed(2);
+  };
 
   return (
-    <div className="teste2">
+    <div className='teste2'>
       {!user ? (
         <>
-        
-        {!showWelcomePage ? (<AccountIcon className='account-icon' onClick={handleLoginStatus} />) : null}
-        <WelcomePage />
-        {welcomeStatus ? !stateLogin ? <SignUpPop /> : null : null}
-        {showForm && !stateLogin  ? (<div className="register-form">
-                
-                <form className='sign-up-form'>
+          {!showWelcomePage ? (
+            <AccountIcon className='account-icon' onClick={handleLoginStatus} />
+          ) : null}
+          <WelcomePage />
+          {welcomeStatus ? !stateLogin ? <SignUpPop /> : null : null}
+          {showForm && !stateLogin ? (
+            <div className='register-form'>
+              <form className='sign-up-form'>
                 <h2>Email Sign-in</h2>
                 <div>
-                  <label htmlFor="username">Email Address</label>
-                  <br/>
+                  <label htmlFor='username'>Email Address</label>
+                  <br />
                   <input
                     className='sign-up-input'
-                    type="email"
-                    name="username"
-                    placeholder="email@example.com"
+                    type='email'
+                    name='username'
+                    placeholder='email@example.com'
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-                <div className="form-group">
-                  <label htmlFor="password">Password</label>
-                  <br/>
+                <div className='form-group'>
+                  <label htmlFor='password'>Password</label>
+                  <br />
                   <input
                     className='sign-up-input'
-                    type="password"
-                    name="password"
-                    placeholder="password"
+                    type='password'
+                    name='password'
+                    placeholder='password'
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <button onClick={login} type="button" className="btn-register">
+                <button onClick={login} type='button' className='btn-register'>
                   Confirm
                 </button>
                 <button
                   onClick={handleSkipForNow}
-                  type="button"
-                  className="clear-button-register"
-                >
-                 
-                </button>
+                  type='button'
+                  className='clear-button-register'
+                ></button>
               </form>
             </div>
           ) : null}
           {/* ------- from here is show register only form---------------------------- */}
           {showRegisterForm && !stateLogin ? (
-            <div className="register-form">
+            <div className='register-form'>
               <form className='sign-up-form'>
                 <h2>Email Sign-up</h2>
-                
+
                 <div>
-                  <label htmlFor="username">Email Address</label>
-                  <br/>
+                  <label htmlFor='username'>Email Address</label>
+                  <br />
                   <input
-                  className='sign-up-input'
-                    type="email"
-                    name="username"
-                    placeholder="email@example.com"
+                    className='sign-up-input'
+                    type='email'
+                    name='username'
+                    placeholder='email@example.com'
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-                <div className="form-group">
-                  <label htmlFor="password">Password</label>
-                  <br/>
+                <div className='form-group'>
+                  <label htmlFor='password'>Password</label>
+                  <br />
                   <input
-                  className='sign-up-input'
-                    type="password"
-                    name="password"
-                    placeholder="password"
+                    className='sign-up-input'
+                    type='password'
+                    name='password'
+                    placeholder='password'
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <button onClick={register} type="button" className="btn-register">
+                <button
+                  onClick={register}
+                  type='button'
+                  className='btn-register'
+                >
                   Confirm
                 </button>
 
                 <button
                   onClick={handleSkipForNow}
-                  type="button"
-                  className="clear-button-register"
-                >
-                  
-                </button>
+                  type='button'
+                  className='clear-button-register'
+                ></button>
               </form>
             </div>
           ) : null}
@@ -412,9 +413,9 @@ const LoginAndProfile = () => {
             className={btnState ? "menu-btn open" : "menu-btn"}
             onClick={handleClick}
           >
-            <div className="menu-btn__burger"></div>
+            <div className='menu-btn__burger'></div>
           </div>
-          <div className="absolute-container">
+          <div className='absolute-container'>
             <div
               className={btnState ? "open-profile" : "closed"}
               onClick={handleClick}
@@ -422,9 +423,9 @@ const LoginAndProfile = () => {
               {" "}
             </div>
             <div className={btnState ? "tab-wrapper" : "closed"}>
-              <h1 className="your-account">Your Account</h1>
-              <div className="tab-container">
-                <div className="bloc-tabs">
+              <h1 className='your-account'>Your Account</h1>
+              <div className='tab-container'>
+                <div className='bloc-tabs'>
                   <button
                     className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
                     onClick={() => toggleTab(1) + getSubmitedReports()}
@@ -445,7 +446,7 @@ const LoginAndProfile = () => {
                   </button>
                 </div>
 
-                <div className="content-tabs">
+                <div className='content-tabs'>
                   <div
                     className={
                       toggleState === 1 ? "content  active-content" : "closed"
@@ -458,19 +459,25 @@ const LoginAndProfile = () => {
                       {SubmitedReports.length > 0 ? (
                         SubmitedReports.map((report) => (
                           <div
-                            className="your-spots-container"
+                            className='your-spots-container'
                             onClick={() => reportDetailsWindow(report.id)}
                           >
-                            
                             <ul key={report.id}>
                               <li>
-                                <span className="img-div">img </span>
+                                <img
+                                  className='img-div'
+                                  src={report.image}
+                                  alt=''
+                                />
                               </li>
                               <li> information :{report.information}</li>
-                              <li> voting : {Number(report.voting).toFixed(2)}{<DangerIcon />}</li>
+                              <li>
+                                {" "}
+                                voting : {Number(report.voting).toFixed(2)}
+                                {<DangerIcon />}
+                              </li>
                               <li> category : {report.category_id}</li>
                               <li> created : {report.createdAt}</li>
-                              
                             </ul>
                           </div>
                         ))
@@ -504,13 +511,20 @@ const LoginAndProfile = () => {
                     <div>
                       {votedReports.length > 0 ? (
                         votedReports.map((spot) => (
-                          <div className="your-spots-container">
+                          <div className='your-spots-container'>
                             <ul key={spot.id}>
                               <li>
-                                <span className="img-div">img </span>
+                                <img
+                                  className='img-div'
+                                  src={spot.image}
+                                  alt=''
+                                />
                               </li>
                               <li> information :{spot.information}</li>
-                              <li> voting : {Number(spot.voting).toFixed(2)}</li>
+                              <li>
+                                {" "}
+                                voting : {Number(spot.voting).toFixed(2)}
+                              </li>
                               <li> category : {spot.name}</li>
                               <li> Created at : {spot.createdAt}</li>
                             </ul>
@@ -532,21 +546,21 @@ const LoginAndProfile = () => {
                     <h3>Your Account: {currentUser}</h3>
                     <button
                       onClick={handleshowEditEmail}
-                      type="button"
-                      className="btn"
+                      type='button'
+                      className='btn'
                     >
                       edit email
                     </button>
                     <h3>password: ******** </h3>
                     <button
                       onClick={handleshowEditPassword}
-                      type="button"
-                      className="btn"
+                      type='button'
+                      className='btn'
                     >
                       edit password
                     </button>
 
-                    <button onClick={logout} type="button" className="btn">
+                    <button onClick={logout} type='button' className='btn'>
                       Logout
                     </button>
                   </div>
@@ -556,64 +570,60 @@ const LoginAndProfile = () => {
           </div>
           {/* ----------------------- from here is the edit password window------ */}
           {showEditPassword ? (
-            <div className="edit-Form-password">
+            <div className='edit-Form-password'>
               <form>
-                <div className="form-group">
-                  <label htmlFor="password">enter new Password:</label>
+                <div className='form-group'>
+                  <label htmlFor='password'>enter new Password:</label>
                   <input
-                    type="password"
-                    name="password"
-                    placeholder="password"
+                    type='password'
+                    name='password'
+                    placeholder='password'
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="password">confirm new Password:</label>
+                <div className='form-group'>
+                  <label htmlFor='password'>confirm new Password:</label>
                   <input
-                    type="password"
-                    name="password"
-                    placeholder="password"
+                    type='password'
+                    name='password'
+                    placeholder='password'
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 </div>
-                <button onClick={editPassword} type="button" className="btn">
+                <button onClick={editPassword} type='button' className='btn'>
                   Save Changes
                 </button>
                 <button
                   onClick={handleshowEditPassword}
-                  type="button"
-                  className="clear-button"
-                >
-                  
-                </button>
+                  type='button'
+                  className='clear-button'
+                ></button>
               </form>
             </div>
           ) : null}
           {/* ----------- from here is the edit email window ------------- */}
           {showEditEmail ? (
-            <div className="edit-Form-password">
-              <form className="form-group">
+            <div className='edit-Form-password'>
+              <form className='form-group'>
                 <div>
-                  <label htmlFor="username">enter new E-Mail address:</label>
+                  <label htmlFor='username'>enter new E-Mail address:</label>
                   <input
-                    type="email"
-                    name="username"
-                    placeholder="email@example.com"
+                    type='email'
+                    name='username'
+                    placeholder='email@example.com'
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
 
-                <button onClick={editEmail} type="button" className="btn">
+                <button onClick={editEmail} type='button' className='btn'>
                   Save Changes
                 </button>
                 <button
                   onClick={handleshowEditEmail}
-                  type="button"
-                  className="clear-button"
-                >
-                 
-                </button>
+                  type='button'
+                  className='clear-button'
+                ></button>
               </form>
             </div>
           ) : null}
