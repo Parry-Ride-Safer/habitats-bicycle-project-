@@ -8,11 +8,13 @@ import {
   SearchBox,
   VotingBox,
   CreateReport,
+  LoginAndProfile
 } from "../../index";
 import { useGlobalMapContext } from "../../../Context/mapContext";
 import "./map.css";
 import logo from "./Polygon38.png";
 import logoBlue from "./PolygonBlue.png";
+
 
 const mapContainerStyle = {
   width: "100vw",
@@ -71,6 +73,7 @@ export default function Map() {
   } = useGlobalMapContext();
 
   return (
+    <div className="teste-flex">
     <GoogleMap
       mapContainerStyle={mapContainerStyle}
       zoom={8}
@@ -80,6 +83,7 @@ export default function Map() {
       onLoad={onMapLoad}
       yesIWantToUseGoogleMapApiInternals
     >
+      <LoginAndProfile />
       <div className="search-map-location">
         <SearchBox panTo={panTo} />
       </div>
@@ -133,5 +137,6 @@ export default function Map() {
       <VotingBox />
       <CreateComplain />
     </GoogleMap>
+    </div>
   );
 }

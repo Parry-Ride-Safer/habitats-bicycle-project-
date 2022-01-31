@@ -33,8 +33,8 @@ export default function CreateReport() {
     numberOfCharacters,
   } = useGlobalMapContext();
 
-  let user = document.cookie;
 
+  let user = document.cookie
   return (
     <div>
   {user ? (

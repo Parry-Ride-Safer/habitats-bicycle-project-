@@ -6,7 +6,7 @@ import { useLoadScript } from "@react-google-maps/api";
 
 import "./app.css";
 
-import LoginAndProfile from "./Components/LoginAndProfile";
+// import LoginAndProfile from "./Components/LoginAndProfile";
 
 const libraries = ["places"];
 
@@ -22,10 +22,10 @@ function App() {
   if (!isLoaded) return "Loading Maps";
 
   return (
-    <>
-      <LoginAndProfile />
+    <div>
+      {/* <LoginAndProfile /> */}
       <Map options={options} onMapLoad={onMapLoad} onMapClick={onMapClick} />
-    </>
+    </div>
   );
 }
 

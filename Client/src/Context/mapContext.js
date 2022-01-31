@@ -228,7 +228,7 @@ const uploadImage = async e => {
 
   const getVotedSpots = async () => {
     try {
-      /*   user = JSON.parse(localStorage.getItem("user-info")); */
+     
 
       if (user) {
         if (user) {
