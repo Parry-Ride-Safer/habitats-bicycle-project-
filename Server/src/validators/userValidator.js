@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const { userHelper } = require("../helpers");
 
 const validate = (data, forCreation = true) => {
   const presence = forCreation ? "required" : "optional";
@@ -9,4 +10,12 @@ const validate = (data, forCreation = true) => {
   }).validate(data, { abortEarly: false }).error;
 };
 
-module.exports = { validate };
+const validatePermission = (currentUser, userId) => {
+  if (
+    !userHelper.isCurrentUser(currentUser, userId) &&
+    !userHelper.isAdm(currentUser)
+  )
+    throw new UnauthorizedError("Permission denied");
+};
+
+module.exports = { validate, validatePermission };

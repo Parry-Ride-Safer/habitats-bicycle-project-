@@ -53,8 +53,10 @@ const MapProvider = ({ children }) => {
   const [reportDescriptionInput, setReportDescriptionInput] = useState([]);
 
   /*image Upload*/
-  const [imageSrc, setImageSrc] = useState();
-  const [uploadData, setUploadData] = useState();
+
+  const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState ("");
+
   // const [fileInputState, setFileInputState] = useState("");
   // const [previewSource, setPreviewSource] = useState("");
   // const [selectedFile, setSelectedFile] = useState();
@@ -91,7 +93,8 @@ const MapProvider = ({ children }) => {
         title: dangerType,
         information: reportDescriptionInput.description,
         category_id: findCategoryID[0].nb,
-        // image: previewSource,
+        image: image,
+        
       })
         .then((response) => {
           setAlertMsg(false);
@@ -133,41 +136,42 @@ const MapProvider = ({ children }) => {
   };
 
 
-  /*Image Upload*/
 
-  // * handleOnChange
-  // * @description Triggers when the file input changes (ex: when a file is selected)
-  // */
+ /*Image Upload Element  [parte do LINK CLOUDINARY  a mudar - dc1bhahph]*/
 
- function handleOnChange(changeEvent) {
-   const reader = new FileReader();
+const uploadImage = async e => {
+  const files = e.target.files
+  const data = new FormData()
+  data.append("file", files [0])
+  data.append("upload_preset", "habitat_bike_upload")
+  setLoading(true)
 
-   reader.onload = function(onLoadEvent) {
-     setImageSrc(onLoadEvent.target.result);
-     setUploadData(undefined);
-   }
-
-   reader.readAsDataURL(changeEvent.target.files[0]);
- }
-
-//  /**
-//   * handleOnSubmit
-//   * @description Triggers when the main form is submitted
-//   */
+  const res = await fetch("http://api.cloudinary.com/v1_1/dc1bhahph/image/upload", {
+    method: "POST",
+    body:data
 
 
- async function handleOnSubmit(event) {
-   event.preventDefault();
-   console.log(event.currentTarget)
- }
+
+  })
+
+  const file = await res.json()
+
+  console.log(file)
+
+  setImage(file.secure_url)
+  setLoading(false)
+
+}
 
 
-// const handleFileInputChange = (e) => {
-//   const file = e.target.files[0];
-//   previewFile(file);
-//   setSelectedFile(file);
-//   setFileInputState(e.target.value);
-// };
+
+  // const handleFileInputChange = (e) => {
+  //   const file = e.target.files[0];
+  //   previewFile(file);
+  //   setSelectedFile(file);
+  //   setFileInputState(e.target.value);
+  // };
+
   // const previewFile = (file) => {
   //   const reader = new FileReader();
   //   reader.readAsDataURL(file);
@@ -312,6 +316,10 @@ const MapProvider = ({ children }) => {
     setVoting(event.target.value);
   };
 
+  const handleDangerType = (event) => {
+    setDangerType(event.target.value)
+  }
+
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
@@ -367,12 +375,10 @@ const MapProvider = ({ children }) => {
         submitComplain,
         handleWelcomeStatusClick,
 
-        handleOnChange,
-        handleOnSubmit,
-        imageSrc,
-        uploadData,
 
-
+        uploadImage,
+        loading,
+        image,
         // handleSubmitFile,
         // handleFileInputChange,
         // fileInputState,
@@ -381,6 +387,8 @@ const MapProvider = ({ children }) => {
         // successMsg,
         // errMsg,
 
+
+        
         createComplain,
         options,
         reportDescriptionInput,
@@ -397,6 +405,7 @@ const MapProvider = ({ children }) => {
         sendReportRequest,
         stateLogin,
         setStateLogin,
+        handleDangerType
       }}
     >
       {children}

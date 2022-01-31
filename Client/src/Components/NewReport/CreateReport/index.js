@@ -13,13 +13,12 @@ export default function CreateReport() {
     isReportWindowInputOpen,
     closeReportWindow,
     handleDangerLevel,
-    setDangerType,
+    dangerType,
+    handleDangerType,
 
-    handleOnChange,
-    handleOnSubmit,
-    imageSrc,
-    uploadData,
-
+    uploadImage,
+    loading,
+    image,
     // handleSubmitFile,
     // handleFileInputChange,
     // fileInputState,
@@ -75,51 +74,30 @@ export default function CreateReport() {
           ))}
         </div>
 
-        <div className="image-upload-holder">
 
 
-      <main className="main">
-        <h1 className="title-upload">
-          Image Uploader
-        </h1>
 
-        <p className="subtitle">
-          Upload your image to Cloudinary!
-        </p>
-
-        <form className="upload-form" method="post" onChange={handleOnChange} onSubmit={handleOnSubmit}>
-          <p>
-            <input type="file" name="file" />
-          </p>
-          
-          <img src={imageSrc} width="300" />
-          
-          {imageSrc && !uploadData && (
-            <p>
-              <button>Upload File</button>
-            </p>
-          )}
-
-          {uploadData && (
-            <code><pre>{JSON.stringify(uploadData, null, 2)}</pre></code>
-          )}
-        </form>
-      </main>
+        <p className="sub-title">Take a picture</p>
+        <div>
 
 
-    
+        <input type="file" name="file" placeholder="Upload your image!" onChange={uploadImage} />
 
-          {/* <h1 className="title">Upload an Image</h1>
-          <Alert msg={errMsg} type="danger" />
+        {loading?(
+          <h3>Loading...</h3>
+        ):(
+          <img src={image} style={{width:"300px"}} />
+        )}
+          {/* <Alert msg={errMsg} type="danger" />
           <Alert msg={successMsg} type="success" />
 
           {previewSource && (
             <img src={previewSource} alt="chosen" style={{ height: "15vh" }} />
           )}
 
-          <form onSubmit={handleSubmitFile} className="form">
+          <form onSubmit={handleSubmitFile}>
             <input
-              id="fileInput"
+              id="file-input"
               type="file"
               name="image"
               onChange={handleFileInputChange}
@@ -127,43 +105,40 @@ export default function CreateReport() {
               className="upload-form-input"
             />
           </form> */}
+        </div>
 
-          
+
+
+
+
+        <p className="sub-title"> What's the issue? </p>
+        <div className="danger-type-display">
+          {issueType.map((issue, index) => {
+            return(
+              <label key={index} className="issueTypeBtn">
+                <input
+                  key={index}
+                  type="radio"
+                  check={dangerType === issue.type}
+                  name="dangerType"
+                  value={issue.type}
+                  onChange={handleDangerType}
+                />
+                  {issue.type}
+              </label>)
+          })}
         </div>
-        <p className="title"> What's the issue? </p>
-        <div>
-          {issueType.map((issue, index) => (
-            <button
-              key={index}
-              type="radio"
-              className="issueTypeBtn"
-              name="dangerType"
-              value={issue.type}
-              onClick={() => {
-                setDangerType(issue.type);
-              }}
-            >
-              {issue.icon}{issue.type}
-            </button>
-          ))}
-        </div>
-        <label className="sub-titles" id="sub-titles-margin">
-          {" "}
-          Description{" "}
-        </label>
         <input
-          className="danger-description"
+          className="report-danger-description"
           type="text"
           name="description"
-          placeholder="Describe the issue in a few words"
-          maxLength="60"
+          placeholder="Add a description (optional)"
+          maxLength="200"
           value={reportDescriptionInput.description}
           onChange={handleDangerDescriptionInputs}
         />
-        <br />
         <label className="description-input-label">
-          {" "}
-          {60 - numberOfCharacters} Characters left{" "}
+          {200 - numberOfCharacters} Characters left{" "}
         </label>
         <div />
 
