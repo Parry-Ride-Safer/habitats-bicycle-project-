@@ -21,7 +21,12 @@
 -moz-box-shadow: -4px 5px 12px 0px rgba(0,0,0,0.75);
 
 }
-h3{
+
+.welcome-page-start h3{
+  text-align: center;
+
+}
+.welcome-page-sign h3{
   text-align: center;
   padding-left:1rem;
   padding-right:1rem;
@@ -373,7 +378,6 @@ border-radius:50%;
   width: 15px;
   height: 15px;
   right: 15px;
-
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -397,5 +401,92 @@ border-radius:50%;
   height: 15px;
   background: black;
   transform: rotate(-45deg);
+}
+
+/* -------  account settings page style ----------- */ 
+
+
+ .div-h3{ 
+  width: 70%;
+ 
+  
+  position: relative;
+  font-size: 12px;
+  display:flex;
+  justify-content: space-around;
+}
+ .div-h3 span { 
+font-weight: bold;
+background-color:white;
+font-size: 15px;
+display: flex;
+justify-content: center;
+align-items: center;
+padding-right: 2%;
+}
+
+
+.email-box{
+  background:white;
+  overflow-x: scroll;
+ overflow-y: hidden;
+}
+.edit-container{ 
+
+display:flex;
+justify-content:center;
+}
+
+
+.edit-container-password{
+  display:flex;
+  background: white;
+  justify-content: space-around;
+  display:flex;
+ justify-content: center;
+}
+
+
+.button-edit-password{
+  border: none;
+  background-color: white;
+  color: black;
+  margin: 0.5rem;
+  font-size:1.1rem;
+  
+
+}
+
+.button-edit-password::after{ 
+  content:'';
+  display:block;
+  width:100%;
+  background-color:rgb(53, 53, 53);
+  height: 1px;
+  border-radius: 10px;
+  
+
+}
+
+
+.button-edit{ 
+  border: none;
+  background-color: white;
+  color: black;
+  margin: 0.5rem;
+  font-size:1.1rem;
+  
+
+}
+
+.button-edit::after{ 
+  content:'';
+  display:block;
+  width:100%;
+  background-color:rgb(53, 53, 53);
+  height: 1px;
+  border-radius: 10px;
+  
+
 }
 

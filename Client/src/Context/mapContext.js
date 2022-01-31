@@ -255,6 +255,7 @@ const uploadImage = async e => {
       const reportData = await Axios(
         `http://localhost:4000/reports/${fMarker.id}`
       );
+      
       setGetReportdata(reportData.data[0]);
       getCurrentUser();
       console.log(getReportData);
