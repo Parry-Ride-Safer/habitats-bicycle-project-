@@ -246,6 +246,7 @@ const MapProvider = ({ children }) => {
       const reportData = await Axios(
         `${process.env.REACT_APP_API_ROUTE_URL}/reports/${fMarker.id}`
       );
+      
       setGetReportdata(reportData.data[0]);
       getCurrentUser();
       console.log(getReportData);

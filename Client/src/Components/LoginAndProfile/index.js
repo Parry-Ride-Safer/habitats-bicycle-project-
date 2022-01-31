@@ -552,22 +552,33 @@ const LoginAndProfile = () => {
                   >
                     <h2>Settings</h2>
                     <hr />
-                    <h3>Your Account: {currentUser}</h3>
+                    <div className="edit-container">
+                      <div className="div-h3">
+                      <span>E-Mail Address</span>
+                    <div className="email-box"> 
+                      <h3>{currentUser}</h3></div>
+                    </div>
                     <button
                       onClick={handleshowEditEmail}
-                      type='button'
-                      className='btn'
+                      type="button"
+                      className="button-edit"
                     >
-                      edit email
+                    edit
                     </button>
-                    <h3>password: ******** </h3>
+                    </div >
+                    <div className="edit-container-password">
+                    <div className="div-h3">
+                      <span>Password</span>
+                      <h3> ******** </h3></div>
+                    
                     <button
                       onClick={handleshowEditPassword}
-                      type='button'
-                      className='btn'
+                      type="button"
+                      className="button-edit-password"
                     >
-                      edit password
+                      edit
                     </button>
+                    </div>
 
                     <button onClick={logout} type='button' className='btn'>
                       Logout
