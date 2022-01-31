@@ -53,11 +53,15 @@ const MapProvider = ({ children }) => {
   const [reportDescriptionInput, setReportDescriptionInput] = useState([]);
 
   /*image Upload*/
-  const [fileInputState, setFileInputState] = useState("");
-  const [previewSource, setPreviewSource] = useState("");
-  const [selectedFile, setSelectedFile] = useState();
-  const [successMsg, setSuccessMsg] = useState("");
-  const [errMsg, setErrMsg] = useState("");
+
+  const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState ("");
+
+  // const [fileInputState, setFileInputState] = useState("");
+  // const [previewSource, setPreviewSource] = useState("");
+  // const [selectedFile, setSelectedFile] = useState();
+  // const [successMsg, setSuccessMsg] = useState("");
+  // const [errMsg, setErrMsg] = useState("");
 
   const onMapClick = useCallback((event) => {
     dispatch({ type: "START_REPORT" });
@@ -88,7 +92,8 @@ const MapProvider = ({ children }) => {
         title: dangerType,
         information: reportDescriptionInput.description,
         category_id: findCategoryID[0].nb,
-        /*image: previewSource,*/
+        image: image,
+        
       })
         .then((response) => {
           setAlertMsg(false);
@@ -129,52 +134,86 @@ const MapProvider = ({ children }) => {
     setNumberOfCharacters(event.target.value.length);
   };
 
-  const handleFileInputChange = (e) => {
-    const file = e.target.files[0];
-    previewFile(file);
-    setSelectedFile(file);
-    setFileInputState(e.target.value);
-  };
 
-  const previewFile = (file) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setPreviewSource(reader.result);
-    };
-  };
 
-  const handleSubmitFile = (e) => {
-    e.preventDefault();
-    if (!selectedFile) return;
-    const reader = new FileReader();
-    reader.readAsDataURL(selectedFile);
-    reader.onloadend = () => {
-      uploadImage(reader.result);
-    };
-    reader.onerror = () => {
-      console.error("AHHHHHHHH!!");
-      setErrMsg("something went wrong!");
-    };
-  };
+ /*Image Upload Element  [parte do LINK CLOUDINARY  a mudar - dc1bhahph]*/
 
-  const uploadImage = async (base64EncodedImage) => {
-    console.log(base64EncodedImage);
-    try {
-      await fetch("/api/upload", {
-        method: "POST",
-        body: JSON.stringify({ data: base64EncodedImage }),
-        headers: { "Content-Type": "application/json" },
-      });
-      setFileInputState("");
-      setPreviewSource("");
-      setSuccessMsg("Image uploaded successfully");
-      console.log(previewSource);
-    } catch (err) {
-      console.error(err);
-      setErrMsg("Something went wrong!");
-    }
-  };
+const uploadImage = async e => {
+  const files = e.target.files
+  const data = new FormData()
+  data.append("file", files [0])
+  data.append("upload_preset", "habitat_bike_upload")
+  setLoading(true)
+
+  const res = await fetch("http://api.cloudinary.com/v1_1/dc1bhahph/image/upload", {
+    method: "POST",
+    body:data
+
+
+
+  })
+
+  const file = await res.json()
+
+  console.log(file)
+
+  setImage(file.secure_url)
+  setLoading(false)
+
+}
+
+
+
+  // const handleFileInputChange = (e) => {
+  //   const file = e.target.files[0];
+  //   previewFile(file);
+  //   setSelectedFile(file);
+  //   setFileInputState(e.target.value);
+  // };
+
+  // const previewFile = (file) => {
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onloadend = () => {
+  //     setPreviewSource(reader.result);
+  //   };
+  // };
+
+  // const handleSubmitFile = (e) => {
+  //   e.preventDefault();
+  //   if (!selectedFile) return;
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(selectedFile);
+  //   reader.onloadend = () => {
+  //     uploadImage(reader.result);
+  //   };
+  //   reader.onerror = () => {
+  //     console.error("AHHHHHHHH!!");
+  //     setErrMsg("something went wrong!");
+  //   };
+  // };
+
+  // const uploadImage = async (base64EncodedImage) => {
+  //   console.log(base64EncodedImage);
+  //   try {
+  //     await fetch("/api/upload", {
+  //       method: "POST",
+  //       body: JSON.stringify({ data: base64EncodedImage }),
+  //       headers: { "Content-Type": "application/json" },
+  //     });
+  //     setFileInputState("");
+  //     setPreviewSource("");
+  //     setSuccessMsg("Image uploaded successfully");
+  //     console.log(previewSource);
+  //   } catch (err) {
+  //     console.error(err);
+  //     setErrMsg("Something went wrong!");
+  //   }
+  // };
+
+
+
+
 
   /*Flow to watch a single spot informations*/
   const [sendReportRequest, setSendReportRequest] = useState(false);
@@ -334,13 +373,21 @@ const MapProvider = ({ children }) => {
         handleDangerLevel,
         submitComplain,
         handleWelcomeStatusClick,
-        handleSubmitFile,
-        handleFileInputChange,
-        fileInputState,
-        previewSource,
-        selectedFile,
-        successMsg,
-        errMsg,
+
+
+        uploadImage,
+        loading,
+        image,
+        // handleSubmitFile,
+        // handleFileInputChange,
+        // fileInputState,
+        // previewSource,
+        // selectedFile,
+        // successMsg,
+        // errMsg,
+
+
+        
         createComplain,
         options,
         reportDescriptionInput,
