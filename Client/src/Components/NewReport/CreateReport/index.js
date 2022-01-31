@@ -3,7 +3,7 @@ import { useGlobalMapContext } from "../../../Context/mapContext";
 import dangerLevel from "../../../Data/dangerLevelToVote";
 import issueType from "../../../Data/dangerTypeSelection";
 import closeBtn from "../../../icons/modalBoxIcons/close-window-icon.png";
-import Alert from "../../ImageUploadForm/alert.js";
+// import Alert from "../../ImageUploadForm/alert.js";
 
 import "./createReport.css";
 
@@ -14,13 +14,18 @@ export default function CreateReport() {
     closeReportWindow,
     handleDangerLevel,
     dangerType,
-    handleSubmitFile,
-    handleFileInputChange,
     handleDangerType,
-    fileInputState,
-    previewSource,
-    successMsg,
-    errMsg,
+
+    uploadImage,
+    loading,
+    image,
+    // handleSubmitFile,
+    // handleFileInputChange,
+    // fileInputState,
+    // previewSource,
+    // successMsg,
+    // errMsg,
+
     voting,
     dangerFormSubmit,
     reportDescriptionInput,
@@ -28,8 +33,8 @@ export default function CreateReport() {
     numberOfCharacters,
   } = useGlobalMapContext();
 
-  let user = document.cookie;
 
+  let user = document.cookie
   return (
     <div>
   {user ? (
@@ -68,9 +73,22 @@ export default function CreateReport() {
             </label>
           ))}
         </div>
+
+
+
+
         <p className="sub-title">Take a picture</p>
         <div>
-          <Alert msg={errMsg} type="danger" />
+
+
+        <input type="file" name="file" placeholder="Upload your image!" onChange={uploadImage} />
+
+        {loading?(
+          <h3>Loading...</h3>
+        ):(
+          <img src={image} style={{width:"300px"}} />
+        )}
+          {/* <Alert msg={errMsg} type="danger" />
           <Alert msg={successMsg} type="success" />
 
           {previewSource && (
@@ -86,8 +104,13 @@ export default function CreateReport() {
               value={fileInputState}
               className="upload-form-input"
             />
-          </form>
+          </form> */}
         </div>
+
+
+
+
+
         <p className="sub-title"> What's the issue? </p>
         <div className="danger-type-display">
           {issueType.map((issue, index) => {
