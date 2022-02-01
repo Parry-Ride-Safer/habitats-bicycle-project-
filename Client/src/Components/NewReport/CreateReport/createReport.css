@@ -193,3 +193,51 @@ input[class="classD3"]:focus + svg {
   font-size: 10px;
   text-align: end;
 }
+
+.upload-pic-holder{
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.pic-preview{
+  width:30vw;
+  display: flex;
+  margin-left: 25vw;
+}
+
+.upload-btn{
+  margin-left: 5%;
+}
+
+
+.issue-title{
+  margin-left: 25vw;
+}
+
+
+@media only screen and (min-width: 700px) {
+  .show-danger-box{
+  visibility: visible;
+  z-index: 10;
+  background: rgb(255, 255, 255);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  width: 50vw;
+  /* height: 75vh; */
+  max-width: var(--fixed-width);
+  text-align: center;
+  place-items: center;
+  position: fixed;
+  top:50%;
+  left:25%;
+  bottom: 0;
+  border: 0px solid rgb(255, 255, 255);
+}
+  
+  .pic-preview{
+    width:10vw;
+    display: flex;
+    margin-left: 25vw;
+  }
+
+}
