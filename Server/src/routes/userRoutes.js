@@ -8,7 +8,7 @@ userRoutes.get("/", userController.getUsersController);
 userRoutes.get(
   "/current",
   authMiddleware,
-  userController.findUserbyIdController
+  userController.getUserbyIdController
 );
 userRoutes.post("/", userController.insertNewUserController);
 userRoutes.delete("/:id", userController.deleteUserController);

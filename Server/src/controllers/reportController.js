@@ -127,7 +127,6 @@ const submitFlagController = async (req, res) => {
       reportId
     );
     const [results] = await reportsModels.moderateReports(reportId);
-    console.log(results);
     if (results[0].result < 0) await reportsModels.isVisable(reportId);
 
     res.status(201).send(flags);

@@ -95,7 +95,6 @@ const updateVote = async (voting, reportId, userId) => {
     "UPDATE voting SET voting = ? WHERE report_id = ? AND user_id = ? ",
     [voting, reportId, userId]
   );
-  console.log(results[0].affectedRows);
   return results[0].affectedRows;
 };
 

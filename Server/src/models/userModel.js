@@ -34,7 +34,7 @@ const validateEmail = async (email) => {
   return results[0];
 };
 
-const findUserbyId = async (userId) => {
+const getUserbyId = async (userId) => {
   const rawResults = await db.query(
     "SELECT  id, email FROM user WHERE id = ?",
     [userId]
@@ -72,7 +72,6 @@ const updateUser = async ({ password, ...data }, id) => {
       id,
     ]);
   }
-  console.log(results);
   return results[0].affectedRows;
 };
 
@@ -104,7 +103,7 @@ module.exports = {
   findByEmail,
   updateUser,
   deleteUser,
-  findUserbyId,
+  getUserbyId,
   getUserByEmail,
   reportsFromUserId,
   ratedFromUserId,
