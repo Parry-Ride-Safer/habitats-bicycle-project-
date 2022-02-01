@@ -29,6 +29,7 @@ const getReportsInOneLocationController = async (req, res, next) => {
         reportFound.id,
         currentUser.id
       );
+      if (!userVoteFound.length) userVoteFound = null;
     }
 
     res.status(200).json([reportFound, userVoteFound]);
