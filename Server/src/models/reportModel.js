@@ -84,7 +84,7 @@ const getReportById = async (id) => {
 };
 const getVoteByReportAndUser = async (reportId, userId) => {
   const [findReport] = await db.query(
-    "SELECT * FROM voting WHERE report_id = ? AND user_id = ?",
+    "SELECT voting FROM voting WHERE report_id = ? AND user_id = ?",
     [reportId, userId]
   );
   return findReport;
