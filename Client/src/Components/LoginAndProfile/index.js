@@ -8,6 +8,10 @@ import { ReactComponent as AccountIcon } from "./Vector.svg";
 import { ReactComponent as DangerIcon } from "../../icons/modalBoxIcons/Group 550.svg";
 import { ReactComponent as WelcomeIcon } from "../../icons/modalBoxIcons/welcome.svg";
 import { ReactComponent as SignIcon } from "../../icons/modalBoxIcons/signup.svg";
+import { ReactComponent as PreviousArrow} from "../../icons/modalBoxIcons/previousArrow.svg";
+
+
+
 
 const LoginAndProfile = () => {
   const { email, setEmail, password, setPassword, stateLogin, setStateLogin } =
@@ -36,6 +40,11 @@ const LoginAndProfile = () => {
     setShowEditEmail(!showEditEmail);
   };
 
+  const closeEditWindows =()=> { 
+    setShowEditEmail(false);
+    setShowEditPassword(false);
+  }
+
   const handleShowForm = () => {
     setShowForm(true);
     HandleshowWelcomePage();
@@ -63,6 +72,7 @@ const LoginAndProfile = () => {
 
   const handleClick = () => {
     setState(!btnState);
+    closeEditWindows()
   };
 
   const login = async () => {
@@ -437,19 +447,19 @@ const LoginAndProfile = () => {
                 <div className='bloc-tabs'>
                   <button
                     className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(1) + getSubmitedReports()}
+                    onClick={() => toggleTab(1) + getSubmitedReports() + closeEditWindows()}
                   >
                     Submitted Spots
                   </button>
                   <button
                     className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(2) + getVotedSpots()}
+                    onClick={() => toggleTab(2) + getVotedSpots() + closeEditWindows()}
                   >
                     Rated Spots
                   </button>
                   <button
                     className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(3) + getCurrentUser()}
+                    onClick={() => toggleTab(3) + getCurrentUser() + closeEditWindows()}
                   >
                     Settings
                   </button>
@@ -550,8 +560,8 @@ const LoginAndProfile = () => {
                       toggleState === 3 ? "content  active-content" : "closed"
                     }
                   >
-                    <h2>Settings</h2>
-                    <hr />
+                    <div className='settings-container'>
+                    
                     <div className="edit-container">
                       <div className="div-h3">
                       <span>E-Mail Address</span>
@@ -567,7 +577,7 @@ const LoginAndProfile = () => {
                     </button>
                     </div >
                     <div className="edit-container-password">
-                    <div className="div-h3">
+                    <div className="div-h3-password">
                       <span>Password</span>
                       <h3> ******** </h3></div>
                     
@@ -580,9 +590,10 @@ const LoginAndProfile = () => {
                     </button>
                     </div>
 
-                    <button onClick={logout} type='button' className='btn'>
+                    <button onClick={logout} type='button' className='btn-logout'>
                       Logout
                     </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -591,9 +602,9 @@ const LoginAndProfile = () => {
           {/* ----------------------- from here is the edit password window------ */}
           {showEditPassword ? (
             <div className='edit-Form-password'>
-              <form>
-                <div className='form-group'>
-                  <label htmlFor='password'>enter new Password:</label>
+              <form className='form-group-edit'>
+                <div >
+                  <label htmlFor='password'>New Password:</label>
                   <input
                     type='password'
                     name='password'
@@ -602,8 +613,8 @@ const LoginAndProfile = () => {
                   />
                 </div>
 
-                <div className='form-group'>
-                  <label htmlFor='password'>confirm new Password:</label>
+                <div >
+                  <label htmlFor='password'>Confirm new Password:</label>
                   <input
                     type='password'
                     name='password'
@@ -611,23 +622,20 @@ const LoginAndProfile = () => {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 </div>
-                <button onClick={editPassword} type='button' className='btn'>
-                  Save Changes
+                <button onClick={editPassword} type='button' className='btn-save'>
+                  Save
                 </button>
-                <button
-                  onClick={handleshowEditPassword}
-                  type='button'
-                  className='clear-button'
-                ></button>
+                <PreviousArrow  onClick={handleshowEditPassword} className='previous-arrow'/>
               </form>
             </div>
           ) : null}
           {/* ----------- from here is the edit email window ------------- */}
           {showEditEmail ? (
             <div className='edit-Form-password'>
-              <form className='form-group'>
+              <form className='form-group-edit'>
                 <div>
-                  <label htmlFor='username'>enter new E-Mail address:</label>
+                  <label htmlFor='username'>New E-Mail address:</label>
+                  <br/>
                   <input
                     type='email'
                     name='username'
@@ -636,14 +644,15 @@ const LoginAndProfile = () => {
                   />
                 </div>
 
-                <button onClick={editEmail} type='button' className='btn'>
-                  Save Changes
+                <button onClick={editEmail} type='button' className='btn-save'>
+                  Save
                 </button>
-                <button
+               {/*  <button
                   onClick={handleshowEditEmail}
                   type='button'
-                  className='clear-button'
-                ></button>
+                  className='clear-button-edit'
+                >  </button> */}
+                <PreviousArrow  onClick={handleshowEditEmail} className='previous-arrow'/>
               </form>
             </div>
           ) : null}
