@@ -31,9 +31,9 @@ const insertNewUserController = async (req, res, next) => {
   }
 };
 
-const findUserbyIdController = async (req, res) => {
+const getUserbyIdController = async (req, res) => {
   try {
-    const results = await usersModels.findUserbyId(req.currentUser.id);
+    const results = await usersModels.getUserbyId(req.currentUser.id);
     if (results) res.status(200).json(results);
     else throw new RecordNotFoundError("User not found");
   } catch (error) {
@@ -47,7 +47,7 @@ const updateUserController = async (req, res, next) => {
 
   let existingUser, validationErrors, user;
   try {
-    existingUser = await usersModels.findUserbyId(req.currentUser.id);
+    existingUser = await usersModels.getUserbyId(req.currentUser.id);
     existingUserWithEmail = await usersModels.findByEmail(newEmail);
     if (!existingUser) throw new RecordNotFoundError("User not found");
     if (
@@ -109,7 +109,7 @@ const ratedSpotsFromUserIdController = async (req, res, next) => {
 module.exports = {
   getUsersController,
   insertNewUserController,
-  findUserbyIdController,
+  getUserbyIdController,
   updateUserController,
   deleteUserController,
   reportsFromUserIdController,

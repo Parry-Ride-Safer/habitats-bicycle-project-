@@ -27,4 +27,11 @@ admRoutes.delete(
   admController.deleteReportController
 );
 
+admRoutes.put(
+  "/update/:id",
+  authMiddleware,
+  protectMiddleware,
+  admController.updateRoleController
+);
+
 module.exports = admRoutes;

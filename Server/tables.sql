@@ -56,7 +56,7 @@ ALTER TABLE `report` ADD FOREIGN KEY (`category_id`) REFERENCES `category` (`id`
 
 ALTER TABLE `voting` ADD FOREIGN KEY (`flag_id`) REFERENCES `flag` (`id`);
 
-insert into category (name) values('traffic'),('intersection'),('bikelane'),('road'),('traffic'),('other');
+insert into category (name) values('Construction'), ('Road Damage'), ('Bad Parking'), ('Bike Lane'), ('Juction'), ('Traffic'), ('Other');
 insert into flag (name) values ('Innapropiate Report'), ('Wrong Location'), ('Issue Resolved');
 
 

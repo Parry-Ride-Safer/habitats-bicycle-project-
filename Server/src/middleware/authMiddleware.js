@@ -1,5 +1,4 @@
 const { authHelper } = require("../helpers");
-const { userValidator } = require("../validators");
 
 module.exports = (req, _res, next) => {
   if (!req.cookies?.login) throw new Error("INVALID_TOKEN");

@@ -1,4 +1,4 @@
-const { RecordNotFoundError } = require("../error-types");
+const { RecordNotFoundError, InvalidDataError } = require("../error-types");
 const { admModels } = require("../models");
 const { admService } = require("../services");
 
@@ -35,8 +35,20 @@ const deleteReportController = async (req, res, next) => {
   }
 };
 
+const updateRoleController = async (req, res, next) => {
+  const targetId = req.params.id;
+  try {
+    const updateUser = await admModels.updateRole(targetId);
+    if (updateUser === 1) res.status(200).send("Updated to Admin");
+    else throw new InvalidDataError("Nothing to be changed");
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getUsersController,
   getAllHiddenLocationsController,
   deleteReportController,
+  updateRoleController,
 };

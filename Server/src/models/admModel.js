@@ -21,4 +21,12 @@ const deleteReport = async (id) => {
   return results;
 };
 
-module.exports = { getUsers, getAllHiddenLocations, deleteReport };
+const updateRole = async (id) => {
+  let update = await db.query(" UPDATE USER SET role = 'adm' where id = ?", [
+    id,
+  ]);
+
+  return update[0].affectedRows;
+};
+
+module.exports = { getUsers, getAllHiddenLocations, deleteReport, updateRole };

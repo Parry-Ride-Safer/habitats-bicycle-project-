@@ -72,6 +72,9 @@ const MapProvider = ({ children }) => {
       lng: event.latLng.lng(),
       time: new Date(),
     });
+    setImage("");
+    setLoading(false);
+    
   }, []);
 
   const closeReportWindow = () => {

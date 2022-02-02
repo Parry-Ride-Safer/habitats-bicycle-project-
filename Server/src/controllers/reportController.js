@@ -1,5 +1,6 @@
 const { reportsModels } = require("../models");
 const { InvalidDataError, RecordNotFoundError } = require("../error-types");
+const { authHelper } = require("../helpers");
 
 const getAllReportsController = async (req, res) => {
   try {
@@ -11,12 +12,27 @@ const getAllReportsController = async (req, res) => {
 };
 
 const getReportsInOneLocationController = async (req, res, next) => {
-  const locationId = req.params.id;
+  const locationId = parseInt(req.params.id);
+  let userVoteFound;
+  let currentUser;
   try {
-    const results = await reportsModels.getReportsInOneLocation(locationId);
-    if (!results.length)
+    const [reportFound] = await reportsModels.getReportsInOneLocation(
+      locationId
+    );
+    if (!reportFound)
       throw new RecordNotFoundError("No Location with the requested id");
-    res.status(200).json(results);
+    if (req.cookies?.login)
+      currentUser = authHelper.decodeToken(req.cookies.login);
+
+    if (currentUser) {
+      userVoteFound = await reportsModels.getVoteByReportAndUser(
+        reportFound.id,
+        currentUser.id
+      );
+      if (!userVoteFound.length) userVoteFound = null;
+    }
+
+    res.status(200).json([reportFound, userVoteFound]);
   } catch (error) {
     console.log(error);
     next(error);
@@ -112,7 +128,6 @@ const submitFlagController = async (req, res) => {
       reportId
     );
     const [results] = await reportsModels.moderateReports(reportId);
-    console.log(results);
     if (results[0].result < 0) await reportsModels.isVisable(reportId);
 
     res.status(201).send(flags);

@@ -83,10 +83,12 @@ const getReportById = async (id) => {
   return findReport;
 };
 const getVoteByReportAndUser = async (reportId, userId) => {
+  console.log({ reportId, userId });
   const [findReport] = await db.query(
-    "SELECT * FROM voting WHERE report_id = ? AND user_id = ?",
+    "SELECT voting FROM voting WHERE report_id = ? AND user_id = ?",
     [reportId, userId]
   );
+
   return findReport;
 };
 
@@ -95,7 +97,6 @@ const updateVote = async (voting, reportId, userId) => {
     "UPDATE voting SET voting = ? WHERE report_id = ? AND user_id = ? ",
     [voting, reportId, userId]
   );
-  console.log(results[0].affectedRows);
   return results[0].affectedRows;
 };
 
