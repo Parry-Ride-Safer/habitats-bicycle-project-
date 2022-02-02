@@ -510,11 +510,12 @@ const LoginAndProfile = () => {
                               </span>
                               <div className="title-text-div">
                             { report.category_id === 1 ? <span id='danger-type-title'><ConstructionSign className='category-sign' /> Construction</span> : null }
-                            { report.category_id === 2 ? <span id='danger-type-title'><JunctionIcon className='category-sign'/>Intersection</span> : null }
-                            { report.category_id === 3 ? <span id='danger-type-title'><BikelaneSign className='category-sign'/>Bikelane</span> : null }
-                            { report.category_id === 4 ? <span id='danger-type-title'><BadRoadIcon className='category-sign'/>Road</span> : null }
-                            { report.category_id === 5 ? <span id='danger-type-title'><TrafficIcon className='category-sign'/>Traffic</span> : null }
-                            { report.category_id === 6 ? <span id='danger-type-title'><OtherIcon className='category-sign'/>Other</span> : null }
+                            { report.category_id === 2 ? <span id='danger-type-title'><BadRoadIcon className='category-sign'/> Road Damage</span> : null }
+                            { report.category_id === 3 ? <span id='danger-type-title'><BadParking className='category-sign'/> Bad Parking</span> : null }
+                            { report.category_id === 4 ? <span id='danger-type-title'><BikelaneSign className='category-sign'/> Bike Lane</span> : null }
+                            { report.category_id === 5 ? <span id='danger-type-title'><JunctionIcon className='category-sign'/> Junction</span> : null }
+                            { report.category_id === 6 ? <span id='danger-type-title'><TrafficIcon className='category-sign'/> Traffic</span> : null }
+                            { report.category_id === 7 ? <span id='danger-type-title'><OtherIcon className='category-sign'/> Other</span> : null }
                               <span id='information-text'>{report.information}</span>
                              
                               </div>
@@ -573,12 +574,13 @@ const LoginAndProfile = () => {
                               <div className="title-text-div">
                               {/* <span> {spot.name}</span> */}
 
-                              { spot.name === 'traffic' ? <span id='danger-type-title'><ConstructionSign2 className='category-sign' /> Construction</span> : null }
-                            { spot.name === 'intersection' ? <span id='danger-type-title'><JunctionIcon2 className='category-sign'/>Intersection</span> : null }
-                            { spot.name === 'bikelane' ? <span id='danger-type-title'><BikelaneSign2 className='category-sign'/>Bikelane</span> : null }
-                            { spot.name === 'road' ? <span id='danger-type-title'><BadRoadIcon2 className='category-sign'/>Road</span> : null }
-                            { spot.name === 'traffic' ? <span id='danger-type-title'><TrafficIcon2 className='category-sign'/>Traffic</span> : null }
-                            { spot.name === 'other' ? <span id='danger-type-title'><OtherIcon2 className='category-sign'/>Other</span> : null }
+                              { spot.name === 'Construction' ? <span id='danger-type-title'><ConstructionSign2 className='category-sign' /> Construction</span> : null }
+                            { spot.name === 'Juction' ? <span id='danger-type-title'><JunctionIcon2 className='category-sign'/> Junction</span> : null }
+                            { spot.name === 'Bike Lane' ? <span id='danger-type-title'><BikelaneSign2 className='category-sign'/> Bike Lane</span> : null }
+                            { spot.name === 'Road Damage' ? <span id='danger-type-title'><BadRoadIcon2 className='category-sign'/> Road Damage</span> : null }
+                            { spot.name === 'Traffic' ? <span id='danger-type-title'><TrafficIcon2 className='category-sign'/> Traffic</span> : null }
+                            { spot.name === 'Bad Parking' ? <span id='danger-type-title'><OtherIcon2 className='category-sign'/> Other</span> : null }
+                            { spot.name === 'Other' ? <span id='danger-type-title'><BadParking2 className='category-sign'/> Bad Parking</span> : null }
                               <span id='information-text'>{spot.information}</span>
                               
                               
@@ -586,9 +588,9 @@ const LoginAndProfile = () => {
 
 
 
-                              { Number(spot.voting).toFixed(2) >= 1 && Number(spot.voting).toFixed(2) <=1.29 ? <span className="danger-icon-place">{dangerLevel[0].icon}</span> : null }
-                              { Number(spot.voting).toFixed(2) >= 1.30 && Number(spot.voting).toFixed(2) <=2.29 ? <span className="danger-icon-place">{dangerLevel[1].icon}</span> : null }
-                              { Number(spot.voting).toFixed(2) >= 2.30 && Number(spot.voting).toFixed(2) <=3 ? <span className="danger-icon-place">{dangerLevel[2].icon}</span> : null }
+                              { Number(spot.voting).toFixed(2) >= 1 && Number(spot.voting).toFixed(2) <=1.29 ? <span className="danger-icon-place">{dangerLevel[0].icon}<span className="vote-count">{spot.count}</span></span> : null }
+                              { Number(spot.voting).toFixed(2) >= 1.30 && Number(spot.voting).toFixed(2) <=2.29 ? <span className="danger-icon-place">{dangerLevel[1].icon}<span className="vote-count">{spot.count}</span></span> : null }
+                              { Number(spot.voting).toFixed(2) >= 2.30 && Number(spot.voting).toFixed(2) <=3 ? <span className="danger-icon-place">{dangerLevel[2].icon}<span className="vote-count">{spot.count}</span></span> : null }
                             
                               
                               

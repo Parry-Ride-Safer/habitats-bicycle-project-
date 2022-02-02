@@ -34,6 +34,7 @@ const issueType = [
     icon: "",
   },
   { type: "Other", nb: 6, className: "select-other", icon: <Construction /> },
+  { type: "Bad Parking", nb: 7, className: "select-bad-parking", icon: <Construction /> }
 ];
 
 export default issueType;

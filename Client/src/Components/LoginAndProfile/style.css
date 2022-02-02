@@ -501,6 +501,12 @@ border-radius:50%;
   height: 55px;
 }
 
+.vote-count{
+  position: absolute;
+  bottom:-20%;
+  right:45%;
+  
+}
 
 
 
