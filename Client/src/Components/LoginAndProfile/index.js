@@ -3,13 +3,27 @@ import Axios from "axios";
 import { useGlobalMapContext } from "../../Context/mapContext";
 import "./style.css";
 import profileLogo from "./ProfileIcon.png";
-// import WelcomePage from "./welcomePage";
 import { ReactComponent as AccountIcon } from "./Vector.svg";
-import { ReactComponent as DangerIcon } from "../../icons/modalBoxIcons/Group 550.svg";
 import { ReactComponent as WelcomeIcon } from "../../icons/modalBoxIcons/welcome.svg";
 import { ReactComponent as SignIcon } from "../../icons/modalBoxIcons/signup.svg";
 import { ReactComponent as PreviousArrow} from "../../icons/modalBoxIcons/previousArrow.svg";
+import { ReactComponent as ConstructionSign} from "../../icons/modalBoxIcons/constructionSign.svg";
+import { ReactComponent as ConstructionSign2} from "../../icons/modalBoxIcons/constructionSign2.svg";
+import { ReactComponent as BikelaneSign} from "../../icons/modalBoxIcons/bikeIcon.svg";
+import { ReactComponent as BikelaneSign2} from "../../icons/modalBoxIcons/bikeIcon2.svg";
+import { ReactComponent as TrafficIcon} from "../../icons/modalBoxIcons/trafficIcon.svg";
+import { ReactComponent as TrafficIcon2} from "../../icons/modalBoxIcons/trafficIcon2.svg";
+import { ReactComponent as BadParking} from "../../icons/modalBoxIcons/badParking.svg";
+import { ReactComponent as BadParking2} from "../../icons/modalBoxIcons/badParking2.svg";
+import { ReactComponent as BadRoadIcon} from "../../icons/modalBoxIcons/badRoadIcon.svg";
+import { ReactComponent as BadRoadIcon2} from "../../icons/modalBoxIcons/badRoadIcon2.svg";
+import { ReactComponent as JunctionIcon} from "../../icons/modalBoxIcons/junctionIcon.svg";
+import { ReactComponent as JunctionIcon2} from "../../icons/modalBoxIcons/junctionIcon2.svg";
+import { ReactComponent as OtherIcon} from "../../icons/modalBoxIcons/otherIcon.svg";
+import { ReactComponent as OtherIcon2} from "../../icons/modalBoxIcons/otherIcon2.svg";
 
+import dangerLevel from "../../Data/dangerLevelToVote";
+import issueType from "../../Data/dangerTypeSelection";
 
 
 
@@ -334,6 +348,11 @@ const LoginAndProfile = () => {
     let vote = Number(props.voting).toFixed(2);
   };
 
+
+ 
+
+
+
   return (
     <div className='teste2'>
       {!user ? (
@@ -471,33 +490,46 @@ const LoginAndProfile = () => {
                       toggleState === 1 ? "content  active-content" : "closed"
                     }
                   >
-                    <h2>Submitted Spots:</h2>
-                    <hr />
+                    
 
-                    <div>
+                    <div className='submited-spots-padding'>
                       {SubmitedReports.length > 0 ? (
                         SubmitedReports.map((report) => (
                           <div
                             className='your-spots-container'
                             onClick={() => reportDetailsWindow(report.id)}
                           >
-                            <ul key={report.id}>
-                              <li>
-                                <img
+                            <section className='submited-reports-section' key={report.id}>
+                              <span>
+                                {report.image ? (<img
                                   className='img-div'
                                   src={report.image}
                                   alt=''
-                                />
-                              </li>
-                              <li> information :{report.information}</li>
-                              <li>
-                                {" "}
-                                voting : {Number(report.voting).toFixed(2)}
-                                {<DangerIcon />}
-                              </li>
-                              <li> category : {report.category_id}</li>
-                              <li> created : {report.createdAt}</li>
-                            </ul>
+                                />): <div className='img-div-empty'> No photo</div>}
+                                
+                              </span>
+                              <div className="title-text-div">
+                            { report.category_id === 1 ? <span id='danger-type-title'><ConstructionSign className='category-sign' /> Construction</span> : null }
+                            { report.category_id === 2 ? <span id='danger-type-title'><JunctionIcon className='category-sign'/>Intersection</span> : null }
+                            { report.category_id === 3 ? <span id='danger-type-title'><BikelaneSign className='category-sign'/>Bikelane</span> : null }
+                            { report.category_id === 4 ? <span id='danger-type-title'><BadRoadIcon className='category-sign'/>Road</span> : null }
+                            { report.category_id === 5 ? <span id='danger-type-title'><TrafficIcon className='category-sign'/>Traffic</span> : null }
+                            { report.category_id === 6 ? <span id='danger-type-title'><OtherIcon className='category-sign'/>Other</span> : null }
+                              <span id='information-text'>{report.information}</span>
+                             
+                              </div>
+                              
+                              
+                              { Number(report.voting).toFixed(2) >= 1 && Number(report.voting).toFixed(2) <=1.29 ? <span className="danger-icon-place">{dangerLevel[0].icon}</span> : null }
+                              { Number(report.voting).toFixed(2) >= 1.30 && Number(report.voting).toFixed(2) <=2.29 ? <span className="danger-icon-place">{dangerLevel[1].icon}</span> : null }
+                              { Number(report.voting).toFixed(2) >= 2.30 && Number(report.voting).toFixed(2) <=3 ? <span className="danger-icon-place">{dangerLevel[2].icon}</span> : null }
+
+                              {/* <span> category :  {report.category_id } </span> */}
+                            
+                            
+                             {/*  <span> created : {report.createdAt}</span> */}
+                             
+                            </section>
                           </div>
                         ))
                       ) : (
@@ -523,30 +555,44 @@ const LoginAndProfile = () => {
                       toggleState === 2 ? "content  active-content" : "closed"
                     }
                   >
-                    <h2>your voted spots</h2>
+                    
 
-                    <hr />
-
-                    <div>
+                    <div className='submited-spots-padding'>
                       {votedReports.length > 0 ? (
                         votedReports.map((spot) => (
                           <div className='your-spots-container'>
-                            <ul key={spot.id}>
-                              <li>
-                                <img
+                            <section  className='submited-reports-section' key={spot.id}>
+                            <span>
+                                {spot.image ? (<img
                                   className='img-div'
                                   src={spot.image}
                                   alt=''
-                                />
-                              </li>
-                              <li> information :{spot.information}</li>
-                              <li>
-                                {" "}
-                                voting : {Number(spot.voting).toFixed(2)}
-                              </li>
-                              <li> category : {spot.name}</li>
-                              <li> Created at : {spot.createdAt}</li>
-                            </ul>
+                                />): <div className='img-div-empty'> No photo</div>}
+                                
+                              </span>
+                              <div className="title-text-div">
+                              {/* <span> {spot.name}</span> */}
+
+                              { spot.name === 'traffic' ? <span id='danger-type-title'><ConstructionSign2 className='category-sign' /> Construction</span> : null }
+                            { spot.name === 'intersection' ? <span id='danger-type-title'><JunctionIcon2 className='category-sign'/>Intersection</span> : null }
+                            { spot.name === 'bikelane' ? <span id='danger-type-title'><BikelaneSign2 className='category-sign'/>Bikelane</span> : null }
+                            { spot.name === 'road' ? <span id='danger-type-title'><BadRoadIcon2 className='category-sign'/>Road</span> : null }
+                            { spot.name === 'traffic' ? <span id='danger-type-title'><TrafficIcon2 className='category-sign'/>Traffic</span> : null }
+                            { spot.name === 'other' ? <span id='danger-type-title'><OtherIcon2 className='category-sign'/>Other</span> : null }
+                              <span id='information-text'>{spot.information}</span>
+                              
+                              
+                              </div>
+
+
+
+                              { Number(spot.voting).toFixed(2) >= 1 && Number(spot.voting).toFixed(2) <=1.29 ? <span className="danger-icon-place">{dangerLevel[0].icon}</span> : null }
+                              { Number(spot.voting).toFixed(2) >= 1.30 && Number(spot.voting).toFixed(2) <=2.29 ? <span className="danger-icon-place">{dangerLevel[1].icon}</span> : null }
+                              { Number(spot.voting).toFixed(2) >= 2.30 && Number(spot.voting).toFixed(2) <=3 ? <span className="danger-icon-place">{dangerLevel[2].icon}</span> : null }
+                            
+                              
+                              
+                            </section>
                           </div>
                         ))
                       ) : (

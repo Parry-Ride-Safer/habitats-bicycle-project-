@@ -330,6 +330,7 @@ div.open-profile {
   position: sticky;
   top:0;
   border-bottom: 2px solid rgb(56, 56, 56);
+  z-index:3;
 }
 .tabs {
   background-color: #f8f9fa;
@@ -344,22 +345,6 @@ div.open-profile {
 
 
 
-.img-div {
-  background-color: rgb(73, 72, 72);
-
-  width: 50px;
-  height: 50px;
-  display: block;
-}
-
-.your-spots-container {
-  border: 1px solid black;
-  margin-bottom: 1rem;
-}
-
-ul {
-  list-style: none;
-}
 
 
 
@@ -417,6 +402,115 @@ border-radius:50%;
   background: black;
   transform: rotate(-45deg);
 }
+
+
+/* -------------- Reported spots page style ---------------- */ 
+
+
+.submited-spots-padding{
+  padding-top: 5%;
+}
+
+.submited-reports-section{
+  position: relative;
+  display: flex;
+  justify-content: start;
+}
+
+.your-spots-container {
+   
+  margin-bottom: 1rem;
+ /*  box-shadow: -2px 4px 13px 5px rgba(0,0,0,0.10);
+  -webkit-box-shadow: -2px 4px 13px 5px rgba(0,0,0,0.10);
+  -moz-box-shadow: -2px 4px 13px 5px rgba(0,0,0,0.10); */
+  padding-bottom: 0.5rem;
+
+  box-shadow: 2px 3px 14px 3px rgba(0,0,0,0.12);
+-webkit-box-shadow: 2px 3px 14px 3px rgba(0,0,0,0.12);
+-moz-box-shadow: 2px 3px 14px 3px rgba(0,0,0,0.12);
+  
+}
+
+
+.category-sign{ 
+  
+  width : 20px;
+  height: 20px;
+}
+
+.img-div {
+  background-color: white;
+  
+  margin-left: 5%;
+  margin-top:5%;
+  width: 110px;
+  height: 90px;
+  
+}
+
+.img-div-empty{
+  background-color: rgb(230, 224, 224);
+  border-radius: 15px;
+  margin-left: 5%;
+  margin-top:5%;
+  width: 110px;
+  height: 90px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+#information-text{
+  /* background: rgb(156, 156, 233); */
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x:scroll;
+  width: 70%;
+  
+}
+
+
+
+#danger-type-title{
+  background:white;
+  position: relative;
+  display: block;
+  font-weight: bold;
+  
+}
+.title-text-div{
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-direction: column;
+  overflow: hidden;
+  margin-left:20px;
+  width:100%
+}
+
+.danger-icon-place{
+  position: absolute;
+  right:0;
+  top:10%;
+  
+}
+
+.danger-icon-place svg{
+  width: 55px;
+  height: 55px;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 /* -------  account settings page style ----------- */ 
 

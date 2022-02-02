@@ -1,6 +1,6 @@
-import { ReactComponent as Construction } from "../icons/modalBoxIcons/🚧.svg";
+import { ReactComponent as Construction } from "../icons/modalBoxIcons/constructionSign.svg";
 import { ReactComponent as Junction } from "../icons/modalBoxIcons/🚦.svg";
-import { ReactComponent as Bikelane } from "../icons/modalBoxIcons/🚲.svg";
+import { ReactComponent as Bikelane } from "../icons/modalBoxIcons/bikelaneIcon.svg";
 
 const issueType = [
   {
