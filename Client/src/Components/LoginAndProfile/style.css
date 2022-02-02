@@ -328,9 +328,10 @@ div.open-profile {
   display: flex;
   justify-content: space-evenly;
   position: sticky;
-  top:0;
+  top:-1%;
   border-bottom: 2px solid rgb(56, 56, 56);
   z-index:3;
+  
 }
 .tabs {
   background-color: #f8f9fa;
@@ -415,6 +416,7 @@ border-radius:50%;
   position: relative;
   display: flex;
   justify-content: start;
+  height: 100px;
 }
 
 .your-spots-container {
@@ -467,6 +469,8 @@ border-radius:50%;
   flex-wrap: wrap;
   overflow-x:scroll;
   width: 70%;
+  justify-content:start;
+  /* text-align:start; */
   
 }
 
@@ -480,13 +484,15 @@ border-radius:50%;
   
 }
 .title-text-div{
+  margin-top: 0.5rem;
   display: flex;
-  justify-content: space-around;
+  justify-content: start;
   align-items: flex-start;
   flex-direction: column;
   overflow: hidden;
   margin-left:20px;
-  width:100%
+  width:100%;
+  gap:0.5rem;
 }
 
 .danger-icon-place{
