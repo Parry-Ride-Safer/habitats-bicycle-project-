@@ -504,7 +504,10 @@ border-radius:50%;
 .vote-count{
   position: absolute;
   bottom:-20%;
-  right:45%;
+  right:35%;
+  width:20px;
+  display: flex;
+  justify-content: center;
   
 }
 
