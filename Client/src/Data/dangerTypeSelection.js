@@ -1,6 +1,6 @@
-import { ReactComponent as Construction } from "../icons/modalBoxIcons/🚧.svg";
+import { ReactComponent as Construction } from "../icons/modalBoxIcons/constructionSign.svg";
 import { ReactComponent as Junction } from "../icons/modalBoxIcons/🚦.svg";
-import { ReactComponent as Bikelane } from "../icons/modalBoxIcons/🚲.svg";
+import { ReactComponent as Bikelane } from "../icons/modalBoxIcons/bikelaneIcon.svg";
 
 const issueType = [
   {
@@ -10,30 +10,31 @@ const issueType = [
     icon: <Construction />,
   },
   {
-    type: "Junction",
+    type: "Road Damage",
     nb: 2,
-    className: "select-junction",
+    className: "select-road",
     icon: <Junction />,
   },
   {
-    type: "Bike Lane",
+    type: "Bad Parking",
     nb: 3,
-    className: "select-bike-lane",
+    className: "select-bad-parking",
     icon: <Bikelane />,
   },
   {
-    type: "Road",
+    type: "Bike Lane",
     nb: 4,
-    className: "select-road",
+    className: "select-bike-lane",
     icon: "",
   },
   {
-    type: "Traffic",
+    type: "Junction",
     nb: 5,
-    className: "select-traffic",
+    className: "select-Junction",
     icon: "",
   },
-  { type: "Other", nb: 6, className: "select-other", icon: <Construction /> },
+  { type: "Traffic", nb: 6, className: "select-traffic", icon: <Construction /> },
+  { type: "Other", nb: 7, className: "select-other", icon: <Construction /> }
 ];
 
 export default issueType;

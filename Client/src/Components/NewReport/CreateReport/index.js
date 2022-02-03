@@ -77,17 +77,20 @@ export default function CreateReport() {
 
 
 
-        <p className="sub-title">Take a picture</p>
-        <div>
+       
+        <div className="upload-pic-holder">
+       
 
-
-        <input type="file" name="file" placeholder="Upload your image!" onChange={uploadImage} />
+        <input className="upload-btn" type="file" name="file" placeholder="Upload your image!" onChange={uploadImage} />
 
         {loading?(
           <h3>Loading...</h3>
         ):(
-          <img src={image} style={{width:"300px"}} />
+          <img className="pic-preview" src={image}  alt=''/>
         )}
+
+
+        <p className="picture-title">Take a picture</p>
           {/* <Alert msg={errMsg} type="danger" />
           <Alert msg={successMsg} type="success" />
 
@@ -111,7 +114,7 @@ export default function CreateReport() {
 
 
 
-        <p className="sub-title"> What's the issue? </p>
+        <p className="issue-title"> What's the issue? </p>
         <div className="danger-type-display">
           {issueType.map((issue, index) => {
             return(

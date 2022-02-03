@@ -3,11 +3,29 @@ import Axios from "axios";
 import { useGlobalMapContext } from "../../Context/mapContext";
 import "./style.css";
 import profileLogo from "./ProfileIcon.png";
-// import WelcomePage from "./welcomePage";
 import { ReactComponent as AccountIcon } from "./Vector.svg";
-import { ReactComponent as DangerIcon } from "../../icons/modalBoxIcons/Group 550.svg";
 import { ReactComponent as WelcomeIcon } from "../../icons/modalBoxIcons/welcome.svg";
 import { ReactComponent as SignIcon } from "../../icons/modalBoxIcons/signup.svg";
+import { ReactComponent as PreviousArrow} from "../../icons/modalBoxIcons/previousArrow.svg";
+import { ReactComponent as ConstructionSign} from "../../icons/modalBoxIcons/constructionSign.svg";
+import { ReactComponent as ConstructionSign2} from "../../icons/modalBoxIcons/constructionSign2.svg";
+import { ReactComponent as BikelaneSign} from "../../icons/modalBoxIcons/bikeIcon.svg";
+import { ReactComponent as BikelaneSign2} from "../../icons/modalBoxIcons/bikeIcon2.svg";
+import { ReactComponent as TrafficIcon} from "../../icons/modalBoxIcons/trafficIcon.svg";
+import { ReactComponent as TrafficIcon2} from "../../icons/modalBoxIcons/trafficIcon2.svg";
+import { ReactComponent as BadParking} from "../../icons/modalBoxIcons/badParking.svg";
+import { ReactComponent as BadParking2} from "../../icons/modalBoxIcons/badParking2.svg";
+import { ReactComponent as BadRoadIcon} from "../../icons/modalBoxIcons/badRoadIcon.svg";
+import { ReactComponent as BadRoadIcon2} from "../../icons/modalBoxIcons/badRoadIcon2.svg";
+import { ReactComponent as JunctionIcon} from "../../icons/modalBoxIcons/junctionIcon.svg";
+import { ReactComponent as JunctionIcon2} from "../../icons/modalBoxIcons/junctionIcon2.svg";
+import { ReactComponent as OtherIcon} from "../../icons/modalBoxIcons/otherIcon.svg";
+import { ReactComponent as OtherIcon2} from "../../icons/modalBoxIcons/otherIcon2.svg";
+
+import dangerLevel from "../../Data/dangerLevelToVote";
+import issueType from "../../Data/dangerTypeSelection";
+
+
 
 const LoginAndProfile = () => {
   const { email, setEmail, password, setPassword, stateLogin, setStateLogin } =
@@ -36,6 +54,11 @@ const LoginAndProfile = () => {
     setShowEditEmail(!showEditEmail);
   };
 
+  const closeEditWindows =()=> { 
+    setShowEditEmail(false);
+    setShowEditPassword(false);
+  }
+
   const handleShowForm = () => {
     setShowForm(true);
     HandleshowWelcomePage();
@@ -63,6 +86,7 @@ const LoginAndProfile = () => {
 
   const handleClick = () => {
     setState(!btnState);
+    closeEditWindows()
   };
 
   const login = async () => {
@@ -324,6 +348,11 @@ const LoginAndProfile = () => {
     let vote = Number(props.voting).toFixed(2);
   };
 
+
+ 
+
+
+
   return (
     <div className='teste2'>
       {!user ? (
@@ -437,19 +466,19 @@ const LoginAndProfile = () => {
                 <div className='bloc-tabs'>
                   <button
                     className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(1) + getSubmitedReports()}
+                    onClick={() => toggleTab(1) + getSubmitedReports() + closeEditWindows()}
                   >
                     Submitted Spots
                   </button>
                   <button
                     className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(2) + getVotedSpots()}
+                    onClick={() => toggleTab(2) + getVotedSpots() + closeEditWindows()}
                   >
                     Rated Spots
                   </button>
                   <button
                     className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(3) + getCurrentUser()}
+                    onClick={() => toggleTab(3) + getCurrentUser() + closeEditWindows()}
                   >
                     Settings
                   </button>
@@ -461,33 +490,47 @@ const LoginAndProfile = () => {
                       toggleState === 1 ? "content  active-content" : "closed"
                     }
                   >
-                    <h2>Submitted Spots:</h2>
-                    <hr />
+                    
 
-                    <div>
+                    <div className='submited-spots-padding'>
                       {SubmitedReports.length > 0 ? (
                         SubmitedReports.map((report) => (
                           <div
                             className='your-spots-container'
                             onClick={() => reportDetailsWindow(report.id)}
                           >
-                            <ul key={report.id}>
-                              <li>
-                                <img
+                            <section className='submited-reports-section' key={report.id}>
+                              <span>
+                                {report.image ? (<img
                                   className='img-div'
                                   src={report.image}
                                   alt=''
-                                />
-                              </li>
-                              <li> information :{report.information}</li>
-                              <li>
-                                {" "}
-                                voting : {Number(report.voting).toFixed(2)}
-                                {<DangerIcon />}
-                              </li>
-                              <li> category : {report.category_id}</li>
-                              <li> created : {report.createdAt}</li>
-                            </ul>
+                                />): <div className='img-div-empty'> No photo</div>}
+                                
+                              </span>
+                              <div className="title-text-div">
+                            { report.category_id === 1 ? <span id='danger-type-title'><ConstructionSign className='category-sign' /> Construction</span> : null }
+                            { report.category_id === 2 ? <span id='danger-type-title'><BadRoadIcon className='category-sign'/> Road Damage</span> : null }
+                            { report.category_id === 3 ? <span id='danger-type-title'><BadParking className='category-sign'/> Bad Parking</span> : null }
+                            { report.category_id === 4 ? <span id='danger-type-title'><BikelaneSign className='category-sign'/> Bike Lane</span> : null }
+                            { report.category_id === 5 ? <span id='danger-type-title'><JunctionIcon className='category-sign'/> Junction</span> : null }
+                            { report.category_id === 6 ? <span id='danger-type-title'><TrafficIcon className='category-sign'/> Traffic</span> : null }
+                            { report.category_id === 7 ? <span id='danger-type-title'><OtherIcon className='category-sign'/> Other</span> : null }
+                              <span id='information-text'>{report.information}</span>
+                             
+                              </div>
+                              
+                              
+                              { Number(report.voting).toFixed(2) >= 1 && Number(report.voting).toFixed(2) <=1.29 ? <span className="danger-icon-place">{dangerLevel[0].icon}</span> : null }
+                              { Number(report.voting).toFixed(2) >= 1.30 && Number(report.voting).toFixed(2) <=2.29 ? <span className="danger-icon-place">{dangerLevel[1].icon}</span> : null }
+                              { Number(report.voting).toFixed(2) >= 2.30 && Number(report.voting).toFixed(2) <=3 ? <span className="danger-icon-place">{dangerLevel[2].icon}</span> : null }
+
+                              {/* <span> category :  {report.category_id } </span> */}
+                            
+                            
+                             {/*  <span> created : {report.createdAt}</span> */}
+                             
+                            </section>
                           </div>
                         ))
                       ) : (
@@ -513,30 +556,45 @@ const LoginAndProfile = () => {
                       toggleState === 2 ? "content  active-content" : "closed"
                     }
                   >
-                    <h2>your voted spots</h2>
+                    
 
-                    <hr />
-
-                    <div>
+                    <div className='submited-spots-padding'>
                       {votedReports.length > 0 ? (
                         votedReports.map((spot) => (
                           <div className='your-spots-container'>
-                            <ul key={spot.id}>
-                              <li>
-                                <img
+                            <section  className='submited-reports-section' key={spot.id}>
+                            <span>
+                                {spot.image ? (<img
                                   className='img-div'
                                   src={spot.image}
                                   alt=''
-                                />
-                              </li>
-                              <li> information :{spot.information}</li>
-                              <li>
-                                {" "}
-                                voting : {Number(spot.voting).toFixed(2)}
-                              </li>
-                              <li> category : {spot.name}</li>
-                              <li> Created at : {spot.createdAt}</li>
-                            </ul>
+                                />): <div className='img-div-empty'> No photo</div>}
+                                
+                              </span>
+                              <div className="title-text-div">
+                              {/* <span> {spot.name}</span> */}
+
+                              { spot.name === 'Construction' ? <span id='danger-type-title'><ConstructionSign2 className='category-sign' /> Construction</span> : null }
+                            { spot.name === 'Juction' ? <span id='danger-type-title'><JunctionIcon2 className='category-sign'/> Junction</span> : null }
+                            { spot.name === 'Bike Lane' ? <span id='danger-type-title'><BikelaneSign2 className='category-sign'/> Bike Lane</span> : null }
+                            { spot.name === 'Road Damage' ? <span id='danger-type-title'><BadRoadIcon2 className='category-sign'/> Road Damage</span> : null }
+                            { spot.name === 'Traffic' ? <span id='danger-type-title'><TrafficIcon2 className='category-sign'/> Traffic</span> : null }
+                            { spot.name === 'Bad Parking' ? <span id='danger-type-title'><OtherIcon2 className='category-sign'/> Other</span> : null }
+                            { spot.name === 'Other' ? <span id='danger-type-title'><BadParking2 className='category-sign'/> Bad Parking</span> : null }
+                              <span id='information-text'>{spot.information}</span>
+                              
+                              
+                              </div>
+
+
+
+                              { Number(spot.voting).toFixed(2) >= 1 && Number(spot.voting).toFixed(2) <=1.29 ? <span className="danger-icon-place">{dangerLevel[0].icon}<span className="vote-count">{spot.count}</span></span> : null }
+                              { Number(spot.voting).toFixed(2) >= 1.30 && Number(spot.voting).toFixed(2) <=2.29 ? <span className="danger-icon-place">{dangerLevel[1].icon}<span className="vote-count">{spot.count}</span></span> : null }
+                              { Number(spot.voting).toFixed(2) >= 2.30 && Number(spot.voting).toFixed(2) <=3 ? <span className="danger-icon-place">{dangerLevel[2].icon}<span className="vote-count">{spot.count}</span></span> : null }
+                            
+                              
+                              
+                            </section>
                           </div>
                         ))
                       ) : (
@@ -550,8 +608,8 @@ const LoginAndProfile = () => {
                       toggleState === 3 ? "content  active-content" : "closed"
                     }
                   >
-                    <h2>Settings</h2>
-                    <hr />
+                    <div className='settings-container'>
+                    
                     <div className="edit-container">
                       <div className="div-h3">
                       <span>E-Mail Address</span>
@@ -567,7 +625,7 @@ const LoginAndProfile = () => {
                     </button>
                     </div >
                     <div className="edit-container-password">
-                    <div className="div-h3">
+                    <div className="div-h3-password">
                       <span>Password</span>
                       <h3> ******** </h3></div>
                     
@@ -580,9 +638,10 @@ const LoginAndProfile = () => {
                     </button>
                     </div>
 
-                    <button onClick={logout} type='button' className='btn'>
+                    <button onClick={logout} type='button' className='btn-logout'>
                       Logout
                     </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -591,9 +650,9 @@ const LoginAndProfile = () => {
           {/* ----------------------- from here is the edit password window------ */}
           {showEditPassword ? (
             <div className='edit-Form-password'>
-              <form>
-                <div className='form-group'>
-                  <label htmlFor='password'>enter new Password:</label>
+              <form className='form-group-edit'>
+                <div >
+                  <label htmlFor='password'>New Password:</label>
                   <input
                     type='password'
                     name='password'
@@ -602,8 +661,8 @@ const LoginAndProfile = () => {
                   />
                 </div>
 
-                <div className='form-group'>
-                  <label htmlFor='password'>confirm new Password:</label>
+                <div >
+                  <label htmlFor='password'>Confirm new Password:</label>
                   <input
                     type='password'
                     name='password'
@@ -611,23 +670,20 @@ const LoginAndProfile = () => {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 </div>
-                <button onClick={editPassword} type='button' className='btn'>
-                  Save Changes
+                <button onClick={editPassword} type='button' className='btn-save'>
+                  Save
                 </button>
-                <button
-                  onClick={handleshowEditPassword}
-                  type='button'
-                  className='clear-button'
-                ></button>
+                <PreviousArrow  onClick={handleshowEditPassword} className='previous-arrow'/>
               </form>
             </div>
           ) : null}
           {/* ----------- from here is the edit email window ------------- */}
           {showEditEmail ? (
             <div className='edit-Form-password'>
-              <form className='form-group'>
+              <form className='form-group-edit'>
                 <div>
-                  <label htmlFor='username'>enter new E-Mail address:</label>
+                  <label htmlFor='username'>New E-Mail address:</label>
+                  <br/>
                   <input
                     type='email'
                     name='username'
@@ -636,14 +692,15 @@ const LoginAndProfile = () => {
                   />
                 </div>
 
-                <button onClick={editEmail} type='button' className='btn'>
-                  Save Changes
+                <button onClick={editEmail} type='button' className='btn-save'>
+                  Save
                 </button>
-                <button
+               {/*  <button
                   onClick={handleshowEditEmail}
                   type='button'
-                  className='clear-button'
-                ></button>
+                  className='clear-button-edit'
+                >  </button> */}
+                <PreviousArrow  onClick={handleshowEditEmail} className='previous-arrow'/>
               </form>
             </div>
           ) : null}

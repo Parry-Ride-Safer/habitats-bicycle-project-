@@ -8,7 +8,6 @@ const login = async (credentials) => {
     const [user] = await authValidator.validateCredentialsAndGetUser(
       credentials
     );
-    console.log(user);
     if (!user) throw new RecordNotFoundError();
     const token = authHelper.generateToken(user);
 

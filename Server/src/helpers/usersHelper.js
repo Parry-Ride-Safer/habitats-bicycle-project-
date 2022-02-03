@@ -14,13 +14,11 @@ const verifyPassword = async (password, hash) => {
   let match;
   try {
     match = await bcrypt.compare(password, hash);
-    console.log(match);
     if (!match) return false;
     return match;
   } catch (error) {
     console.log(error);
-    let treatedError = error.toString().slice(7);
-    console.log(treatedError);
+    error.toString().slice(7);
   }
 };
 
