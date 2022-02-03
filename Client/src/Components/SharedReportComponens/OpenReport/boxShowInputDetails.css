@@ -84,13 +84,13 @@
 
 .open-report-description{
   margin-top: 10px;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .submit-button {
   color: white;
   background-color: black;
-  width: 20vw;
+  width: 25vw;
   padding: 0.5rem;
   margin: 0.5rem;
   border: 0px;
@@ -102,4 +102,5 @@
 .open-report-btn{
   position: absolute;
   bottom: 80px;
+  width:100%;
 }
