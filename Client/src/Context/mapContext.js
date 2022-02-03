@@ -104,13 +104,9 @@ const MapProvider = ({ children }) => {
             { ...marker, id: response.data.id },
           ]);
           dispatch({ type: "SUBMIT_REPORT" });
-<<<<<<< HEAD
           setVoting("");
           setReportDescriptionInput([]);
           setImage("")
-=======
-          setImage("");
->>>>>>> 250904b719a8f7c8656604ca178f898116eb5317
         })
         .catch((err) => console.log(err));
     }
@@ -336,6 +332,7 @@ const MapProvider = ({ children }) => {
     zoomControl: true,
   };
 
+  console.log(getReportData)
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(15);
@@ -381,11 +378,8 @@ const MapProvider = ({ children }) => {
         // successMsg,
         // errMsg,
 
-<<<<<<< HEAD
 
         findReportID,
-=======
->>>>>>> 250904b719a8f7c8656604ca178f898116eb5317
         createComplain,
         options,
         reportDescriptionInput,
