@@ -83,13 +83,12 @@ const getReportById = async (id) => {
   return findReport;
 };
 const getVoteByReportAndUser = async (reportId, userId) => {
-  console.log({ reportId, userId });
-  const [findReport] = await db.query(
+  const findReport = await db.query(
     "SELECT voting FROM voting WHERE report_id = ? AND user_id = ?",
     [reportId, userId]
   );
-
-  return findReport;
+  console.log({ findReport });
+  return findReport[0];
 };
 
 const updateVote = async (voting, reportId, userId) => {
