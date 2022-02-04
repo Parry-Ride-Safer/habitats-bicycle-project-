@@ -74,13 +74,13 @@ const MapProvider = ({ children }) => {
     });
     setImage("");
     setLoading(false);
-    
   }, []);
 
-  const closeReportWindow = () => {
-    dispatch({ type: "CLOSE_REPORT_WINDOW" });
-  };
+/*
+  function (initialValue, setInitialValue {
 
+  })
+*/
   const findCategoryID = [
     issueType.find((element) => element.type === dangerType),
   ];
@@ -115,13 +115,11 @@ const MapProvider = ({ children }) => {
     }
   };
 
-  const reportProcessDone = () => {
-    dispatch({ type: "CONCLUDE_PROCESS" });
-  };
+  const reportProcessDone = () => dispatch({ type: "CONCLUDE_PROCESS" });
 
-  const createComplain = () => {
-    dispatch({ type: "OPEN_COMPLAIN_WINDOW" });
-  };
+  const createComplain = () => dispatch({ type: "OPEN_COMPLAIN_WINDOW" });
+  
+  const closeReportWindow = () => dispatch({ type: "CLOSE_REPORT_WINDOW" });
 
   const submitComplain = (event) => {
     event.preventDefault();
