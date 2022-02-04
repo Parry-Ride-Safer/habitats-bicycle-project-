@@ -36,7 +36,7 @@ const MapProvider = ({ children }) => {
     };
     fetchMarkers();
   }, []);
-
+  console.log(finalMarkers)
   const [voting, setVoting] = useState("");
   const [numberOfCharacters, setNumberOfCharacters] = useState(0);
   const [alertMsg, setAlertMsg] = useState(false);
@@ -76,11 +76,8 @@ const MapProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-/*
-  function (initialValue, setInitialValue {
+ 
 
-  })
-*/
   const findCategoryID = [
     issueType.find((element) => element.type === dangerType),
   ];
@@ -130,6 +127,7 @@ const MapProvider = ({ children }) => {
     dispatch({ type: "OPEN_VOTE_WINDOW" });
     getVotedSpots();
   };
+
 
   const handleDangerDescriptionInputs = (event) => {
     const name = event.target.name;
