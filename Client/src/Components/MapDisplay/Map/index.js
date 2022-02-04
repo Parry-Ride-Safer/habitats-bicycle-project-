@@ -12,9 +12,11 @@ import {
 } from "../../index";
 import { useGlobalMapContext } from "../../../Context/mapContext";
 import "./map.css";
-import logo from "./Polygon38.png";
 import logoBlue from "./PolygonBlue.png";
-
+import yellow from "../../../icons/modalBoxIcons/Group 550.svg";
+import orange from "../../../icons/modalBoxIcons/Group 551.svg";
+import red from "../../../icons/modalBoxIcons/Group 552.svg";
+import mapStyles from "./mapStyles";
 
 const mapContainerStyle = {
   width: "100vw",
@@ -27,17 +29,7 @@ const center = {
 };
 
 const mapOptions = {
-  styles: [
-    {
-      featureType: "poi",
-      elementType: "all",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-  ],
+  styles: mapStyles,
   disableDefaultUI: true,
   zoomControl: true,
 };
@@ -62,6 +54,7 @@ const mapOptions = {
 export default function Map() {
   const {
     fetchReportData,
+    getReportData,
     marker,
     dispatch,
     isReportWindowInputOpen,
@@ -102,7 +95,12 @@ export default function Map() {
               }}
               clusterer={clusterer}
               icon={{
-                url: logo,
+                url: 
+                  ((Number(fMarker.voting).toFixed(2) <=1.29) ? yellow :
+                  (
+                    (Number(fMarker.voting).toFixed(2) >= 1.30) && 
+                    (Number(fMarker.voting).toFixed(2) <=2.29) 
+                  ) ? orange : red ) ,
                 scaledSize: new window.google.maps.Size(50, 50),
                 origin: new window.google.maps.Point(0, 0),
                 anchor: new window.google.maps.Point(25, 25),
