@@ -56,7 +56,7 @@ export default function CreateReport() {
         </button>
         <p className="title"> Danger Level </p>
         <p className="danger-level-text">
-          Tell the others how serious the issue is
+          How serious is the issue?
         </p>
         <div className="dangerLevelVote">
           {dangerLevel.map((danger, index) => (
@@ -90,7 +90,7 @@ export default function CreateReport() {
         )}
 
 
-        <p className="picture-title">Take a picture</p>
+        <p className="picture-title">Upload your picture</p>
           {/* <Alert msg={errMsg} type="danger" />
           <Alert msg={successMsg} type="success" />
 
@@ -114,7 +114,7 @@ export default function CreateReport() {
 
 
 
-        <p className="issue-title"> What's the issue? </p>
+        <p className="issue-title"> Describe the issue </p>
         <div className="danger-type-display">
           {issueType.map((issue, index) => {
             return(

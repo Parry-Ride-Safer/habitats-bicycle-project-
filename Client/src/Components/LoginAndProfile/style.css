@@ -56,7 +56,8 @@
   border:none;
   /* border-bottom: 1px solid black; */
   background:white;
-  color:rgb(53, 53, 53)
+  color:rgb(53, 53, 53);
+  cursor: pointer;
 }
 
 .button-login::after{
@@ -124,7 +125,7 @@
   padding:0.4rem;
   padding-left:1.5rem;
   padding-right:1.5rem;
-
+  cursor: pointer;
 }
 
 .sign-up-form{ 
@@ -337,11 +338,13 @@ div.open-profile {
   background-color: #f8f9fa;
   font-size: 1rem;
   border: none;
+  cursor: pointer;
 }
 .active-tabs {
   font-weight: bold;
   border-bottom: 3px solid black;
   font-size: 1rem;
+
 }
 
 
@@ -568,8 +571,8 @@ border-radius:50%;
     padding-left:1rem;
     padding-right:1rem;
     width:100px;
-    margin-left:calc(50% - 50px)
-    
+    margin-left:calc(50% - 50px);
+    cursor: pointer;
 }
 
 
@@ -620,7 +623,7 @@ justify-content:center;
   color: black;
   margin: 0.5rem;
   font-size:1.1rem;
-  
+  cursor: pointer;
 
 }
 
@@ -642,7 +645,7 @@ justify-content:center;
   color: black;
   margin: 0.5rem;
   font-size:1.1rem;
-  
+  cursor: pointer;
 
 }
 

@@ -43,6 +43,8 @@
 .title {
   font-family: "Roboto Condensed";
   font-size: 1.2rem;
+  align-self: center;
+  font-weight: bold;
 }
 
 .close-button {
@@ -55,6 +57,7 @@
 .close-button-img {
   height: 18px;
   width: 18px;
+  cursor: pointer;
 }
 
 .sub-title {
@@ -72,6 +75,7 @@
   width: 100%;
   font-size: 11px;
   text-align: end;
+  align-self: center;
 }
 
 .open-report-image {

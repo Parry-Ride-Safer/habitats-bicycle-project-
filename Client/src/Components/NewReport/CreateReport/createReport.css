@@ -71,6 +71,7 @@
   color: lightslategrey;
   margin-top: 0;
   margin-bottom: 5px;
+  align-self: center;
 }
 
 .dangerLevelVote{
@@ -197,21 +198,31 @@ input[class="classD3"]:focus + svg {
 .upload-pic-holder{
   display: flex;
   flex-direction: column-reverse;
+  width: 100%;
 }
 
 .pic-preview{
-  width:30vw;
+  width:70vw;
   display: flex;
-  margin-left: 25vw;
+  align-self: center;
 }
 
 .upload-btn{
-  margin-left: 5%;
+  align-self: center;
 }
 
 
 .issue-title{
-  margin-left: 25vw;
+  align-self: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.picture-title{
+  margin-bottom: 0;
+  font-family: "Roboto Condensed";
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 
@@ -228,16 +239,15 @@ input[class="classD3"]:focus + svg {
   text-align: center;
   place-items: center;
   position: fixed;
-  top:50%;
   left:25%;
-  bottom: 0;
+  margin-bottom: 20;
   border: 0px solid rgb(255, 255, 255);
 }
   
   .pic-preview{
-    width:10vw;
-    display: flex;
-    margin-left: 25vw;
+    width:35vw;
+    align-self: center;
+    margin: 5px;
   }
 
 }
