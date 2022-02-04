@@ -36,6 +36,7 @@ const LoginAndProfile = () => {
     fetchReportData,
     stateLogin,
     setStateLogin,
+    closeReportWindow,
   } = useGlobalMapContext();
 
   const [btnState, setState] = useState(false);
@@ -94,6 +95,7 @@ const LoginAndProfile = () => {
   const handleClick = () => {
     setState(!btnState);
     closeEditWindows();
+    closeReportWindow();
   };
 
   const login = async () => {
