@@ -334,7 +334,7 @@ const MapProvider = ({ children }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(15);
   }, []);
-
+  console.log(finalMarkers)
   return (
     <MapContext.Provider
       value={{
