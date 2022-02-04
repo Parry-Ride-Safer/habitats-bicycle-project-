@@ -216,7 +216,7 @@ const MapProvider = ({ children }) => {
   const [isSpotVoted, setIsSpotVoted] = useState(false);
   const [votedReports, setVotedReports] = useState([]);
   const [loginId, setLoginId] = useState();
-  console.log(getReportData)
+ 
   const getVotedSpots = async () => {
     try {
       if (user) {
@@ -246,16 +246,15 @@ const MapProvider = ({ children }) => {
         `${process.env.REACT_APP_API_ROUTE_URL}/reports/${fMarker.id}`
       );
       
-      setGetReportdata(reportData.data[0]);
+      setGetReportdata(reportData.data);
       getCurrentUser();
-      console.log(getReportData);
       setSendReportRequest(false);
       setSelected("");
     } catch (e) {
       setSendReportRequest(false);
     }
   };
-
+ 
   const getCurrentUser = async () => {
     try {
       await Axios.get(
@@ -301,7 +300,7 @@ const MapProvider = ({ children }) => {
       });
     }
   };
-
+  console.log(getReportData)
   const handleDangerLevel = (event) => {
     setVoting(event.target.value);
   };
@@ -331,7 +330,6 @@ const MapProvider = ({ children }) => {
     zoomControl: true,
   };
 
-  console.log(getReportData)
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(15);

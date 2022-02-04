@@ -189,7 +189,7 @@ const LoginAndProfile = () => {
       </div>
     );
   };
- 
+ /*
   let filteredReport = [];
   
   const reportDetailsWindow = (id) => {
@@ -208,7 +208,7 @@ const LoginAndProfile = () => {
 
 
   }
-
+*/
   const getSubmitedReports = async () => {
     try {
       if (user) {
