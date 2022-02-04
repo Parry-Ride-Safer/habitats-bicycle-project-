@@ -181,7 +181,8 @@ const LoginAndProfile = () => {
     setShowDetailedReport(!showDetailedReport);
   };
 
-  const DetailedWindow = (props) => {
+  const DetailedWindow = (props , func) => {
+    
     return (
       <div className='detailed-report-window'>
         {" "}
@@ -194,20 +195,15 @@ const LoginAndProfile = () => {
   
   const reportDetailsWindow = (id) => {
     filteredReport = SubmitedReports.filter((report) => report.id === id);
-    let pleasework = filteredReport;
-    setFilteredArray(pleasework[0])
     setShowDetailedReport(!showDetailedReport);
     console.log(filteredReport[0], " variavel filt");
-    console.log(pleasework[0], "works?");
-    
-    
-    return pleasework;
+    return filteredReport
   };
 
-  const testwindow =(func , id )=> { 
+  
+ 
 
 
-  }
 
   const getSubmitedReports = async () => {
     try {
@@ -353,9 +349,7 @@ const LoginAndProfile = () => {
     );
   };
 
-  const handleDangerIcons = (props) => {
-    let vote = Number(props.voting).toFixed(2);
-  };
+  
 
 
  
@@ -547,18 +541,18 @@ const LoginAndProfile = () => {
                         <p> you haven't Submitted any reports yet :D</p>
                       )}
                     </div>
-                    {/* {showDetailedReport ? (
+                     {showDetailedReport ? (
                       <div className="detailed-report-window">
                         {" "}
                         <h1>
                           {" "}
                           TESTE WINDOW{" "}
                           {filteredReport.length > 0
-                            ? filteredReport[0].id
+                            ? filteredReport[0].information
                             : null}
                         </h1>
                       </div>
-                    ) : null} */}
+                    ) : null} 
                   </div>
 
                   <div
