@@ -28,7 +28,7 @@ import issueType from "../../Data/dangerTypeSelection";
 
 
 const LoginAndProfile = () => {
-  const { email, setEmail, password, setPassword, stateLogin, setStateLogin } =
+  const { email, setEmail, getReportData, dispatch, password, setPassword, fetchReportData, stateLogin, setStateLogin } =
     useGlobalMapContext();
 
   const [btnState, setState] = useState(false);
@@ -45,7 +45,7 @@ const LoginAndProfile = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showEditEmail, setShowEditEmail] = useState(false);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
-
+  
   const handleshowEditPassword = () => {
     setShowEditPassword(!showEditPassword);
   };
@@ -227,16 +227,13 @@ const LoginAndProfile = () => {
       }
     };
     
-    let filteredReport = [];
+ 
     const reportDetailsWindow = (id) => {
-      filteredReport = SubmitedReports.filter((report) => report.id === id);
-      let pleasework = filteredReport;
+      fetchReportData({id})
+      dispatch({ type: "OPEN_MARKER_REPORT" });
       setShowDetailedReport(!showDetailedReport);
-      console.log(filteredReport[0], " variavel filt");
-      console.log(pleasework[0], "works?");
-      return pleasework;
     };
-    
+
     const getVotedSpots = async () => {
       try {
         if (user) {
@@ -557,18 +554,6 @@ const LoginAndProfile = () => {
                         <p> you haven't Submitted any reports yet :D</p>
                       )}
                     </div>
-                    {/* {showDetailedReport ? (
-                      <div className="detailed-report-window">
-                        {" "}
-                        <h1>
-                          {" "}
-                          TESTE WINDOW{" "}
-                          {filteredReport.length > 0
-                            ? filteredReport[0].id
-                            : null}
-                        </h1>
-                      </div>
-                    ) : null} */}
                   </div>
 
                   <div
@@ -581,7 +566,7 @@ const LoginAndProfile = () => {
                     <div className='submited-spots-padding'>
                       {votedReports.length > 0 ? (
                         votedReports.map((spot) => (
-                          <div className='your-spots-container'>
+                          <div className='your-spots-container' onClick={()=>reportDetailsWindow(spot.id)}>
                             <section  className='submited-reports-section' key={spot.id}>
                             <span>
                                 {spot.image ? (<img
@@ -592,7 +577,7 @@ const LoginAndProfile = () => {
                                 
                               </span>
                               <div className="title-text-div">
-                              {/* <span> {spot.name}</span> */}
+                            
 
                               { spot.name === 'Construction' ? <span id='danger-type-title'><ConstructionSign2 className='category-sign' /> Construction</span> : null }
                             { spot.name === 'Juction' ? <span id='danger-type-title'><JunctionIcon2 className='category-sign'/> Junction</span> : null }

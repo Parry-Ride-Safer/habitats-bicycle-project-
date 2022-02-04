@@ -54,7 +54,6 @@ const mapOptions = {
 export default function Map() {
   const {
     fetchReportData,
-    getReportData,
     marker,
     dispatch,
     isReportWindowInputOpen,

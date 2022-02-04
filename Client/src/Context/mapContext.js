@@ -36,7 +36,7 @@ const MapProvider = ({ children }) => {
     };
     fetchMarkers();
   }, []);
-  console.log(finalMarkers)
+
   const [voting, setVoting] = useState("");
   const [numberOfCharacters, setNumberOfCharacters] = useState(0);
   const [alertMsg, setAlertMsg] = useState(false);
@@ -313,7 +313,7 @@ const MapProvider = ({ children }) => {
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, []);
-
+  console.log(getReportData)
   const options = {
     styles: [
       {
@@ -334,7 +334,6 @@ const MapProvider = ({ children }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(15);
   }, []);
-  console.log(finalMarkers)
   return (
     <MapContext.Provider
       value={{
@@ -375,7 +374,7 @@ const MapProvider = ({ children }) => {
         // successMsg,
         // errMsg,
 
-
+        fetchReportData,
         findReportID,
         createComplain,
         options,
@@ -388,7 +387,6 @@ const MapProvider = ({ children }) => {
         setEmail,
         password,
         setPassword,
-        fetchReportData,
         getReportData,
         sendReportRequest,
         stateLogin,
