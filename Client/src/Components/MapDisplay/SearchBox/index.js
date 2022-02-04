@@ -19,6 +19,7 @@ export default function SearchBox() {
 
   const handleSearchState = () => {
     setSearchState(!searchState);
+    setValue("");
   };
 
   const {

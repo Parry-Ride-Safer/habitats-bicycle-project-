@@ -382,7 +382,7 @@ const LoginAndProfile = () => {
           {showForm && !stateLogin ? (
             <div className='register-form'>
               <form className='sign-up-form'>
-                <h2>Email Sign-in</h2>
+                <h2 className="signup-title">Email Sign-in</h2>
                 <div>
                   <label htmlFor='username'>Email Address</label>
                   <br />

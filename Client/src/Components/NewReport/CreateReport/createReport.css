@@ -202,7 +202,7 @@ input[class="classD3"]:focus + svg {
 }
 
 .pic-preview{
-  width:70vw;
+  width:50%;
   display: flex;
   align-self: center;
 }
@@ -245,7 +245,8 @@ input[class="classD3"]:focus + svg {
 }
   
   .pic-preview{
-    width:35vw;
+    width: 40%;
+    max-height: 35vh;
     align-self: center;
     margin: 5px;
   }
