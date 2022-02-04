@@ -107,11 +107,11 @@ const MapProvider = ({ children }) => {
             { ...marker, id: response.data.id },
           ]);
           dispatch({ type: "SUBMIT_REPORT" });
-          setImage("");
+          setVoting("");
+          setReportDescriptionInput([]);
+          setImage("")
         })
         .catch((err) => console.log(err));
-      setVoting("");
-      setReportDescriptionInput([]);
     }
   };
 
@@ -220,7 +220,7 @@ const MapProvider = ({ children }) => {
   const [isSpotVoted, setIsSpotVoted] = useState(false);
   const [votedReports, setVotedReports] = useState([]);
   const [loginId, setLoginId] = useState();
-
+  console.log(getReportData)
   const getVotedSpots = async () => {
     try {
       if (user) {
@@ -273,10 +273,10 @@ const MapProvider = ({ children }) => {
   };
 
   let user = document.cookie;
-
+  const findReportID = votedReports.find(({ id }) => id == getReportData.id);
+  
   const handleAddVote = async (event) => {
     event.preventDefault();
-    const findReportID = votedReports.find(({ id }) => id == getReportData.id);
     if (
       currentUser === getReportData.user_id ||
       (currentUser !== getReportData.user && findReportID)
@@ -302,7 +302,6 @@ const MapProvider = ({ children }) => {
       ).then((response) => {
         setAlertMsg(false);
         dispatch({ type: "SUBMIT_VOTE" });
-        console.log(response);
       });
     }
   };
@@ -336,6 +335,7 @@ const MapProvider = ({ children }) => {
     zoomControl: true,
   };
 
+  console.log(getReportData)
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(15);
@@ -381,6 +381,8 @@ const MapProvider = ({ children }) => {
         // successMsg,
         // errMsg,
 
+
+        findReportID,
         createComplain,
         options,
         reportDescriptionInput,

@@ -1,6 +1,6 @@
 import React from "react";
 import { useGlobalMapContext } from "../../../Context/mapContext";
-import { ModalShowReportDetails, ModalShowUserInputDetails } from "../../index";
+import { VoteModal, EditVoteModal } from "../../index";
 import "./boxShowInputDetails.css";
 import closeBtn from "../../../icons/modalBoxIcons/close-window-icon.png";
 
@@ -11,6 +11,7 @@ export default function BoxShowInputDetails() {
     getReportData,
     isBoxShowInputDetailsOpen,
     closeReportWindow,
+    
   } = useGlobalMapContext();
 
   return (
@@ -35,9 +36,9 @@ export default function BoxShowInputDetails() {
           <p className='open-report-description'>{getReportData.information}</p>
           <div className='open-report-btn'>
             {currentUser === getReportData.user_id ? (
-              <ModalShowUserInputDetails />
+              <EditVoteModal />
             ) : (
-              <ModalShowReportDetails />
+              <VoteModal />
             )}
           </div>
         </div>

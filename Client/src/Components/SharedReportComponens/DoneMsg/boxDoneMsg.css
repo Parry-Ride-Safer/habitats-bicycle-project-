@@ -9,7 +9,7 @@
   border: 0px;
   -webkit-box-shadow: 0px 0px 23px -3px #000000;
   box-shadow: 0px 0px 10px -5px #000000;
-  width: 40vw;
+  width: 50vw;
   max-width: var(--fixed-width);
   text-align: center;
 }
