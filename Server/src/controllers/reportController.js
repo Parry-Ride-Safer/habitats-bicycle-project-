@@ -1,6 +1,11 @@
 const { reportsModels } = require("../models");
-const { InvalidDataError, RecordNotFoundError } = require("../error-types");
+const {
+  InvalidDataError,
+  RecordNotFoundError,
+  AlreadyExistsError,
+} = require("../error-types");
 const { authHelper } = require("../helpers");
+const { getVoting } = require("../models/reportModel");
 
 const getAllReportsController = async (req, res) => {
   try {
@@ -30,7 +35,6 @@ const getReportsInOneLocationController = async (req, res, next) => {
         currentUser.id
       );
       userVoteFound = userVoteFound[0];
-      console.log({ userVoteFound });
     }
 
     res.status(200).json({ ...reportFound, userVoteFound });
@@ -71,7 +75,7 @@ const updateReportController = async (req, res, next) => {
       throw new RecordNotFoundError(`report with id ${reportId} not found.`);
     report = await reportsModels.updateReport(req.body, reportId);
 
-    if (report === 2) res.status(200).json({ ...existingReport, ...req.body });
+    if (report > 0) res.status(200).json({ ...existingReport, ...req.body });
     else throw new InvalidDataError("Nothing to be changed");
   } catch (error) {
     console.error(error);
@@ -102,11 +106,14 @@ const updateVoteController = async (req, res, next) => {
   }
 };
 
-const submitVotingController = async (req, res) => {
+const submitVotingController = async (req, res, next) => {
   const { voting } = req.body;
   const { reportId } = req.params;
 
   try {
+    const results = await reportsModels.getVoting(req.currentUser.id, reportId);
+    if (results.length)
+      throw new AlreadyExistsError("You can't vote in this location");
     const vote = await reportsModels.createVoting(
       voting,
       req.currentUser.id,
@@ -116,24 +123,39 @@ const submitVotingController = async (req, res) => {
     res.status(201).send(vote);
   } catch (error) {
     console.log(error);
+    next(error);
   }
 };
-const submitFlagController = async (req, res) => {
+const submitFlagController = async (req, res, next) => {
   const { flag } = req.body;
   const { reportId } = req.params;
+  let record;
+  let flags;
 
   try {
-    const flags = await reportsModels.createFlag(
-      flag,
-      req.currentUser.id,
-      reportId
-    );
+    const records = await reportsModels.getFlag(req.currentUser.id, reportId);
+    if (records.length) {
+      if (records[0].flag_id === null)
+        record = await reportsModels.updateFlag(
+          req.body.flag,
+          reportId,
+          req.currentUser.id
+        );
+      if (record === 1) res.status(200).json({ ...records, ...req.body });
+      else throw new AlreadyExistsError("You can't flag in this location");
+    } else
+      flags = await reportsModels.createFlag(
+        flag,
+        req.currentUser.id,
+        reportId
+      );
     const [results] = await reportsModels.moderateReports(reportId);
     if (results[0].result < 0) await reportsModels.isVisable(reportId);
 
     res.status(201).send(flags);
   } catch (error) {
     console.log(error);
+    next(error);
   }
 };
 

@@ -9,7 +9,7 @@ const getAllReports = async () => {
 
 const getReportsInOneLocation = async (locationId) => {
   const reports = await db.query(
-    "SELECT report.id, information, avg(voting) AS voting, category.name, createdAt, report.user_id, image, count(voting) as count FROM report join voting on voting.report_id = report.id join category on report.category_id = category.id WHERE address_id in (?) group by address_id",
+    "SELECT report.id, information, avg(voting) AS voting, category.name, createdAt, report.user_id, image, count(voting) as count FROM report join rating on rating.report_id = report.id join category on report.category_id = category.id WHERE address_id in (?) group by address_id",
     [locationId]
   );
   const results = reports;
@@ -18,7 +18,7 @@ const getReportsInOneLocation = async (locationId) => {
 
 const createVoting = async (voting, userId, reportId) => {
   await db.query(
-    "INSERT INTO voting ( voting, user_id, report_id) VALUES (?, ?, ?)",
+    "INSERT INTO rating ( voting, user_id, report_id) VALUES (?, ?, ?)",
     [voting, userId, reportId]
   );
   return { voting, userId, reportId };
@@ -69,11 +69,11 @@ const createLocation = async (lat, lng) => {
 };
 const updateReport = async ({ ...data }, id) => {
   const results = await db.query(
-    "UPDATE report join voting on voting.report_id= report.id SET ?  WHERE report.id=? ",
+    "UPDATE report join rating on rating.report_id= report.id SET ?  WHERE report.id=? ",
     [{ ...data }, id]
   );
-
-  return results[0].affectedRows;
+  console.log(results[0]);
+  return results[0].changedRows;
 };
 
 const getReportById = async (id) => {
@@ -84,32 +84,53 @@ const getReportById = async (id) => {
 };
 const getVoteByReportAndUser = async (reportId, userId) => {
   const findReport = await db.query(
-    "SELECT voting FROM voting WHERE report_id = ? AND user_id = ?",
+    "SELECT voting FROM rating WHERE report_id = ? AND user_id = ?",
     [reportId, userId]
   );
-  console.log({ findReport });
   return findReport[0];
 };
 
 const updateVote = async (voting, reportId, userId) => {
   const results = await db.query(
-    "UPDATE voting SET voting = ? WHERE report_id = ? AND user_id = ? ",
+    "UPDATE rating SET voting = ? WHERE report_id = ? AND user_id = ? ",
     [voting, reportId, userId]
   );
-  return results[0].affectedRows;
+  return results[0].changedRows;
 };
 
 const createFlag = async (flag, userId, reportId) => {
   await db.query(
-    "INSERT INTO voting ( flag_id, user_id, report_id) VALUES (?, ?, ?)",
+    "INSERT INTO rating ( flag_id, user_id, report_id) VALUES (?, ?, ?)",
     [flag, userId, reportId]
   );
   return { flag, userId, reportId };
 };
 
+const getVoting = async (userId, reportId) => {
+  [results] = await db.query(
+    "SELECT voting FROM rating WHERE user_id = ? and report_id = ?",
+    [userId, reportId]
+  );
+  return results;
+};
+const getFlag = async (userId, reportId) => {
+  [results] = await db.query(
+    "SELECT flag_id FROM rating WHERE user_id = ? and report_id = ?",
+    [userId, reportId]
+  );
+  return results;
+};
+const updateFlag = async (flag_id, reportId, userId) => {
+  const results = await db.query(
+    "UPDATE rating SET flag_id = ? WHERE report_id = ? AND user_id = ? ",
+    [flag_id, reportId, userId]
+  );
+  return results[0].affectedRows;
+};
+
 const moderateReports = async (id) => {
   const results = await db.query(
-    "SELECT COUNT(voting)-COUNT(flag_id) as result from voting WHERE report_id = ?",
+    "SELECT COUNT(voting)-COUNT(flag_id) as result from rating WHERE report_id = ?",
     id
   );
   return results;
@@ -132,4 +153,7 @@ module.exports = {
   createFlag,
   moderateReports,
   isVisable,
+  getVoting,
+  getFlag,
+  updateFlag,
 };
