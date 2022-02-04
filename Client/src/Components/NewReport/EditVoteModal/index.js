@@ -22,7 +22,13 @@ export default function ModalShowUserInputDetails() {
             (parseInt(getReportData.voting) === 2) ? "Medium danger" :
             "High danger"
           }</p>
-          <p className="rating-qtt">{getReportData.count} rating including mine: </p>
+          <p className="rating-qtt">{getReportData.count} rating including mine: 
+          {
+          (parseInt(getReportData.userVoteFound.voting) === 1) ? (<div className="danger-icon-size">{dangerLevel[0].icon} </div>) : 
+          (parseInt(getReportData.userVoteFound.voting) === 2) ? (<div className="danger-icon-size">{dangerLevel[1].icon} </div>) :
+          (<div className="danger-icon-size">{dangerLevel[2].icon} </div>)
+        }
+          </p>
         </div>
       </div>
       <div className="center-btn">

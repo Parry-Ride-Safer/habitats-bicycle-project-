@@ -56,7 +56,8 @@
   border:none;
   /* border-bottom: 1px solid black; */
   background:white;
-  color:rgb(53, 53, 53)
+  color:rgb(53, 53, 53);
+  cursor: pointer;
 }
 
 .button-login::after{
@@ -96,6 +97,8 @@
     display: flex;
     justify-content: center;
     
+
+  
 }
 
 .btn-register{ 
@@ -124,7 +127,7 @@
   padding:0.4rem;
   padding-left:1.5rem;
   padding-right:1.5rem;
-
+  cursor: pointer;
 }
 
 .sign-up-form{ 
@@ -337,11 +340,13 @@ div.open-profile {
   background-color: #f8f9fa;
   font-size: 1rem;
   border: none;
+  cursor: pointer;
 }
 .active-tabs {
   font-weight: bold;
   border-bottom: 3px solid black;
   font-size: 1rem;
+
 }
 
 
@@ -370,6 +375,7 @@ div.open-profile {
 -webkit-box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.20);
 -moz-box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.20);
 border-radius:50%;
+
 }
 
 .clear-button {
@@ -568,8 +574,8 @@ border-radius:50%;
     padding-left:1rem;
     padding-right:1rem;
     width:100px;
-    margin-left:calc(50% - 50px)
-    
+    margin-left:calc(50% - 50px);
+    cursor: pointer;
 }
 
 
@@ -620,7 +626,7 @@ justify-content:center;
   color: black;
   margin: 0.5rem;
   font-size:1.1rem;
-  
+  cursor: pointer;
 
 }
 
@@ -642,7 +648,7 @@ justify-content:center;
   color: black;
   margin: 0.5rem;
   font-size:1.1rem;
-  
+  cursor: pointer;
 
 }
 
@@ -727,5 +733,81 @@ justify-content:center;
   position: absolute;
   top: 5%;
   cursor: pointer;
+
+}
+
+
+
+@media only screen and (min-width: 700px) {
+
+
+
+  .register-form {
+  visibility: visible;
+  z-index: 10;
+  background: rgb(255, 255, 255);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  width: 50vw;
+  /* height: 75vh; */
+  max-width: var(--fixed-width);
+  text-align: center;
+  place-items: center;
+  position: fixed;
+  left:25%;
+  margin-bottom: 20;
+  border: 0px solid rgb(255, 255, 255);
+} 
+.signup-title{
+  margin-bottom: 50px;
+  font-weight: bold;
+}
+
+
+
+.sign-up-input {
+  border-radius: 15px;
+  border: 1px solid rgb(130, 130, 131);
+  padding: 1.2rem;
+  width: 35vw;
+  font-size: 1.2rem
+}
+
+.welcome-page-start {
+  width: 25vw;
+  height: 30vh;
+}
+
+.welcome-page-sign {
+  width: 25vw;
+  height: 30vh;
+}
+
+.btn-start {
+    border: 1px solid rgb(0, 0, 0);
+    background-color: rgb(3, 3, 3);
+    color: white;
+    border-radius: 25px;
+    /* margin-left: 40%; */
+    margin-top: 1rem;
+    padding: 1vh;
+    padding-left: 3vw;
+    padding-right: 3vw;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+.btn-register{
+  border: 1px solid rgb(0, 0, 0);
+  background-color: rgb(3, 3, 3);
+  color: white;
+  border-radius: 25px;
+  /* margin-left: 40%; */
+  margin-top: 3rem;
+  padding: 1vh;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
 
 }

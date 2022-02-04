@@ -6,30 +6,37 @@ import profileLogo from "./ProfileIcon.png";
 import { ReactComponent as AccountIcon } from "./Vector.svg";
 import { ReactComponent as WelcomeIcon } from "../../icons/modalBoxIcons/welcome.svg";
 import { ReactComponent as SignIcon } from "../../icons/modalBoxIcons/signup.svg";
-import { ReactComponent as PreviousArrow} from "../../icons/modalBoxIcons/previousArrow.svg";
-import { ReactComponent as ConstructionSign} from "../../icons/modalBoxIcons/constructionSign.svg";
-import { ReactComponent as ConstructionSign2} from "../../icons/modalBoxIcons/constructionSign2.svg";
-import { ReactComponent as BikelaneSign} from "../../icons/modalBoxIcons/bikeIcon.svg";
-import { ReactComponent as BikelaneSign2} from "../../icons/modalBoxIcons/bikeIcon2.svg";
-import { ReactComponent as TrafficIcon} from "../../icons/modalBoxIcons/trafficIcon.svg";
-import { ReactComponent as TrafficIcon2} from "../../icons/modalBoxIcons/trafficIcon2.svg";
-import { ReactComponent as BadParking} from "../../icons/modalBoxIcons/badParking.svg";
-import { ReactComponent as BadParking2} from "../../icons/modalBoxIcons/badParking2.svg";
-import { ReactComponent as BadRoadIcon} from "../../icons/modalBoxIcons/badRoadIcon.svg";
-import { ReactComponent as BadRoadIcon2} from "../../icons/modalBoxIcons/badRoadIcon2.svg";
-import { ReactComponent as JunctionIcon} from "../../icons/modalBoxIcons/junctionIcon.svg";
-import { ReactComponent as JunctionIcon2} from "../../icons/modalBoxIcons/junctionIcon2.svg";
-import { ReactComponent as OtherIcon} from "../../icons/modalBoxIcons/otherIcon.svg";
-import { ReactComponent as OtherIcon2} from "../../icons/modalBoxIcons/otherIcon2.svg";
+import { ReactComponent as PreviousArrow } from "../../icons/modalBoxIcons/previousArrow.svg";
+import { ReactComponent as ConstructionSign } from "../../icons/modalBoxIcons/constructionSign.svg";
+import { ReactComponent as ConstructionSign2 } from "../../icons/modalBoxIcons/constructionSign2.svg";
+import { ReactComponent as BikelaneSign } from "../../icons/modalBoxIcons/bikeIcon.svg";
+import { ReactComponent as BikelaneSign2 } from "../../icons/modalBoxIcons/bikeIcon2.svg";
+import { ReactComponent as TrafficIcon } from "../../icons/modalBoxIcons/trafficIcon.svg";
+import { ReactComponent as TrafficIcon2 } from "../../icons/modalBoxIcons/trafficIcon2.svg";
+import { ReactComponent as BadParking } from "../../icons/modalBoxIcons/badParking.svg";
+import { ReactComponent as BadParking2 } from "../../icons/modalBoxIcons/badParking2.svg";
+import { ReactComponent as BadRoadIcon } from "../../icons/modalBoxIcons/badRoadIcon.svg";
+import { ReactComponent as BadRoadIcon2 } from "../../icons/modalBoxIcons/badRoadIcon2.svg";
+import { ReactComponent as JunctionIcon } from "../../icons/modalBoxIcons/junctionIcon.svg";
+import { ReactComponent as JunctionIcon2 } from "../../icons/modalBoxIcons/junctionIcon2.svg";
+import { ReactComponent as OtherIcon } from "../../icons/modalBoxIcons/otherIcon.svg";
+import { ReactComponent as OtherIcon2 } from "../../icons/modalBoxIcons/otherIcon2.svg";
 
 import dangerLevel from "../../Data/dangerLevelToVote";
 import issueType from "../../Data/dangerTypeSelection";
 
-
-
 const LoginAndProfile = () => {
-  const { email, setEmail, password, setPassword, stateLogin, setStateLogin } =
-    useGlobalMapContext();
+  const {
+    email,
+    setEmail,
+    getReportData,
+    dispatch,
+    password,
+    setPassword,
+    fetchReportData,
+    stateLogin,
+    setStateLogin,
+  } = useGlobalMapContext();
 
   const [btnState, setState] = useState(false);
   const [toggleState, setToggleState] = useState(1);
@@ -54,10 +61,10 @@ const LoginAndProfile = () => {
     setShowEditEmail(!showEditEmail);
   };
 
-  const closeEditWindows =()=> { 
+  const closeEditWindows = () => {
     setShowEditEmail(false);
     setShowEditPassword(false);
-  }
+  };
 
   const handleShowForm = () => {
     setShowForm(true);
@@ -86,7 +93,7 @@ const LoginAndProfile = () => {
 
   const handleClick = () => {
     setState(!btnState);
-    closeEditWindows()
+    closeEditWindows();
   };
 
   const login = async () => {
@@ -181,29 +188,14 @@ const LoginAndProfile = () => {
     setShowDetailedReport(!showDetailedReport);
   };
 
-  const DetailedWindow = (props , func) => {
-    
+  const DetailedWindow = (props, func) => {
     return (
-      <div className='detailed-report-window'>
+      <div className="detailed-report-window">
         {" "}
         <h1> TESTE WINDOW {props.information}</h1>
       </div>
     );
   };
- 
-  let filteredReport = [];
-  
-  const reportDetailsWindow = (id) => {
-    filteredReport = SubmitedReports.filter((report) => report.id === id);
-    setShowDetailedReport(!showDetailedReport);
-    console.log(filteredReport[0], " variavel filt");
-    return filteredReport
-  };
-
-  
- 
-
-
 
   const getSubmitedReports = async () => {
     try {
@@ -221,6 +213,12 @@ const LoginAndProfile = () => {
       console.log(err);
       setSubmitedReports([]);
     }
+  };
+
+  const reportDetailsWindow = (id) => {
+    fetchReportData({ id });
+    dispatch({ type: "OPEN_MARKER_REPORT" });
+    setShowDetailedReport(!showDetailedReport);
   };
 
   const getVotedSpots = async () => {
@@ -309,12 +307,12 @@ const LoginAndProfile = () => {
   const WelcomePage = () => {
     return showWelcomePage ? (
       <div>
-        <div className='welcome-page-start'>
-          <WelcomeIcon className='welcome-hand' />
+        <div className="welcome-page-start">
+          <WelcomeIcon className="welcome-hand" />
           <h3>
             Welcome rider. <br /> Let's make the streets safer together.
           </h3>
-          <button onClick={handleWelcomeStatusClick} className='btn-start'>
+          <button onClick={handleWelcomeStatusClick} className="btn-start">
             Start
           </button>
         </div>
@@ -331,118 +329,111 @@ const LoginAndProfile = () => {
   const SignUpPop = () => {
     return (
       <div>
-        <div className='welcome-page-sign'>
-          <SignIcon className='welcome-hand' />
+        <div className="welcome-page-sign">
+          <SignIcon className="welcome-hand" />
           <h3>sign up to be able to report or vote on a road issue.</h3>
-          <button className='btn-start' onClick={handleShowRegisterForm}>
+          <button className="btn-start" onClick={handleShowRegisterForm}>
             sign up
           </button>
-          <button onClick={handleShowForm} className='button-login'>
+          <button onClick={handleShowForm} className="button-login">
             login
           </button>
           <button
             onClick={handleSkipForNow}
-            className='clear-button-register'
+            className="clear-button-register"
           ></button>
         </div>
       </div>
     );
   };
 
-  
-
-
- 
-
-
-
   return (
-    <div >
+    <div>
       {!user ? (
         <>
           {!showWelcomePage ? (
-            <AccountIcon className='account-icon' onClick={handleLoginStatus} />
+            <AccountIcon className="account-icon" onClick={handleLoginStatus} />
           ) : null}
           <WelcomePage />
           {welcomeStatus ? !stateLogin ? <SignUpPop /> : null : null}
           {/* ---------- from here is login form ------------- */}
           {showForm && !stateLogin ? (
-            <div className='register-form'>
-              <form className='sign-up-form'>
-                <h2>Email Sign-in</h2>
+            <div className="register-form">
+              <form className="sign-up-form">
+                <h2 className="signup-title">Email Sign-in</h2>
                 <div>
-                  <label htmlFor='username'>Email Address</label>
+                  <label htmlFor="username">Email Address</label>
                   <br />
                   <input
-                    className='sign-up-input'
-                    type='email'
-                    name='username'
-                    placeholder='email@example.com'
+                    className="sign-up-input"
+                    type="email"
+                    name="username"
+                    placeholder="email@example.com"
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-                <div className='form-group'>
-                  <label htmlFor='password'>Password</label>
+                <div className="form-group">
+                  <label htmlFor="password">Password</label>
                   <br />
                   <input
-                    className='sign-up-input'
-                    type='password'
-                    name='password'
-                    placeholder='password'
+                    className="sign-up-input"
+                    type="password"
+                    name="password"
+                    placeholder="password"
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <button onClick={login} type='button' className='btn-register'>
+                <button onClick={login} type="button" className="btn-register">
                   Login
                 </button>
                 <button
                   onClick={handleSkipForNow}
-                  type='button'
-                  className='clear-button-register'
+                  type="button"
+                  className="clear-button-register"
                 ></button>
               </form>
             </div>
           ) : null}
           {/* ------- from here is show register only form---------------------------- */}
           {showRegisterForm && !stateLogin ? (
-            <div className='register-form'>
-              <form className='sign-up-form'>
+            <div className="register-form">
+              <form className="sign-up-form">
                 <h2>Email Sign-up</h2>
 
                 <div>
-                  <label htmlFor='username'>Email Address</label>
+                  <label htmlFor="username">Email Address</label>
                   <br />
                   <input
-                    className='sign-up-input'
-                    type='email'
-                    name='username'
-                    placeholder='email@example.com'
+                    className="sign-up-input"
+                    type="email"
+                    name="username"
+                    placeholder="email@example.com"
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-                <div className='form-group'>
-                  <label htmlFor='password'>Password</label>
+                <div className="form-group">
+                  <label htmlFor="password">Password</label>
                   <br />
                   <input
-                    className='sign-up-input'
-                    type='password'
-                    name='password'
-                    placeholder='password'
+                    className="sign-up-input"
+                    type="password"
+                    name="password"
+                    placeholder="password"
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
                 <button
                   onClick={register}
-                  type='button'
-                  className='btn-register'
+                  type="button"
+                  className="btn-register"
                 >
                   Confirm
                 </button>
 
                 <button
                   onClick={handleSkipForNow}
-                  type='button'
-                  className='clear-button-register'
+                  type="button"
+                  className="clear-button-register"
                 ></button>
               </form>
             </div>
@@ -455,9 +446,9 @@ const LoginAndProfile = () => {
             className={btnState ? "menu-btn open" : "menu-btn"}
             onClick={handleClick}
           >
-            <div className='menu-btn__burger'></div>
+            <div className="menu-btn__burger"></div>
           </div>
-          <div className='absolute-container'>
+          <div className="absolute-container">
             <div
               className={btnState ? "open-profile" : "closed"}
               onClick={handleClick}
@@ -465,75 +456,142 @@ const LoginAndProfile = () => {
               {" "}
             </div>
             <div className={btnState ? "tab-wrapper" : "closed"}>
-              <h1 className='your-account'>Your Account</h1>
-              <div className='tab-container'>
-                <div className='bloc-tabs'>
+              <h1 className="your-account">Your Account</h1>
+              <div className="tab-container">
+                <div className="bloc-tabs">
                   <button
                     className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(1) + getSubmitedReports() + closeEditWindows()}
+                    onClick={() =>
+                      toggleTab(1) + getSubmitedReports() + closeEditWindows()
+                    }
                   >
                     Submitted Spots
                   </button>
                   <button
                     className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(2) + getVotedSpots() + closeEditWindows()}
+                    onClick={() =>
+                      toggleTab(2) + getVotedSpots() + closeEditWindows()
+                    }
                   >
                     Rated Spots
                   </button>
                   <button
                     className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(3) + getCurrentUser() + closeEditWindows()}
+                    onClick={() =>
+                      toggleTab(3) + getCurrentUser() + closeEditWindows()
+                    }
                   >
                     Settings
                   </button>
                 </div>
 
-                <div className='content-tabs'>
+                <div className="content-tabs">
                   <div
                     className={
                       toggleState === 1 ? "content  active-content" : "closed"
                     }
                   >
-                    
-
-                    <div className='submited-spots-padding'>
+                    <div className="submited-spots-padding">
                       {SubmitedReports.length > 0 ? (
                         SubmitedReports.map((report) => (
                           <div
-                            className='your-spots-container'
+                            className="your-spots-container"
                             onClick={() => reportDetailsWindow(report.id)}
                           >
-                            <section className='submited-reports-section' key={report.id}>
+                            <section
+                              className="submited-reports-section"
+                              key={report.id}
+                            >
                               <span>
-                                {report.image ? (<img
-                                  className='img-div'
-                                  src={report.image}
-                                  alt=''
-                                />): <div className='img-div-empty'> No photo</div>}
-                                
+                                {report.image ? (
+                                  <img
+                                    className="img-div"
+                                    src={report.image}
+                                    alt=""
+                                  />
+                                ) : (
+                                  <div className="img-div-empty"> No photo</div>
+                                )}
                               </span>
                               <div className="title-text-div">
-                            { report.category_id === 1 ? <span id='danger-type-title'><ConstructionSign className='category-sign' /> Construction</span> : null }
-                            { report.category_id === 2 ? <span id='danger-type-title'><BadRoadIcon className='category-sign'/> Road Damage</span> : null }
-                            { report.category_id === 3 ? <span id='danger-type-title'><BadParking className='category-sign'/> Bad Parking</span> : null }
-                            { report.category_id === 4 ? <span id='danger-type-title'><BikelaneSign className='category-sign'/> Bike Lane</span> : null }
-                            { report.category_id === 5 ? <span id='danger-type-title'><JunctionIcon className='category-sign'/> Junction</span> : null }
-                            { report.category_id === 6 ? <span id='danger-type-title'><TrafficIcon className='category-sign'/> Traffic</span> : null }
-                            { report.category_id === 7 ? <span id='danger-type-title'><OtherIcon className='category-sign'/> Other</span> : null }
-                              <span id='information-text'>{report.information}</span>
-                             
+                                {report.category_id === 1 ? (
+                                  <span id="danger-type-title">
+                                    <ConstructionSign className="category-sign" />{" "}
+                                    Construction
+                                  </span>
+                                ) : null}
+                                {report.category_id === 2 ? (
+                                  <span id="danger-type-title">
+                                    <BadRoadIcon className="category-sign" />{" "}
+                                    Road Damage
+                                  </span>
+                                ) : null}
+                                {report.category_id === 3 ? (
+                                  <span id="danger-type-title">
+                                    <BadParking className="category-sign" /> Bad
+                                    Parking
+                                  </span>
+                                ) : null}
+                                {report.category_id === 4 ? (
+                                  <span id="danger-type-title">
+                                    <BikelaneSign className="category-sign" />{" "}
+                                    Bike Lane
+                                  </span>
+                                ) : null}
+                                {report.category_id === 5 ? (
+                                  <span id="danger-type-title">
+                                    <JunctionIcon className="category-sign" />{" "}
+                                    Junction
+                                  </span>
+                                ) : null}
+                                {report.category_id === 6 ? (
+                                  <span id="danger-type-title">
+                                    <TrafficIcon className="category-sign" />{" "}
+                                    Traffic
+                                  </span>
+                                ) : null}
+                                {report.category_id === 7 ? (
+                                  <span id="danger-type-title">
+                                    <OtherIcon className="category-sign" />{" "}
+                                    Other
+                                  </span>
+                                ) : null}
+                                <span id="information-text">
+                                  {report.information}
+                                </span>
                               </div>
-                              
-                              
-                              { Number(report.voting).toFixed(2) >= 1 && Number(report.voting).toFixed(2) <=1.29 ? <span className="danger-icon-place">{dangerLevel[0].icon}<span className="vote-count">{report.count}</span></span> : null }
-                              { Number(report.voting).toFixed(2) >= 1.30 && Number(report.voting).toFixed(2) <=2.29 ? <span className="danger-icon-place">{dangerLevel[1].icon}<span className="vote-count">{report.count}</span></span> : null }
-                              { Number(report.voting).toFixed(2) >= 2.30 && Number(report.voting).toFixed(2) <=3 ? <span className="danger-icon-place">{dangerLevel[2].icon}<span className="vote-count">{report.count}</span></span> : null }
+
+                              {Number(report.voting).toFixed(2) >= 1 &&
+                              Number(report.voting).toFixed(2) <= 1.29 ? (
+                                <span className="danger-icon-place">
+                                  {dangerLevel[0].icon}
+                                  <span className="vote-count">
+                                    {report.count}
+                                  </span>
+                                </span>
+                              ) : null}
+                              {Number(report.voting).toFixed(2) >= 1.3 &&
+                              Number(report.voting).toFixed(2) <= 2.29 ? (
+                                <span className="danger-icon-place">
+                                  {dangerLevel[1].icon}
+                                  <span className="vote-count">
+                                    {report.count}
+                                  </span>
+                                </span>
+                              ) : null}
+                              {Number(report.voting).toFixed(2) >= 2.3 &&
+                              Number(report.voting).toFixed(2) <= 3 ? (
+                                <span className="danger-icon-place">
+                                  {dangerLevel[2].icon}
+                                  <span className="vote-count">
+                                    {report.count}
+                                  </span>
+                                </span>
+                              ) : null}
 
                               {/* <span> category :  {report.category_id } </span> */}
-                            
-                            
-                             {/*  <span> created : {report.createdAt}</span> */}
-                             
+
+                              {/*  <span> created : {report.createdAt}</span> */}
                             </section>
                           </div>
                         ))
@@ -541,18 +599,6 @@ const LoginAndProfile = () => {
                         <p> you haven't Submitted any reports yet :D</p>
                       )}
                     </div>
-                     {showDetailedReport ? (
-                      <div className="detailed-report-window">
-                        {" "}
-                        <h1>
-                          {" "}
-                          TESTE WINDOW{" "}
-                          {filteredReport.length > 0
-                            ? filteredReport[0].information
-                            : null}
-                        </h1>
-                      </div>
-                    ) : null} 
                   </div>
 
                   <div
@@ -560,44 +606,103 @@ const LoginAndProfile = () => {
                       toggleState === 2 ? "content  active-content" : "closed"
                     }
                   >
-                    
-
-                    <div className='submited-spots-padding'>
+                    <div className="submited-spots-padding">
                       {votedReports.length > 0 ? (
                         votedReports.map((spot) => (
-                          <div className='your-spots-container'>
-                            <section  className='submited-reports-section' key={spot.id}>
-                            <span>
-                                {spot.image ? (<img
-                                  className='img-div'
-                                  src={spot.image}
-                                  alt=''
-                                />): <div className='img-div-empty'> No photo</div>}
-                                
+                          <div
+                            className="your-spots-container"
+                            onClick={() => reportDetailsWindow(spot.id)}
+                          >
+                            <section
+                              className="submited-reports-section"
+                              key={spot.id}
+                            >
+                              <span>
+                                {spot.image ? (
+                                  <img
+                                    className="img-div"
+                                    src={spot.image}
+                                    alt=""
+                                  />
+                                ) : (
+                                  <div className="img-div-empty"> No photo</div>
+                                )}
                               </span>
                               <div className="title-text-div">
-                              {/* <span> {spot.name}</span> */}
-
-                              { spot.name === 'Construction' ? <span id='danger-type-title'><ConstructionSign2 className='category-sign' /> Construction</span> : null }
-                            { spot.name === 'Juction' ? <span id='danger-type-title'><JunctionIcon2 className='category-sign'/> Junction</span> : null }
-                            { spot.name === 'Bike Lane' ? <span id='danger-type-title'><BikelaneSign2 className='category-sign'/> Bike Lane</span> : null }
-                            { spot.name === 'Road Damage' ? <span id='danger-type-title'><BadRoadIcon2 className='category-sign'/> Road Damage</span> : null }
-                            { spot.name === 'Traffic' ? <span id='danger-type-title'><TrafficIcon2 className='category-sign'/> Traffic</span> : null }
-                            { spot.name === 'Bad Parking' ? <span id='danger-type-title'><OtherIcon2 className='category-sign'/> Other</span> : null }
-                            { spot.name === 'Other' ? <span id='danger-type-title'><BadParking2 className='category-sign'/> Bad Parking</span> : null }
-                              <span id='information-text'>{spot.information}</span>
-                              
-                              
+                                {spot.name === "Construction" ? (
+                                  <span id="danger-type-title">
+                                    <ConstructionSign2 className="category-sign" />{" "}
+                                    Construction
+                                  </span>
+                                ) : null}
+                                {spot.name === "Juction" ? (
+                                  <span id="danger-type-title">
+                                    <JunctionIcon2 className="category-sign" />{" "}
+                                    Junction
+                                  </span>
+                                ) : null}
+                                {spot.name === "Bike Lane" ? (
+                                  <span id="danger-type-title">
+                                    <BikelaneSign2 className="category-sign" />{" "}
+                                    Bike Lane
+                                  </span>
+                                ) : null}
+                                {spot.name === "Road Damage" ? (
+                                  <span id="danger-type-title">
+                                    <BadRoadIcon2 className="category-sign" />{" "}
+                                    Road Damage
+                                  </span>
+                                ) : null}
+                                {spot.name === "Traffic" ? (
+                                  <span id="danger-type-title">
+                                    <TrafficIcon2 className="category-sign" />{" "}
+                                    Traffic
+                                  </span>
+                                ) : null}
+                                {spot.name === "Bad Parking" ? (
+                                  <span id="danger-type-title">
+                                    <OtherIcon2 className="category-sign" />{" "}
+                                    Other
+                                  </span>
+                                ) : null}
+                                {spot.name === "Other" ? (
+                                  <span id="danger-type-title">
+                                    <BadParking2 className="category-sign" />{" "}
+                                    Bad Parking
+                                  </span>
+                                ) : null}
+                                <span id="information-text">
+                                  {spot.information}
+                                </span>
                               </div>
 
-
-
-                              { Number(spot.voting).toFixed(2) >= 1 && Number(spot.voting).toFixed(2) <=1.29 ? <span className="danger-icon-place">{dangerLevel[0].icon}<span className="vote-count">{spot.count}</span></span> : null }
-                              { Number(spot.voting).toFixed(2) >= 1.30 && Number(spot.voting).toFixed(2) <=2.29 ? <span className="danger-icon-place">{dangerLevel[1].icon}<span className="vote-count">{spot.count}</span></span> : null }
-                              { Number(spot.voting).toFixed(2) >= 2.30 && Number(spot.voting).toFixed(2) <=3 ? <span className="danger-icon-place">{dangerLevel[2].icon}<span className="vote-count">{spot.count}</span></span> : null }
-                            
-                              
-                              
+                              {Number(spot.voting).toFixed(2) >= 1 &&
+                              Number(spot.voting).toFixed(2) <= 1.29 ? (
+                                <span className="danger-icon-place">
+                                  {dangerLevel[0].icon}
+                                  <span className="vote-count">
+                                    {spot.count}
+                                  </span>
+                                </span>
+                              ) : null}
+                              {Number(spot.voting).toFixed(2) >= 1.3 &&
+                              Number(spot.voting).toFixed(2) <= 2.29 ? (
+                                <span className="danger-icon-place">
+                                  {dangerLevel[1].icon}
+                                  <span className="vote-count">
+                                    {spot.count}
+                                  </span>
+                                </span>
+                              ) : null}
+                              {Number(spot.voting).toFixed(2) >= 2.3 &&
+                              Number(spot.voting).toFixed(2) <= 3 ? (
+                                <span className="danger-icon-place">
+                                  {dangerLevel[2].icon}
+                                  <span className="vote-count">
+                                    {spot.count}
+                                  </span>
+                                </span>
+                              ) : null}
                             </section>
                           </div>
                         ))
@@ -612,39 +717,44 @@ const LoginAndProfile = () => {
                       toggleState === 3 ? "content  active-content" : "closed"
                     }
                   >
-                    <div className='settings-container'>
-                    
-                    <div className="edit-container">
-                      <div className="div-h3">
-                      <span>E-Mail Address</span>
-                    <div className="email-box"> 
-                      <h3>{currentUser}</h3></div>
-                    </div>
-                    <button
-                      onClick={handleshowEditEmail}
-                      type="button"
-                      className="button-edit"
-                    >
-                    edit
-                    </button>
-                    </div >
-                    <div className="edit-container-password">
-                    <div className="div-h3-password">
-                      <span>Password</span>
-                      <h3> ******** </h3></div>
-                    
-                    <button
-                      onClick={handleshowEditPassword}
-                      type="button"
-                      className="button-edit-password"
-                    >
-                      edit
-                    </button>
-                    </div>
+                    <div className="settings-container">
+                      <div className="edit-container">
+                        <div className="div-h3">
+                          <span>E-Mail Address</span>
+                          <div className="email-box">
+                            <h3>{currentUser}</h3>
+                          </div>
+                        </div>
+                        <button
+                          onClick={handleshowEditEmail}
+                          type="button"
+                          className="button-edit"
+                        >
+                          edit
+                        </button>
+                      </div>
+                      <div className="edit-container-password">
+                        <div className="div-h3-password">
+                          <span>Password</span>
+                          <h3> ******** </h3>
+                        </div>
 
-                    <button onClick={logout} type='button' className='btn-logout'>
-                      Logout
-                    </button>
+                        <button
+                          onClick={handleshowEditPassword}
+                          type="button"
+                          className="button-edit-password"
+                        >
+                          edit
+                        </button>
+                      </div>
+
+                      <button
+                        onClick={logout}
+                        type="button"
+                        className="btn-logout"
+                      >
+                        Logout
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -653,58 +763,68 @@ const LoginAndProfile = () => {
           </div>
           {/* ----------------------- from here is the edit password window------ */}
           {showEditPassword ? (
-            <div className='edit-Form-password'>
-              <form className='form-group-edit'>
-                <div >
-                  <label htmlFor='password'>New Password:</label>
+            <div className="edit-Form-password">
+              <form className="form-group-edit">
+                <div>
+                  <label htmlFor="password">New Password:</label>
                   <input
-                    type='password'
-                    name='password'
-                    placeholder='password'
+                    type="password"
+                    name="password"
+                    placeholder="password"
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
 
-                <div >
-                  <label htmlFor='password'>Confirm new Password:</label>
+                <div>
+                  <label htmlFor="password">Confirm new Password:</label>
                   <input
-                    type='password'
-                    name='password'
-                    placeholder='password'
+                    type="password"
+                    name="password"
+                    placeholder="password"
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 </div>
-                <button onClick={editPassword} type='button' className='btn-save'>
+                <button
+                  onClick={editPassword}
+                  type="button"
+                  className="btn-save"
+                >
                   Save
                 </button>
-                <PreviousArrow  onClick={handleshowEditPassword} className='previous-arrow'/>
+                <PreviousArrow
+                  onClick={handleshowEditPassword}
+                  className="previous-arrow"
+                />
               </form>
             </div>
           ) : null}
           {/* ----------- from here is the edit email window ------------- */}
           {showEditEmail ? (
-            <div className='edit-Form-password'>
-              <form className='form-group-edit'>
+            <div className="edit-Form-password">
+              <form className="form-group-edit">
                 <div>
-                  <label htmlFor='username'>New E-Mail address:</label>
-                  <br/>
+                  <label htmlFor="username">New E-Mail address:</label>
+                  <br />
                   <input
-                    type='email'
-                    name='username'
-                    placeholder='email@example.com'
+                    type="email"
+                    name="username"
+                    placeholder="email@example.com"
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
 
-                <button onClick={editEmail} type='button' className='btn-save'>
+                <button onClick={editEmail} type="button" className="btn-save">
                   Save
                 </button>
-               {/*  <button
+                {/*  <button
                   onClick={handleshowEditEmail}
                   type='button'
                   className='clear-button-edit'
                 >  </button> */}
-                <PreviousArrow  onClick={handleshowEditEmail} className='previous-arrow'/>
+                <PreviousArrow
+                  onClick={handleshowEditEmail}
+                  className="previous-arrow"
+                />
               </form>
             </div>
           ) : null}

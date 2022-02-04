@@ -31,7 +31,7 @@ CREATE TABLE `report` (
   `is_hidden` boolean default false
 );
 
-CREATE TABLE `voting` (
+CREATE TABLE `rating` (
   `user_id` int,
   `report_id` int,
   `voting` int,
@@ -44,9 +44,9 @@ CREATE TABLE `flag` (
   `name` varchar(255)
 );
 
-ALTER TABLE `voting` ADD FOREIGN KEY (`report_id`) REFERENCES `report` (`id`) ON delete CASCADE;
+ALTER TABLE `rating` ADD FOREIGN KEY (`report_id`) REFERENCES `report` (`id`) ON delete CASCADE;
 
-ALTER TABLE `voting` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE cascade;
+ALTER TABLE `rating` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE cascade;
 
 ALTER TABLE `report` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
@@ -54,7 +54,7 @@ ALTER TABLE `report` ADD FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) 
 
 ALTER TABLE `report` ADD FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 
-ALTER TABLE `voting` ADD FOREIGN KEY (`flag_id`) REFERENCES `flag` (`id`);
+ALTER TABLE `rating` ADD FOREIGN KEY (`flag_id`) REFERENCES `flag` (`id`);
 
 insert into category (name) values('Construction'), ('Road Damage'), ('Bad Parking'), ('Bike Lane'), ('Juction'), ('Traffic'), ('Other');
 insert into flag (name) values ('Innapropiate Report'), ('Wrong Location'), ('Issue Resolved');

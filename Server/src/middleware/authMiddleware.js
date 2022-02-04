@@ -1,6 +1,6 @@
 const { authHelper } = require("../helpers");
 
-module.exports = (req, _res, next) => {
+module.exports = (req, res, next) => {
   if (!req.cookies?.login) throw new Error("INVALID_TOKEN");
 
   try {
