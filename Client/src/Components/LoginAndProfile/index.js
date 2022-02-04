@@ -175,7 +175,7 @@ const LoginAndProfile = () => {
   };
 
   const [showDetailedReport, setShowDetailedReport] = useState(false);
-  const [filteredArray, setFilteredArray] = useState([]);
+  const [filteredArray, setFilteredArray] = useState({});
 
   const handleShowDetailedReport = () => {
     setShowDetailedReport(!showDetailedReport);
@@ -189,8 +189,26 @@ const LoginAndProfile = () => {
       </div>
     );
   };
-
+ 
+  let filteredReport = [];
   
+  const reportDetailsWindow = (id) => {
+    filteredReport = SubmitedReports.filter((report) => report.id === id);
+    let pleasework = filteredReport;
+    setFilteredArray(pleasework[0])
+    setShowDetailedReport(!showDetailedReport);
+    console.log(filteredReport[0], " variavel filt");
+    console.log(pleasework[0], "works?");
+    
+    
+    return pleasework;
+  };
+
+  const testwindow =(func , id )=> { 
+
+
+  }
+
   const getSubmitedReports = async () => {
     try {
       if (user) {
@@ -355,7 +373,7 @@ const LoginAndProfile = () => {
 
 
   return (
-    <div className='teste2'>
+    <div >
       {!user ? (
         <>
           {!showWelcomePage ? (
@@ -363,6 +381,7 @@ const LoginAndProfile = () => {
           ) : null}
           <WelcomePage />
           {welcomeStatus ? !stateLogin ? <SignUpPop /> : null : null}
+          {/* ---------- from here is login form ------------- */}
           {showForm && !stateLogin ? (
             <div className='register-form'>
               <form className='sign-up-form'>
@@ -390,7 +409,7 @@ const LoginAndProfile = () => {
                   />
                 </div>
                 <button onClick={login} type='button' className='btn-register'>
-                  Confirm
+                  Login
                 </button>
                 <button
                   onClick={handleSkipForNow}
@@ -522,9 +541,9 @@ const LoginAndProfile = () => {
                               </div>
                               
                               
-                              { Number(report.voting).toFixed(2) >= 1 && Number(report.voting).toFixed(2) <=1.29 ? <span className="danger-icon-place">{dangerLevel[0].icon}</span> : null }
-                              { Number(report.voting).toFixed(2) >= 1.30 && Number(report.voting).toFixed(2) <=2.29 ? <span className="danger-icon-place">{dangerLevel[1].icon}</span> : null }
-                              { Number(report.voting).toFixed(2) >= 2.30 && Number(report.voting).toFixed(2) <=3 ? <span className="danger-icon-place">{dangerLevel[2].icon}</span> : null }
+                              { Number(report.voting).toFixed(2) >= 1 && Number(report.voting).toFixed(2) <=1.29 ? <span className="danger-icon-place">{dangerLevel[0].icon}<span className="vote-count">{report.count}</span></span> : null }
+                              { Number(report.voting).toFixed(2) >= 1.30 && Number(report.voting).toFixed(2) <=2.29 ? <span className="danger-icon-place">{dangerLevel[1].icon}<span className="vote-count">{report.count}</span></span> : null }
+                              { Number(report.voting).toFixed(2) >= 2.30 && Number(report.voting).toFixed(2) <=3 ? <span className="danger-icon-place">{dangerLevel[2].icon}<span className="vote-count">{report.count}</span></span> : null }
 
                               {/* <span> category :  {report.category_id } </span> */}
                             
