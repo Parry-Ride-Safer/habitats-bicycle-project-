@@ -189,7 +189,7 @@ const LoginAndProfile = () => {
       </div>
     );
   };
- 
+ /*
   let filteredReport = [];
   
   const reportDetailsWindow = (id) => {
@@ -208,28 +208,38 @@ const LoginAndProfile = () => {
 
 
   }
-
+*/
   const getSubmitedReports = async () => {
     try {
       if (user) {
         await Axios.get(
           `${process.env.REACT_APP_API_ROUTE_URL}/users/reports/`
-        ).then((response) => {
-          console.log(response.data, "submited Reports array");
-          return setSubmitedReports(response.data);
-        });
-      } else {
-        console.log("not logged in");
+          ).then((response) => {
+            console.log(response.data, "submited Reports array");
+            return setSubmitedReports(response.data);
+          });
+        } else {
+          console.log("not logged in");
+        }
+      } catch (err) {
+        console.log(err);
+        setSubmitedReports([]);
       }
-    } catch (err) {
-      console.log(err);
-      setSubmitedReports([]);
-    }
-  };
-
-  const getVotedSpots = async () => {
-    try {
-      if (user) {
+    };
+    
+    let filteredReport = [];
+    const reportDetailsWindow = (id) => {
+      filteredReport = SubmitedReports.filter((report) => report.id === id);
+      let pleasework = filteredReport;
+      setShowDetailedReport(!showDetailedReport);
+      console.log(filteredReport[0], " variavel filt");
+      console.log(pleasework[0], "works?");
+      return pleasework;
+    };
+    
+    const getVotedSpots = async () => {
+      try {
+        if (user) {
         if (user) {
           await setLoginId(user.id);
         }

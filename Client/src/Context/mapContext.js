@@ -36,7 +36,7 @@ const MapProvider = ({ children }) => {
     };
     fetchMarkers();
   }, []);
-
+  console.log(finalMarkers)
   const [voting, setVoting] = useState("");
   const [numberOfCharacters, setNumberOfCharacters] = useState(0);
   const [alertMsg, setAlertMsg] = useState(false);
@@ -74,12 +74,9 @@ const MapProvider = ({ children }) => {
     });
     setImage("");
     setLoading(false);
-    
   }, []);
 
-  const closeReportWindow = () => {
-    dispatch({ type: "CLOSE_REPORT_WINDOW" });
-  };
+ 
 
   const findCategoryID = [
     issueType.find((element) => element.type === dangerType),
@@ -115,13 +112,11 @@ const MapProvider = ({ children }) => {
     }
   };
 
-  const reportProcessDone = () => {
-    dispatch({ type: "CONCLUDE_PROCESS" });
-  };
+  const reportProcessDone = () => dispatch({ type: "CONCLUDE_PROCESS" });
 
-  const createComplain = () => {
-    dispatch({ type: "OPEN_COMPLAIN_WINDOW" });
-  };
+  const createComplain = () => dispatch({ type: "OPEN_COMPLAIN_WINDOW" });
+  
+  const closeReportWindow = () => dispatch({ type: "CLOSE_REPORT_WINDOW" });
 
   const submitComplain = (event) => {
     event.preventDefault();
@@ -132,6 +127,7 @@ const MapProvider = ({ children }) => {
     dispatch({ type: "OPEN_VOTE_WINDOW" });
     getVotedSpots();
   };
+
 
   const handleDangerDescriptionInputs = (event) => {
     const name = event.target.name;
@@ -220,7 +216,7 @@ const MapProvider = ({ children }) => {
   const [isSpotVoted, setIsSpotVoted] = useState(false);
   const [votedReports, setVotedReports] = useState([]);
   const [loginId, setLoginId] = useState();
-  console.log(getReportData)
+ 
   const getVotedSpots = async () => {
     try {
       if (user) {
@@ -250,16 +246,15 @@ const MapProvider = ({ children }) => {
         `${process.env.REACT_APP_API_ROUTE_URL}/reports/${fMarker.id}`
       );
       
-      setGetReportdata(reportData.data[0]);
+      setGetReportdata(reportData.data);
       getCurrentUser();
-      console.log(getReportData);
       setSendReportRequest(false);
       setSelected("");
     } catch (e) {
       setSendReportRequest(false);
     }
   };
-
+ 
   const getCurrentUser = async () => {
     try {
       await Axios.get(
@@ -305,7 +300,7 @@ const MapProvider = ({ children }) => {
       });
     }
   };
-
+  console.log(getReportData)
   const handleDangerLevel = (event) => {
     setVoting(event.target.value);
   };
@@ -335,7 +330,6 @@ const MapProvider = ({ children }) => {
     zoomControl: true,
   };
 
-  console.log(getReportData)
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(15);
