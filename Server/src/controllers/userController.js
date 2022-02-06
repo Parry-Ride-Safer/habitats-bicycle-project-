@@ -7,12 +7,6 @@ const {
   ValidationError,
 } = require("../error-types");
 
-const getUsersController = async (req, res) => {
-  const users = await usersModels.getUsers();
-
-  res.status(200).json(users);
-};
-
 const insertNewUserController = async (req, res, next) => {
   const { email } = req.body;
   let validationErrors = null;
@@ -80,7 +74,6 @@ const deleteUserController = async (req, res) => {
 };
 const reportsFromUserIdController = async (req, res, next) => {
   try {
-    ///// need error
     const reports = await usersModels.reportsFromUserId(req.currentUser.id);
     if (reports.length < 1) throw new RecordNotFoundError("Reports not found");
     res.status(200).send(reports);
@@ -92,7 +85,6 @@ const reportsFromUserIdController = async (req, res, next) => {
 
 const ratedSpotsFromUserIdController = async (req, res, next) => {
   try {
-    ///// need error handling
     const ratedSpots = await usersModels.ratedFromUserId(req.currentUser.id);
     const selectionIdString = ratedSpots.map((elt) => elt.address_id);
     const reports = await reportsModels.getReportsInOneLocation(
@@ -107,7 +99,6 @@ const ratedSpotsFromUserIdController = async (req, res, next) => {
 };
 
 module.exports = {
-  getUsersController,
   insertNewUserController,
   getUserbyIdController,
   updateUserController,

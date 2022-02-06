@@ -4,7 +4,6 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 const userRoutes = express.Router();
 
-userRoutes.get("/", userController.getUsersController);
 userRoutes.get(
   "/current",
   authMiddleware,

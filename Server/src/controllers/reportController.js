@@ -5,7 +5,6 @@ const {
   AlreadyExistsError,
 } = require("../error-types");
 const { authHelper } = require("../helpers");
-const { getVoting } = require("../models/reportModel");
 
 const getAllReportsController = async (req, res) => {
   try {
