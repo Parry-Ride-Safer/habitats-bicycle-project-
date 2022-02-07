@@ -109,11 +109,11 @@ const getVoting = async (userId, reportId) => {
   return results;
 };
 const getFlag = async (userId, reportId) => {
-  [results] = await db.query(
+  results = await db.query(
     "SELECT flag_id FROM rating WHERE user_id = ? and report_id = ?",
     [userId, reportId]
   );
-  return results;
+  return results[0];
 };
 const updateFlag = async (flag_id, reportId, userId) => {
   const results = await db.query(
