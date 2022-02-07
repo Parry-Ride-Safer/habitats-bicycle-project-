@@ -12,11 +12,6 @@ connection.connect((error) => {
   }
 });
 
-const getUsers = async () => {
-  const users = await db.query("SELECT email from user");
-  return users[0];
-};
-
 const createUser = async ({ password, ...body }) => {
   const hashedPassword = await hashPassword(password, saltedRounds);
   const [rawResults] = await db.query(
@@ -57,20 +52,17 @@ const getUserByEmail = async (email) => {
   return results;
 };
 
-const updateUser = async ({ password, ...data }, id) => {
+const updateUser = async ({ password, email }, id) => {
   let results;
 
   if (password) {
     const hashedPassword = await hashPassword(password, saltedRounds);
     results = await db.query("UPDATE user SET ? WHERE id=?;", [
-      { ...data, hashedPassword },
+      { email, hashedPassword },
       id,
     ]);
   } else {
-    results = await db.query("UPDATE user SET ? WHERE id=?;", [
-      { ...data },
-      id,
-    ]);
+    results = await db.query("UPDATE user SET ? WHERE id=?;", [{ email }, id]);
   }
   return results[0].affectedRows;
 };
@@ -97,7 +89,6 @@ const ratedFromUserId = async (id) => {
 };
 
 module.exports = {
-  getUsers,
   createUser,
   validateEmail,
   findByEmail,

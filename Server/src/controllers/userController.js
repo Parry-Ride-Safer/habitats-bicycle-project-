@@ -7,30 +7,6 @@ const {
   ValidationError,
 } = require("../error-types");
 
-const getUsersController = async (req, res) => {
-  const users = await usersModels.getUsers();
-
-  res.status(200).json(users);
-};
-
-const insertNewUserController = async (req, res, next) => {
-  const { email } = req.body;
-  let validationErrors = null;
-  try {
-    const existingUserWithEmail = await usersModels.findByEmail(email);
-
-    if (existingUserWithEmail)
-      throw new AlreadyExistsError("This email is already used");
-    validationErrors = userValidator.validate(req.body);
-    if (validationErrors) throw new InvalidDataError("Missing data");
-    const createdUser = await usersModels.createUser(req.body);
-    res.status(201).json(createdUser);
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-};
-
 const getUserbyIdController = async (req, res) => {
   try {
     const results = await usersModels.getUserbyId(req.currentUser.id);
@@ -59,6 +35,7 @@ const updateUserController = async (req, res, next) => {
     if (validationErrors) throw new ValidationError("Validation error");
     user = await usersModels.updateUser(req.body, req.currentUser.id);
     delete req.body.password;
+    delete req.body.role;
     if (user === 1) res.status(200).json({ ...existingUser, ...req.body });
     else throw new InvalidDataError("Nothing to be changed");
   } catch (error) {
@@ -80,7 +57,6 @@ const deleteUserController = async (req, res) => {
 };
 const reportsFromUserIdController = async (req, res, next) => {
   try {
-    ///// need error
     const reports = await usersModels.reportsFromUserId(req.currentUser.id);
     if (reports.length < 1) throw new RecordNotFoundError("Reports not found");
     res.status(200).send(reports);
@@ -92,7 +68,6 @@ const reportsFromUserIdController = async (req, res, next) => {
 
 const ratedSpotsFromUserIdController = async (req, res, next) => {
   try {
-    ///// need error handling
     const ratedSpots = await usersModels.ratedFromUserId(req.currentUser.id);
     const selectionIdString = ratedSpots.map((elt) => elt.address_id);
     const reports = await reportsModels.getReportsInOneLocation(
@@ -107,8 +82,6 @@ const ratedSpotsFromUserIdController = async (req, res, next) => {
 };
 
 module.exports = {
-  getUsersController,
-  insertNewUserController,
   getUserbyIdController,
   updateUserController,
   deleteUserController,

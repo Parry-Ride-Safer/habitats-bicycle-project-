@@ -4,13 +4,12 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 const userRoutes = express.Router();
 
-userRoutes.get("/", userController.getUsersController);
 userRoutes.get(
   "/current",
   authMiddleware,
   userController.getUserbyIdController
 );
-userRoutes.post("/", userController.insertNewUserController);
+
 userRoutes.delete("/:id", userController.deleteUserController);
 userRoutes.put("/current", authMiddleware, userController.updateUserController);
 userRoutes.get(
