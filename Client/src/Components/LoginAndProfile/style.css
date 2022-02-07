@@ -470,6 +470,7 @@ div.open-profile {
   display: flex;
   flex-direction: column;
   padding-top: 10%;
+  overflow: scroll;
 }
 
 .div-h3-password {
@@ -644,6 +645,10 @@ div.open-profile {
   position: absolute;
   top: 5%;
   cursor: pointer;
+}
+
+.report-alert{
+  text-align: center;
 }
 
 @media only screen and (min-width: 700px) {
