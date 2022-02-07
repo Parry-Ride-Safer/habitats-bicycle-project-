@@ -53,6 +53,9 @@ const LoginAndProfile = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showEditEmail, setShowEditEmail] = useState(false);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
+  const [userRole, setUserRole] = useState("");
+  const [allUsers, setAllusers] = useState("");
+  const [showDetailedReport, setShowDetailedReport] = useState(false);
 
   const handleshowEditPassword = () => {
     setShowEditPassword(!showEditPassword);
@@ -183,22 +186,6 @@ const LoginAndProfile = () => {
     }
   };
 
-  const [showDetailedReport, setShowDetailedReport] = useState(false);
-  const [filteredArray, setFilteredArray] = useState({});
-
-  const handleShowDetailedReport = () => {
-    setShowDetailedReport(!showDetailedReport);
-  };
-
-  const DetailedWindow = (props, func) => {
-    return (
-      <div className="detailed-report-window">
-        {" "}
-        <h1> TESTE WINDOW {props.information}</h1>
-      </div>
-    );
-  };
-
   const getSubmitedReports = async () => {
     try {
       if (user) {
@@ -252,6 +239,7 @@ const LoginAndProfile = () => {
       ).then((response) => {
         console.log(response.data);
         setCurrentUser(response.data.email);
+        setUserRole(response.data.role);
       });
     } catch (err) {
       console.log(err);
@@ -347,6 +335,47 @@ const LoginAndProfile = () => {
         </div>
       </div>
     );
+  };
+
+  const getAllUsers = async () => {
+    try {
+      await Axios.get(`${process.env.REACT_APP_API_ROUTE_URL}/adm/users/`).then(
+        (response) => {
+          console.log(response.data);
+          setAllusers(response.data);
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const convertToAdm = async (id) => {
+    try {
+      let filteredUser = allUsers.filter((user) => user.id === id);
+      id = filteredUser[0].id;
+      await Axios.put(
+        `${process.env.REACT_APP_API_ROUTE_URL}/adm/update/${id}`
+      ).then((response) => {
+        console.log(response.data);
+        getAllUsers();
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getAllLocations = async () => {
+    try {
+      await Axios.put(`${process.env.REACT_APP_API_ROUTE_URL}/adm/`).then(
+        (response) => {
+          console.log(response.data);
+          getAllUsers();
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -485,6 +514,18 @@ const LoginAndProfile = () => {
                   >
                     Settings
                   </button>
+                  {userRole === "adm" ? (
+                    <button
+                      className={
+                        toggleState === 4 ? "tabs active-tabs" : "tabs"
+                      }
+                      onClick={() =>
+                        toggleTab(4) + getAllUsers() + closeEditWindows()
+                      }
+                    >
+                      All users
+                    </button>
+                  ) : null}
                 </div>
 
                 <div className="content-tabs">
@@ -759,6 +800,32 @@ const LoginAndProfile = () => {
                       </button>
                     </div>
                   </div>
+                  <div
+                    className={
+                      toggleState === 4 ? "content  active-content" : "closed"
+                    }
+                  >
+                    <div className="settings-container">
+                      {allUsers.length > 0
+                        ? allUsers.map((users) => (
+                            <div className="users-div">
+                              <div className="user-email-div">
+                                {users.email}
+                                <span>role: {users.role}</span>
+                              </div>
+                              {users.role === "user" ? (
+                                <button
+                                  onClick={() => convertToAdm(users.id)}
+                                  className="convert-adm-btn"
+                                >
+                                  convert to admin
+                                </button>
+                              ) : null}
+                            </div>
+                          ))
+                        : null}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -818,11 +885,7 @@ const LoginAndProfile = () => {
                 <button onClick={editEmail} type="button" className="btn-save">
                   Save
                 </button>
-                {/*  <button
-                  onClick={handleshowEditEmail}
-                  type='button'
-                  className='clear-button-edit'
-                >  </button> */}
+
                 <PreviousArrow
                   onClick={handleshowEditEmail}
                   className="previous-arrow"
