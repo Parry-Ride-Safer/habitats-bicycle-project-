@@ -53,6 +53,7 @@ const updateUserController = async (req, res, next) => {
     if (validationErrors) throw new ValidationError("Validation error");
     user = await usersModels.updateUser(req.body, req.currentUser.id);
     delete req.body.password;
+    delete req.body.role;
     if (user === 1) res.status(200).json({ ...existingUser, ...req.body });
     else throw new InvalidDataError("Nothing to be changed");
   } catch (error) {

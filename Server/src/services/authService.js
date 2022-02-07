@@ -21,7 +21,13 @@ const login = async (credentials) => {
 };
 
 const register = async (user) => {
-  const userCreated = await usersModels.createUser({ ...user, role: "user" });
+  let userCreated;
+
+  const [users] = await usersModels.getUsers();
+  console.log({ users });
+  if (!users)
+    userCreated = await usersModels.createUser({ ...user, role: "adm" });
+  else userCreated = await usersModels.createUser({ ...user, role: "user" });
 
   const token = authHelper.generateToken(userCreated);
   return { ...userCreated, action: "registered", token };
