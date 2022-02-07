@@ -58,7 +58,7 @@ const deleteUserController = async (req, res) => {
 const reportsFromUserIdController = async (req, res, next) => {
   try {
     const reports = await usersModels.reportsFromUserId(req.currentUser.id);
-    if (reports.length < 1) throw new RecordNotFoundError("Reports not found");
+    if (reports.length < 0) throw new RecordNotFoundError("Reports not found");
     res.status(200).send(reports);
   } catch (error) {
     console.log(error);
