@@ -36,7 +36,7 @@ const validateEmail = async (email) => {
 
 const getUserbyId = async (userId) => {
   const rawResults = await db.query(
-    "SELECT  id, email FROM user WHERE id = ?",
+    "SELECT  id, email, role FROM user WHERE id = ?",
     [userId]
   );
   const [results] = rawResults;
