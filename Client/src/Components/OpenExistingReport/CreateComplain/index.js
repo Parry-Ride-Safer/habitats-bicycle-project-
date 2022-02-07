@@ -4,8 +4,7 @@ import reportIssueOptions from "../../../Data/reportIssueOptions";
 import "./createComplain.css";
 
 const CreateComplain = () => {
-  const { submitComplain, isReportIssueBoxOpen } = useGlobalMapContext();
-  const [reportIssue, setReportIssue] = useState();
+  const { submitComplain, isReportIssueBoxOpen, handleFlagOption, reportIssue } = useGlobalMapContext();
 
   return (
     <div
@@ -26,8 +25,9 @@ const CreateComplain = () => {
                 type="radio"
                 name="reportIssue"
                 className="input"
-                check={reportIssue === reportOption.id}
-                value={reportOption.id}
+                check={reportIssue === reportOption.title}
+                value={reportOption.title}
+                onChange={handleFlagOption}
               />
               <p className="boldSubTitle-reportIssue">
                 {reportOption.title}

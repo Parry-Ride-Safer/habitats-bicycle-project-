@@ -62,6 +62,18 @@ const reducer = (state, action) => {
       isBoxWithDoneMsgOpen: true,
     };
   }
+  if (action.type === "SEND_REPORT_REQUEST"){
+    return {
+      ...state,
+      sendReportRequest: true,
+    }
+  } 
+  if (action.type === "REPORT_REQUEST_CONCLUDE"){
+    return {
+      ...state,
+      sendReportRequest: false,
+    }
+  }
 };
 
 export default reducer;
