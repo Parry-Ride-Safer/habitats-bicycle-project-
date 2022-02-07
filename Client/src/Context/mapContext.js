@@ -38,7 +38,7 @@ const MapProvider = ({ children }) => {
       setFinalMarkers(result.data);
     };
     fetchMarkers();
-  }, [state.isBoxWithDoneMsgOpen]);
+  }, [state]);
 
   const [reportIssue, setReportIssue] = useState();
   const [voting, setVoting] = useState("");
@@ -101,11 +101,13 @@ const MapProvider = ({ children }) => {
         image: image,
       })
         .then((response) => {
+          console.log(response)
           setAlertMsg(false);
           setFinalMarkers((finalMarkers) => [
             ...finalMarkers,
             { ...marker, id: response.data.id },
           ]);
+          setReportDescriptionInput.description(response.data.information)
           dispatch({ type: "SUBMIT_REPORT" });
           setVoting("");
           setReportDescriptionInput([]);
@@ -239,9 +241,11 @@ const MapProvider = ({ children }) => {
           report_id: getReportData.id,
         }
       ).then((response) => {
+        console.log(response)
         setAlertMsg(false);
         dispatch({ type: "SUBMIT_VOTE" });
         setIsSpotVoted(true);
+        fetchReportData(getReportData)
       });
     } else {
       await Axios.post(
