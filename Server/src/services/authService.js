@@ -24,7 +24,7 @@ const register = async (user) => {
   let userCreated;
 
   const [users] = await usersModels.getUsers();
-  console.log({ users });
+
   if (!users)
     userCreated = await usersModels.createUser({ ...user, role: "adm" });
   else userCreated = await usersModels.createUser({ ...user, role: "user" });
