@@ -13,7 +13,7 @@ export default function BoxShowInputDetails() {
     closeReportWindow,
     
   } = useGlobalMapContext();
-
+  let user = document.cookie;
   return (
     <div
       className={`${
@@ -35,11 +35,10 @@ export default function BoxShowInputDetails() {
           <img className='open-report-image' src={getReportData.image} alt='' />
           <p className='open-report-description'>{getReportData.information}</p>
           <div className='open-report-btn'>
-            {currentUser === getReportData.user_id ? (
-              <EditVoteModal />
-            ) : (
+            {!user ? null :
+              (currentUser === getReportData.user_id) ? <EditVoteModal /> : 
               <VoteModal />
-            )}
+            }
           </div>
         </div>
       ) : (

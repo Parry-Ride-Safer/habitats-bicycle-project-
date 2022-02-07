@@ -84,10 +84,9 @@ const MapProvider = ({ children }) => {
 
   const dangerFormSubmit = (event) => {
     event.preventDefault();
-    if (reportDescriptionInput.length === 0 || voting === "") {
+    if (voting === "" || image === "null") {
       setAlertMsg(true);
     } else {
-      // console.log(previewSource)
       Axios.post(`${process.env.REACT_APP_API_ROUTE_URL}/reports/`, {
         voting: voting,
         lat: marker.lat,
@@ -160,53 +159,6 @@ const MapProvider = ({ children }) => {
     setImage(file.secure_url);
     setLoading(false);
   };
-
-  // const handleFileInputChange = (e) => {
-  //   const file = e.target.files[0];
-  //   previewFile(file);
-  //   setSelectedFile(file);
-  //   setFileInputState(e.target.value);
-  // };
-
-  // const previewFile = (file) => {
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(file);
-  //   reader.onloadend = () => {
-  //     setPreviewSource(reader.result);
-  //   };
-  // };
-
-  // const handleSubmitFile = (e) => {
-  //   e.preventDefault();
-  //   if (!selectedFile) return;
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(selectedFile);
-  //   reader.onloadend = () => {
-  //     uploadImage(reader.result);
-  //   };
-  //   reader.onerror = () => {
-  //     console.error("AHHHHHHHH!!");
-  //     setErrMsg("something went wrong!");
-  //   };
-  // };
-
-  // const uploadImage = async (base64EncodedImage) => {
-  //   console.log(base64EncodedImage);
-  //   try {
-  //     await fetch("/api/upload", {
-  //       method: "POST",
-  //       body: JSON.stringify({ data: base64EncodedImage }),
-  //       headers: { "Content-Type": "application/json" },
-  //     });
-  //     setFileInputState("");
-  //     setPreviewSource("");
-  //     setSuccessMsg("Image uploaded successfully");
-  //     console.log(previewSource);
-  //   } catch (err) {
-  //     console.error(err);
-  //     setErrMsg("Something went wrong!");
-  //   }
-  // };
 
   /*Flow to watch a single spot informations*/
   const [sendReportRequest, setSendReportRequest] = useState(false);
