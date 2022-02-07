@@ -3,8 +3,8 @@ const { usersModels } = require("../models");
 const { userValidator } = require("../validators/index.js");
 const { AlreadyExistsError, InvalidDataError } = require("../error-types");
 
-const cookiesOptions = { httpOnly: true, maxAge: "3600000", sameSite: "lax" };
-const cookiesOptions2 = { maxAge: "3600000", sameSite: "lax" };
+const cookiesOptions = { httpOnly: true, maxAge: "172800000", sameSite: "lax" };
+const cookiesOptions2 = { maxAge: "172800000", sameSite: "lax" };
 
 const register = async (req, res, next) => {
   const { email } = req.body;

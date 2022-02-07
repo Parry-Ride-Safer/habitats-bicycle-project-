@@ -5,7 +5,6 @@ const {
   AlreadyExistsError,
 } = require("../error-types");
 const { authHelper } = require("../helpers");
-const { getVoting } = require("../models/reportModel");
 
 const getAllReportsController = async (req, res) => {
   try {
@@ -135,9 +134,10 @@ const submitFlagController = async (req, res, next) => {
   try {
     const records = await reportsModels.getFlag(req.currentUser.id, reportId);
     if (records.length) {
+      console.log(records[0].flag_id, "++++++");
       if (records[0].flag_id === null)
         record = await reportsModels.updateFlag(
-          req.body.flag,
+          flag,
           reportId,
           req.currentUser.id
         );

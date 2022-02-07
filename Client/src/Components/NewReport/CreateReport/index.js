@@ -73,8 +73,11 @@ export default function CreateReport() {
             </div>
 
             <div className="upload-pic-holder">
+              {/* <label for="upload-btn" class="custom-upload-btn">
+                Select a Picture from Gallery
+              </label> */}
               <input
-                className="upload-btn"
+                id="upload-btn"
                 type="file"
                 name="file"
                 placeholder="Upload your image!"

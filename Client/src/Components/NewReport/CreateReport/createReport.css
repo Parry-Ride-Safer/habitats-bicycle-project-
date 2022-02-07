@@ -74,7 +74,7 @@
   align-self: center;
 }
 
-.dangerLevelVote{
+.dangerLevelVote {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -97,7 +97,7 @@
   margin-top: 10px;
 }
 
-.issueTypeBtn{
+.issueTypeBtn {
   border: 1px solid lightgrey;
   border-radius: 10px;
   padding: 2px;
@@ -108,12 +108,11 @@
   background-color: white;
 }
 
-.issueTypeBtn:hover{
+.issueTypeBtn:hover {
   transform: scale(1.05);
-  background-color:black;
+  background-color: black;
   color: white;
 }
-
 
 .submit-button {
   color: white;
@@ -178,7 +177,7 @@ input[class="classD3"]:focus + svg {
   opacity: 1;
 }
 
-.danger-type-display{
+.danger-type-display {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -195,60 +194,65 @@ input[class="classD3"]:focus + svg {
   text-align: end;
 }
 
-.upload-pic-holder{
+.upload-pic-holder {
   display: flex;
   flex-direction: column-reverse;
   width: 100%;
 }
 
-.pic-preview{
-  width:50%;
+.pic-preview {
+  width: 50%;
   display: flex;
   align-self: center;
 }
 
-.upload-btn{
+#upload-btn {
   align-self: center;
+  /* display: none; */
 }
 
+/* .custom-upload-btn {
+  background: black;
+  color: white;
+  padding: 1rem 0;
+  border-radius: 15px;
+} */
 
-.issue-title{
+.issue-title {
   align-self: center;
   font-weight: bold;
   font-size: 1.2rem;
 }
 
-.picture-title{
+.picture-title {
   margin-bottom: 0;
   font-family: "Roboto Condensed";
   font-size: 1.2rem;
   font-weight: bold;
 }
 
-
 @media only screen and (min-width: 700px) {
-  .show-danger-box{
-  visibility: visible;
-  z-index: 10;
-  background: rgb(255, 255, 255);
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  width: 50vw;
-  /* height: 75vh; */
-  max-width: var(--fixed-width);
-  text-align: center;
-  place-items: center;
-  position: fixed;
-  left:25%;
-  margin-bottom: 20;
-  border: 0px solid rgb(255, 255, 255);
-}
-  
-  .pic-preview{
+  .show-danger-box {
+    visibility: visible;
+    z-index: 10;
+    background: rgb(255, 255, 255);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    width: 50vw;
+    /* height: 75vh; */
+    max-width: var(--fixed-width);
+    text-align: center;
+    place-items: center;
+    position: fixed;
+    left: 25%;
+    margin-bottom: 20;
+    border: 0px solid rgb(255, 255, 255);
+  }
+
+  .pic-preview {
     width: 40%;
     max-height: 35vh;
     align-self: center;
     margin: 5px;
   }
-
 }

@@ -2,11 +2,6 @@ const connection = require("../../db-config");
 
 const db = connection.promise();
 
-const getAllReports = async () => {
-  const reports = await db.query("SELECT * FROM report");
-  return reports[0];
-};
-
 const getReportsInOneLocation = async (locationId) => {
   const reports = await db.query(
     "SELECT report.id, information, avg(voting) AS voting, category.name, createdAt, report.user_id, image, count(voting) as count FROM report join rating on rating.report_id = report.id join category on report.category_id = category.id WHERE address_id in (?) group by address_id",
@@ -114,11 +109,11 @@ const getVoting = async (userId, reportId) => {
   return results;
 };
 const getFlag = async (userId, reportId) => {
-  [results] = await db.query(
+  results = await db.query(
     "SELECT flag_id FROM rating WHERE user_id = ? and report_id = ?",
     [userId, reportId]
   );
-  return results;
+  return results[0];
 };
 const updateFlag = async (flag_id, reportId, userId) => {
   const results = await db.query(
@@ -140,7 +135,6 @@ const isVisable = async (id) => {
 };
 
 module.exports = {
-  getAllReports,
   createReport,
   findLocation,
   getReportsInOneLocation,

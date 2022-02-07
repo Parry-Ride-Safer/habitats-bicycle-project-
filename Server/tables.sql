@@ -22,7 +22,7 @@ CREATE TABLE `category` (
 
 CREATE TABLE `report` (
   `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `information` varchar(300),
+  `information` varchar(60),
   `createdAt` DATETIME DEFAULT now() ON UPDATE now(),
   `user_id` int NOT NULL,
   `address_id` int NOT NULL,
