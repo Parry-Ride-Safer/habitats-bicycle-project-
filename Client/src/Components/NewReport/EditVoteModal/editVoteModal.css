@@ -6,8 +6,10 @@
 .edit-vote-display{
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-self: center;
     width: 100%;
+    align-items: center;
+    justify-content: center;
 }
 
 .layout-edit-window{
