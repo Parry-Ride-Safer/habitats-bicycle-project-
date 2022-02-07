@@ -12,11 +12,6 @@ connection.connect((error) => {
   }
 });
 
-const getUsers = async () => {
-  const [users] = await db.query("SELECT email from user");
-  return users;
-};
-
 const createUser = async ({ password, ...body }) => {
   const hashedPassword = await hashPassword(password, saltedRounds);
   const [rawResults] = await db.query(
@@ -94,7 +89,6 @@ const ratedFromUserId = async (id) => {
 };
 
 module.exports = {
-  getUsers,
   createUser,
   validateEmail,
   findByEmail,

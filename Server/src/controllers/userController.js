@@ -7,24 +7,6 @@ const {
   ValidationError,
 } = require("../error-types");
 
-const insertNewUserController = async (req, res, next) => {
-  const { email } = req.body;
-  let validationErrors = null;
-  try {
-    const existingUserWithEmail = await usersModels.findByEmail(email);
-
-    if (existingUserWithEmail)
-      throw new AlreadyExistsError("This email is already used");
-    validationErrors = userValidator.validate(req.body);
-    if (validationErrors) throw new InvalidDataError("Missing data");
-    const createdUser = await usersModels.createUser(req.body);
-    res.status(201).json(createdUser);
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-};
-
 const getUserbyIdController = async (req, res) => {
   try {
     const results = await usersModels.getUserbyId(req.currentUser.id);
@@ -100,7 +82,6 @@ const ratedSpotsFromUserIdController = async (req, res, next) => {
 };
 
 module.exports = {
-  insertNewUserController,
   getUserbyIdController,
   updateUserController,
   deleteUserController,

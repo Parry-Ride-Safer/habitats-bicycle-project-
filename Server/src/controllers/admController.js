@@ -16,7 +16,7 @@ const getUsersController = async (req, res, next) => {
 const getAllHiddenLocationsController = async (_req, res, next) => {
   try {
     const locations = await admModels.getAllHiddenLocations();
-    if (!locations) throw RecordNotFoundError("No location Found");
+    if (!locations) throw new RecordNotFoundError("No location Found");
     res.status(200).json(locations);
   } catch (error) {
     next(error);
