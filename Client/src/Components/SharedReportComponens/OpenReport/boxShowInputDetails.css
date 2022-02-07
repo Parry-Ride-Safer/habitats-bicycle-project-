@@ -6,7 +6,6 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   width: 100vw;
-  height: 70vh;
   max-width: var(--fixed-width);
   bottom: 0;
 }
