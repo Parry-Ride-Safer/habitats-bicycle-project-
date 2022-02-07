@@ -53,6 +53,8 @@ const LoginAndProfile = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showEditEmail, setShowEditEmail] = useState(false);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
+  const [userRole, setUserRole] = useState("");
+  const [allUsers, setAllusers] = useState("");
 
   const handleshowEditPassword = () => {
     setShowEditPassword(!showEditPassword);
@@ -252,6 +254,7 @@ const LoginAndProfile = () => {
       ).then((response) => {
         console.log(response.data);
         setCurrentUser(response.data.email);
+        setUserRole(response.data.role);
       });
     } catch (err) {
       console.log(err);
@@ -347,6 +350,19 @@ const LoginAndProfile = () => {
         </div>
       </div>
     );
+  };
+
+  const getAllUsers = async () => {
+    try {
+      await Axios.get(`${process.env.REACT_APP_API_ROUTE_URL}/adm/users/`).then(
+        (response) => {
+          console.log(response.data);
+          setAllusers(response.data);
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -485,6 +501,18 @@ const LoginAndProfile = () => {
                   >
                     Settings
                   </button>
+                  {userRole === "adm" ? (
+                    <button
+                      className={
+                        toggleState === 4 ? "tabs active-tabs" : "tabs"
+                      }
+                      onClick={() =>
+                        toggleTab(4) + getAllUsers() + closeEditWindows()
+                      }
+                    >
+                      All users
+                    </button>
+                  ) : null}
                 </div>
 
                 <div className="content-tabs">
@@ -757,6 +785,19 @@ const LoginAndProfile = () => {
                       >
                         Logout
                       </button>
+                    </div>
+                  </div>
+                  <div
+                    className={
+                      toggleState === 4 ? "content  active-content" : "closed"
+                    }
+                  >
+                    <div className="settings-container">
+                      {allUsers.length > 0
+                        ? allUsers.map((users) => (
+                            <div className="users-div">{users.email}</div>
+                          ))
+                        : null}
                     </div>
                   </div>
                 </div>

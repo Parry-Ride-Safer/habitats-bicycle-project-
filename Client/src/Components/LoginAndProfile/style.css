@@ -724,3 +724,10 @@ div.open-profile {
     font-size: 1.2rem;
   }
 }
+
+/* --------------- from here is admin user list style ------------------ */
+
+.users-div {
+  border: 1px solid black;
+  margin: 1rem;
+}
