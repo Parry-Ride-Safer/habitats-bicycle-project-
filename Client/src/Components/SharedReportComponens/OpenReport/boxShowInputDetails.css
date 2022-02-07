@@ -125,3 +125,13 @@
     left: 25%;
   }
 }
+
+@media only screen and (min-width: 1500px) {
+  .open-report-image {
+    width: 50%;
+    border: 0.5px solid lightgray;
+    border-radius: 10px;
+    margin: 0;
+    align-self: center;
+  }
+}
