@@ -349,15 +349,30 @@ const LoginAndProfile = () => {
       console.log(err);
     }
   };
-  const [userId, setuserId] = useState("");
 
   const convertToAdm = async (id) => {
     try {
+      let filteredUser = allUsers.filter((user) => user.id === id);
+      id = filteredUser[0].id;
       await Axios.put(
         `${process.env.REACT_APP_API_ROUTE_URL}/adm/update/${id}`
       ).then((response) => {
         console.log(response.data);
+        getAllUsers();
       });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getAllLocations = async () => {
+    try {
+      await Axios.put(`${process.env.REACT_APP_API_ROUTE_URL}/adm/`).then(
+        (response) => {
+          console.log(response.data);
+          getAllUsers();
+        }
+      );
     } catch (err) {
       console.log(err);
     }
@@ -794,14 +809,18 @@ const LoginAndProfile = () => {
                       {allUsers.length > 0
                         ? allUsers.map((users) => (
                             <div className="users-div">
-                              {users.email}
-                              <span>
-                                {users.role}
-                                {users.id}
-                              </span>
-                              <button className="convert-adm-btn">
-                                convert to admin
-                              </button>
+                              <div className="user-email-div">
+                                {users.email}
+                                <span>role: {users.role}</span>
+                              </div>
+                              {users.role === "user" ? (
+                                <button
+                                  onClick={() => convertToAdm(users.id)}
+                                  className="convert-adm-btn"
+                                >
+                                  convert to admin
+                                </button>
+                              ) : null}
                             </div>
                           ))
                         : null}
@@ -866,11 +885,7 @@ const LoginAndProfile = () => {
                 <button onClick={editEmail} type="button" className="btn-save">
                   Save
                 </button>
-                {/*  <button
-                  onClick={handleshowEditEmail}
-                  type='button'
-                  className='clear-button-edit'
-                >  </button> */}
+
                 <PreviousArrow
                   onClick={handleshowEditEmail}
                   className="previous-arrow"

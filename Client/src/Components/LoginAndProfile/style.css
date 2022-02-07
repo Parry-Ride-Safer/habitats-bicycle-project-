@@ -180,13 +180,6 @@
 }
 
 .edit-Form-password {
-  /* position: absolute;
-  z-index: 55;
-  border: 1px solid black;
-  border-radius: 15px;
-  background-color: white;
-  top: 24%;
-  width:100vw */
   position: absolute;
   visibility: visible;
   z-index: 50;
@@ -194,7 +187,7 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   width: 100vw;
-  height: 75vh;
+  height: 73vh;
   max-width: var(--fixed-width);
   bottom: 0;
   display: flex;
@@ -391,11 +384,7 @@ div.open-profile {
 
 .your-spots-container {
   margin-bottom: 1rem;
-  /*  box-shadow: -2px 4px 13px 5px rgba(0,0,0,0.10);
-  -webkit-box-shadow: -2px 4px 13px 5px rgba(0,0,0,0.10);
-  -moz-box-shadow: -2px 4px 13px 5px rgba(0,0,0,0.10); */
   padding-bottom: 0.5rem;
-
   box-shadow: 2px 3px 14px 3px rgba(0, 0, 0, 0.12);
   -webkit-box-shadow: 2px 3px 14px 3px rgba(0, 0, 0, 0.12);
   -moz-box-shadow: 2px 3px 14px 3px rgba(0, 0, 0, 0.12);
@@ -728,10 +717,15 @@ div.open-profile {
 /* --------------- from here is admin user list style ------------------ */
 
 .users-div {
-  border: 1px solid black;
+  border: 1px solid rgb(199, 199, 199);
   margin: 1rem;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1rem;
+  /* padding-bottom: 0.5rem; */
+  /*   box-shadow: 2px 3px 14px 3px rgba(0, 0, 0, 0.12);
+  -webkit-box-shadow: 2px 3px 14px 3px rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: 2px 3px 14px 3px rgba(0, 0, 0, 0.12); */
 }
 
 .convert-adm-btn {
@@ -739,4 +733,9 @@ div.open-profile {
   background: black;
   color: white;
   border-radius: 15px;
+}
+
+.user-email-div {
+  display: flex;
+  flex-direction: column;
 }
