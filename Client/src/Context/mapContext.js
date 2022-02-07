@@ -107,7 +107,7 @@ const MapProvider = ({ children }) => {
             ...finalMarkers,
             { ...marker, id: response.data.id },
           ]);
-          setReportDescriptionInput.description(response.data.information)
+          
           dispatch({ type: "SUBMIT_REPORT" });
           setVoting("");
           setReportDescriptionInput([]);
