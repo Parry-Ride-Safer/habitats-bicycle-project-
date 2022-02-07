@@ -730,4 +730,13 @@ div.open-profile {
 .users-div {
   border: 1px solid black;
   margin: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.convert-adm-btn {
+  border: none;
+  background: black;
+  color: white;
+  border-radius: 15px;
 }

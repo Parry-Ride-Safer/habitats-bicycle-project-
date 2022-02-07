@@ -55,6 +55,7 @@ const LoginAndProfile = () => {
   const [showRegisterForm, setShowRegisterForm] = useState(false);
   const [userRole, setUserRole] = useState("");
   const [allUsers, setAllusers] = useState("");
+  const [showDetailedReport, setShowDetailedReport] = useState(false);
 
   const handleshowEditPassword = () => {
     setShowEditPassword(!showEditPassword);
@@ -183,22 +184,6 @@ const LoginAndProfile = () => {
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const [showDetailedReport, setShowDetailedReport] = useState(false);
-  const [filteredArray, setFilteredArray] = useState({});
-
-  const handleShowDetailedReport = () => {
-    setShowDetailedReport(!showDetailedReport);
-  };
-
-  const DetailedWindow = (props, func) => {
-    return (
-      <div className="detailed-report-window">
-        {" "}
-        <h1> TESTE WINDOW {props.information}</h1>
-      </div>
-    );
   };
 
   const getSubmitedReports = async () => {
@@ -360,6 +345,19 @@ const LoginAndProfile = () => {
           setAllusers(response.data);
         }
       );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const [userId, setuserId] = useState("");
+
+  const convertToAdm = async (id) => {
+    try {
+      await Axios.put(
+        `${process.env.REACT_APP_API_ROUTE_URL}/adm/update/${id}`
+      ).then((response) => {
+        console.log(response.data);
+      });
     } catch (err) {
       console.log(err);
     }
@@ -795,7 +793,16 @@ const LoginAndProfile = () => {
                     <div className="settings-container">
                       {allUsers.length > 0
                         ? allUsers.map((users) => (
-                            <div className="users-div">{users.email}</div>
+                            <div className="users-div">
+                              {users.email}
+                              <span>
+                                {users.role}
+                                {users.id}
+                              </span>
+                              <button className="convert-adm-btn">
+                                convert to admin
+                              </button>
+                            </div>
                           ))
                         : null}
                     </div>
