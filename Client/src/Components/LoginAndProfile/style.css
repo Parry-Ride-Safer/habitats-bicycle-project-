@@ -210,10 +210,10 @@
   width: 65px;
   height: 65px;
   cursor: pointer;
-  transition: all 0.5s ease-in-out;
-  border: 5px solid rgb(12, 12, 12);
+  /* transition: all 0.5s ease-in-out; */
+  /* border: 5px solid rgb(12, 12, 12); */
   right: 20px;
-  overflow: hidden;
+
   z-index: 3;
   border-radius: 5px;
   margin-top: 2vh;
@@ -231,15 +231,21 @@ div.open-profile {
   z-index: 2;
 }
 .menu-btn__burger {
-  width: 40px;
-  height: 6px;
-  background: rgb(0, 0, 0);
-  border-radius: 5px;
+  /* width: 40px;
+  height: 6px; */
+  /* background: rgb(0, 0, 0); */
+  /* border-radius: 5px; */
+
   /* box-shadow: 0 2px 5px orange; */
-  transition: all 0.5s ease-in-out;
+  /*  transition: all 0.5s ease-in-out; */
 }
 
-.menu-btn__burger::before,
+.menu-btn__burger svg {
+  width: 60px;
+  height: 60px;
+}
+
+/* .menu-btn__burger::before,
 .menu-btn__burger::after {
   content: " ";
   position: absolute;
@@ -248,7 +254,7 @@ div.open-profile {
   background: rgb(0, 0, 0);
   border-radius: 5px;
   /* box-shadow: 0 2px 5px orange; */
-  transition: all 0.5s ease-in-out;
+/* transition: all 0.5s ease-in-out;
 }
 
 .menu-btn__burger::before {
@@ -256,9 +262,9 @@ div.open-profile {
 }
 .menu-btn__burger::after {
   transform: translateY(16px);
-}
+} */
 
-.menu-btn.open .menu-btn__burger {
+/* .menu-btn.open .menu-btn__burger {
   transform: translateX(-50px);
   background: transparent;
 }
@@ -270,7 +276,7 @@ div.open-profile {
 .menu-btn.open .menu-btn__burger::after {
   transform: rotate(-45deg) translate(35px, 35px);
 }
-
+ */
 .absolute-container {
   position: absolute;
   z-index: 2;
@@ -647,7 +653,7 @@ div.open-profile {
   cursor: pointer;
 }
 
-.report-alert{
+.report-alert {
   text-align: center;
 }
 
@@ -727,10 +733,6 @@ div.open-profile {
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
-  /* padding-bottom: 0.5rem; */
-  /*   box-shadow: 2px 3px 14px 3px rgba(0, 0, 0, 0.12);
-  -webkit-box-shadow: 2px 3px 14px 3px rgba(0, 0, 0, 0.12);
-  -moz-box-shadow: 2px 3px 14px 3px rgba(0, 0, 0, 0.12); */
 }
 
 .convert-adm-btn {
@@ -756,10 +758,16 @@ div.open-profile {
   background-color: white;
 }
 
-.delete-button{
+.delete-button {
   border: none;
   background: black;
   color: white;
   border-radius: 15px;
   margin-left: 10vw;
+}
+
+@media only screen and (min-width: 700px) {
+  #information-text {
+    overflow: hidden;
+  }
 }
