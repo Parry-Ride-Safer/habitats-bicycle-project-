@@ -219,6 +219,12 @@
   margin-top: 2.5vh;
 }
 
+/* .menu-btn.open {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+} */
+
 .closed {
   display: none;
 }
@@ -235,14 +241,15 @@ div.open-profile {
   height: 6px; */
   /* background: rgb(0, 0, 0); */
   /* border-radius: 5px; */
-
+  width: 100%;
+  height: 100%;
   /* box-shadow: 0 2px 5px orange; */
   /*  transition: all 0.5s ease-in-out; */
 }
 
 .menu-btn__burger svg {
-  width: 60px;
-  height: 60px;
+  width: 65px;
+  height: 65px;
 }
 
 /* .menu-btn__burger::before,
@@ -303,7 +310,7 @@ div.open-profile {
   background: rgb(255, 255, 255);
   width: 100vw;
   height: 80vh;
-  overflow: scroll;
+  /* overflow: scroll; */
   position: absolute;
   bottom: 0;
 }
@@ -476,7 +483,7 @@ div.open-profile {
   display: flex;
   flex-direction: column;
   padding-top: 10%;
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 
 .div-h3-password {
@@ -786,6 +793,14 @@ div.open-profile {
 
   .delete-button {
     margin-left: 2.5vw;
+  }
+
+  #information-text {
+    overflow: hidden;
+  }
+
+  .email-box {
+    overflow: hidden;
   }
 }
 
