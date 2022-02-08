@@ -38,7 +38,7 @@ const MapProvider = ({ children }) => {
       setFinalMarkers(result.data);
     };
     fetchMarkers();
-  }, [state.isBoxWithDoneMsgOpen]);
+  }, [state]);
 
   const [reportIssue, setReportIssue] = useState();
   const [voting, setVoting] = useState("");
@@ -63,11 +63,6 @@ const MapProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
 
-  // const [fileInputState, setFileInputState] = useState("");
-  // const [previewSource, setPreviewSource] = useState("");
-  // const [selectedFile, setSelectedFile] = useState();
-  // const [successMsg, setSuccessMsg] = useState("");
-  // const [errMsg, setErrMsg] = useState("");
 
   const onMapClick = useCallback((event) => {
     dispatch({ type: "START_REPORT" });
@@ -88,7 +83,7 @@ const MapProvider = ({ children }) => {
 
   const dangerFormSubmit = (event) => {
     event.preventDefault();
-    if (voting === "" || image === "null") {
+    if (voting === "" || image.length === 0 || dangerType.length ===0 ) {
       setAlertMsg(true);
     } else {
       Axios.post(`${process.env.REACT_APP_API_ROUTE_URL}/reports/`, {
@@ -101,11 +96,13 @@ const MapProvider = ({ children }) => {
         image: image,
       })
         .then((response) => {
+          console.log(response)
           setAlertMsg(false);
           setFinalMarkers((finalMarkers) => [
             ...finalMarkers,
             { ...marker, id: response.data.id },
           ]);
+          
           dispatch({ type: "SUBMIT_REPORT" });
           setVoting("");
           setReportDescriptionInput([]);
@@ -181,7 +178,6 @@ const MapProvider = ({ children }) => {
           `${process.env.REACT_APP_API_ROUTE_URL}/users/rated`
         ).then((response) => {
           console.log(response.data);
-
           return setVotedReports(response.data);
         });
       } else {
@@ -239,9 +235,11 @@ const MapProvider = ({ children }) => {
           report_id: getReportData.id,
         }
       ).then((response) => {
+        console.log(response)
         setAlertMsg(false);
         dispatch({ type: "SUBMIT_VOTE" });
         setIsSpotVoted(true);
+        fetchReportData()
       });
     } else {
       await Axios.post(
@@ -258,11 +256,11 @@ const MapProvider = ({ children }) => {
   };
 
  
-  /*
+  
   useEffect(() => {
     fetchReportData();
   }, [state.isBoxWithDoneMsgOpen]);
- */
+ 
 
   const handleDangerLevel = (event) => {
     setVoting(event.target.value);
@@ -280,9 +278,9 @@ const MapProvider = ({ children }) => {
      try {
        await Axios.post(
          `${process.env.REACT_APP_API_ROUTE_URL}/reports/${getReportData.id}/flag`, {
-           user_id: getReportData.user_id,
+           user_id: currentUser,
            report_id: getReportData.id,
-           flag_id: findFlagOption.option,
+           flag: findFlagOption.option,
          }
          ).then((response) => {
            console.log(response)
@@ -318,6 +316,7 @@ const MapProvider = ({ children }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(15);
   }, []);
+
   return (
     <MapContext.Provider
       value={{
@@ -351,8 +350,6 @@ const MapProvider = ({ children }) => {
         uploadImage,
         loading,
         image,
-       
-
         fetchReportData,
         findReportID,
         createComplain,

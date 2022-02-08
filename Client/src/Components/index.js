@@ -4,7 +4,8 @@ export { default as BoxShowInputDetails } from "./SharedReportComponens/OpenRepo
 export { default as GpsLocation } from "./MapDisplay/GpsLocation";
 export { default as Map } from "./MapDisplay/Map";
 export { default as EditVoteModal } from "./NewReport/EditVoteModal";
-export { default as VoteModal } from "./OpenExistingReport/VoteModal";
+export { default as UserVoteModal } from "./OpenExistingReport/UserVoteModal";
+export { default as VisitorVoteModal } from "./OpenExistingReport/VisitorVoteModal";
 export { default as CreateComplain } from "./OpenExistingReport/CreateComplain";
 export { default as SearchBox } from "./MapDisplay/SearchBox";
 export { default as VotingBox } from "./SharedReportComponens/VoteWindow";

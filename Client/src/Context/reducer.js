@@ -10,7 +10,6 @@ const reducer = (state, action) => {
       ...state,
       isBoxWithDoneMsgOpen: true,
       isReportWindowInputOpen: false,
-      isBoxShowInputDetailsOpen: true,
     };
   }
   if (action.type === "CONCLUDE_PROCESS") {
