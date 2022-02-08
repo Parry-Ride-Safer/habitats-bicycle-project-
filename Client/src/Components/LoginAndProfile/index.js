@@ -905,6 +905,11 @@ const LoginAndProfile = () => {
                                 ) : (
                                   <div className="img-div-empty"> No photo</div>
                                 )}
+                                  <button className="delete-button" onClick={() => deleteReport(spot.id)}>
+                                  Delete
+                                </button>
+
+
                               </span>
                               <div className="title-text-div">
                                 {spot.name === "Construction" ? (
@@ -952,9 +957,7 @@ const LoginAndProfile = () => {
                                 <span id="information-text">
                                   {spot.information}
                                 </span>
-                                <button onClick={() => setDeletePage(true)}>
-                                  delete
-                                </button>
+                              
                                 {/* {deletePage ? <ConfirmDelete /> : null} */}
                               </div>
 

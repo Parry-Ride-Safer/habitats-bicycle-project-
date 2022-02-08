@@ -384,7 +384,7 @@ div.open-profile {
 
 .your-spots-container {
   margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
+  padding-bottom: 2rem;
   box-shadow: 2px 3px 14px 3px rgba(0, 0, 0, 0.12);
   -webkit-box-shadow: 2px 3px 14px 3px rgba(0, 0, 0, 0.12);
   -moz-box-shadow: 2px 3px 14px 3px rgba(0, 0, 0, 0.12);
@@ -397,11 +397,11 @@ div.open-profile {
 
 .img-div {
   background-color: white;
-
   margin-left: 5%;
   margin-top: 5%;
   width: 110px;
   height: 90px;
+  object-fit: cover;
 }
 
 .img-div-empty {
@@ -435,7 +435,7 @@ div.open-profile {
 .title-text-div {
   margin-top: 0.5rem;
   display: flex;
-  justify-content: start;
+  justify-content: center;
   align-items: flex-start;
   flex-direction: column;
   overflow: hidden;
@@ -447,7 +447,7 @@ div.open-profile {
 .danger-icon-place {
   position: absolute;
   right: 0;
-  top: 10%;
+  top: 30%;
 }
 
 .danger-icon-place svg {
@@ -754,4 +754,12 @@ div.open-profile {
   width: 200px;
   height: 200px;
   background-color: white;
+}
+
+.delete-button{
+  border: none;
+  background: black;
+  color: white;
+  border-radius: 15px;
+  margin-left: 10vw;
 }
