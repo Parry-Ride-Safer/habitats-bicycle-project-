@@ -12,21 +12,27 @@ export default function ModalShowUserInputDetails() {
     <div className="vote-layout">
       <div className="edit-vote-display">
         <p>{
-          (parseInt(getReportData.voting) === 1) ? (<div>{dangerLevel[0].icon} </div>) : 
-          (parseInt(getReportData.voting) === 2) ? (<div>{dangerLevel[1].icon} </div>) :
-          (<div>{dangerLevel[2].icon} </div>)
+         ((Number(getReportData.voting).toFixed(2) <=1.29) ? (<div>{dangerLevel[0].icon} </div>) :
+         (
+           (Number(getReportData.voting).toFixed(2) >= 1.30) && 
+           (Number(getReportData.voting).toFixed(2) <=2.29) 
+         ) ?  (<div>{dangerLevel[1].icon} </div>) :  (<div>{dangerLevel[2].icon} </div>))
         }</p>
         <div className="layout-edit-window">
           <p className="danger-title">{
-            (parseInt(getReportData.voting) === 1) ? "Low danger" : 
-            (parseInt(getReportData.voting) === 2) ? "Medium danger" :
-            "High danger"
+             ((Number(getReportData.voting).toFixed(2) <=1.29) ? "Low danger" :
+             (
+               (Number(getReportData.voting).toFixed(2) >= 1.30) && 
+               (Number(getReportData.voting).toFixed(2) <=2.29) 
+             ) ?  "Medium danger" :  "High danger")
           }</p>
           <p className="rating-qtt">{getReportData.count} rating including mine: 
           {
-          (parseInt(getReportData.userVoteFound.voting) === 1) ? (<div className="danger-icon-size">{dangerLevel[0].icon} </div>) : 
-          (parseInt(getReportData.userVoteFound.voting) === 2) ? (<div className="danger-icon-size">{dangerLevel[1].icon} </div>) :
-          (<div className="danger-icon-size">{dangerLevel[2].icon} </div>)
+           ((Number(getReportData.userVoteFound.voting).toFixed(2) <=1.29) ? (<div>{dangerLevel[0].icon} </div>) :
+           (
+             (Number(getReportData.userVoteFound.voting).toFixed(2) >= 1.30) && 
+             (Number(getReportData.userVoteFound.voting).toFixed(2) <=2.29) 
+           ) ?  (<div>{dangerLevel[1].icon} </div>) :  (<div>{dangerLevel[2].icon} </div>))
         }
           </p>
         </div>
