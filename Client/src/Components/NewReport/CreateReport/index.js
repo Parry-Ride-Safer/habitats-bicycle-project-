@@ -4,6 +4,7 @@ import dangerLevel from "../../../Data/dangerLevelToVote";
 import issueType from "../../../Data/dangerTypeSelection";
 import closeBtn from "../../../icons/modalBoxIcons/close-window-icon.png";
 // import Alert from "../../ImageUploadForm/alert.js";
+import { ReactComponent as CameraIcon } from "../../../icons/modalBoxIcons/cameraIcon.svg";
 
 import "./createReport.css";
 
@@ -73,9 +74,9 @@ export default function CreateReport() {
             </div>
 
             <div className="upload-pic-holder">
-              {/* <label for="upload-btn" class="custom-upload-btn">
-                Select a Picture from Gallery
-              </label> */}
+              <label for="upload-btn" class="custom-upload-btn">
+                <CameraIcon />
+              </label>
               <input
                 id="upload-btn"
                 type="file"
