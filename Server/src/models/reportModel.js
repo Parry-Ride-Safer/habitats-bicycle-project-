@@ -109,11 +109,11 @@ const getVoting = async (userId, reportId) => {
   return results;
 };
 const getFlag = async (userId, reportId) => {
-  [results] = await db.query(
+  results = await db.query(
     "SELECT flag_id FROM rating WHERE user_id = ? and report_id = ?",
     [userId, reportId]
   );
-  return results;
+  return results[0];
 };
 const updateFlag = async (flag_id, reportId, userId) => {
   const results = await db.query(
@@ -134,6 +134,15 @@ const isVisable = async (id) => {
   await db.query("UPDATE report SET is_hidden = 1 where id = ?", id);
 };
 
+const getAvgVoting = async (id) => {
+  const [voting] = await db.query(
+    "SELECT AVG(voting) as average from rating WHERE report_id = ?",
+    [id]
+  );
+  console.log(voting);
+  return voting;
+};
+
 module.exports = {
   createReport,
   findLocation,
@@ -150,4 +159,5 @@ module.exports = {
   getVoting,
   getFlag,
   updateFlag,
+  getAvgVoting,
 };

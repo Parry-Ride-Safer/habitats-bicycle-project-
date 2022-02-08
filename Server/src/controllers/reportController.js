@@ -97,7 +97,8 @@ const updateVoteController = async (req, res, next) => {
       reportId,
       req.currentUser.id
     );
-    if (report === 1) res.status(200).json({ ...existingReport, ...req.body });
+    const avgVoting = await reportsModels.getAvgVoting(reportId);
+    if (report === 1) res.status(200).json({ avgVoting, ...req.body });
     else throw new InvalidDataError("Nothing to be changed");
   } catch (error) {
     console.error(error);
@@ -110,7 +111,7 @@ const submitVotingController = async (req, res, next) => {
   const { reportId } = req.params;
 
   try {
-    const results = await reportsModels.getVoting(req.currentUser.id, reportId);
+    let results = await reportsModels.getVoting(req.currentUser.id, reportId);
     if (results.length)
       throw new AlreadyExistsError("You can't vote in this location");
     const vote = await reportsModels.createVoting(
@@ -118,8 +119,10 @@ const submitVotingController = async (req, res, next) => {
       req.currentUser.id,
       reportId
     );
-
-    res.status(201).send(vote);
+    results = await reportsModels.getVoting(req.currentUser.id, reportId);
+    const avgVoting = await reportsModels.getAvgVoting(reportId);
+    console.log(avgVoting.average);
+    res.status(201).json({ avgVoting, ...results });
   } catch (error) {
     console.log(error);
     next(error);
@@ -134,9 +137,10 @@ const submitFlagController = async (req, res, next) => {
   try {
     const records = await reportsModels.getFlag(req.currentUser.id, reportId);
     if (records.length) {
+      console.log(records[0].flag_id, "++++++");
       if (records[0].flag_id === null)
         record = await reportsModels.updateFlag(
-          req.body.flag,
+          flag,
           reportId,
           req.currentUser.id
         );

@@ -323,7 +323,7 @@ const LoginAndProfile = () => {
       <div>
         <div className="welcome-page-sign">
           <SignIcon className="welcome-hand" />
-          <h3>sign up to be able to report or vote on a road issue.</h3>
+          <h3>Sign Up to report or vote on a road issue.</h3>
           <button className="btn-start" onClick={handleShowRegisterForm}>
             sign up
           </button>
@@ -681,7 +681,7 @@ const LoginAndProfile = () => {
                           </div>
                         ))
                       ) : (
-                        <p> you haven't Submitted any reports yet :D</p>
+                        <p className="report-alert"> You haven't submitted any reports yet! :D</p>
                       )}
                     </div>
                   </div>
@@ -792,7 +792,7 @@ const LoginAndProfile = () => {
                           </div>
                         ))
                       ) : (
-                        <p> you haven't rated any reports yet :D</p>
+                        <p className="report-alert">You haven't rated any reports yet! :D</p>
                       )}
                     </div>
                   </div>
@@ -861,7 +861,7 @@ const LoginAndProfile = () => {
                                   onClick={() => convertToAdm(users.id)}
                                   className="convert-adm-btn"
                                 >
-                                  convert to admin
+                                  Convert to Admin
                                 </button>
                               ) : null}
                               {users.role === "adm" ? (

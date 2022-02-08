@@ -20,7 +20,7 @@ export default function ModalShowReportDetails() {
           <p className="danger-title">{
             (parseInt(getReportData.voting) === 1) ? "Low danger" : 
             (parseInt(getReportData.voting) === 2) ? "Medium danger" :
-            "High danger"
+            "High danger" 
           }</p>
           <p className="rating-qtt">{getReportData.count} ratings
           {(currentUser === getReportData.user_id ||
@@ -37,7 +37,7 @@ export default function ModalShowReportDetails() {
         <button className="submit-button" type="button" onClick={openVoteWindow}>
             {(currentUser === getReportData.user_id ||
                 (currentUser !== getReportData.user && findReportID)) ?
-                "Edit Vote" : "Rate Spot"}       
+                "Edit Rating" : "Rate Spot"}       
           </button>
           <button className="flag-btn" type="button" onClick={createComplain}>
             <img src={flagReport} alt="" />
