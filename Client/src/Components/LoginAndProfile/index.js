@@ -681,7 +681,10 @@ const LoginAndProfile = () => {
                           </div>
                         ))
                       ) : (
-                        <p className="report-alert"> You haven't submitted any reports yet! :D</p>
+                        <p className="report-alert">
+                          {" "}
+                          You haven't submitted any reports yet! :D
+                        </p>
                       )}
                     </div>
                   </div>
@@ -746,14 +749,14 @@ const LoginAndProfile = () => {
                                 ) : null}
                                 {spot.name === "Bad Parking" ? (
                                   <span id="danger-type-title">
-                                    <OtherIcon2 className="category-sign" />{" "}
-                                    Other
+                                    <BadParking2 className="category-sign" />{" "}
+                                    Bad Parking
                                   </span>
                                 ) : null}
                                 {spot.name === "Other" ? (
                                   <span id="danger-type-title">
-                                    <BadParking2 className="category-sign" />{" "}
-                                    Bad Parking
+                                    <OtherIcon2 className="category-sign" />{" "}
+                                    Other
                                   </span>
                                 ) : null}
                                 <span id="information-text">
@@ -792,7 +795,9 @@ const LoginAndProfile = () => {
                           </div>
                         ))
                       ) : (
-                        <p className="report-alert">You haven't rated any reports yet! :D</p>
+                        <p className="report-alert">
+                          You haven't rated any reports yet! :D
+                        </p>
                       )}
                     </div>
                   </div>
@@ -952,7 +957,7 @@ const LoginAndProfile = () => {
                                 <span id="information-text">
                                   {spot.information}
                                 </span>
-                                <button onClick={() => setDeletePage(true)}>
+                                <button onClick={() => deleteReport(spot.id)}>
                                   delete
                                 </button>
                                 {/* {deletePage ? <ConfirmDelete /> : null} */}
