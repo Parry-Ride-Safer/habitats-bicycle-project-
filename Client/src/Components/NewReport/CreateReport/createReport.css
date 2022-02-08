@@ -208,15 +208,16 @@ input[class="classD3"]:focus + svg {
 
 #upload-btn {
   align-self: center;
-  /* display: none; */
+  display: none;
 }
 
-/* .custom-upload-btn {
-  background: black;
-  color: white;
+.custom-upload-btn {
+  background: white;
+  border: 1px solid rgb(90, 90, 90);
+
   padding: 1rem 0;
   border-radius: 15px;
-} */
+}
 
 .issue-title {
   align-self: center;
