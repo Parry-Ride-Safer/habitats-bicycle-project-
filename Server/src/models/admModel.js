@@ -6,6 +6,10 @@ const getUsers = async () => {
   const users = await db.query("SELECT id ,email, role from user");
   return users[0];
 };
+const getUsersByID = async (id) => {
+  const [users] = await db.query("SELECT role from user WHERE id = ?", [id]);
+  return users[0];
+};
 
 const getAllHiddenLocations = async () => {
   const [locations] = await db.query(
@@ -21,12 +25,26 @@ const deleteReport = async (id) => {
   return results;
 };
 
-const updateRole = async (id) => {
+const updateRoletoAdm = async (id) => {
   let update = await db.query(" UPDATE USER SET role = 'adm' where id = ?", [
     id,
   ]);
 
   return update[0].affectedRows;
 };
+const updateRoletoUser = async (id) => {
+  let update = await db.query(" UPDATE USER SET role = 'user' where id = ?", [
+    id,
+  ]);
 
-module.exports = { getUsers, getAllHiddenLocations, deleteReport, updateRole };
+  return update[0].affectedRows;
+};
+
+module.exports = {
+  getUsers,
+  getAllHiddenLocations,
+  deleteReport,
+  updateRoletoAdm,
+  getUsersByID,
+  updateRoletoUser,
+};

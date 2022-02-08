@@ -22,7 +22,7 @@ CREATE TABLE `category` (
 
 CREATE TABLE `report` (
   `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `information` varchar(60),
+  `information` varchar(300),
   `createdAt` DATETIME DEFAULT now() ON UPDATE now(),
   `user_id` int NOT NULL,
   `address_id` int NOT NULL,
@@ -35,8 +35,7 @@ CREATE TABLE `rating` (
   `user_id` int,
   `report_id` int,
   `voting` int,
-  `flag_id` int,
-  PRIMARY KEY (`user_id`, `report_id`)
+  `flag_id` int
 );
 
 CREATE TABLE `flag` (

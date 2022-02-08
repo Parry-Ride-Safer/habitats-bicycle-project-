@@ -44,7 +44,7 @@ const LoginAndProfile = () => {
 
   const [userStorage, setUserStorage] = useState(null);
   const [loginId, setLoginId] = useState();
-  const [SubmitedReports, setSubmitedReports] = useState([]);
+  const [submittedReports, setsubmittedReports] = useState([]);
   const [welcomeStatus, setWelcomeStatus] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [showEditPassword, setShowEditPassword] = useState(false);
@@ -56,6 +56,7 @@ const LoginAndProfile = () => {
   const [userRole, setUserRole] = useState("");
   const [allUsers, setAllusers] = useState("");
   const [showDetailedReport, setShowDetailedReport] = useState(false);
+  const [allSpots, setAllSpots] = useState([]);
 
   const handleshowEditPassword = () => {
     setShowEditPassword(!showEditPassword);
@@ -186,21 +187,21 @@ const LoginAndProfile = () => {
     }
   };
 
-  const getSubmitedReports = async () => {
+  const getsubmittedReports = async () => {
     try {
       if (user) {
         await Axios.get(
           `${process.env.REACT_APP_API_ROUTE_URL}/users/reports/`
         ).then((response) => {
-          console.log(response.data, "submited Reports array");
-          return setSubmitedReports(response.data);
+          console.log(response.data, "submitted Reports array");
+          return setsubmittedReports(response.data);
         });
       } else {
         console.log("not logged in");
       }
     } catch (err) {
       console.log(err);
-      setSubmitedReports([]);
+      setsubmittedReports([]);
     }
   };
 
@@ -279,14 +280,15 @@ const LoginAndProfile = () => {
   useEffect(() => {
     if (btnState === true) {
       setLoginId(user);
-      getSubmitedReports();
+      getsubmittedReports();
       getVotedSpots();
+      getCurrentUser();
     }
     console.log("useEffect is rerendering");
   }, [btnState]);
 
   useEffect(() => {
-    getSubmitedReports();
+    getsubmittedReports();
   }, []);
 
   const [showWelcomePage, setShowWelcomePage] = useState(true);
@@ -321,7 +323,7 @@ const LoginAndProfile = () => {
       <div>
         <div className="welcome-page-sign">
           <SignIcon className="welcome-hand" />
-          <h3>sign up to be able to report or vote on a road issue.</h3>
+          <h3>Sign Up to report or vote on a road issue.</h3>
           <button className="btn-start" onClick={handleShowRegisterForm}>
             sign up
           </button>
@@ -367,15 +369,42 @@ const LoginAndProfile = () => {
 
   const getAllLocations = async () => {
     try {
-      await Axios.put(`${process.env.REACT_APP_API_ROUTE_URL}/adm/`).then(
-        (response) => {
-          console.log(response.data);
-          getAllUsers();
-        }
-      );
+      await Axios.get(
+        `${process.env.REACT_APP_API_ROUTE_URL}/adm/hiddenLocation/`
+      ).then((response) => {
+        console.log(response.data);
+        setAllSpots(response.data);
+      });
+    } catch (err) {
+      console.log(err);
+      setAllSpots([]);
+    }
+  };
+
+  const deleteReport = async (id) => {
+    try {
+      let filteredReport = allSpots.filter((report) => report.id === id);
+      id = filteredReport[0].id;
+      await Axios.delete(
+        `${process.env.REACT_APP_API_ROUTE_URL}/adm/${id}`
+      ).then((response) => {
+        console.log(response.data);
+        getAllLocations();
+      });
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const [deletePage, setDeletePage] = useState(false);
+
+  const ConfirmDelete = (id) => {
+    return (
+      <div className="confirm-delete-window">
+        are you sure you want to delete ?<br />
+        <button>delete</button>
+      </div>
+    );
   };
 
   return (
@@ -493,7 +522,7 @@ const LoginAndProfile = () => {
                   <button
                     className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
                     onClick={() =>
-                      toggleTab(1) + getSubmitedReports() + closeEditWindows()
+                      toggleTab(1) + getsubmittedReports() + closeEditWindows()
                     }
                   >
                     Submitted Spots
@@ -506,14 +535,7 @@ const LoginAndProfile = () => {
                   >
                     Rated Spots
                   </button>
-                  <button
-                    className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
-                    onClick={() =>
-                      toggleTab(3) + getCurrentUser() + closeEditWindows()
-                    }
-                  >
-                    Settings
-                  </button>
+
                   {userRole === "adm" ? (
                     <button
                       className={
@@ -526,6 +548,26 @@ const LoginAndProfile = () => {
                       All users
                     </button>
                   ) : null}
+                  {userRole === "adm" ? (
+                    <button
+                      className={
+                        toggleState === 5 ? "tabs active-tabs" : "tabs"
+                      }
+                      onClick={() =>
+                        toggleTab(5) + getAllLocations() + closeEditWindows()
+                      }
+                    >
+                      All Reports
+                    </button>
+                  ) : null}
+                  <button
+                    className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
+                    onClick={() =>
+                      toggleTab(3) + getCurrentUser() + closeEditWindows()
+                    }
+                  >
+                    Settings
+                  </button>
                 </div>
 
                 <div className="content-tabs">
@@ -534,15 +576,15 @@ const LoginAndProfile = () => {
                       toggleState === 1 ? "content  active-content" : "closed"
                     }
                   >
-                    <div className="submited-spots-padding">
-                      {SubmitedReports.length > 0 ? (
-                        SubmitedReports.map((report) => (
+                    <div className="submitted-spots-padding">
+                      {submittedReports.length > 0 ? (
+                        submittedReports.map((report) => (
                           <div
                             className="your-spots-container"
                             onClick={() => reportDetailsWindow(report.id)}
                           >
                             <section
-                              className="submited-reports-section"
+                              className="submitted-reports-section"
                               key={report.id}
                             >
                               <span>
@@ -639,7 +681,7 @@ const LoginAndProfile = () => {
                           </div>
                         ))
                       ) : (
-                        <p> you haven't Submitted any reports yet :D</p>
+                        <p className="report-alert"> You haven't submitted any reports yet! :D</p>
                       )}
                     </div>
                   </div>
@@ -649,7 +691,7 @@ const LoginAndProfile = () => {
                       toggleState === 2 ? "content  active-content" : "closed"
                     }
                   >
-                    <div className="submited-spots-padding">
+                    <div className="submitted-spots-padding">
                       {votedReports.length > 0 ? (
                         votedReports.map((spot) => (
                           <div
@@ -657,7 +699,7 @@ const LoginAndProfile = () => {
                             onClick={() => reportDetailsWindow(spot.id)}
                           >
                             <section
-                              className="submited-reports-section"
+                              className="submitted-reports-section"
                               key={spot.id}
                             >
                               <span>
@@ -750,7 +792,7 @@ const LoginAndProfile = () => {
                           </div>
                         ))
                       ) : (
-                        <p> you haven't rated any reports yet :D</p>
+                        <p className="report-alert">You haven't rated any reports yet! :D</p>
                       )}
                     </div>
                   </div>
@@ -800,6 +842,7 @@ const LoginAndProfile = () => {
                       </button>
                     </div>
                   </div>
+                  {/* ---------- from here is show all users for admin --------------- */}
                   <div
                     className={
                       toggleState === 4 ? "content  active-content" : "closed"
@@ -818,12 +861,136 @@ const LoginAndProfile = () => {
                                   onClick={() => convertToAdm(users.id)}
                                   className="convert-adm-btn"
                                 >
-                                  convert to admin
+                                  Convert to Admin
+                                </button>
+                              ) : null}
+                              {users.role === "adm" ? (
+                                <button
+                                  onClick={() => convertToAdm(users.id)}
+                                  className="convert-adm-btn"
+                                >
+                                  convert to user
                                 </button>
                               ) : null}
                             </div>
                           ))
                         : null}
+                    </div>
+                  </div>
+
+                  {/* ---------- from here is show all reports for admin ----------------- */}
+                  <div
+                    className={
+                      toggleState === 5 ? "content  active-content" : "closed"
+                    }
+                  >
+                    <div className="submitted-spots-padding">
+                      {allSpots.length > 0 ? (
+                        allSpots.map((spot) => (
+                          <div
+                            className="your-spots-container"
+                            // onClick={() => reportDetailsWindow(spot.id)}
+                          >
+                            <section
+                              className="submitted-reports-section"
+                              key={spot.id}
+                            >
+                              <span>
+                                {spot.image ? (
+                                  <img
+                                    className="img-div"
+                                    src={spot.image}
+                                    alt=""
+                                  />
+                                ) : (
+                                  <div className="img-div-empty"> No photo</div>
+                                )}
+                              </span>
+                              <div className="title-text-div">
+                                {spot.name === "Construction" ? (
+                                  <span id="danger-type-title">
+                                    <ConstructionSign2 className="category-sign" />{" "}
+                                    Construction
+                                  </span>
+                                ) : null}
+                                {spot.name === "Juction" ? (
+                                  <span id="danger-type-title">
+                                    <JunctionIcon2 className="category-sign" />{" "}
+                                    Junction
+                                  </span>
+                                ) : null}
+                                {spot.name === "Bike Lane" ? (
+                                  <span id="danger-type-title">
+                                    <BikelaneSign2 className="category-sign" />{" "}
+                                    Bike Lane
+                                  </span>
+                                ) : null}
+                                {spot.name === "Road Damage" ? (
+                                  <span id="danger-type-title">
+                                    <BadRoadIcon2 className="category-sign" />{" "}
+                                    Road Damage
+                                  </span>
+                                ) : null}
+                                {spot.name === "Traffic" ? (
+                                  <span id="danger-type-title">
+                                    <TrafficIcon2 className="category-sign" />{" "}
+                                    Traffic
+                                  </span>
+                                ) : null}
+                                {spot.name === "Bad Parking" ? (
+                                  <span id="danger-type-title">
+                                    <OtherIcon2 className="category-sign" />{" "}
+                                    Other
+                                  </span>
+                                ) : null}
+                                {spot.name === "Other" ? (
+                                  <span id="danger-type-title">
+                                    <BadParking2 className="category-sign" />{" "}
+                                    Bad Parking
+                                  </span>
+                                ) : null}
+                                <span id="information-text">
+                                  {spot.information}
+                                </span>
+                                <button onClick={() => setDeletePage(true)}>
+                                  delete
+                                </button>
+                                {/* {deletePage ? <ConfirmDelete /> : null} */}
+                              </div>
+
+                              {Number(spot.voting).toFixed(2) >= 1 &&
+                              Number(spot.voting).toFixed(2) <= 1.29 ? (
+                                <span className="danger-icon-place">
+                                  {dangerLevel[0].icon}
+                                  <span className="vote-count">
+                                    {spot.count}
+                                  </span>
+                                </span>
+                              ) : null}
+                              {Number(spot.voting).toFixed(2) >= 1.3 &&
+                              Number(spot.voting).toFixed(2) <= 2.29 ? (
+                                <span className="danger-icon-place">
+                                  {dangerLevel[1].icon}
+                                  <span className="vote-count">
+                                    {spot.count}
+                                  </span>
+                                </span>
+                              ) : null}
+                              {Number(spot.voting).toFixed(2) >= 2.3 &&
+                              Number(spot.voting).toFixed(2) <= 3 ? (
+                                <span className="danger-icon-place">
+                                  {dangerLevel[2].icon}
+                                  <span className="vote-count">
+                                    {spot.count}
+                                  </span>
+                                </span>
+                              ) : null}
+                            </section>
+                          </div>
+                        ))
+                      ) : (
+                        <p> There are no reports yet :D</p>
+                      )}
                     </div>
                   </div>
                 </div>

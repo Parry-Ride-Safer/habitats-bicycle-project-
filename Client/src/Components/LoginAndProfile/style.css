@@ -371,11 +371,11 @@ div.open-profile {
 
 /* -------------- Reported spots page style ---------------- */
 
-.submited-spots-padding {
+.submitted-spots-padding {
   padding-top: 5%;
 }
 
-.submited-reports-section {
+.submitted-reports-section {
   position: relative;
   display: flex;
   justify-content: start;
@@ -470,6 +470,7 @@ div.open-profile {
   display: flex;
   flex-direction: column;
   padding-top: 10%;
+  overflow: scroll;
 }
 
 .div-h3-password {
@@ -646,6 +647,10 @@ div.open-profile {
   cursor: pointer;
 }
 
+.report-alert{
+  text-align: center;
+}
+
 @media only screen and (min-width: 700px) {
   .register-form {
     visibility: visible;
@@ -738,4 +743,15 @@ div.open-profile {
 .user-email-div {
   display: flex;
   flex-direction: column;
+}
+
+.confirm-delete-window {
+  border: 1px solid black;
+  position: absolute;
+  z-index: 55;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 200px;
+  background-color: white;
 }

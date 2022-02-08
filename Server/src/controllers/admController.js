@@ -37,9 +37,14 @@ const deleteReportController = async (req, res, next) => {
 
 const updateRoleController = async (req, res, next) => {
   const targetId = req.params.id;
+  let updateUser;
   try {
-    const updateUser = await admModels.updateRole(targetId);
-    if (updateUser === 1) res.status(200).send("Updated to Admin");
+    const user = await admModels.getUsersByID(targetId);
+    if (user.role === "user")
+      updateUser = await admModels.updateRoletoAdm(targetId);
+    if (user.role === "adm")
+      updateUser = await admModels.updateRoletoUser(targetId);
+    if (updateUser === 1) res.status(200).send(`Updated from ${user.role}`);
     else throw new InvalidDataError("Nothing to be changed");
   } catch (error) {
     next(error);
