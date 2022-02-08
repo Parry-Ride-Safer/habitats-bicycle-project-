@@ -4,7 +4,7 @@ const db = connection.promise();
 
 const getReportsInOneLocation = async (locationId) => {
   const reports = await db.query(
-    "SELECT report.id, information, avg(voting) AS voting, category.name, createdAt, report.user_id, image, count(voting) as count FROM report join rating on rating.report_id = report.id join category on report.category_id = category.id WHERE address_id in (?) group by address_id",
+    "SELECT report.id, information, avg(voting) AS voting, category.name, createdAt, report.user_id, image, count(voting) as count FROM report join rating on rating.report_id = report.id join category on report.category_id = category.id WHERE address_id = ? group by address_id",
     [locationId]
   );
   const results = reports;
