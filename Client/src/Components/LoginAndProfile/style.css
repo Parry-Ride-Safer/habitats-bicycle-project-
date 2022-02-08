@@ -792,7 +792,8 @@ div.open-profile {
 
   .submitted-spots-padding {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
   }
 
   .delete-button {
