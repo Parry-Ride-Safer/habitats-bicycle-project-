@@ -123,6 +123,7 @@ export default function CreateReport() {
                       value={issue.type}
                       onChange={handleDangerType}
                     />
+                    {issue.icon}
                     {issue.type}
                   </label>
                 );

@@ -1,6 +1,11 @@
-import { ReactComponent as Construction } from "../icons/modalBoxIcons/constructionSign.svg";
-import { ReactComponent as Junction } from "../icons/modalBoxIcons/🚦.svg";
-import { ReactComponent as Bikelane } from "../icons/modalBoxIcons/bikelaneIcon.svg";
+import { ReactComponent as Construction } from "../icons/modalBoxIcons/constructionSign3.svg";
+// import { ReactComponent as Junction } from "../icons/modalBoxIcons/🚦.svg";
+import { ReactComponent as Bikelane } from "../icons/modalBoxIcons/bikeIcon3.svg";
+import { ReactComponent as BadParking } from "../icons/modalBoxIcons/badParking3.svg";
+import { ReactComponent as BadRoadIcon } from "../icons/modalBoxIcons/badRoadIcon3.svg";
+import { ReactComponent as Junction } from "../icons/modalBoxIcons/junctionIcon3.svg";
+import { ReactComponent as Traffic } from "../icons/modalBoxIcons/trafficIcon3.svg";
+import { ReactComponent as Other } from "../icons/modalBoxIcons/otherIcon3.svg";
 
 const issueType = [
   {
@@ -13,28 +18,33 @@ const issueType = [
     type: "Road Damage",
     nb: 2,
     className: "select-road",
-    icon: <Junction />,
+    icon: <BadRoadIcon />,
   },
   {
     type: "Bad Parking",
     nb: 3,
     className: "select-bad-parking",
-    icon: <Bikelane />,
+    icon: <BadParking />,
   },
   {
     type: "Bike Lane",
     nb: 4,
     className: "select-bike-lane",
-    icon: "",
+    icon: <Bikelane />,
   },
   {
     type: "Junction",
     nb: 5,
     className: "select-Junction",
-    icon: "",
+    icon: <Junction />,
   },
-  { type: "Traffic", nb: 6, className: "select-traffic", icon: <Construction /> },
-  { type: "Other", nb: 7, className: "select-other", icon: <Construction /> }
+  {
+    type: "Traffic",
+    nb: 6,
+    className: "select-traffic",
+    icon: <Traffic />,
+  },
+  { type: "Other", nb: 7, className: "select-other", icon: <Other /> },
 ];
 
 export default issueType;

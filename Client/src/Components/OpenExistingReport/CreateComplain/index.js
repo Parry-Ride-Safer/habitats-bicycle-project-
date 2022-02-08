@@ -14,7 +14,7 @@ const CreateComplain = () => {
     >
       <p className="title-reportIssue">Report Issue</p>
       <p className="subTitle-reportIssue">
-        Let us know about issues with this report
+        Why are you flagging this report?
       </p>
       <form className="report-form-display" onSubmit={submitComplain}>
         {reportIssueOptions.map((reportOption) => {
