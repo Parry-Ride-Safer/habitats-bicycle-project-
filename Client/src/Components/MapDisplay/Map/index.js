@@ -52,7 +52,7 @@ export default function Map() {
     <div className="teste-flex">
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        zoom={17}
+        zoom={12}
         center={center}
         options={mapOptions}
         onClick={onMapClick}
