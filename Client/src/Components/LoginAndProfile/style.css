@@ -216,7 +216,7 @@
 
   z-index: 3;
   border-radius: 5px;
-  margin-top: 2vh;
+  margin-top: 2.5vh;
 }
 
 .closed {
@@ -787,14 +787,6 @@ div.open-profile {
   .delete-button {
     margin-left: 2.5vw;
   }
-}
-
-.delete-button {
-  border: none;
-  background: black;
-  color: white;
-  border-radius: 15px;
-  margin-left: 10vw;
 }
 
 @media only screen and (min-width: 700px) {
