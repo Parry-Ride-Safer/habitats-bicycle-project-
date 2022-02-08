@@ -11,6 +11,7 @@ import {
   LoginAndProfile
 } from "../../index";
 import { useGlobalMapContext } from "../../../Context/mapContext";
+import { iconScale } from "../../functions";
 import "./map.css";
 import logoBlue from "./PolygonBlue.png";
 import yellow from "../../../icons/modalBoxIcons/Group 550.svg";
@@ -34,22 +35,6 @@ const mapOptions = {
   zoomControl: true,
 };
 
-/*const clusterStyles = [{
-    width: 35,
-    height: 35,
-    textColor: '#ff00ff',
-    textSize: 20
-  }, {
-    width: 45,
-    height: 45,
-    textColor: '#ff0000',
-    textSize: 25
-  }, {
-    width: 55,
-    height: 55,
-    textColor: '#ffffff',
-    textSize: 30
-  }]*/
 
 export default function Map() {
   const {
@@ -82,7 +67,6 @@ export default function Map() {
       <GpsLocation panTo={panTo} />
       <MarkerClusterer
         gridSize={60}
-        /*styles={clusterStyles}*/
       >
         {(clusterer) =>
           finalMarkers.map((fMarker) => (
@@ -100,7 +84,7 @@ export default function Map() {
                     (Number(fMarker.voting).toFixed(2) >= 1.30) && 
                     (Number(fMarker.voting).toFixed(2) <=2.29) 
                   ) ? orange : red ) ,
-                scaledSize: new window.google.maps.Size(50, 50),
+                scaledSize: new window.google.maps.Size(iconScale(fMarker), iconScale(fMarker)),
                 origin: new window.google.maps.Point(0, 0),
                 anchor: new window.google.maps.Point(25, 25),
               }}

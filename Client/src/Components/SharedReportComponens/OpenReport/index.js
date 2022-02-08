@@ -1,6 +1,6 @@
 import React from "react";
 import { useGlobalMapContext } from "../../../Context/mapContext";
-import { VoteModal, EditVoteModal } from "../../index";
+import { UserVoteModal, VisitorVoteModal, EditVoteModal } from "../../index";
 import "./boxShowInputDetails.css";
 import closeBtn from "../../../icons/modalBoxIcons/close-window-icon.png";
 
@@ -35,9 +35,9 @@ export default function BoxShowInputDetails() {
           <p className='date-text'>{getReportData.createdAt}</p>
           <p className='open-report-description'>{getReportData.information}</p>
           <div className='open-report-btn'>
-            {!user ? null :
+            {!user ? <VisitorVoteModal /> :
               (currentUser === getReportData.user_id) ? <EditVoteModal /> : 
-              <VoteModal />
+              (currentUser !== getReportData.user_id) ? <UserVoteModal /> : null
             }
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useGlobalMapContext } from "../../../Context/mapContext";
 import dangerLevel from "../../../Data/dangerLevelToVote";
 import issueType from "../../../Data/dangerTypeSelection";
@@ -15,17 +15,9 @@ export default function CreateReport() {
     handleDangerLevel,
     dangerType,
     handleDangerType,
-
     uploadImage,
     loading,
     image,
-    // handleSubmitFile,
-    // handleFileInputChange,
-    // fileInputState,
-    // previewSource,
-    // successMsg,
-    // errMsg,
-
     voting,
     dangerFormSubmit,
     reportDescriptionInput,
@@ -91,23 +83,7 @@ export default function CreateReport() {
               )}
 
               <p className="picture-title">Upload your picture</p>
-              {/* <Alert msg={errMsg} type="danger" />
-          <Alert msg={successMsg} type="success" />
-
-          {previewSource && (
-            <img src={previewSource} alt="chosen" style={{ height: "15vh" }} />
-          )}
-
-          <form onSubmit={handleSubmitFile}>
-            <input
-              id="file-input"
-              type="file"
-              name="image"
-              onChange={handleFileInputChange}
-              value={fileInputState}
-              className="upload-form-input"
-            />
-          </form> */}
+           
             </div>
 
             <p className="issue-title"> Describe the issue </p>

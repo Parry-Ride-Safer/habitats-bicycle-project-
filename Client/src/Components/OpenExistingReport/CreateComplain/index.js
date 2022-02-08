@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useGlobalMapContext } from "../../../Context/mapContext";
 import reportIssueOptions from "../../../Data/reportIssueOptions";
 import "./createComplain.css";

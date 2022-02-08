@@ -1,11 +1,10 @@
 import React from "react";
 import { useGlobalMapContext } from "../../../Context/mapContext";
-import flagReport from "../../../icons/modalBoxIcons/Flag.png";
 import dangerLevel from "../../../Data/dangerLevelToVote";
 import "./voteModal.css";
 
-export default function ModalShowReportDetails() {
-  const { currentUser, getReportData, findReportID, openVoteWindow, createComplain } =
+export default function VisitorVoteModal() {
+  const { currentUser, getReportData, findReportID} =
     useGlobalMapContext();
 
   return (
@@ -37,16 +36,6 @@ export default function ModalShowReportDetails() {
           </p>
         </div>
       </div>
-      <div className="center-btn">
-        <button className="submit-button" type="button" onClick={openVoteWindow}>
-            {(currentUser === getReportData.user_id ||
-                (currentUser !== getReportData.user && findReportID)) ?
-                "Edit Rating" : "Rate Spot"}       
-          </button>
-          <button className="flag-btn" type="button" onClick={createComplain}>
-            <img src={flagReport} alt="" />
-          </button>
-          </div>
     </div>
   );
 }
