@@ -11,34 +11,42 @@ export default function BoxShowInputDetails() {
     getReportData,
     isBoxShowInputDetailsOpen,
     closeReportWindow,
-    
+    isVotingBoxOpen,
+    isBoxWithDoneMsgOpen,
   } = useGlobalMapContext();
   let user = document.cookie;
   return (
     <div
       className={`${
-        isBoxShowInputDetailsOpen ? "show-spot-details" : "spot-box-overlay"
+        isBoxShowInputDetailsOpen
+          ? isVotingBoxOpen | isBoxWithDoneMsgOpen
+            ? "show-spot-details-faded"
+            : "show-spot-details"
+          : "spot-box-overlay"
       }`}
     >
       {getReportData.length !== "" ? (
-        <div className='open-window-display'>
+        <div className="open-window-display">
           <button
-            className='close-button'
-            type='button'
+            className="close-button"
+            type="button"
             onClick={closeReportWindow}
           >
-            <img className='close-button-img' src={closeBtn} alt='' />
+            <img className="close-button-img" src={closeBtn} alt="" />
           </button>
 
-          <p className='title'>{getReportData.name}</p>
-          <img className='open-report-image' src={getReportData.image} alt='' />
-          <p className='date-text'>{getReportData.createdAt}</p>
-          <p className='open-report-description'>{getReportData.information}</p>
-          <div className='open-report-btn'>
-            {!user ? <VisitorVoteModal /> :
-              (currentUser === getReportData.user_id) ? <EditVoteModal /> : 
-              (currentUser !== getReportData.user_id) ? <UserVoteModal /> : null
-            }
+          <p className="title">{getReportData.name}</p>
+          <img className="open-report-image" src={getReportData.image} alt="" />
+          <p className="date-text">{getReportData.createdAt}</p>
+          <p className="open-report-description">{getReportData.information}</p>
+          <div className="open-report-btn">
+            {!user ? (
+              <VisitorVoteModal />
+            ) : currentUser === getReportData.user_id ? (
+              <EditVoteModal />
+            ) : currentUser !== getReportData.user_id ? (
+              <UserVoteModal />
+            ) : null}
           </div>
         </div>
       ) : (
