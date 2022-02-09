@@ -60,10 +60,12 @@ const LoginAndProfile = () => {
 
   const handleshowEditPassword = () => {
     setShowEditPassword(!showEditPassword);
+    setValidation(null);
   };
 
   const handleshowEditEmail = () => {
     setShowEditEmail(!showEditEmail);
+    setValidation(null);
   };
 
   const closeEditWindows = () => {
@@ -141,8 +143,10 @@ const LoginAndProfile = () => {
   const register = async () => {
     let item = { email, password };
     try {
-      if (email.length <= 0 || password.length < 8) {
-        console.log("please enter something( email or password is missing) ");
+      if (email.length <= 0 || password.length <= 0) {
+        setValidation("Email or Password missing");
+      } else if (password.length < 8) {
+        setValidation("Password needs at least 8 characters");
       } else {
         let result = await Axios.post(
           `${process.env.REACT_APP_API_ROUTE_URL}/auth/register`,
@@ -157,6 +161,10 @@ const LoginAndProfile = () => {
         getCurrentUser();
       }
     } catch (err) {
+      if (err.response.status === 409) setValidation("Email Already Exists.");
+      if (err.response.status === 422)
+        setValidation("Invalid Email or Password");
+
       console.log(err);
     }
   };
@@ -166,6 +174,8 @@ const LoginAndProfile = () => {
     try {
       if (password === confirmPassword) {
         item = { password };
+      } else {
+        setValidation(" Passwords do not match!");
       }
       await Axios.put(
         `${process.env.REACT_APP_API_ROUTE_URL}/users/current`,
@@ -177,10 +187,9 @@ const LoginAndProfile = () => {
       setConfirmPassword("");
       handleshowEditPassword();
       getCurrentUser();
-
-      /*  handleUserStorage();
-      handleLoginStatus(); */
     } catch (err) {
+      if (err.response.status === 422)
+        setValidation("Password needs to be at least 8 characters");
       console.log("passwords do not match!");
       console.log(err);
     }
@@ -200,6 +209,8 @@ const LoginAndProfile = () => {
       /*  handleUserStorage();
       handleLoginStatus(); */
     } catch (err) {
+      if (err.response.status === 409) setValidation("Email already exists.");
+      if (err.response.status === 422) setValidation("Invalid Email.");
       console.log(err);
     }
   };
@@ -508,6 +519,7 @@ const LoginAndProfile = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
+                <span className="validation-msg">{validation}</span>
                 <button
                   onClick={register}
                   type="button"
@@ -1063,7 +1075,10 @@ const LoginAndProfile = () => {
                     placeholder="Confirm password"
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
+                  <br />
+                  <span className="validation-msg">{validation}</span>
                 </div>
+
                 <button
                   onClick={editPassword}
                   type="button"
@@ -1091,6 +1106,8 @@ const LoginAndProfile = () => {
                     placeholder="email@example.com"
                     onChange={(e) => setEmail(e.target.value)}
                   />
+                  <br />
+                  <span className="validation-msg">{validation}</span>
                 </div>
 
                 <button onClick={editEmail} type="button" className="btn-save">

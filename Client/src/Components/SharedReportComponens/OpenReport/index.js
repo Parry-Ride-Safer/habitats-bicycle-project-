@@ -36,7 +36,18 @@ export default function BoxShowInputDetails() {
           </button>
 
           <p className="title">{getReportData.name}</p>
-          <img className="open-report-image" src={getReportData.image} alt="" />
+
+          {getReportData.image ? (
+            <img
+              className="open-report-image"
+              src={getReportData.image}
+              alt=""
+            />
+          ) : (
+            <div className="open-report-image-empty">
+              <span>no photo</span>
+            </div>
+          )}
           <p className="date-text">{getReportData.createdAt}</p>
           <p className="open-report-description">{getReportData.information}</p>
           <div className="open-report-btn">

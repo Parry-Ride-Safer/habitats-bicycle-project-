@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useGlobalMapContext } from "../../../Context/mapContext";
 import dangerLevel from "../../../Data/dangerLevelToVote";
 import issueType from "../../../Data/dangerTypeSelection";
@@ -24,9 +24,15 @@ export default function CreateReport() {
     reportDescriptionInput,
     handleDangerDescriptionInputs,
     numberOfCharacters,
+    selectedIssue,
+    setSelectIssue,
   } = useGlobalMapContext();
 
   let user = document.cookie;
+
+  const handleSelectIcon = (nb) => {
+    setSelectIssue(nb);
+  };
 
   return (
     <div>
@@ -97,7 +103,15 @@ export default function CreateReport() {
             <div className="danger-type-display">
               {issueType.map((issue, index) => {
                 return (
-                  <label key={index} className="issueTypeBtn">
+                  <label
+                    key={index}
+                    className={
+                      selectedIssue === issue.nb
+                        ? "selected-icon"
+                        : "issueTypeBtn"
+                    }
+                    onClick={() => handleSelectIcon(issue.nb)}
+                  >
                     <input
                       key={index}
                       type="radio"

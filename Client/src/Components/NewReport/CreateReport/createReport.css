@@ -99,6 +99,17 @@
   margin-top: 10px;
 }
 
+.selected-icon {
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+  padding: 2px;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin: 2px;
+  font-size: 11px;
+  color: white;
+  background-color: black;
+}
 .issueTypeBtn {
   border: 1px solid lightgrey;
   border-radius: 10px;
