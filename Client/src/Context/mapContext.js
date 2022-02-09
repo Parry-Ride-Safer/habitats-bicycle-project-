@@ -212,8 +212,7 @@ const MapProvider = ({ children }) => {
 
   let user = document.cookie;
   const findReportID = votedReports.find(({ id }) => id == getReportData.id);
-<<<<<<< HEAD
-  console.log(findReportID)
+
   const handleAddVote = async (event) => {
     if (event && event.preventDefault) { 
       event.preventDefault()
@@ -232,7 +231,7 @@ const MapProvider = ({ children }) => {
         setAlertMsg(false);
         dispatch({ type: "SUBMIT_VOTE" });
         setIsSpotVoted(true);
-        fetchReportData(getReportData.id)
+        fetchReportData()
       });
     } else {
       await Axios.post(
@@ -244,44 +243,9 @@ const MapProvider = ({ children }) => {
       ).then((response) => {
         setAlertMsg(false);
         dispatch({ type: "SUBMIT_VOTE" });
+        fetchReportData()
       });
     }}
-=======
-
-  const handleAddVote = async (event) => {
-    if (event && event.preventDefault) {
-      event.preventDefault();
-      if (
-        currentUser === getReportData.user_id ||
-        (currentUser !== getReportData.user && findReportID)
-      ) {
-        await Axios.put(
-          `${process.env.REACT_APP_API_ROUTE_URL}/reports/${getReportData.id}/vote`,
-          {
-            voting: voting,
-            report_id: getReportData.id,
-          }
-        ).then((response) => {
-          console.log(response);
-          setAlertMsg(false);
-          dispatch({ type: "SUBMIT_VOTE" });
-          setIsSpotVoted(true);
-          fetchReportData();
-        });
-      } else {
-        await Axios.post(
-          `${process.env.REACT_APP_API_ROUTE_URL}/reports/${getReportData.id}/vote`,
-          {
-            voting: voting,
-            report_id: getReportData.id,
-          }
-        ).then((response) => {
-          setAlertMsg(false);
-          dispatch({ type: "SUBMIT_VOTE" });
-        });
-      }
-    }
->>>>>>> c417b6efe97fdb0600e273d31c48119e7c7bf923
   };
 
   useEffect(() => {

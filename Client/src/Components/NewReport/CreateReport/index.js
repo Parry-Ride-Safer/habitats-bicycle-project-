@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useGlobalMapContext } from "../../../Context/mapContext";
 import dangerLevel from "../../../Data/dangerLevelToVote";
 import issueType from "../../../Data/dangerTypeSelection";
@@ -27,7 +27,7 @@ export default function CreateReport() {
   } = useGlobalMapContext();
 
   let user = document.cookie;
-
+  const [isButtonActive, setIsButtonActive] = useState(false)
   return (
     <div>
       {user ? (
@@ -101,13 +101,15 @@ export default function CreateReport() {
                     <input
                       key={index}
                       type="radio"
-                      check={dangerType === issue.type}
+                      check={dangerType === issue.type}                
                       name="dangerType"
                       value={issue.type}
                       onChange={handleDangerType}
+                    
                     />
                     <span className="issue-icon">{issue.icon}</span>
-                    {issue.type}
+                    <span>{issue.type}</span>
+                   
                   </label>
                 );
               })}
