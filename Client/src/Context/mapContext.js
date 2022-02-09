@@ -218,7 +218,7 @@ const MapProvider = ({ children }) => {
   };
 
   let user = document.cookie;
-  const findReportID = votedReports.find(({ id }) => id == getReportData.id);
+  const findReportID = votedReports.find(({ id }) => id === getReportData.id); // it was "=="
 
   const handleAddVote = async (event) => {
     if (event && event.preventDefault) {
