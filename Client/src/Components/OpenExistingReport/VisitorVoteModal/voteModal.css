@@ -13,6 +13,23 @@
 }
 
 .my-vote-icon svg{
-    width: 40px;
-    height: 40px;
+    width: 8vw;
+}
+
+
+.avg-vote-icon svg{
+    height: 16vw;
+
+}
+
+@media only screen and (min-width: 500px) {
+
+    .my-vote-icon svg{
+        width: 4vw;
+    }
+    
+    .avg-vote-icon svg{
+        height: 8vw;
+    
+    }
 }
