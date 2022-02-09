@@ -45,7 +45,9 @@ export default function BoxShowInputDetails() {
             />
           ) : (
             <div className="open-report-image-empty">
-              <span>no photo</span>
+              <span>
+                <h2>no photo</h2>
+              </span>
             </div>
           )}
           <p className="date-text">{getReportData.createdAt}</p>
