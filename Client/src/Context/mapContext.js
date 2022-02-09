@@ -38,7 +38,7 @@ const MapProvider = ({ children }) => {
       setFinalMarkers(result.data);
     };
     fetchMarkers();
-  }, [state]);
+  }, [state.isBoxWithDoneMsgOpen]);
 
   const [reportIssue, setReportIssue] = useState();
   const [voting, setVoting] = useState("");
@@ -112,7 +112,7 @@ const MapProvider = ({ children }) => {
         .catch((err) => console.log(err));
     }
   };
-
+    
   const reportProcessDone = () => dispatch({ type: "CONCLUDE_PROCESS" });
 
   const createComplain = () => dispatch({ type: "OPEN_COMPLAIN_WINDOW" });
@@ -205,6 +205,7 @@ const MapProvider = ({ children }) => {
     }
   };
 
+ 
   const getCurrentUser = async () => {
     try {
       await Axios.get(
@@ -234,11 +235,10 @@ const MapProvider = ({ children }) => {
           report_id: getReportData.id,
         }
       ).then((response) => {
-        console.log(response)
+        fetchReportData()
         setAlertMsg(false);
         dispatch({ type: "SUBMIT_VOTE" });
         setIsSpotVoted(true);
-        fetchReportData()
       });
     } else {
       await Axios.post(
@@ -248,16 +248,15 @@ const MapProvider = ({ children }) => {
           report_id: getReportData.id,
         }
       ).then((response) => {
+        console.log(response)
+        fetchReportData()
         setAlertMsg(false);
         dispatch({ type: "SUBMIT_VOTE" });
-        fetchReportData()
+        setIsSpotVoted(true);
       });
     }}
   };
 
-  useEffect(() => {
-    fetchReportData();
-  }, [state.isBoxWithDoneMsgOpen]);
 
   const handleDangerLevel = (event) => {
     setVoting(event.target.value);

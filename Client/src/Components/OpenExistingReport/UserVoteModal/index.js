@@ -5,7 +5,7 @@ import dangerLevel from "../../../Data/dangerLevelToVote";
 import "./voteModal.css";
 
 export default function ModalShowReportDetails() {
-  const { currentUser, getReportData, findReportID, openVoteWindow, createComplain } =
+  const { currentUser, getReportData, findReportID, isSpotVoted, openVoteWindow, createComplain } =
     useGlobalMapContext();
 
   return (
@@ -26,7 +26,7 @@ export default function ModalShowReportDetails() {
           }</p>
           <p className="rating-qtt">{getReportData.count} rating(s)
           {(currentUser === getReportData.user_id ||
-                (currentUser !== getReportData.user && findReportID)) ?
+                (currentUser !== getReportData.user && (findReportID || isSpotVoted))) ?
                 <span className="visitor-vote">&nbsp;including mine:{
                   ((Number(getReportData.userVoteFound.voting).toFixed(2) <=1.29) ? (<div className="my-vote-icon">{dangerLevel[0].icon} </div>) :
                   (
@@ -40,7 +40,7 @@ export default function ModalShowReportDetails() {
       <div className="center-btn">
         <button className="submit-button" type="button" onClick={openVoteWindow}>
             {(currentUser === getReportData.user_id ||
-                (currentUser !== getReportData.user && findReportID)) ?
+                (currentUser !== getReportData.user && (findReportID || isSpotVoted))) ?
                 "Edit Rating" : "Rate Spot"}       
           </button>
           <button className="flag-btn" type="button" onClick={createComplain}>
