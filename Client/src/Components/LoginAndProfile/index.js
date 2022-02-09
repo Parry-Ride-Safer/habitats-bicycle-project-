@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { useGlobalMapContext } from "../../Context/mapContext";
 import "./style.css";
-import profileLogo from "./ProfileIcon.png";
 import { ReactComponent as AccountIcon } from "./Vector.svg";
 import { ReactComponent as WelcomeIcon } from "../../icons/modalBoxIcons/welcome.svg";
 import { ReactComponent as SignIcon } from "../../icons/modalBoxIcons/signup.svg";
@@ -21,9 +20,10 @@ import { ReactComponent as JunctionIcon } from "../../icons/modalBoxIcons/juncti
 import { ReactComponent as JunctionIcon2 } from "../../icons/modalBoxIcons/junctionIcon2.svg";
 import { ReactComponent as OtherIcon } from "../../icons/modalBoxIcons/otherIcon.svg";
 import { ReactComponent as OtherIcon2 } from "../../icons/modalBoxIcons/otherIcon2.svg";
+import { ReactComponent as LoggedIcon } from "../../icons/modalBoxIcons/newLoggedIcon.svg";
+import { ReactComponent as ReturnMapIcon } from "../../icons/modalBoxIcons/returnMapIcon.svg";
 
 import dangerLevel from "../../Data/dangerLevelToVote";
-import issueType from "../../Data/dangerTypeSelection";
 
 const LoginAndProfile = () => {
   const {
@@ -506,7 +506,16 @@ const LoginAndProfile = () => {
             className={btnState ? "menu-btn open" : "menu-btn"}
             onClick={handleClick}
           >
-            <div className="menu-btn__burger"></div>
+            {!btnState ? (
+              <span className="menu-btn__burger">
+                <LoggedIcon />
+              </span>
+            ) : null}
+            {btnState ? (
+              <span className="menu-btn__burger">
+                <ReturnMapIcon />
+              </span>
+            ) : null}
           </div>
           <div className="absolute-container">
             <div

@@ -2,6 +2,7 @@ import React from "react";
 import { useGlobalMapContext } from "../../../Context/mapContext";
 import "./style.css";
 import gpsIcon from "../../../resources/gps-icon.png";
+import { ReactComponent as LocationOn } from "../../../icons/modalBoxIcons/Location_on.svg";
 
 export default function GpsLocation() {
   const { panTo } = useGlobalMapContext();
@@ -22,7 +23,7 @@ export default function GpsLocation() {
           );
         }}
       >
-        <img src={gpsIcon} alt="gps icon" />
+        <LocationOn />
       </button>
     </>
   );

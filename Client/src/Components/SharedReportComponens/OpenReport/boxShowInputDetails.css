@@ -10,6 +10,19 @@
   bottom: 0;
 }
 
+.show-spot-details-faded {
+  position: absolute;
+  visibility: visible;
+  z-index: 50;
+  background: rgb(255, 255, 255);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  width: 100vw;
+  max-width: var(--fixed-width);
+  bottom: 0;
+  opacity: 0.7;
+}
+
 .spot-box-overlay {
   position: fixed;
   top: 0;
@@ -22,7 +35,6 @@
   visibility: hidden;
   z-index: -1;
 }
-
 
 .open-window-display {
   display: flex;
@@ -65,7 +77,7 @@
   margin: 0.15rem;
 }
 
-.date-text{
+.date-text {
   font-family: "Roboto Condensed";
   font-size: 0.9rem;
   color: lightslategrey;
@@ -85,7 +97,7 @@
   align-self: center;
 }
 
-.open-report-description{
+.open-report-description {
   margin-top: 15px;
   font-size: 16px;
 }
@@ -102,15 +114,13 @@
   box-shadow: 0px 0px 10px -5px #000000;
 }
 
-.open-report-btn{
+.open-report-btn {
   position: relative;
   margin-top: 20px;
-  width:100%;
+  width: 100%;
 }
 
-
 @media only screen and (min-width: 500px) {
-
   .open-report-image {
     width: 70%;
     border: 0.5px solid lightgray;

@@ -66,9 +66,16 @@ export default function CreateReport() {
             </div>
 
             <div className="upload-pic-holder">
-              <label for="upload-btn" class="custom-upload-btn">
-                <CameraIcon />
-              </label>
+              {!image ? (
+                <label for="upload-btn" class="custom-upload-btn">
+                  <CameraIcon />
+                </label>
+              ) : (
+                <label for="upload-btn" class="custom-upload-btn-edit">
+                  <CameraIcon />
+                </label>
+              )}
+
               <input
                 id="upload-btn"
                 type="file"
@@ -84,7 +91,6 @@ export default function CreateReport() {
               )}
 
               <p className="picture-title">Upload your picture</p>
-           
             </div>
 
             <p className="issue-title"> Describe the issue </p>

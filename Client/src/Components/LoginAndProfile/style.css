@@ -210,14 +210,23 @@
   width: 65px;
   height: 65px;
   cursor: pointer;
-  transition: all 0.5s ease-in-out;
-  border: 5px solid rgb(12, 12, 12);
+  /* transition: all 0.5s ease-in-out; */
+  /* border: 5px solid rgb(12, 12, 12); */
   right: 20px;
-  overflow: hidden;
+
   z-index: 3;
-  border-radius: 5px;
-  margin-top: 2vh;
+  border-radius: 65px;
+  margin-top: 2.5vh;
+  box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.2);
 }
+
+/* .menu-btn.open {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+} */
 
 .closed {
   display: none;
@@ -231,15 +240,22 @@ div.open-profile {
   z-index: 2;
 }
 .menu-btn__burger {
-  width: 40px;
-  height: 6px;
-  background: rgb(0, 0, 0);
-  border-radius: 5px;
+  /* width: 40px;
+  height: 6px; */
+  /* background: rgb(0, 0, 0); */
+  /* border-radius: 5px; */
+  width: 100%;
+  height: 100%;
   /* box-shadow: 0 2px 5px orange; */
-  transition: all 0.5s ease-in-out;
+  /*  transition: all 0.5s ease-in-out; */
 }
 
-.menu-btn__burger::before,
+.menu-btn__burger svg {
+  width: 65px;
+  height: 65px;
+}
+
+/* .menu-btn__burger::before,
 .menu-btn__burger::after {
   content: " ";
   position: absolute;
@@ -248,7 +264,7 @@ div.open-profile {
   background: rgb(0, 0, 0);
   border-radius: 5px;
   /* box-shadow: 0 2px 5px orange; */
-  transition: all 0.5s ease-in-out;
+/* transition: all 0.5s ease-in-out;
 }
 
 .menu-btn__burger::before {
@@ -256,9 +272,9 @@ div.open-profile {
 }
 .menu-btn__burger::after {
   transform: translateY(16px);
-}
+} */
 
-.menu-btn.open .menu-btn__burger {
+/* .menu-btn.open .menu-btn__burger {
   transform: translateX(-50px);
   background: transparent;
 }
@@ -270,7 +286,7 @@ div.open-profile {
 .menu-btn.open .menu-btn__burger::after {
   transform: rotate(-45deg) translate(35px, 35px);
 }
-
+ */
 .absolute-container {
   position: absolute;
   z-index: 2;
@@ -470,7 +486,7 @@ div.open-profile {
   display: flex;
   flex-direction: column;
   padding-top: 10%;
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 
 .div-h3-password {
@@ -647,10 +663,9 @@ div.open-profile {
   cursor: pointer;
 }
 
-.report-alert{
+.report-alert {
   text-align: center;
 }
-
 
 /* --------------- from here is admin user list style ------------------ */
 
@@ -689,16 +704,13 @@ div.open-profile {
   background-color: white;
 }
 
-.delete-button{
+.delete-button {
   border: none;
   background: black;
   color: white;
   border-radius: 15px;
   margin-left: 10vw;
 }
-
-
-
 
 @media only screen and (min-width: 700px) {
   .register-form {
@@ -767,20 +779,38 @@ div.open-profile {
     font-size: 1.2rem;
   }
 
-
+  .users-div {
+    border: 1px solid rgb(199, 199, 199);
+    margin: 1rem;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
   .your-spots-container {
-  width:50vw;
+    width: 50vw;
   }
 
   .submitted-spots-padding {
-  padding-left: 25vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
-  .delete-button{
+  .delete-button {
     margin-left: 2.5vw;
   }
 
+  #information-text {
+    overflow: hidden;
+  }
 
+  .email-box {
+    overflow: hidden;
+  }
 }
 
-
+@media only screen and (min-width: 700px) {
+  #information-text {
+    overflow: hidden;
+  }
+}
