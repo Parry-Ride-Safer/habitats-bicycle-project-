@@ -54,7 +54,7 @@
 .title {
   font-family: "Roboto Condensed";
   font-size: 1.2rem;
-  align-self: center;
+  /* align-self: center; */
   font-weight: bold;
 }
 

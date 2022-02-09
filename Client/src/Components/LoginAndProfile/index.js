@@ -102,6 +102,13 @@ const LoginAndProfile = () => {
     closeReportWindow();
   };
 
+  const [validation, setValidation] = useState("");
+
+  const ValidationMSG = (err) => {
+    if (err.response.status === 401) setValidation("bad password");
+    if (err.response.status === 404) setValidation("bad email");
+  };
+
   const login = async () => {
     let item = { email, password };
     try {
@@ -112,15 +119,24 @@ const LoginAndProfile = () => {
       localStorage.setItem("user-info", JSON.stringify(result.data));
       console.log(result, "total result do login");
 
-      setPassword("");
-      setEmail("");
+      await setPassword("");
+      await setEmail("");
+      await setValidation("");
       handleUserStorage();
       handleLoginStatus();
       getCurrentUser();
+
+      console.log(validation);
     } catch (err) {
       console.log(err);
+      if (err.response.status === 422) setValidation("Invalid Password");
+      else if (err.response.status === 404) setValidation("Invalid Email");
+      console.log(validation, "o bug");
     }
   };
+  useEffect(() => {
+    console.log(validation, "use effect ");
+  }, [validation]);
 
   const register = async () => {
     let item = { email, password };
@@ -158,9 +174,10 @@ const LoginAndProfile = () => {
 
       setPassword("");
       setEmail("");
+      setConfirmPassword("");
       handleshowEditPassword();
       getCurrentUser();
-      setConfirmPassword("");
+
       /*  handleUserStorage();
       handleLoginStatus(); */
     } catch (err) {
@@ -316,6 +333,7 @@ const LoginAndProfile = () => {
     HandleshowWelcomePage();
     setWelcomeStatus(false);
     setStateLogin(!stateLogin);
+    setValidation("");
   };
 
   const SignUpPop = () => {
@@ -431,6 +449,7 @@ const LoginAndProfile = () => {
                     placeholder="email@example.com"
                     onChange={(e) => setEmail(e.target.value)}
                   />
+                  <br />
                 </div>
                 <div className="form-group">
                   <label htmlFor="password">Password</label>
@@ -442,6 +461,13 @@ const LoginAndProfile = () => {
                     placeholder="password"
                     onChange={(e) => setPassword(e.target.value)}
                   />
+                  <br />
+                  <span className="validation-msg">
+                    {validation === "Invalid Password" ? validation : null}
+                  </span>
+                  <span className="validation-msg">
+                    {validation === "Invalid Email" ? validation : null}
+                  </span>
                 </div>
                 <button onClick={login} type="button" className="btn-register">
                   Login
@@ -1030,11 +1056,11 @@ const LoginAndProfile = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="password">Confirm new Password:</label>
+                  <label htmlFor="confirmPassword">Confirm new Password:</label>
                   <input
                     type="password"
-                    name="password"
-                    placeholder="password"
+                    name="confirmPassword"
+                    placeholder="Confirm password"
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 </div>

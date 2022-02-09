@@ -79,6 +79,10 @@
   top: 10%;
 }
 
+.validation-msg {
+  color: rgb(228, 69, 69);
+}
+
 .register-form {
   position: absolute;
   visibility: visible;

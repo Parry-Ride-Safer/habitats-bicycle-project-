@@ -64,7 +64,7 @@ export default function CreateReport() {
                 </label>
               ))}
             </div>
-
+            <p className="picture-title">Upload your picture</p>
             <div className="upload-pic-holder">
               {!image ? (
                 <label for="upload-btn" class="custom-upload-btn">
@@ -90,7 +90,7 @@ export default function CreateReport() {
                 <img className="pic-preview" src={image} alt="" />
               )}
 
-              <p className="picture-title">Upload your picture</p>
+              {/* <p className="picture-title">Upload your picture</p> */}
             </div>
 
             <p className="issue-title"> Describe the issue </p>
