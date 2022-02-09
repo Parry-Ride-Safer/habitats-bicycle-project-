@@ -32,6 +32,7 @@ export default function VotingBox() {
               {danger.icon}
             </label>
           ))}
+          <div className="clear-button-register"></div>
         </div>
         <div className={`${alertMsg ? "show-alert-msg" : "alert-msg-overlay"}`}>
           <p>You need to fill everything</p>
