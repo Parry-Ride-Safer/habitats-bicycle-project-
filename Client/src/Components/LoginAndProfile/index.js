@@ -498,7 +498,7 @@ const LoginAndProfile = () => {
                 <h2>Email Sign-up</h2>
 
                 <div>
-                  <label htmlFor="username">Email Address</label>
+                  <label for="username">Email Address</label>
                   <br />
                   <input
                     className="sign-up-input"
@@ -509,7 +509,7 @@ const LoginAndProfile = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="password">Password</label>
+                  <label for="password">Password</label>
                   <br />
                   <input
                     className="sign-up-input"
@@ -1058,7 +1058,7 @@ const LoginAndProfile = () => {
             <div className="edit-Form-password">
               <form className="form-group-edit">
                 <div>
-                  <label htmlFor="password">New password:</label>
+                  <label for="password">New password:</label>
                   <input
                     type="password"
                     name="password"
@@ -1068,7 +1068,7 @@ const LoginAndProfile = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="confirmPassword">Confirm new Password:</label>
+                  <label for="confirmPassword">Confirm new Password:</label>
                   <input
                     type="password"
                     name="confirmPassword"
@@ -1098,7 +1098,7 @@ const LoginAndProfile = () => {
             <div className="edit-Form-password">
               <form className="form-group-edit">
                 <div>
-                  <label htmlFor="username">New Email address:</label>
+                  <label for="username">New Email address:</label>
                   <br />
                   <input
                     type="email"
