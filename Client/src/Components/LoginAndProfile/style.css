@@ -215,8 +215,11 @@
   right: 20px;
 
   z-index: 3;
-  border-radius: 5px;
+  border-radius: 65px;
   margin-top: 2.5vh;
+  box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.2);
 }
 
 /* .menu-btn.open {
@@ -310,7 +313,7 @@ div.open-profile {
   background: rgb(255, 255, 255);
   width: 100vw;
   height: 80vh;
-  /* overflow: scroll; */
+  overflow: scroll;
   position: absolute;
   bottom: 0;
 }
@@ -667,12 +670,12 @@ div.open-profile {
 /* --------------- from here is admin user list style ------------------ */
 
 .users-div {
-  border: 1px solid rgb(199, 199, 199);
+  border-bottom: 1px solid rgb(199, 199, 199);
   margin: 1rem;
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
-  /* padding-bottom: 0.5rem; */
+  padding-bottom: 0.5rem;
   /*   box-shadow: 2px 3px 14px 3px rgba(0, 0, 0, 0.12);
   -webkit-box-shadow: 2px 3px 14px 3px rgba(0, 0, 0, 0.12);
   -moz-box-shadow: 2px 3px 14px 3px rgba(0, 0, 0, 0.12); */
@@ -777,7 +780,7 @@ div.open-profile {
   }
 
   .users-div {
-    border: 1px solid rgb(199, 199, 199);
+    border-bottom: 1px solid rgb(199, 199, 199);
     margin: 1rem;
     display: flex;
     justify-content: space-between;
@@ -788,7 +791,9 @@ div.open-profile {
   }
 
   .submitted-spots-padding {
-    padding-left: 25vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .delete-button {
