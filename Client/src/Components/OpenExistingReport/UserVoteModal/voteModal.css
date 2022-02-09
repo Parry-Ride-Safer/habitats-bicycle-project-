@@ -1,5 +1,5 @@
 .visitor-vote{
-    font-weight: 400;
+    font-weight: 300;
 }
 
 .rating-qtt{
@@ -8,4 +8,10 @@
     align-items: center;
     margin: 4px;
     font-weight: 300;
+}
+
+.my-vote-icon svg{
+    font-weight: 300;
+    width: 40px;
+    height: 40px;
 }

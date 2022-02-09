@@ -31,7 +31,7 @@ export default function ModalShowUserInputDetails() {
               : "High danger"}
           </p>
           <p className="rating-qtt">
-            {getReportData.count} rating including mine:
+            {getReportData.count} ratings || including mine:
             {Number(getReportData.userVoteFound.voting).toFixed(2) <= 1.29 ? (
               <div>{dangerLevel[0].icon} </div>
             ) : Number(getReportData.userVoteFound.voting).toFixed(2) >= 1.3 &&
