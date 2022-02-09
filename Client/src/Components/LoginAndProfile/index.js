@@ -299,12 +299,12 @@ const LoginAndProfile = () => {
   const WelcomePage = () => {
     return showWelcomePage ? (
       <div>
-        <div className="welcome-page-start">
-          <WelcomeIcon className="welcome-hand" />
+        <div className='welcome-page-start'>
+          <WelcomeIcon className='welcome-hand' />
           <h3>
             Welcome rider. <br /> Let's make the streets safer together.
           </h3>
-          <button onClick={handleWelcomeStatusClick} className="btn-start">
+          <button onClick={handleWelcomeStatusClick} className='btn-start'>
             Start
           </button>
         </div>
@@ -321,18 +321,18 @@ const LoginAndProfile = () => {
   const SignUpPop = () => {
     return (
       <div>
-        <div className="welcome-page-sign">
-          <SignIcon className="welcome-hand" />
-          <h3>Sign Up to report or vote on a road issue.</h3>
-          <button className="btn-start" onClick={handleShowRegisterForm}>
-            sign up
+        <div className='welcome-page-sign'>
+          <SignIcon className='welcome-hand' />
+          <h3>Sign up to report or vote on a road issue.</h3>
+          <button className='btn-start' onClick={handleShowRegisterForm}>
+            Sign up
           </button>
-          <button onClick={handleShowForm} className="button-login">
-            login
+          <button onClick={handleShowForm} className='button-login'>
+            Login
           </button>
           <button
             onClick={handleSkipForNow}
-            className="clear-button-register"
+            className='clear-button-register'
           ></button>
         </div>
       </div>
@@ -400,7 +400,7 @@ const LoginAndProfile = () => {
 
   const ConfirmDelete = (id) => {
     return (
-      <div className="confirm-delete-window">
+      <div className='confirm-delete-window'>
         are you sure you want to delete ?<br />
         <button>delete</button>
       </div>
@@ -412,88 +412,88 @@ const LoginAndProfile = () => {
       {!user ? (
         <>
           {!showWelcomePage ? (
-            <AccountIcon className="account-icon" onClick={handleLoginStatus} />
+            <AccountIcon className='account-icon' onClick={handleLoginStatus} />
           ) : null}
           <WelcomePage />
           {welcomeStatus ? !stateLogin ? <SignUpPop /> : null : null}
           {/* ---------- from here is login form ------------- */}
           {showForm && !stateLogin ? (
-            <div className="register-form">
-              <form className="sign-up-form">
-                <h2 className="signup-title">Email Sign-in</h2>
+            <div className='register-form'>
+              <form className='sign-up-form'>
+                <h2 className='signup-title'>Email Sign-in</h2>
                 <div>
-                  <label htmlFor="username">Email Address</label>
+                  <label htmlFor='username'>Email Address</label>
                   <br />
                   <input
-                    className="sign-up-input"
-                    type="email"
-                    name="username"
-                    placeholder="email@example.com"
+                    className='sign-up-input'
+                    type='email'
+                    name='username'
+                    placeholder='email@example.com'
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-                <div className="form-group">
-                  <label htmlFor="password">Password</label>
+                <div className='form-group'>
+                  <label htmlFor='password'>Password</label>
                   <br />
                   <input
-                    className="sign-up-input"
-                    type="password"
-                    name="password"
-                    placeholder="password"
+                    className='sign-up-input'
+                    type='password'
+                    name='password'
+                    placeholder='password'
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <button onClick={login} type="button" className="btn-register">
+                <button onClick={login} type='button' className='btn-register'>
                   Login
                 </button>
                 <button
                   onClick={handleSkipForNow}
-                  type="button"
-                  className="clear-button-register"
+                  type='button'
+                  className='clear-button-register'
                 ></button>
               </form>
             </div>
           ) : null}
           {/* ------- from here is show register only form---------------------------- */}
           {showRegisterForm && !stateLogin ? (
-            <div className="register-form">
-              <form className="sign-up-form">
+            <div className='register-form'>
+              <form className='sign-up-form'>
                 <h2>Email Sign-up</h2>
 
                 <div>
-                  <label htmlFor="username">Email Address</label>
+                  <label htmlFor='username'>Email Address</label>
                   <br />
                   <input
-                    className="sign-up-input"
-                    type="email"
-                    name="username"
-                    placeholder="email@example.com"
+                    className='sign-up-input'
+                    type='email'
+                    name='username'
+                    placeholder='email@example.com'
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-                <div className="form-group">
-                  <label htmlFor="password">Password</label>
+                <div className='form-group'>
+                  <label htmlFor='password'>Password</label>
                   <br />
                   <input
-                    className="sign-up-input"
-                    type="password"
-                    name="password"
-                    placeholder="password"
+                    className='sign-up-input'
+                    type='password'
+                    name='password'
+                    placeholder='password'
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
                 <button
                   onClick={register}
-                  type="button"
-                  className="btn-register"
+                  type='button'
+                  className='btn-register'
                 >
                   Confirm
                 </button>
 
                 <button
                   onClick={handleSkipForNow}
-                  type="button"
-                  className="clear-button-register"
+                  type='button'
+                  className='clear-button-register'
                 ></button>
               </form>
             </div>
@@ -507,17 +507,17 @@ const LoginAndProfile = () => {
             onClick={handleClick}
           >
             {!btnState ? (
-              <span className="menu-btn__burger">
+              <span className='menu-btn__burger'>
                 <LoggedIcon />
               </span>
             ) : null}
             {btnState ? (
-              <span className="menu-btn__burger">
+              <span className='menu-btn__burger'>
                 <ReturnMapIcon />
               </span>
             ) : null}
           </div>
-          <div className="absolute-container">
+          <div className='absolute-container'>
             <div
               className={btnState ? "open-profile" : "closed"}
               onClick={handleClick}
@@ -525,9 +525,9 @@ const LoginAndProfile = () => {
               {" "}
             </div>
             <div className={btnState ? "tab-wrapper" : "closed"}>
-              <h1 className="your-account">Your Account</h1>
-              <div className="tab-container">
-                <div className="bloc-tabs">
+              <h1 className='your-account'>Your Account</h1>
+              <div className='tab-container'>
+                <div className='bloc-tabs'>
                   <button
                     className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
                     onClick={() =>
@@ -579,105 +579,105 @@ const LoginAndProfile = () => {
                   </button>
                 </div>
 
-                <div className="content-tabs">
+                <div className='content-tabs'>
                   <div
                     className={
                       toggleState === 1 ? "content  active-content" : "closed"
                     }
                   >
-                    <div className="submitted-spots-padding">
+                    <div className='submitted-spots-padding'>
                       {submittedReports.length > 0 ? (
                         submittedReports.map((report) => (
                           <div
-                            className="your-spots-container"
+                            className='your-spots-container'
                             onClick={() => reportDetailsWindow(report.id)}
                           >
                             <section
-                              className="submitted-reports-section"
+                              className='submitted-reports-section'
                               key={report.id}
                             >
                               <span>
                                 {report.image ? (
                                   <img
-                                    className="img-div"
+                                    className='img-div'
                                     src={report.image}
-                                    alt=""
+                                    alt=''
                                   />
                                 ) : (
-                                  <div className="img-div-empty"> No photo</div>
+                                  <div className='img-div-empty'> No photo</div>
                                 )}
                               </span>
-                              <div className="title-text-div">
+                              <div className='title-text-div'>
                                 {report.category_id === 1 ? (
-                                  <span id="danger-type-title">
-                                    <ConstructionSign className="category-sign" />{" "}
+                                  <span id='danger-type-title'>
+                                    <ConstructionSign className='category-sign' />{" "}
                                     Construction
                                   </span>
                                 ) : null}
                                 {report.category_id === 2 ? (
-                                  <span id="danger-type-title">
-                                    <BadRoadIcon className="category-sign" />{" "}
+                                  <span id='danger-type-title'>
+                                    <BadRoadIcon className='category-sign' />{" "}
                                     Road Damage
                                   </span>
                                 ) : null}
                                 {report.category_id === 3 ? (
-                                  <span id="danger-type-title">
-                                    <BadParking className="category-sign" /> Bad
+                                  <span id='danger-type-title'>
+                                    <BadParking className='category-sign' /> Bad
                                     Parking
                                   </span>
                                 ) : null}
                                 {report.category_id === 4 ? (
-                                  <span id="danger-type-title">
-                                    <BikelaneSign className="category-sign" />{" "}
+                                  <span id='danger-type-title'>
+                                    <BikelaneSign className='category-sign' />{" "}
                                     Bike Lane
                                   </span>
                                 ) : null}
                                 {report.category_id === 5 ? (
-                                  <span id="danger-type-title">
-                                    <JunctionIcon className="category-sign" />{" "}
+                                  <span id='danger-type-title'>
+                                    <JunctionIcon className='category-sign' />{" "}
                                     Junction
                                   </span>
                                 ) : null}
                                 {report.category_id === 6 ? (
-                                  <span id="danger-type-title">
-                                    <TrafficIcon className="category-sign" />{" "}
+                                  <span id='danger-type-title'>
+                                    <TrafficIcon className='category-sign' />{" "}
                                     Traffic
                                   </span>
                                 ) : null}
                                 {report.category_id === 7 ? (
-                                  <span id="danger-type-title">
-                                    <OtherIcon className="category-sign" />{" "}
+                                  <span id='danger-type-title'>
+                                    <OtherIcon className='category-sign' />{" "}
                                     Other
                                   </span>
                                 ) : null}
-                                <span id="information-text">
+                                <span id='information-text'>
                                   {report.information}
                                 </span>
                               </div>
 
                               {Number(report.voting).toFixed(2) >= 1 &&
                               Number(report.voting).toFixed(2) <= 1.29 ? (
-                                <span className="danger-icon-place">
+                                <span className='danger-icon-place'>
                                   {dangerLevel[0].icon}
-                                  <span className="vote-count">
+                                  <span className='vote-count'>
                                     {report.count}
                                   </span>
                                 </span>
                               ) : null}
                               {Number(report.voting).toFixed(2) >= 1.3 &&
                               Number(report.voting).toFixed(2) <= 2.29 ? (
-                                <span className="danger-icon-place">
+                                <span className='danger-icon-place'>
                                   {dangerLevel[1].icon}
-                                  <span className="vote-count">
+                                  <span className='vote-count'>
                                     {report.count}
                                   </span>
                                 </span>
                               ) : null}
                               {Number(report.voting).toFixed(2) >= 2.3 &&
                               Number(report.voting).toFixed(2) <= 3 ? (
-                                <span className="danger-icon-place">
+                                <span className='danger-icon-place'>
                                   {dangerLevel[2].icon}
-                                  <span className="vote-count">
+                                  <span className='vote-count'>
                                     {report.count}
                                   </span>
                                 </span>
@@ -690,7 +690,7 @@ const LoginAndProfile = () => {
                           </div>
                         ))
                       ) : (
-                        <p className="report-alert">
+                        <p className='report-alert'>
                           {" "}
                           You haven't submitted any reports yet! :D
                         </p>
@@ -703,99 +703,99 @@ const LoginAndProfile = () => {
                       toggleState === 2 ? "content  active-content" : "closed"
                     }
                   >
-                    <div className="submitted-spots-padding">
+                    <div className='submitted-spots-padding'>
                       {votedReports.length > 0 ? (
                         votedReports.map((spot) => (
                           <div
-                            className="your-spots-container"
+                            className='your-spots-container'
                             onClick={() => reportDetailsWindow(spot.id)}
                           >
                             <section
-                              className="submitted-reports-section"
+                              className='submitted-reports-section'
                               key={spot.id}
                             >
                               <span>
                                 {spot.image ? (
                                   <img
-                                    className="img-div"
+                                    className='img-div'
                                     src={spot.image}
-                                    alt=""
+                                    alt=''
                                   />
                                 ) : (
-                                  <div className="img-div-empty"> No photo</div>
+                                  <div className='img-div-empty'> No photo</div>
                                 )}
                               </span>
-                              <div className="title-text-div">
+                              <div className='title-text-div'>
                                 {spot.name === "Construction" ? (
-                                  <span id="danger-type-title">
-                                    <ConstructionSign2 className="category-sign" />{" "}
+                                  <span id='danger-type-title'>
+                                    <ConstructionSign2 className='category-sign' />{" "}
                                     Construction
                                   </span>
                                 ) : null}
                                 {spot.name === "Juction" ? (
-                                  <span id="danger-type-title">
-                                    <JunctionIcon2 className="category-sign" />{" "}
+                                  <span id='danger-type-title'>
+                                    <JunctionIcon2 className='category-sign' />{" "}
                                     Junction
                                   </span>
                                 ) : null}
                                 {spot.name === "Bike Lane" ? (
-                                  <span id="danger-type-title">
-                                    <BikelaneSign2 className="category-sign" />{" "}
+                                  <span id='danger-type-title'>
+                                    <BikelaneSign2 className='category-sign' />{" "}
                                     Bike Lane
                                   </span>
                                 ) : null}
                                 {spot.name === "Road Damage" ? (
-                                  <span id="danger-type-title">
-                                    <BadRoadIcon2 className="category-sign" />{" "}
+                                  <span id='danger-type-title'>
+                                    <BadRoadIcon2 className='category-sign' />{" "}
                                     Road Damage
                                   </span>
                                 ) : null}
                                 {spot.name === "Traffic" ? (
-                                  <span id="danger-type-title">
-                                    <TrafficIcon2 className="category-sign" />{" "}
+                                  <span id='danger-type-title'>
+                                    <TrafficIcon2 className='category-sign' />{" "}
                                     Traffic
                                   </span>
                                 ) : null}
                                 {spot.name === "Bad Parking" ? (
-                                  <span id="danger-type-title">
-                                    <BadParking2 className="category-sign" />{" "}
+                                  <span id='danger-type-title'>
+                                    <BadParking2 className='category-sign' />{" "}
                                     Bad Parking
                                   </span>
                                 ) : null}
                                 {spot.name === "Other" ? (
-                                  <span id="danger-type-title">
-                                    <OtherIcon2 className="category-sign" />{" "}
+                                  <span id='danger-type-title'>
+                                    <OtherIcon2 className='category-sign' />{" "}
                                     Other
                                   </span>
                                 ) : null}
-                                <span id="information-text">
+                                <span id='information-text'>
                                   {spot.information}
                                 </span>
                               </div>
 
                               {Number(spot.voting).toFixed(2) >= 1 &&
                               Number(spot.voting).toFixed(2) <= 1.29 ? (
-                                <span className="danger-icon-place">
+                                <span className='danger-icon-place'>
                                   {dangerLevel[0].icon}
-                                  <span className="vote-count">
+                                  <span className='vote-count'>
                                     {spot.count}
                                   </span>
                                 </span>
                               ) : null}
                               {Number(spot.voting).toFixed(2) >= 1.3 &&
                               Number(spot.voting).toFixed(2) <= 2.29 ? (
-                                <span className="danger-icon-place">
+                                <span className='danger-icon-place'>
                                   {dangerLevel[1].icon}
-                                  <span className="vote-count">
+                                  <span className='vote-count'>
                                     {spot.count}
                                   </span>
                                 </span>
                               ) : null}
                               {Number(spot.voting).toFixed(2) >= 2.3 &&
                               Number(spot.voting).toFixed(2) <= 3 ? (
-                                <span className="danger-icon-place">
+                                <span className='danger-icon-place'>
                                   {dangerLevel[2].icon}
-                                  <span className="vote-count">
+                                  <span className='vote-count'>
                                     {spot.count}
                                   </span>
                                 </span>
@@ -804,7 +804,7 @@ const LoginAndProfile = () => {
                           </div>
                         ))
                       ) : (
-                        <p className="report-alert">
+                        <p className='report-alert'>
                           You haven't rated any reports yet! :D
                         </p>
                       )}
@@ -816,32 +816,32 @@ const LoginAndProfile = () => {
                       toggleState === 3 ? "content  active-content" : "closed"
                     }
                   >
-                    <div className="settings-container">
-                      <div className="edit-container">
-                        <div className="div-h3">
-                          <span>E-Mail Address</span>
-                          <div className="email-box">
+                    <div className='settings-container'>
+                      <div className='edit-container'>
+                        <div className='div-h3'>
+                          <span>Email Address</span>
+                          <div className='email-box'>
                             <h3>{currentUser}</h3>
                           </div>
                         </div>
                         <button
                           onClick={handleshowEditEmail}
-                          type="button"
-                          className="button-edit"
+                          type='button'
+                          className='button-edit'
                         >
                           edit
                         </button>
                       </div>
-                      <div className="edit-container-password">
-                        <div className="div-h3-password">
+                      <div className='edit-container-password'>
+                        <div className='div-h3-password'>
                           <span>Password</span>
                           <h3> ******** </h3>
                         </div>
 
                         <button
                           onClick={handleshowEditPassword}
-                          type="button"
-                          className="button-edit-password"
+                          type='button'
+                          className='button-edit-password'
                         >
                           edit
                         </button>
@@ -849,8 +849,8 @@ const LoginAndProfile = () => {
 
                       <button
                         onClick={logout}
-                        type="button"
-                        className="btn-logout"
+                        type='button'
+                        className='btn-logout'
                       >
                         Logout
                       </button>
@@ -862,18 +862,18 @@ const LoginAndProfile = () => {
                       toggleState === 4 ? "content  active-content" : "closed"
                     }
                   >
-                    <div className="settings-container">
+                    <div className='settings-container'>
                       {allUsers.length > 0
                         ? allUsers.map((users) => (
-                            <div className="users-div">
-                              <div className="user-email-div">
+                            <div className='users-div'>
+                              <div className='user-email-div'>
                                 {users.email}
                                 <span>role: {users.role}</span>
                               </div>
                               {users.role === "user" ? (
                                 <button
                                   onClick={() => convertToAdm(users.id)}
-                                  className="convert-adm-btn"
+                                  className='convert-adm-btn'
                                 >
                                   Convert to Admin
                                 </button>
@@ -881,7 +881,7 @@ const LoginAndProfile = () => {
                               {users.role === "adm" ? (
                                 <button
                                   onClick={() => convertToAdm(users.id)}
-                                  className="convert-adm-btn"
+                                  className='convert-adm-btn'
                                 >
                                   convert to user
                                 </button>
@@ -898,78 +898,78 @@ const LoginAndProfile = () => {
                       toggleState === 5 ? "content  active-content" : "closed"
                     }
                   >
-                    <div className="submitted-spots-padding">
+                    <div className='submitted-spots-padding'>
                       {allSpots.length > 0 ? (
                         allSpots.map((spot) => (
                           <div
-                            className="your-spots-container"
+                            className='your-spots-container'
                             // onClick={() => reportDetailsWindow(spot.id)}
                           >
                             <section
-                              className="submitted-reports-section"
+                              className='submitted-reports-section'
                               key={spot.id}
                             >
                               <span>
                                 {spot.image ? (
                                   <img
-                                    className="img-div"
+                                    className='img-div'
                                     src={spot.image}
-                                    alt=""
+                                    alt=''
                                   />
                                 ) : (
-                                  <div className="img-div-empty"> No photo</div>
+                                  <div className='img-div-empty'> No photo</div>
                                 )}
                                 <button
-                                  className="delete-button"
+                                  className='delete-button'
                                   onClick={() => deleteReport(spot.id)}
                                 >
                                   Delete
                                 </button>
                               </span>
-                              <div className="title-text-div">
+                              <div className='title-text-div'>
                                 {spot.name === "Construction" ? (
-                                  <span id="danger-type-title">
-                                    <ConstructionSign2 className="category-sign" />{" "}
+                                  <span id='danger-type-title'>
+                                    <ConstructionSign2 className='category-sign' />{" "}
                                     Construction
                                   </span>
                                 ) : null}
                                 {spot.name === "Juction" ? (
-                                  <span id="danger-type-title">
-                                    <JunctionIcon2 className="category-sign" />{" "}
+                                  <span id='danger-type-title'>
+                                    <JunctionIcon2 className='category-sign' />{" "}
                                     Junction
                                   </span>
                                 ) : null}
                                 {spot.name === "Bike Lane" ? (
-                                  <span id="danger-type-title">
-                                    <BikelaneSign2 className="category-sign" />{" "}
+                                  <span id='danger-type-title'>
+                                    <BikelaneSign2 className='category-sign' />{" "}
                                     Bike Lane
                                   </span>
                                 ) : null}
                                 {spot.name === "Road Damage" ? (
-                                  <span id="danger-type-title">
-                                    <BadRoadIcon2 className="category-sign" />{" "}
+                                  <span id='danger-type-title'>
+                                    <BadRoadIcon2 className='category-sign' />{" "}
                                     Road Damage
                                   </span>
                                 ) : null}
                                 {spot.name === "Traffic" ? (
-                                  <span id="danger-type-title">
-                                    <TrafficIcon2 className="category-sign" />{" "}
+                                  <span id='danger-type-title'>
+                                    <TrafficIcon2 className='category-sign' />{" "}
                                     Traffic
                                   </span>
                                 ) : null}
                                 {spot.name === "Bad Parking" ? (
-                                  <span id="danger-type-title">
-                                    <OtherIcon2 className="category-sign" />{" "}
+                                  <span id='danger-type-title'>
+                                    <OtherIcon2 className='category-sign' />{" "}
                                     Other
                                   </span>
                                 ) : null}
                                 {spot.name === "Other" ? (
-                                  <span id="danger-type-title">
-                                    <BadParking2 className="category-sign" />{" "}
+                                  <span id='danger-type-title'>
+                                    <BadParking2 className='category-sign' />{" "}
                                     Bad Parking
                                   </span>
                                 ) : null}
-                                <span id="information-text">
+                                <span id='information-text'>
                                   {spot.information}
                                 </span>
 
@@ -978,27 +978,27 @@ const LoginAndProfile = () => {
 
                               {Number(spot.voting).toFixed(2) >= 1 &&
                               Number(spot.voting).toFixed(2) <= 1.29 ? (
-                                <span className="danger-icon-place">
+                                <span className='danger-icon-place'>
                                   {dangerLevel[0].icon}
-                                  <span className="vote-count">
+                                  <span className='vote-count'>
                                     {spot.count}
                                   </span>
                                 </span>
                               ) : null}
                               {Number(spot.voting).toFixed(2) >= 1.3 &&
                               Number(spot.voting).toFixed(2) <= 2.29 ? (
-                                <span className="danger-icon-place">
+                                <span className='danger-icon-place'>
                                   {dangerLevel[1].icon}
-                                  <span className="vote-count">
+                                  <span className='vote-count'>
                                     {spot.count}
                                   </span>
                                 </span>
                               ) : null}
                               {Number(spot.voting).toFixed(2) >= 2.3 &&
                               Number(spot.voting).toFixed(2) <= 3 ? (
-                                <span className="danger-icon-place">
+                                <span className='danger-icon-place'>
                                   {dangerLevel[2].icon}
-                                  <span className="vote-count">
+                                  <span className='vote-count'>
                                     {spot.count}
                                   </span>
                                 </span>
@@ -1017,63 +1017,63 @@ const LoginAndProfile = () => {
           </div>
           {/* ----------------------- from here is the edit password window------ */}
           {showEditPassword ? (
-            <div className="edit-Form-password">
-              <form className="form-group-edit">
+            <div className='edit-Form-password'>
+              <form className='form-group-edit'>
                 <div>
-                  <label htmlFor="password">New Password:</label>
+                  <label htmlFor='password'>New password:</label>
                   <input
-                    type="password"
-                    name="password"
-                    placeholder="password"
+                    type='password'
+                    name='password'
+                    placeholder='password'
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="password">Confirm new Password:</label>
+                  <label htmlFor='password'>Confirm new password:</label>
                   <input
-                    type="password"
-                    name="password"
-                    placeholder="password"
+                    type='password'
+                    name='password'
+                    placeholder='password'
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 </div>
                 <button
                   onClick={editPassword}
-                  type="button"
-                  className="btn-save"
+                  type='button'
+                  className='btn-save'
                 >
                   Save
                 </button>
                 <PreviousArrow
                   onClick={handleshowEditPassword}
-                  className="previous-arrow"
+                  className='previous-arrow'
                 />
               </form>
             </div>
           ) : null}
           {/* ----------- from here is the edit email window ------------- */}
           {showEditEmail ? (
-            <div className="edit-Form-password">
-              <form className="form-group-edit">
+            <div className='edit-Form-password'>
+              <form className='form-group-edit'>
                 <div>
-                  <label htmlFor="username">New E-Mail address:</label>
+                  <label htmlFor='username'>New Email address:</label>
                   <br />
                   <input
-                    type="email"
-                    name="username"
-                    placeholder="email@example.com"
+                    type='email'
+                    name='username'
+                    placeholder='email@example.com'
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
 
-                <button onClick={editEmail} type="button" className="btn-save">
+                <button onClick={editEmail} type='button' className='btn-save'>
                   Save
                 </button>
 
                 <PreviousArrow
                   onClick={handleshowEditEmail}
-                  className="previous-arrow"
+                  className='previous-arrow'
                 />
               </form>
             </div>

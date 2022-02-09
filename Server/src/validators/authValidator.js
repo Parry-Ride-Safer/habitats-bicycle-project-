@@ -10,14 +10,13 @@ const validateCredentialsAndGetUser = async (credentials) => {
   userValidator.validate(credentials, ["email", "hashedPassword", "role"]);
 
   const userFound = await usersModels.getUserByEmail(credentials.email);
-  if (userFound.length === 0)
-    throw new RecordNotFoundError("Invalid credentials");
+  if (userFound.length === 0) throw new RecordNotFoundError("Invalid email");
   const isValidPassword = await userHelper.verifyPassword(
     credentials.password,
     userFound[0].hashedPassword
   );
 
-  if (!isValidPassword) throw new InvalidCredentialsError("invalid password");
+  if (!isValidPassword) throw new InvalidCredentialsError("Invalid password");
 
   return userFound;
 };
