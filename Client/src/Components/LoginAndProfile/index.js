@@ -129,7 +129,7 @@ const LoginAndProfile = () => {
       console.log(validation);
     } catch (err) {
       console.log(err);
-      if (err.response.status === 422) setValidation("Invalid Password");
+      if (err.response.status === 401) setValidation("Invalid Password");
       else if (err.response.status === 404) setValidation("Invalid Email");
       console.log(validation, "o bug");
     }
@@ -341,12 +341,12 @@ const LoginAndProfile = () => {
       <div>
         <div className="welcome-page-sign">
           <SignIcon className="welcome-hand" />
-          <h3>Sign Up to report or vote on a road issue.</h3>
+          <h3>Sign up to report or vote on a road issue.</h3>
           <button className="btn-start" onClick={handleShowRegisterForm}>
-            sign up
+            Sign up
           </button>
           <button onClick={handleShowForm} className="button-login">
-            login
+            Login
           </button>
           <button
             onClick={handleSkipForNow}
@@ -440,7 +440,7 @@ const LoginAndProfile = () => {
               <form className="sign-up-form">
                 <h2 className="signup-title">Email Sign-in</h2>
                 <div>
-                  <label htmlFor="username">Email Address</label>
+                  <label for="username">Email Address</label>
                   <br />
                   <input
                     className="sign-up-input"
@@ -452,7 +452,7 @@ const LoginAndProfile = () => {
                   <br />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="password">Password</label>
+                  <label for="password">Password</label>
                   <br />
                   <input
                     className="sign-up-input"
@@ -845,7 +845,7 @@ const LoginAndProfile = () => {
                     <div className="settings-container">
                       <div className="edit-container">
                         <div className="div-h3">
-                          <span>E-Mail Address</span>
+                          <span>Email Address</span>
                           <div className="email-box">
                             <h3>{currentUser}</h3>
                           </div>
@@ -1046,7 +1046,7 @@ const LoginAndProfile = () => {
             <div className="edit-Form-password">
               <form className="form-group-edit">
                 <div>
-                  <label htmlFor="password">New Password:</label>
+                  <label htmlFor="password">New password:</label>
                   <input
                     type="password"
                     name="password"
@@ -1083,7 +1083,7 @@ const LoginAndProfile = () => {
             <div className="edit-Form-password">
               <form className="form-group-edit">
                 <div>
-                  <label htmlFor="username">New E-Mail address:</label>
+                  <label htmlFor="username">New Email address:</label>
                   <br />
                   <input
                     type="email"

@@ -62,12 +62,15 @@ const updateUser = async ({ password, email }, id) => {
 
   if (password) {
     const hashedPassword = await hashPassword(password, saltedRounds);
-    results = await db.query("UPDATE user SET ? WHERE id=?;", [
-      { email, hashedPassword },
+    results = await db.query("UPDATE user SET hashedpassword = ? WHERE id=?;", [
+      { hashedPassword },
       id,
     ]);
   } else {
-    results = await db.query("UPDATE user SET ? WHERE id=?;", [{ email }, id]);
+    results = await db.query("UPDATE user SET email = ? WHERE id=?;", [
+      { email },
+      id,
+    ]);
   }
   return results[0].affectedRows;
 };

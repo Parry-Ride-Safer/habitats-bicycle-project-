@@ -1,9 +1,8 @@
 const reportIssueOptions = [
   {
     option: 1,
-    title: "Innapropriate Report",
-    description:
-      "Image or description in this issue breaks our terms of use.",
+    title: "Inappropriate Report",
+    description: "Image or description in this issue breaks our terms of use.",
   },
   {
     option: 2,

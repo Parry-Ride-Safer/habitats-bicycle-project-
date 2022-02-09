@@ -4,20 +4,13 @@ const { usersModels } = require("../models");
 const { authValidator } = require("../validators");
 
 const login = async (credentials) => {
-  try {
-    const [user] = await authValidator.validateCredentialsAndGetUser(
-      credentials
-    );
-    if (!user) throw new RecordNotFoundError();
-    const token = authHelper.generateToken(user);
+  const [user] = await authValidator.validateCredentialsAndGetUser(credentials);
+  if (!user) throw new RecordNotFoundError();
+  const token = authHelper.generateToken(user);
 
-    delete user.hashedPassword;
+  delete user.hashedPassword;
 
-    return { ...user, action: "login", token };
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
+  return { ...user, action: "login", token };
 };
 
 const register = async (user) => {
