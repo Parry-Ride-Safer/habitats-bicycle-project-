@@ -16,7 +16,7 @@ const BoxDoneMsg = () => {
         <DoneMsg />
       </p>
       <p className="text">
-        Thanks for making the streets safer for other roders!
+        Thanks for making the streets safer for other riders!
       </p>
       <button
         className="done-msg-btn"

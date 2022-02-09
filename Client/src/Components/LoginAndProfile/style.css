@@ -79,6 +79,10 @@
   top: 10%;
 }
 
+.validation-msg {
+  color: rgb(228, 69, 69);
+}
+
 .register-form {
   position: absolute;
   visibility: visible;
@@ -670,12 +674,12 @@ div.open-profile {
 /* --------------- from here is admin user list style ------------------ */
 
 .users-div {
-  border: 1px solid rgb(199, 199, 199);
+  border-bottom: 1px solid rgb(199, 199, 199);
   margin: 1rem;
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
-  /* padding-bottom: 0.5rem; */
+  padding-bottom: 0.5rem;
   /*   box-shadow: 2px 3px 14px 3px rgba(0, 0, 0, 0.12);
   -webkit-box-shadow: 2px 3px 14px 3px rgba(0, 0, 0, 0.12);
   -moz-box-shadow: 2px 3px 14px 3px rgba(0, 0, 0, 0.12); */
@@ -780,7 +784,7 @@ div.open-profile {
   }
 
   .users-div {
-    border: 1px solid rgb(199, 199, 199);
+    border-bottom: 1px solid rgb(199, 199, 199);
     margin: 1rem;
     display: flex;
     justify-content: space-between;

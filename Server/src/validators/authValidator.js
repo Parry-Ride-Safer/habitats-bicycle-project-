@@ -1,26 +1,24 @@
 const { usersModels } = require("../models");
 const { userHelper } = require("../helpers");
 const { userValidator } = require(".");
-const { RecordNotFoundError, InvalidDataError } = require("../error-types");
+const {
+  RecordNotFoundError,
+  InvalidCredentialsError,
+} = require("../error-types");
 
 const validateCredentialsAndGetUser = async (credentials) => {
   userValidator.validate(credentials, ["email", "hashedPassword", "role"]);
-  try {
-    const userFound = await usersModels.getUserByEmail(credentials.email);
-    if (userFound.length === 0)
-      throw new RecordNotFoundError("Invalid credentials");
-    const isValidPassword = await userHelper.verifyPassword(
-      credentials.password,
-      userFound[0].hashedPassword
-    );
 
-    if (!isValidPassword) throw new InvalidDataError("Invalid password");
+  const userFound = await usersModels.getUserByEmail(credentials.email);
+  if (userFound.length === 0) throw new RecordNotFoundError("Invalid email");
+  const isValidPassword = await userHelper.verifyPassword(
+    credentials.password,
+    userFound[0].hashedPassword
+  );
 
-    return userFound;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
+  if (!isValidPassword) throw new InvalidCredentialsError("Invalid password");
+
+  return userFound;
 };
 
 module.exports = { validateCredentialsAndGetUser };

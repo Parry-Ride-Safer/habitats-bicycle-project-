@@ -24,10 +24,16 @@ export default function CreateReport() {
     reportDescriptionInput,
     handleDangerDescriptionInputs,
     numberOfCharacters,
+    selectedIssue,
+    setSelectIssue,
   } = useGlobalMapContext();
 
   let user = document.cookie;
-  const [isButtonActive, setIsButtonActive] = useState(false)
+
+  const handleSelectIcon = (nb) => {
+    setSelectIssue(nb);
+  };
+
   return (
     <div>
       {user ? (
@@ -64,7 +70,7 @@ export default function CreateReport() {
                 </label>
               ))}
             </div>
-
+            <p className="picture-title">Upload your picture</p>
             <div className="upload-pic-holder">
               {!image ? (
                 <label for="upload-btn" class="custom-upload-btn">
@@ -90,14 +96,22 @@ export default function CreateReport() {
                 <img className="pic-preview" src={image} alt="" />
               )}
 
-              <p className="picture-title">Upload your picture</p>
+              {/* <p className="picture-title">Upload your picture</p> */}
             </div>
 
             <p className="issue-title"> Describe the issue </p>
             <div className="danger-type-display">
               {issueType.map((issue, index) => {
                 return (
-                  <label key={index} className="issueTypeBtn">
+                  <label
+                    key={index}
+                    className={
+                      selectedIssue === issue.nb
+                        ? "selected-icon"
+                        : "issueTypeBtn"
+                    }
+                    onClick={() => handleSelectIcon(issue.nb)}
+                  >
                     <input
                       key={index}
                       type="radio"

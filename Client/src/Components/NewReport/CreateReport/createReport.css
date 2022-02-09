@@ -73,7 +73,7 @@
   color: lightslategrey;
   margin-top: 0;
   margin-bottom: 5px;
-  align-self: center;
+  /* align-self: center; */
 }
 
 .dangerLevelVote {
@@ -99,6 +99,17 @@
   margin-top: 10px;
 }
 
+.selected-icon {
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+  padding: 2px;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin: 2px;
+  font-size: 11px;
+  color: white;
+  background-color: black;
+}
 .issueTypeBtn {
   border: 1px solid lightgrey;
   border-radius: 10px;
@@ -253,7 +264,7 @@ input  {
 }
 
 .issue-title {
-  align-self: center;
+  /* align-self: center; */
   font-weight: bold;
   font-size: 1.2rem;
 }
@@ -263,6 +274,8 @@ input  {
   font-family: "Roboto Condensed";
   font-size: 1.2rem;
   font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: start;
 }
 
 .issue-icon svg {

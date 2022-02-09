@@ -60,10 +60,12 @@ const LoginAndProfile = () => {
 
   const handleshowEditPassword = () => {
     setShowEditPassword(!showEditPassword);
+    setValidation(null);
   };
 
   const handleshowEditEmail = () => {
     setShowEditEmail(!showEditEmail);
+    setValidation(null);
   };
 
   const closeEditWindows = () => {
@@ -102,6 +104,13 @@ const LoginAndProfile = () => {
     closeReportWindow();
   };
 
+  const [validation, setValidation] = useState("");
+
+  const ValidationMSG = (err) => {
+    if (err.response.status === 401) setValidation("bad password");
+    if (err.response.status === 404) setValidation("bad email");
+  };
+
   const login = async () => {
     let item = { email, password };
     try {
@@ -112,21 +121,32 @@ const LoginAndProfile = () => {
       localStorage.setItem("user-info", JSON.stringify(result.data));
       console.log(result, "total result do login");
 
-      setPassword("");
-      setEmail("");
+      await setPassword("");
+      await setEmail("");
+      await setValidation("");
       handleUserStorage();
       handleLoginStatus();
       getCurrentUser();
+
+      console.log(validation);
     } catch (err) {
       console.log(err);
+      if (err.response.status === 401) setValidation("Invalid Password");
+      else if (err.response.status === 404) setValidation("Invalid Email");
+      console.log(validation, "o bug");
     }
   };
+  useEffect(() => {
+    console.log(validation, "use effect ");
+  }, [validation]);
 
   const register = async () => {
     let item = { email, password };
     try {
-      if (email.length <= 0 || password.length < 8) {
-        console.log("please enter something( email or password is missing) ");
+      if (email.length <= 0 || password.length <= 0) {
+        setValidation("Email or Password missing");
+      } else if (password.length < 8) {
+        setValidation("Password needs at least 8 characters");
       } else {
         let result = await Axios.post(
           `${process.env.REACT_APP_API_ROUTE_URL}/auth/register`,
@@ -141,6 +161,10 @@ const LoginAndProfile = () => {
         getCurrentUser();
       }
     } catch (err) {
+      if (err.response.status === 409) setValidation("Email Already Exists.");
+      if (err.response.status === 422)
+        setValidation("Invalid Email or Password");
+
       console.log(err);
     }
   };
@@ -150,6 +174,8 @@ const LoginAndProfile = () => {
     try {
       if (password === confirmPassword) {
         item = { password };
+      } else {
+        setValidation(" Passwords do not match!");
       }
       await Axios.put(
         `${process.env.REACT_APP_API_ROUTE_URL}/users/current`,
@@ -158,12 +184,12 @@ const LoginAndProfile = () => {
 
       setPassword("");
       setEmail("");
+      setConfirmPassword("");
       handleshowEditPassword();
       getCurrentUser();
-      setConfirmPassword("");
-      /*  handleUserStorage();
-      handleLoginStatus(); */
     } catch (err) {
+      if (err.response.status === 422)
+        setValidation("Password needs to be at least 8 characters");
       console.log("passwords do not match!");
       console.log(err);
     }
@@ -183,6 +209,8 @@ const LoginAndProfile = () => {
       /*  handleUserStorage();
       handleLoginStatus(); */
     } catch (err) {
+      if (err.response.status === 409) setValidation("Email already exists.");
+      if (err.response.status === 422) setValidation("Invalid Email.");
       console.log(err);
     }
   };
@@ -316,6 +344,7 @@ const LoginAndProfile = () => {
     HandleshowWelcomePage();
     setWelcomeStatus(false);
     setStateLogin(!stateLogin);
+    setValidation("");
   };
 
   const SignUpPop = () => {
@@ -323,12 +352,12 @@ const LoginAndProfile = () => {
       <div>
         <div className="welcome-page-sign">
           <SignIcon className="welcome-hand" />
-          <h3>Sign Up to report or vote on a road issue.</h3>
+          <h3>Sign up to report or vote on a road issue.</h3>
           <button className="btn-start" onClick={handleShowRegisterForm}>
-            sign up
+            Sign up
           </button>
           <button onClick={handleShowForm} className="button-login">
-            login
+            Login
           </button>
           <button
             onClick={handleSkipForNow}
@@ -422,7 +451,7 @@ const LoginAndProfile = () => {
               <form className="sign-up-form">
                 <h2 className="signup-title">Email Sign-in</h2>
                 <div>
-                  <label htmlFor="username">Email Address</label>
+                  <label for="username">Email Address</label>
                   <br />
                   <input
                     className="sign-up-input"
@@ -431,9 +460,10 @@ const LoginAndProfile = () => {
                     placeholder="email@example.com"
                     onChange={(e) => setEmail(e.target.value)}
                   />
+                  <br />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="password">Password</label>
+                  <label for="password">Password</label>
                   <br />
                   <input
                     className="sign-up-input"
@@ -442,6 +472,13 @@ const LoginAndProfile = () => {
                     placeholder="password"
                     onChange={(e) => setPassword(e.target.value)}
                   />
+                  <br />
+                  <span className="validation-msg">
+                    {validation === "Invalid Password" ? validation : null}
+                  </span>
+                  <span className="validation-msg">
+                    {validation === "Invalid Email" ? validation : null}
+                  </span>
                 </div>
                 <button onClick={login} type="button" className="btn-register">
                   Login
@@ -482,6 +519,7 @@ const LoginAndProfile = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
+                <span className="validation-msg">{validation}</span>
                 <button
                   onClick={register}
                   type="button"
@@ -819,7 +857,7 @@ const LoginAndProfile = () => {
                     <div className="settings-container">
                       <div className="edit-container">
                         <div className="div-h3">
-                          <span>E-Mail Address</span>
+                          <span>Email Address</span>
                           <div className="email-box">
                             <h3>{currentUser}</h3>
                           </div>
@@ -1020,7 +1058,7 @@ const LoginAndProfile = () => {
             <div className="edit-Form-password">
               <form className="form-group-edit">
                 <div>
-                  <label htmlFor="password">New Password:</label>
+                  <label htmlFor="password">New password:</label>
                   <input
                     type="password"
                     name="password"
@@ -1030,14 +1068,17 @@ const LoginAndProfile = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="password">Confirm new Password:</label>
+                  <label htmlFor="confirmPassword">Confirm new Password:</label>
                   <input
                     type="password"
-                    name="password"
-                    placeholder="password"
+                    name="confirmPassword"
+                    placeholder="Confirm password"
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
+                  <br />
+                  <span className="validation-msg">{validation}</span>
                 </div>
+
                 <button
                   onClick={editPassword}
                   type="button"
@@ -1057,7 +1098,7 @@ const LoginAndProfile = () => {
             <div className="edit-Form-password">
               <form className="form-group-edit">
                 <div>
-                  <label htmlFor="username">New E-Mail address:</label>
+                  <label htmlFor="username">New Email address:</label>
                   <br />
                   <input
                     type="email"
@@ -1065,6 +1106,8 @@ const LoginAndProfile = () => {
                     placeholder="email@example.com"
                     onChange={(e) => setEmail(e.target.value)}
                   />
+                  <br />
+                  <span className="validation-msg">{validation}</span>
                 </div>
 
                 <button onClick={editEmail} type="button" className="btn-save">

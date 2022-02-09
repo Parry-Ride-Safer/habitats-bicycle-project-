@@ -6,8 +6,10 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   width: 100vw;
+  height: 75vh;
   max-width: var(--fixed-width);
   bottom: 0;
+  overflow: scroll;
 }
 
 .show-spot-details-faded {
@@ -54,7 +56,7 @@
 .title {
   font-family: "Roboto Condensed";
   font-size: 1.2rem;
-  align-self: center;
+  /* align-self: center; */
   font-weight: bold;
 }
 
@@ -95,6 +97,16 @@
   border-radius: 10px;
   margin: 0;
   align-self: center;
+}
+
+.open-report-image-empty {
+  width: 90%;
+  height: 200px;
+  border: 1px solid rgb(180, 178, 178);
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .open-report-description {

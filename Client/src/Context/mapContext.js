@@ -63,6 +63,9 @@ const MapProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
 
+  /* selected issues  */
+  const [selectedIssue, setSelectIssue] = useState(null);
+
   const onMapClick = useCallback((event) => {
     dispatch({ type: "START_REPORT" });
     setMarker({
@@ -104,6 +107,7 @@ const MapProvider = ({ children }) => {
           setVoting("");
           setReportDescriptionInput([]);
           setImage("");
+          setSelectIssue(null);
         })
         .catch((err) => console.log(err));
     }
@@ -113,7 +117,10 @@ const MapProvider = ({ children }) => {
 
   const createComplain = () => dispatch({ type: "OPEN_COMPLAIN_WINDOW" });
 
-  const closeReportWindow = () => dispatch({ type: "CLOSE_REPORT_WINDOW" });
+  const closeReportWindow = () => {
+    setSelectIssue(null);
+    dispatch({ type: "CLOSE_REPORT_WINDOW" });
+  };
 
   const handleFlagOption = (event) => {
     setReportIssue(event.target.value);
@@ -359,6 +366,8 @@ const MapProvider = ({ children }) => {
         stateLogin,
         setStateLogin,
         handleDangerType,
+        selectedIssue,
+        setSelectIssue,
       }}
     >
       {children}

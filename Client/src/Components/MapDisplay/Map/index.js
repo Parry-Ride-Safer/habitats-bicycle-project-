@@ -17,6 +17,7 @@ import logoBlue from "./PolygonBlue.png";
 import yellow from "../../../icons/modalBoxIcons/Group 550.svg";
 import orange from "../../../icons/modalBoxIcons/Group 551.svg";
 import red from "../../../icons/modalBoxIcons/Group 552.svg";
+import { ReactComponent as Parry } from "../../../icons/modalBoxIcons/Parry_Logo.svg";
 import mapStyles from "./mapStyles";
 
 const mapContainerStyle = {
@@ -32,7 +33,7 @@ const center = {
 const mapOptions = {
   styles: mapStyles,
   disableDefaultUI: true,
-  zoomControl: true,
+  zoomControl: false,
 };
 
 export default function Map() {
@@ -60,6 +61,10 @@ export default function Map() {
         yesIWantToUseGoogleMapApiInternals
       >
         <LoginAndProfile />
+        <div className="Parry-logo">
+          <Parry />
+        </div>
+
         <div className="search-map-location">
           <SearchBox panTo={panTo} />
         </div>
