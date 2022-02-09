@@ -13,12 +13,12 @@ export default function ModalShowUserInputDetails() {
       <div className="edit-vote-display">
         <p>
           {Number(getReportData.voting).toFixed(2) <= 1.29 ? (
-            <div>{dangerLevel[0].icon} </div>
+            <div className="avg-vote-icon">{dangerLevel[0].icon} </div>
           ) : Number(getReportData.voting).toFixed(2) >= 1.3 &&
             Number(getReportData.voting).toFixed(2) <= 2.29 ? (
-            <div>{dangerLevel[1].icon} </div>
+            <div className="avg-vote-icon">{dangerLevel[1].icon} </div>
           ) : (
-            <div>{dangerLevel[2].icon} </div>
+            <div className="avg-vote-icon" >{dangerLevel[2].icon} </div>
           )}
         </p>
         <div className="layout-edit-window">
