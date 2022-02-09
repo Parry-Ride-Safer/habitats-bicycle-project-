@@ -5,7 +5,7 @@ import "./votingBox.css";
 
 export default function VotingBox() {
   const {
-    alertMsg,
+    dispatch,
     isVotingBoxOpen,
     handleAddVote,
     handleDangerLevel,
@@ -32,10 +32,7 @@ export default function VotingBox() {
               {danger.icon}
             </label>
           ))}
-          <div className="clear-button-register"></div>
-        </div>
-        <div className={`${alertMsg ? "show-alert-msg" : "alert-msg-overlay"}`}>
-          <p>You need to fill everything</p>
+          <div className="clear-button-register" onClick={()=>dispatch({ type: "CLOSE_VOTE_WINDOW" })}></div>
         </div>
         <div className="danger-buttons-display">
           <button className="submit-button" type="submit">
