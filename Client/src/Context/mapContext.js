@@ -220,7 +220,7 @@ const MapProvider = ({ children }) => {
 
   let user = document.cookie;
   const findReportID = votedReports.find(({ id }) => id == getReportData.id);
-  
+  console.log(findReportID)
   const handleAddVote = async (event) => {
     if (event && event.preventDefault) { 
       event.preventDefault()
@@ -239,7 +239,7 @@ const MapProvider = ({ children }) => {
         setAlertMsg(false);
         dispatch({ type: "SUBMIT_VOTE" });
         setIsSpotVoted(true);
-        fetchReportData()
+        fetchReportData(getReportData.id)
       });
     } else {
       await Axios.post(
