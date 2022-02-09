@@ -20,9 +20,11 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   width: 100vw;
+  height: 75vh;
   max-width: var(--fixed-width);
   bottom: 0;
   opacity: 0.7;
+  overflow: scroll;
 }
 
 .spot-box-overlay {
