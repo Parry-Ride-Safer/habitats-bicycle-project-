@@ -5,7 +5,7 @@ import dangerLevel from "../../../Data/dangerLevelToVote";
 import "./voteModal.css";
 
 export default function UserVoteModal() {
-  const { currentUser, getReportData, votedReports, findReportID, isSpotVoted, openVoteWindow, createComplain } =
+  const { currentUser, getReportData,  findReportID, isSpotVoted, openVoteWindow, createComplain } =
     useGlobalMapContext();
 
   return (
