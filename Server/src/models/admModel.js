@@ -13,7 +13,7 @@ const getUsersByID = async (id) => {
 
 const getAllHiddenLocations = async () => {
   const [locations] = await db.query(
-    "SELECT report.id, information, avg(voting) AS voting, category.name, createdAt, report.user_id, image, count(voting) as count, count(flag_id) as flags FROM report join rating on rating.report_id = report.id join category on report.category_id = category.id  group by address_id"
+    "SELECT report.id, information, avg(voting) AS voting, category.name, createdAt, report.user_id, image, count(voting) as count, count(flag_id) as flags, is_hidden FROM report join rating on rating.report_id = report.id join category on report.category_id = category.id  group by address_id"
   );
   return locations;
 };
