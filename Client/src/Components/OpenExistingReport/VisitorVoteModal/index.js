@@ -25,7 +25,7 @@ export default function VisitorVoteModal() {
           }</p>
           <p className="rating-qtt">{getReportData.count} rating(s) 
           {(currentUser === getReportData.user_id ||
-                (currentUser !== getReportData.user && findReportID)) ?
+                (currentUser !== getReportData.user_id && findReportID)) ?
                 <span className="visitor-vote">&nbsp; including mine:{
                   ((Number(getReportData.voting).toFixed(2) <=1.29) ? (<div className="my-vote-icon">{dangerLevel[0].icon} </div>) :
                   (

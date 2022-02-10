@@ -179,6 +179,7 @@ const MapProvider = ({ children }) => {
           `${process.env.REACT_APP_API_ROUTE_URL}/users/rated`
         ).then((response) => {
           console.log(response.data);
+
           return setVotedReports(response.data);
         });
       } else {
@@ -201,11 +202,10 @@ const MapProvider = ({ children }) => {
       dispatch({ type: "REPORT_REQUEST_CONCLUDE" });
       setSelected("");
     } catch (e) {
-      console.log(e);
     }
   };
 
- 
+
   const getCurrentUser = async () => {
     try {
       await Axios.get(
@@ -220,6 +220,7 @@ const MapProvider = ({ children }) => {
 
   let user = document.cookie;
   const findReportID = votedReports.find(({ id }) => id === getReportData.id); // it was "=="
+console.log(findReportID, "this is my report")
 
   const handleAddVote = async (event) => {
     if (event && event.preventDefault) { 
@@ -235,10 +236,10 @@ const MapProvider = ({ children }) => {
           report_id: getReportData.id,
         }
       ).then((response) => {
-        fetchReportData()
+
         setAlertMsg(false);
-        dispatch({ type: "SUBMIT_VOTE" });
         setIsSpotVoted(true);
+        dispatch({ type: "SUBMIT_VOTE" });
       });
     } else {
       await Axios.post(
@@ -249,7 +250,6 @@ const MapProvider = ({ children }) => {
         }
       ).then((response) => {
         console.log(response)
-        fetchReportData()
         setAlertMsg(false);
         dispatch({ type: "SUBMIT_VOTE" });
         setIsSpotVoted(true);
@@ -308,6 +308,7 @@ const MapProvider = ({ children }) => {
     zoomControl: true,
   };
 
+
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(18);
@@ -334,6 +335,7 @@ const MapProvider = ({ children }) => {
         dangerFormSubmit,
         numberOfCharacters,
         isSpotVoted,
+        votedReports,
         openVoteWindow,
         reportProcessDone,
         handleAddVote,
