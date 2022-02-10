@@ -95,6 +95,13 @@ const ratedFromUserId = async (id) => {
   );
   return ratedSpots;
 };
+const ratedSpotsFromUserId = async (id) => {
+  const [ratedSpots] = await db.query(
+    "SELECT report_id, voting FROM report join rating on rating.report_id = report.id WHERE rating.user_id = ?",
+    [id]
+  );
+  return ratedSpots;
+};
 
 module.exports = {
   getUsers,
@@ -107,4 +114,5 @@ module.exports = {
   getUserByEmail,
   reportsFromUserId,
   ratedFromUserId,
+  ratedSpotsFromUserId,
 };

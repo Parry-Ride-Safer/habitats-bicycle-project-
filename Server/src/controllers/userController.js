@@ -81,10 +81,24 @@ const ratedSpotsFromUserIdController = async (req, res, next) => {
   }
 };
 
+const ratedSpotsFromUserController = async (req, res, next) => {
+  try {
+    const ratedSpots = await usersModels.ratedSpotsFromUserId(
+      req.currentUser.id
+    );
+    if (ratedSpots.length < 1)
+      throw new RecordNotFoundError("Reports not found.");
+    res.status(200).send(ratedSpots);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getUserbyIdController,
   updateUserController,
   deleteUserController,
   reportsFromUserIdController,
   ratedSpotsFromUserIdController,
+  ratedSpotsFromUserController,
 };

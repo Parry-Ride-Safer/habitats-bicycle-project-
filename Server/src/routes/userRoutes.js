@@ -22,5 +22,10 @@ userRoutes.get(
   authMiddleware,
   userController.ratedSpotsFromUserIdController
 );
+userRoutes.get(
+  "/reportsrated",
+  authMiddleware,
+  userController.ratedSpotsFromUserController
+);
 
 module.exports = userRoutes;
