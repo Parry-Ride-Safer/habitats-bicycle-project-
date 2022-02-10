@@ -4,7 +4,7 @@ import dangerLevel from "../../../Data/dangerLevelToVote";
 import "./voteModal.css";
 
 export default function VisitorVoteModal() {
-  const { currentUser, getReportData, findReportID} =
+  const {getReportData} =
     useGlobalMapContext();
 
   return (
@@ -24,15 +24,7 @@ export default function VisitorVoteModal() {
             "High danger" 
           }</p>
           <p className="rating-qtt">{getReportData.count} rating(s) 
-          {(currentUser === getReportData.user_id ||
-                (currentUser !== getReportData.user_id && findReportID)) ?
-                <span className="visitor-vote">&nbsp; including mine:{
-                  ((Number(getReportData.voting).toFixed(2) <=1.29) ? (<div className="my-vote-icon">{dangerLevel[0].icon} </div>) :
-                  (
-                    (Number(getReportData.voting).toFixed(2) >= 1.30) && 
-                    (Number(getReportData.voting).toFixed(2) <=2.29) 
-                  ) ?  (<div className="my-vote-icon">{dangerLevel[1].icon} </div>) :  (<div className="my-vote-icon">{dangerLevel[2].icon} </div>))
-                }</span> : ""}   
+         
           </p>
         </div>
       </div>

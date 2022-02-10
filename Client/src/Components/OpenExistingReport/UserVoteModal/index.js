@@ -5,7 +5,7 @@ import dangerLevel from "../../../Data/dangerLevelToVote";
 import "./voteModal.css";
 
 export default function UserVoteModal() {
-  const { currentUser, getReportData,  findReportID, isSpotVoted, openVoteWindow, createComplain } =
+  const { currentUser, getReportData, findReportID, isSpotVoted, openVoteWindow, createComplain } =
     useGlobalMapContext();
 
   return (
@@ -33,11 +33,9 @@ export default function UserVoteModal() {
           {(currentUser === getReportData.user_id ||
                 (currentUser !== getReportData.user_id && (findReportID && isSpotVoted))) ?
                 <span className="visitor-vote">&nbsp;including mine:{
-                  ((Number(getReportData.userVoteFound.voting).toFixed(2) <=1.29) ? (<div className="my-vote-icon">{dangerLevel[0].icon} </div>) :
-                  (
-                    (Number(getReportData.userVoteFound.voting).toFixed(2) >= 1.30) && 
-                    (Number(getReportData.userVoteFound.voting).toFixed(2) <=2.29) 
-                  ) ?  (<div className="my-vote-icon">{dangerLevel[1].icon} </div>) :  (<div className="my-vote-icon">{dangerLevel[2].icon} </div>))
+                  ((Number(findReportID.voting) === 1) ? (<div className="my-vote-icon">{dangerLevel[0].icon} </div>) :
+                  (Number(findReportID.voting) === 2)
+                   ?  (<div className="my-vote-icon">{dangerLevel[1].icon} </div>) :  (<div className="my-vote-icon">{dangerLevel[2].icon} </div>))
                 }</span> : ""}   
           </p>
         </div>
