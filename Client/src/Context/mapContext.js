@@ -163,7 +163,7 @@ const MapProvider = ({ children }) => {
   /*Flow to watch a single spot informations*/
   const [sendReportRequest, setSendReportRequest] = useState(false);
   const [getReportData, setGetReportdata] = useState([]);
-
+  const [reportsrated, setReportsRated] = useState([])
   const [currentUser, setCurrentUser] = useState([]);
   const [isSpotVoted, setIsSpotVoted] = useState(false);
   const [votedReports, setVotedReports] = useState([]);
@@ -176,20 +176,23 @@ const MapProvider = ({ children }) => {
           await setLoginId(user.id);
         }
         await Axios.get(
-          `${process.env.REACT_APP_API_ROUTE_URL}/users/rated`
+          `${process.env.REACT_APP_API_ROUTE_URL}/users/reportsrated`
         ).then((response) => {
-          console.log(response.data);
-
-          return setVotedReports(response.data);
+          console.log(response.data, "reportsRated");
+          return setReportsRated(response.data);
         });
       } else {
         console.log("there is not user yet ");
       }
     } catch (err) {
       console.log(err);
-      setVotedReports([]);
     }
   };
+
+  useEffect(() => {
+    getVotedSpots();
+  }, [state.isBoxWithDoneMsgOpen]); 
+
 
   const fetchReportData = async (fMarker) => {
     dispatch({ type: "SEND_REPORT_REQUEST" });
@@ -219,8 +222,8 @@ const MapProvider = ({ children }) => {
   };
 
   let user = document.cookie;
-  const findReportID = votedReports.find(({ id }) => id === getReportData.id); // it was "=="
-console.log(findReportID, "this is my report")
+  const findReportID = reportsrated.find(({ report_id }) => report_id === getReportData.id); // it was "=="
+ 
 
   const handleAddVote = async (event) => {
     if (event && event.preventDefault) { 
@@ -236,7 +239,6 @@ console.log(findReportID, "this is my report")
           report_id: getReportData.id,
         }
       ).then((response) => {
-
         setAlertMsg(false);
         setIsSpotVoted(true);
         dispatch({ type: "SUBMIT_VOTE" });
@@ -353,11 +355,10 @@ console.log(findReportID, "this is my report")
         createComplain,
         options,
         reportDescriptionInput,
-        sendReportRequest,
+        reportsrated,
         setVotedReports,
         setVoting,
         voting,
-        votedReports,
         email,
         setEmail,
         password,

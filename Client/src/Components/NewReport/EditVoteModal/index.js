@@ -5,7 +5,7 @@ import dangerLevel from "../../../Data/dangerLevelToVote";
 import "./editVoteModal.css";
 
 export default function ModalShowUserInputDetails() {
-  const { getReportData, openVoteWindow, createComplain } =
+  const { getReportData, findReportID, openVoteWindow, createComplain } =
     useGlobalMapContext();
 
   return (
@@ -32,10 +32,9 @@ export default function ModalShowUserInputDetails() {
           </p>
           <p className="rating-qtt">
             {getReportData.count} ratings || including mine:
-            {Number(getReportData.userVoteFound.voting).toFixed(2) <= 1.29 ? (
+            {Number(findReportID.voting) === 1 ? (
               <div>{dangerLevel[0].icon} </div>
-            ) : Number(getReportData.userVoteFound.voting).toFixed(2) >= 1.3 &&
-              Number(getReportData.userVoteFound.voting).toFixed(2) <= 2.29 ? (
+            ) : Number(findReportID.voting) === 2 ? (
               <div>{dangerLevel[1].icon} </div>
             ) : (
               <div>{dangerLevel[2].icon} </div>
