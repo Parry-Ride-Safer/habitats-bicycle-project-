@@ -95,7 +95,7 @@ export default function Map() {
                   anchor: new window.google.maps.Point(25, 25),
                 }}
                 onClick={(event) => {
-                  dispatch({ type: "OPEN_MARKER_REPORT" });
+                  
                   setSelected(fMarker);
                   fetchReportData(fMarker);
                 }}

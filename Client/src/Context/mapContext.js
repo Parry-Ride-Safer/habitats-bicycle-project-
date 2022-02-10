@@ -196,6 +196,7 @@ const MapProvider = ({ children }) => {
 
   const fetchReportData = async (fMarker) => {
     dispatch({ type: "SEND_REPORT_REQUEST" });
+    dispatch({ type: "OPEN_MARKER_REPORT" });
     try {
       const reportData = await Axios(
         `${process.env.REACT_APP_API_ROUTE_URL}/reports/${fMarker.id}`
