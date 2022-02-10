@@ -33,11 +33,11 @@ export default function ModalShowUserInputDetails() {
           <p className="rating-qtt">
             {getReportData.count} ratings || including mine:
             {Number(findReportID.voting) === 1 ? (
-              <div>{dangerLevel[0].icon} </div>
+              <div className="my-vote-icon">{dangerLevel[0].icon} </div>
             ) : Number(findReportID.voting) === 2 ? (
-              <div>{dangerLevel[1].icon} </div>
+              <div className="my-vote-icon">{dangerLevel[1].icon} </div>
             ) : (
-              <div>{dangerLevel[2].icon} </div>
+              <div className="my-vote-icon">{dangerLevel[2].icon} </div>
             )}
           </p>
         </div>
