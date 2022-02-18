@@ -148,7 +148,7 @@ const MapProvider = ({ children }) => {
     setLoading(true);
 
     const res = await fetch(
-      "http://api.cloudinary.com/v1_1/dc1bhahph/image/upload",
+      "http://api.cloudinary.com/v1_1/drghrpzvb/image/upload",
       {
         method: "POST",
         body: data,
